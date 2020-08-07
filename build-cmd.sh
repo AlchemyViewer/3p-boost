@@ -57,17 +57,17 @@ source_environment_tempfile="$stage/source_environment.sh"
 
 # Explicitly request each of the libraries named in BOOST_LIBS.
 # Use magic bash syntax to prefix each entry in BOOST_LIBS with "--with-".
-BOOST_BJAM_OPTIONS="address-model=$AUTOBUILD_ADDRSIZE architecture=x86 --layout=tagged -sNO_BZIP2=1 \
+BOOST_BJAM_OPTIONS="address-model=$AUTOBUILD_ADDRSIZE architecture=x86 link=static --layout=tagged -sNO_BZIP2=1 \
                     ${BOOST_LIBS[*]/#/--with-}"
 
 # Turn these into a bash array: it's important that all of cxxflags (which
 # we're about to add) go into a single array entry.
 BOOST_BJAM_OPTIONS=($BOOST_BJAM_OPTIONS)
-# Append cxxflags as a single entry containing all of LL_BUILD_RELEASE.
-BOOST_BJAM_OPTIONS[${#BOOST_BJAM_OPTIONS[*]}]="cxxflags=$LL_BUILD_RELEASE"
 
 stage_lib="${stage}"/lib
+stage_debug="${stage_lib}"/debug
 stage_release="${stage_lib}"/release
+mkdir -p "${stage_debug}"
 mkdir -p "${stage_release}"
 
 # Restore all .sos
@@ -131,7 +131,7 @@ run_tests()
         # read individual directories from stdin below
         while read testdir
         do  sep "$testdir"
-            # link=static
+             link=static
             "${bjam}" "$testdir" "$@"
         done < /dev/stdin
     fi
@@ -364,13 +364,45 @@ case "$AUTOBUILD_PLATFORM" in
         done
 
         sep "bootstrap"
-        ./bootstrap.sh --prefix=$(pwd) --with-icu="${stage}"/packages/
+        ./bootstrap.sh --prefix=$(pwd) --without-icu
 
-        RELEASE_BOOST_BJAM_OPTIONS=(toolset=gcc "include=$stage/packages/include/zlib/" \
+        DEBUG_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc "include=$stage/packages/include/zlib/" \
+            "-sZLIB_LIBPATH=$stage/packages/lib/debug" \
+            "-sZLIB_INCLUDE=${stage}\/packages/include/zlib/" \
+            "${BOOST_BJAM_OPTIONS[@]}" \
+            "cflags=-Og" "cflags=-fPIC" "cflags=-DPIC" "cflags=-g" \
+            "cxxflags=-std=c++17" "cxxflags=-Og" "cxxflags=-fPIC" "cxxflags=-DPIC" "cxxflags=-g")
+        sep "build"
+        "${bjam}" variant=debug --reconfigure \
+            --prefix="${stage}" --libdir="${stage}"/lib/debug \
+            "${DEBUG_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
+
+        # conditionally run unit tests
+        # date_time Posix test failures: https://svn.boost.org/trac/boost/ticket/10570
+        # libs/regex/test/de_fuzz produces:
+        # error: "clang" is not a known value of feature <toolset>
+        # error: legal values: "gcc"
+        find_test_dirs "${BOOST_LIBS[@]}" | \
+        grep -v \
+             -e 'date_time/' \
+             -e 'filesystem/test/issues' \
+             -e 'regex/test/de_fuzz' \
+            | \
+        run_tests variant=debug -a -q \
+                  --prefix="${stage}" --libdir="${stage}"/lib/debug \
+                  "${DEBUG_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM
+
+        mv "${stage_lib}"/libboost* "${stage_debug}"
+
+        sep "clean"
+        "${bjam}" --clean
+
+        RELEASE_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc "include=$stage/packages/include/zlib/" \
             "-sZLIB_LIBPATH=$stage/packages/lib/release" \
             "-sZLIB_INCLUDE=${stage}\/packages/include/zlib/" \
             "${BOOST_BJAM_OPTIONS[@]}" \
-            cxxflags=-std=c++11)
+            "cflags=-O3" "cflags=-fstack-protector-strong" "cflags=-fPIC" "cflags=-D_FORTIFY_SOURCE=2" "cflags=-DPIC" "cflags=-g" \
+            "cxxflags=-std=c++17" "cxxflags=-O3" "cxxflags=-fstack-protector-strong" "cxxflags=-fPIC" "cxxflags=-D_FORTIFY_SOURCE=2" "cxxflags=-DPIC" "cxxflags=-g")
         sep "build"
         "${bjam}" variant=release --reconfigure \
             --prefix="${stage}" --libdir="${stage}"/lib/release \
