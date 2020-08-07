@@ -86,8 +86,6 @@ BOOST_DLL_ALIAS(foo::bar, foo_bar_another_alias_name)
 </method-group>
 <constructor specifiers="explicit"><parameter name="library_path"><paramtype>const boost::dll::fs::path &amp;</paramtype><description><para>Path to the binary file from which the info must be extracted. </para></description></parameter><parameter name="throw_if_not_native_format"><paramtype>bool</paramtype><default>true</default><description><para>Throw an exception if this file format is not supported by OS. </para></description></parameter><description><para>Opens file with specified path and prepares for information extraction. 
 </para></description></constructor>
-<destructor><description><para>
-</para></description><throws><simpara><classname>Nothing.</classname> </simpara></throws></destructor>
 </class>
 
 

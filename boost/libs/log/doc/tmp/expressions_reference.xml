@@ -3049,6 +3049,7 @@ The header contains implementation of a <computeroutput>matches</computeroutput>
 
 </namespace>
 </namespace>
+<macro name="BOOST_LOG_AUX_FORCEINLINE_MSVC_BUG982738"/>
 </header>
 <header name="boost/log/expressions/record.hpp">
 <para><para>Andrey Semashev </para>

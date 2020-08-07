@@ -4,6 +4,72 @@ weight = 80
 +++
 
 ---
+## v2.1.3 29th April 2020 (Boost 1.73) [[release]](https://github.com/ned14/outcome/releases/tag/v2.1.3)
+
+{{% notice note %}}
+The v2.1 branch is expected to be retired end of 2020, with the v2.2 branch
+becoming the default. You can use the future v2.2 branch now using
+[`better_optimisation`](https://github.com/ned14/outcome/tree/better_optimisation).
+This branch has a number of major changes to Outcome v2.1, see the front page
+for details.
+{{% /notice %}}
+
+### Enhancements:
+
+Performance of Outcome-based code compiled by clang has been greatly improved
+: The previous implementation of Outcome's status bitfield confused clang's
+optimiser, which caused low quality codegen. Unlike most codegen issues, this was
+noticeably in empirical benchmarks of real world code, as was shown by
+[P1886 *Error speed benchmarking*](https://wg21.link/P1886).
+
+    The safe part of the [`better_optimisation`](https://github.com/ned14/outcome/tree/better_optimisation)
+Outcome v2.2.0 future branch was merged to Outcome v2.1.3 which includes a new
+status bitfield implementation. This appears to not confuse clang's optimiser,
+and clang 9 produces code which routinely beats GCC 9's code for various canned
+use cases.
+
+Precompiled headers are automatically enabled on new enough cmake's for standalone Outcome
+: If on cmake 3.16 or later, its new precompiled headers build support is used
+to tell consumers of the `outcome::hl` cmake target to precompile Outcome, **if
+and only if** `PROJECT_IS_DEPENDENCY` is false. `PROJECT_IS_DEPENDENCY` is set
+by Outcome's CMakeLists.txt if it detects that it was included using
+`add_subdirectory()`, so for the vast majority of Outcome end users, the use
+of precompiled headers will NOT be enabled.
+
+    Exported targets do NOT request precompilation of headers, as it is
+assumed that importers of the Outcome cmake targets will configure their own
+precompiled headers which incorporate Outcome.
+
+Installability is now CI tested per commit
+: Due to installability of standalone Outcome (e.g. `make install`) breaking
+itself rather more frequently than is ideal, installability is now tested on CI
+per commit.
+
+Coroutines support has been documented
+: The coroutines support added in v2.1.2 has now been properly documented.
+
+### Bug fixes:
+
+[#214](https://github.com/ned14/outcome/issues/214)
+: Newer Concepts implementing compilers were unhappy with the early check for
+destructibility of `T` and `E`, so removed template constraints, falling back
+to static assert which runs later in the type instantiation sequence.
+
+[#215](https://github.com/ned14/outcome/issues/215)
+: For standalone Outcome, `CMAKE_TOOLCHAIN_FILE` is now passed through during
+dependency superbuild. This should solve build issues for some embedded toolchain
+users.
+
+[#220](https://github.com/ned14/outcome/issues/220)
+: A false positive undefined behaviour sanitiser failure in some use cases of
+Experimental Outcome was worked around to avoid the failure message.
+
+[#221](https://github.com/ned14/outcome/issues/221)
+: Restored compatibility with x86 on Windows, which was failing with link errors.
+It was quite surprising that this bug was not reported sooner, but obviously
+almost nobody is using Outcome with x86 on Windows.
+
+---
 ## v2.1.2 11th December 2019 (Boost 1.72) [[release]](https://github.com/ned14/outcome/releases/tag/v2.1.2)
 
 ### Enhancements:

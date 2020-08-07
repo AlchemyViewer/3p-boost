@@ -1650,11 +1650,11 @@ This header contains a predicate for checking if the provided value is within a 
 <method name="op" specifiers="static"><type>bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="value"><paramtype>T const &amp;</paramtype></parameter><parameter name="rng"><paramtype>std::pair&lt; U, U &gt; const &amp;</paramtype></parameter><parameter name=""><paramtype>mpl::false_ const &amp;</paramtype></parameter></method>
+        </template><parameter name="value"><paramtype>T const &amp;</paramtype></parameter><parameter name="rng"><paramtype>std::pair&lt; U, U &gt; const &amp;</paramtype></parameter><parameter name=""><paramtype>false_type</paramtype></parameter></method>
 <method name="op" specifiers="static"><type>bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="value"><paramtype>T const &amp;</paramtype></parameter><parameter name="rng"><paramtype>std::pair&lt; U, U &gt; const &amp;</paramtype></parameter><parameter name=""><paramtype>mpl::true_ const &amp;</paramtype></parameter></method>
+        </template><parameter name="value"><paramtype>T const &amp;</paramtype></parameter><parameter name="rng"><paramtype>std::pair&lt; U, U &gt; const &amp;</paramtype></parameter><parameter name=""><paramtype>true_type</paramtype></parameter></method>
 </method-group>
 </struct>
 
@@ -1773,11 +1773,11 @@ This header contains logical predicates for value comparison, analogous to <comp
 <method name="op" specifiers="static"><type>bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>mpl::false_ const &amp;</paramtype></parameter></method>
+        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>false_type</paramtype></parameter></method>
 <method name="op" specifiers="static"><type>bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>mpl::true_ const &amp;</paramtype></parameter></method>
+        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>true_type</paramtype></parameter></method>
 </method-group>
 </struct><struct name="greater"><purpose>Greater predicate. </purpose><typedef name="result_type"><type>bool</type></typedef>
 <method-group name="public member functions">
@@ -1790,11 +1790,11 @@ This header contains logical predicates for value comparison, analogous to <comp
 <method name="op" specifiers="static"><type>bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>mpl::false_ const &amp;</paramtype></parameter></method>
+        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>false_type</paramtype></parameter></method>
 <method name="op" specifiers="static"><type>bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>mpl::true_ const &amp;</paramtype></parameter></method>
+        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>true_type</paramtype></parameter></method>
 </method-group>
 </struct><struct name="greater_equal"><purpose>Greater or equal predicate. </purpose><typedef name="result_type"><type>bool</type></typedef>
 <method-group name="public member functions">
@@ -1807,11 +1807,11 @@ This header contains logical predicates for value comparison, analogous to <comp
 <method name="op" specifiers="static"><type>bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>mpl::false_ const &amp;</paramtype></parameter></method>
+        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>false_type</paramtype></parameter></method>
 <method name="op" specifiers="static"><type>bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>mpl::true_ const &amp;</paramtype></parameter></method>
+        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>true_type</paramtype></parameter></method>
 </method-group>
 </struct><struct name="less"><purpose>Less predicate. </purpose><typedef name="result_type"><type>bool</type></typedef>
 <method-group name="public member functions">
@@ -1824,11 +1824,11 @@ This header contains logical predicates for value comparison, analogous to <comp
 <method name="op" specifiers="static"><type>bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>mpl::false_ const &amp;</paramtype></parameter></method>
+        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>false_type</paramtype></parameter></method>
 <method name="op" specifiers="static"><type>bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>mpl::true_ const &amp;</paramtype></parameter></method>
+        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>true_type</paramtype></parameter></method>
 </method-group>
 </struct><struct name="less_equal"><purpose>Less or equal predicate. </purpose><typedef name="result_type"><type>bool</type></typedef>
 <method-group name="public member functions">
@@ -1841,11 +1841,11 @@ This header contains logical predicates for value comparison, analogous to <comp
 <method name="op" specifiers="static"><type>bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>mpl::false_ const &amp;</paramtype></parameter></method>
+        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>false_type</paramtype></parameter></method>
 <method name="op" specifiers="static"><type>bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>mpl::true_ const &amp;</paramtype></parameter></method>
+        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>true_type</paramtype></parameter></method>
 </method-group>
 </struct><struct name="not_equal_to"><purpose>Inequality predicate. </purpose><typedef name="result_type"><type>bool</type></typedef>
 <method-group name="public member functions">
@@ -1858,11 +1858,11 @@ This header contains logical predicates for value comparison, analogous to <comp
 <method name="op" specifiers="static"><type>bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>mpl::false_ const &amp;</paramtype></parameter></method>
+        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>false_type</paramtype></parameter></method>
 <method name="op" specifiers="static"><type>bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>mpl::true_ const &amp;</paramtype></parameter></method>
+        </template><parameter name="left"><paramtype>T const &amp;</paramtype></parameter><parameter name="right"><paramtype>U const &amp;</paramtype></parameter><parameter name=""><paramtype>true_type</paramtype></parameter></method>
 </method-group>
 </struct>
 

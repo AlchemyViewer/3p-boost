@@ -17,7 +17,7 @@
 /root/project/libs/gil/include/boost/gil/io/read_and_convert_view.hpp:32: warning: The following parameters of boost::gil::read_and_convert_view(Reader &reader, View const &view, typename std::enable_if< mp11::mp_and< detail::is_reader< Reader >, is_format_tag< typename Reader::format_tag_t > >::value >::type *=nullptr) are not documented:
   parameter 'view'
 /root/project/libs/gil/include/boost/gil/io/read_view.hpp:24: warning: argument 'settings' of command @param is not found in the argument list of boost::gil::read_view(Reader reader, View const &view, typename std::enable_if< mp11::mp_and< detail::is_reader< Reader >, typename is_format_tag< typename Reader::format_tag_t >::type, typename is_read_supported< typename get_pixel_type< View >::type, typename Reader::format_tag_t >::type >::value >::type *=nullptr)
-/root/project/libs/gil/include/boost/gil/concepts/channel.hpp:187: warning: unexpected command endcode
+/root/project/libs/gil/include/boost/gil/concepts/channel.hpp:188: warning: unexpected command endcode
 /root/project/libs/gil/include/boost/gil/io/reader_base.hpp:46: warning: argument 'info' of command @param is not found in the argument list of reader_base< FormatTag, ConversionPolicy >::init_image(Image &img, const image_read_settings< FormatTag > &settings)
 /root/project/libs/gil/include/boost/gil/io/reader_base.hpp:53: warning: The following parameters of boost::gil::reader_base::init_image(Image &img, const image_read_settings< FormatTag > &settings) are not documented:
   parameter 'settings'

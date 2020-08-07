@@ -134,6 +134,7 @@ chlid c2("ls", on_exit=exit_code);
 </note>
 </para></description><type>platform_specific</type></typedef>
 <typedef name="handle_type"><description><para>Typedef for the handle representation of boost.asio. </para></description><type>platform_specific</type></typedef>
+<typedef name="executor_type"><type>handle_type::executor_type</type></typedef>
 <method-group name="public member functions">
 <method name="conversion-operator" cv="const" specifiers="explicit"><type>basic_pipe&lt; CharT, Traits &gt;</type><template>
           <template-type-parameter name="CharT"/>

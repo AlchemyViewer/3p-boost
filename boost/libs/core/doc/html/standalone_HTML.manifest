@@ -23,10 +23,10 @@ core/ref.html
 boost/is_reference_wrapper.html
 boost/reference_wrapper.html
 boost/unwrap_reference.html
-boost/ref_idm45818739683584.html
-boost/cref_idm45818739678608.html
-boost/ref_idm45818729534336.html
-boost/cref_idm45818729531568.html
+boost/ref_idm45394851133248.html
+boost/cref_idm45394851128272.html
+boost/ref_idm45394840970992.html
+boost/cref_idm45394840968224.html
 boost/unwrap_ref.html
 core/scoped_enum.html
 core/swap.html

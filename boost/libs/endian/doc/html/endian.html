@@ -445,21 +445,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#overview_abstract">Abstract</a></li>
 <li><a href="#overview_endianness">Introduction to endianness</a></li>
 <li><a href="#overview_introduction">Introduction to the Boost.Endian library</a></li>
-<li><a href="#overview_choosing_between_conversion_functions_buffer_types_and_arithmetic_types">Choosing between conversion functions, buffer types, and arithmetic types</a></li>
 <li><a href="#overview_intrinsics">Built-in support for Intrinsics</a></li>
 <li><a href="#overview_performance">Performance</a></li>
-<li><a href="#overview_faq">Overall FAQ</a></li>
-<li><a href="#overview_history">History</a></li>
-<li><a href="#overview_compatibility_with_interim_releases">Compatibility with interim releases</a></li>
 <li><a href="#overview_cpp03_support">C&#43;&#43;03 support for C&#43;&#43;11 features</a></li>
-<li><a href="#overview_future_directions">Future directions</a></li>
-<li><a href="#overview_acknowledgements">Acknowledgements</a></li>
+<li><a href="#overview_faq">Overall FAQ</a></li>
 </ul>
 </li>
 <li><a href="#changelog">Revision History</a>
 <ul class="sectlevel2">
 <li><a href="#overview_changes_in_1_72_0">Changes in 1.72.0</a></li>
 <li><a href="#overview_changes_in_1_71_0">Changes in 1.71.0</a></li>
+</ul>
+</li>
+<li><a href="#choosing">Choosing between Conversion Functions, Buffer Types, and Arithmetic Types</a>
+<ul class="sectlevel2">
+<li><a href="#choosing_background">Background</a></li>
+<li><a href="#choosing_characteristics">Characteristics</a></li>
+<li><a href="#choosing_design_patterns">Design patterns</a></li>
+<li><a href="#choosing_use_case_examples">Use case examples</a></li>
 </ul>
 </li>
 <li><a href="#conversion">Endian Conversion Functions</a>
@@ -501,14 +504,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#arithmetic_acknowledgements">Acknowledgements</a></li>
 </ul>
 </li>
-<li><a href="#choosing">Choosing Approach</a>
+<li><a href="#appendix_history">Appendix A: History and Acknowledgments</a>
 <ul class="sectlevel2">
-<li><a href="#choosing_introduction">Introduction</a></li>
-<li><a href="#choosing_choosing_between_conversion_functions_buffer_types_and_arithmetic_types">Choosing between conversion functions, buffer types, and arithmetic types</a></li>
+<li><a href="#apph_history">History</a></li>
+<li><a href="#apph_compatibility_with_interim_releases">Compatibility with interim releases</a></li>
+<li><a href="#apph_future_directions">Future directions</a></li>
+<li><a href="#apph_acknowledgements">Acknowledgements</a></li>
 </ul>
 </li>
-<li><a href="#appendix_mini_review_topics">Appendix A: Endian Mini-Review</a></li>
-<li><a href="#choosing_copyright_and_license">Appendix B: Copyright and License</a></li>
+<li><a href="#apph_copyright_and_license">Appendix B: Copyright and License</a></li>
 </ul>
 </div>
 </div>
@@ -620,7 +624,8 @@ three approaches support integers and user-define types (UDTs).</p>
 </div>
 <div class="paragraph">
 <p>Each approach has a long history of successful use, and each approach has use
-cases where it is preferred to the other approaches.</p>
+cases where it is preferred to the other approaches. See
+<a href="#choosing">Choosing between Conversion Functions, Buffer Types, and Arithmetic Types</a>.</p>
 </div>
 <div class="dlist">
 <dl>
@@ -657,12 +662,6 @@ be used directly in generic code of for less common use cases.</p>
 <p>Boost Endian is a header-only library. C&#43;&#43;11 features affecting interfaces,
 such as <code>noexcept</code>, are  used only if available. See
 <a href="#overview_cpp03_support">C&#43;&#43;03 support for C&#43;&#43;11 features</a> for details.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="overview_choosing_between_conversion_functions_buffer_types_and_arithmetic_types">Choosing between conversion functions, buffer types, and arithmetic types</h3>
-<div class="paragraph">
-<p>This section has been moved to its own <a href="#choosing">Choosing the Approach</a> page.</p>
 </div>
 </div>
 <div class="sect2">
@@ -942,6 +941,42 @@ the build setup.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="overview_cpp03_support">C&#43;&#43;03 support for C&#43;&#43;11 features</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">C&#43;&#43;11 Feature</th>
+<th class="tableblock halign-left valign-top">Action with C&#43;&#43;03 Compilers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scoped enums</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Uses header
+<a href="http://www.boost.org/libs/core/doc/html/core/scoped_enum.html">boost/core/scoped_enum.hpp</a>
+to emulate C&#43;&#43;11 scoped enums.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>noexcept</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Uses <code>BOOST_NOEXCEPT</code> macro, which is defined as null for compilers not
+supporting this C&#43;&#43;11 feature.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C&#43;&#43;11 PODs
+(<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2342.htm">N2342</a>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Takes advantage of C&#43;&#43;03 compilers that relax C&#43;&#43;03 POD rules, but see
+Limitations <a href="#buffers_limitations">here</a> and <a href="#arithmetic_limitations">here</a>.
+Also see macros for explicit POD control <a href="#buffers_compilation">here</a> and
+<a href="#arithmetic_compilation">here</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
 <h3 id="overview_faq">Overall FAQ</h3>
 <div class="dlist">
 <dl>
@@ -1029,11 +1064,11 @@ the same code being generated for either types.</p>
 <dt class="hdlist1">What are the limitations of integer support?</dt>
 <dd>
 <p>Tests have only been performed on machines that  use two&#8217;s complement
-arithmetic. The Endian conversion functions only support 16, 32, and 64-bit
+arithmetic. The Endian conversion functions only support 8, 16, 32, and 64-bit
 aligned integers. The endian types only support 8, 16, 24, 32, 40, 48, 56, and
 64-bit unaligned integers, and 8, 16, 32, and 64-bit aligned integers.</p>
 </dd>
-<dt class="hdlist1">Why is there no floating point support?</dt>
+<dt class="hdlist1">Is there floating point support?</dt>
 <dd>
 <p>An attempt was made to support four-byte <code>float</code>s and eight-byte
 <code>double</code>s, limited to
@@ -1042,173 +1077,15 @@ ISO/IEC/IEEE 60559) floating point and further limited to systems where floating
 point endianness does not differ from integer endianness. Even with those
 limitations, support for floating point types was not reliable and was removed.
 For example, simply reversing the endianness of a floating point number can
-result in a signaling-NAN. For all practical purposes, binary serialization and
-endianness for integers are one and the same problem. That is not true for
-floating point numbers, so binary serialization interfaces and formats for
-floating point does not fit well in an endian-based library.</p>
+result in a signaling-NAN.</p>
+<div class="paragraph">
+<p>Support for <code>float</code> and <code>double</code> has since been reinstated for <code>endian_buffer</code>
+and <code>endian_arithmetic</code>. The conversion functions still do not support floating
+point due to the above issues; reversing the bytes of a floating point number
+does not necessarily produce another valid floating point number.</p>
+</div>
 </dd>
 </dl>
-</div>
-</div>
-<div class="sect2">
-<h3 id="overview_history">History</h3>
-<div class="sect3">
-<h4 id="overview_changes_requested_by_formal_review">Changes requested by formal review</h4>
-<div class="paragraph">
-<p>The library was reworked from top to bottom to accommodate changes requested
-during the formal review. See <a href="#appendix_mini_review_topics">Mini-Review</a>
-page for details.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="overview_other_changes_since_formal_review">Other changes since formal review</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>Header <code>boost/endian/endian.hpp</code> has been renamed to
-<code>boost/endian/arithmetic.hpp</code>. Headers
-<code>boost/endian/conversion.hpp</code> and <code>boost/endian/buffers.hpp</code> have been added.
-Infrastructure file names were changed accordingly.</p>
-</li>
-<li>
-<p>The endian arithmetic type aliases have been renamed, using a naming pattern
-that is consistent for both integer and floating point, and a consistent set of
-aliases supplied for the endian buffer types.</p>
-</li>
-<li>
-<p>The unaligned-type alias names still have the <code>_t</code> suffix, but the
-aligned-type alias names now have an <code>_at</code> suffix.</p>
-</li>
-<li>
-<p><code>endian_reverse()</code> overloads for <code>int8_t</code> and <code>uint8_t</code> have been added for
-improved generality. (Pierre Talbot)</p>
-</li>
-<li>
-<p>Overloads of <code>endian_reverse_inplace()</code> have been replaced with a single
-<code>endian_reverse_inplace()</code> template. (Pierre Talbot)</p>
-</li>
-<li>
-<p>For X86 and X64 architectures, which permit unaligned loads and stores,
-unaligned little endian buffer and arithmetic types use regular loads and
-stores when the size is exact. This makes unaligned little endian buffer and
-arithmetic types significantly more efficient on these architectures. (Jeremy
-Maitin-Shepard)</p>
-</li>
-<li>
-<p>C&#43;&#43;11 features affecting interfaces, such as <code>noexcept</code>, are now used.
-C&#43;&#43;03 compilers are still supported.</p>
-</li>
-<li>
-<p>Acknowledgements have been updated.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="overview_compatibility_with_interim_releases">Compatibility with interim releases</h3>
-<div class="paragraph">
-<p>Prior to the official Boost release, class template <code>endian_arithmetic</code> has been
-used for a decade or more with the same functionality but under the name
-<code>endian</code>. Other names also changed in the official release. If the macro
-<code>BOOST_ENDIAN_DEPRECATED_NAMES</code> is defined, those old now deprecated names are
-still supported. However, the class template <code>endian</code> name is only provided for
-compilers supporting C&#43;&#43;11 template aliases. For C&#43;&#43;03 compilers, the name
-will have to be changed to <code>endian_arithmetic</code>.</p>
-</div>
-<div class="paragraph">
-<p>To support backward header compatibility, deprecated header
-<code>boost/endian/endian.hpp</code> forwards to <code>boost/endian/arithmetic.hpp</code>. It requires
-<code>BOOST_ENDIAN_DEPRECATED_NAMES</code> be defined. It should only be used while
-transitioning to the official Boost release of the library as it will be removed
-in some future release.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="overview_cpp03_support">C&#43;&#43;03 support for C&#43;&#43;11 features</h3>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">C&#43;&#43;11 Feature</th>
-<th class="tableblock halign-left valign-top">Action with C&#43;&#43;03 Compilers</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Scoped enums</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Uses header
-<a href="http://www.boost.org/libs/core/doc/html/core/scoped_enum.html">boost/core/scoped_enum.hpp</a>
-to emulate C&#43;&#43;11 scoped enums.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>noexcept</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Uses <code>BOOST_NOEXCEPT</code> macro, which is defined as null for compilers not
-supporting this C&#43;&#43;11 feature.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">C&#43;&#43;11 PODs
-(<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2342.htm">N2342</a>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Takes advantage of C&#43;&#43;03 compilers that relax C&#43;&#43;03 POD rules, but see
-Limitations <a href="#buffers_limitations">here</a> and <a href="#arithmetic_limitations">here</a>.
-Also see macros for explicit POD control <a href="#buffers_compilation">here</a> and
-<a href="#arithmetic_compilation">here</a></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="overview_future_directions">Future directions</h3>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Standardization.</dt>
-<dd>
-<p>The plan is to submit Boost.Endian to the C&#43;&#43; standards committee for possible
-inclusion in a Technical Specification or the C&#43;&#43; standard itself.</p>
-</dd>
-<dt class="hdlist1">Specializations for <code>numeric_limits</code>.</dt>
-<dd>
-<p>Roger Leigh requested that all <code>boost::endian</code> types provide <code>numeric_limits</code>
-specializations.
-See <a href="https://github.com/boostorg/endian/issues/4">GitHub issue 4</a>.</p>
-</dd>
-<dt class="hdlist1">Character buffer support.</dt>
-<dd>
-<p>Peter Dimov pointed out during the mini-review that getting and setting basic
-arithmetic types (or <code>&lt;cstdint&gt;</code> equivalents) from/to an offset into an array of
-unsigned char is a common need. See
-<a href="http://lists.boost.org/Archives/boost/2015/01/219574.php">Boost.Endian
-mini-review posting</a>.</p>
-</dd>
-<dt class="hdlist1">Out-of-range detection.</dt>
-<dd>
-<p>Peter Dimov pointed suggested during the mini-review that throwing an exception
-on buffer values being out-of-range might be desirable. See the end of
-<a href="http://lists.boost.org/Archives/boost/2015/01/219659.php">this posting</a> and
-subsequent replies.</p>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect2">
-<h3 id="overview_acknowledgements">Acknowledgements</h3>
-<div class="paragraph">
-<p>Comments and suggestions were received from Adder, Benaka Moorthi, Christopher
-Kohlhoff, Cliff Green, Daniel James, Dave Handley, Gennaro Proto, Giovanni Piero
-Deretta, Gordon Woodhull, dizzy, Hartmut Kaiser, Howard Hinnant, Jason Newton,
-Jeff Flinn, Jeremy Maitin-Shepard, John Filo, John Maddock, Kim Barrett, Marsh
-Ray, Martin Bonner, Mathias Gaunard, Matias Capeletto, Neil Mayhew, Nevin Liber,
-Olaf van der Spek, Paul Bristow, Peter Dimov, Pierre Talbot, Phil Endecott,
-Philip Bennefall, Pyry Jahkola, Rene Rivera, Robert Stewart, Roger Leigh, Roland
-Schwarz, Scott McMurray, Sebastian Redl, Tim Blechmann, Tim Moore, tymofey,
-Tomas Puverle, Vincente Botet, Yuval Ronen and Vitaly Budovsk. Apologies if
-anyone has been missed.</p>
-</div>
-<div class="paragraph">
-<p>The documentation was converted into Asciidoc format by Glen Fernandes.</p>
 </div>
 </div>
 </div>
@@ -1250,7 +1127,7 @@ on GCC and Clang</p>
 <p>Clarified requirements on the value type template parameter</p>
 </li>
 <li>
-<p>Added support for <code>float</code> and <code>double</code></p>
+<p>Added support for <code>float</code> and <code>double</code> to <code>endian_buffer</code> and <code>endian_arithmetic</code></p>
 </li>
 <li>
 <p>Added <code>endian_load</code>, <code>endian_store</code></p>
@@ -1262,6 +1139,385 @@ on GCC and Clang</p>
 <p>Moved deprecated names to the deprecated header <code>endian.hpp</code></p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="choosing">Choosing between Conversion Functions, Buffer Types, and Arithmetic Types</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Deciding which is the best endianness approach (conversion functions, buffer
+types, or arithmetic types) for a particular application involves complex
+engineering trade-offs. It is hard to assess those trade-offs without some
+understanding of the different interfaces, so you might want to read the
+<a href="#conversion">conversion functions</a>, <a href="#buffers">buffer types</a>, and
+<a href="#arithmetic">arithmetic types</a> pages before proceeding.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The best approach to endianness for a particular application depends on the
+interaction between the application&#8217;s needs and the characteristics of each of
+the three  approaches.</p>
+</div>
+<div class="paragraph">
+<p><strong>Recommendation:</strong> If you are new to endianness, uncertain, or don&#8217;t want to
+invest the time to study engineering trade-offs, use
+<a href="#arithmetic">endian arithmetic types</a>. They are safe, easy to use, and easy to
+maintain. Use the <em><a href="#choosing_anticipating_need">anticipating need</a></em> design
+pattern locally around performance hot spots like lengthy loops, if needed.</p>
+</div>
+<div class="sect2">
+<h3 id="choosing_background">Background</h3>
+<div class="paragraph">
+<p>A dealing with endianness usually implies a program portability or a data
+portability requirement, and often both. That means real programs dealing with
+endianness are usually complex, so the examples shown here would really be
+written as multiple functions spread across multiple translation units. They
+would involve interfaces that can not be altered as they are supplied by
+third-parties or the standard library.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="choosing_characteristics">Characteristics</h3>
+<div class="paragraph">
+<p>The characteristics that differentiate the three approaches to endianness are
+the endianness invariants, conversion explicitness, arithmetic operations, sizes
+available, and alignment requirements.</p>
+</div>
+<div class="sect3">
+<h4 id="choosing_endianness_invariants">Endianness invariants</h4>
+<div class="paragraph">
+<p><strong>Endian conversion functions</strong> use objects of the ordinary C&#43;&#43; arithmetic types
+like <code>int</code> or <code>unsigned short</code> to hold values. That breaks the implicit
+invariant that the C&#43;&#43; language rules apply. The usual language rules only apply
+if the endianness of the object is currently set to the native endianness for
+the platform. That can make it very hard to reason about logic flow, and result
+in difficult to find bugs.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>struct data_t  // big endian
+{
+  int32_t   v1;  // description ...
+  int32_t   v2;  // description ...
+  ... additional character data members (i.e. non-endian)
+  int32_t   v3;  // description ...
+};
+
+data_t data;
+
+read(data);
+big_to_native_inplace(data.v1);
+big_to_native_inplace(data.v2);
+
+...
+
+++v1;
+third_party::func(data.v2);
+
+...
+
+native_to_big_inplace(data.v1);
+native_to_big_inplace(data.v2);
+write(data);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The programmer didn&#8217;t bother to convert <code>data.v3</code> to native endianness because
+that member isn&#8217;t used. A later maintainer needs to pass <code>data.v3</code> to the
+third-party function, so adds <code>third_party::func(data.v3);</code> somewhere deep in
+the code. This causes a silent failure because the usual invariant that an
+object of type <code>int32_t</code> holds a value as described by the C&#43;&#43; core language
+does not apply.</p>
+</div>
+<div class="paragraph">
+<p><strong>Endian buffer and arithmetic types</strong> hold values internally as arrays of
+characters with an invariant that the endianness of the array never changes.
+That makes these types easier to use and programs easier to maintain.</p>
+</div>
+<div class="paragraph">
+<p>Here is the same example, using an endian arithmetic type:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>struct data_t
+{
+  big_int32_t   v1;  // description ...
+  big_int32_t   v2;  // description ...
+  ... additional character data members (i.e. non-endian)
+  big_int32_t   v3;  // description ...
+};
+
+data_t data;
+
+read(data);
+
+...
+
+++v1;
+third_party::func(data.v2);
+
+...
+
+write(data);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A later maintainer can add <code>third_party::func(data.v3)</code> and it will just-work.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="choosing_conversion_explicitness">Conversion explicitness</h4>
+<div class="paragraph">
+<p><strong>Endian conversion functions</strong> and <strong>buffer types</strong> never perform implicit
+conversions. This gives users explicit control of when conversion occurs, and
+may help avoid unnecessary conversions.</p>
+</div>
+<div class="paragraph">
+<p><strong>Endian arithmetic types</strong> perform conversion implicitly. That makes these types
+very easy to use, but can result in unnecessary conversions. Failure to hoist
+conversions out of inner loops can bring a performance penalty.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="choosing_arithmetic_operations">Arithmetic operations</h4>
+<div class="paragraph">
+<p><strong>Endian conversion functions</strong> do not supply arithmetic operations, but this is
+not a concern since this approach uses ordinary C&#43;&#43; arithmetic types to hold
+values.</p>
+</div>
+<div class="paragraph">
+<p><strong>Endian buffer types</strong> do not supply arithmetic operations. Although this
+approach avoids unnecessary conversions, it can result in the introduction of
+additional variables and confuse maintenance programmers.</p>
+</div>
+<div class="paragraph">
+<p><strong>Endian arithmetic types</strong> do supply arithmetic operations. They are very easy to
+use if lots of arithmetic is involved.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="choosing_sizes">Sizes</h4>
+<div class="paragraph">
+<p><strong>Endianness conversion functions</strong> only support 1, 2, 4, and 8 byte integers.
+That&#8217;s sufficient for many applications.</p>
+</div>
+<div class="paragraph">
+<p><strong>Endian buffer and arithmetic types</strong> support 1, 2, 3, 4, 5, 6, 7, and 8 byte
+integers. For an application where memory use or I/O speed is the limiting
+factor, using sizes tailored to application needs can be useful.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="choosing_alignments">Alignments</h4>
+<div class="paragraph">
+<p><strong>Endianness conversion functions</strong> only support aligned integer and
+floating-point types. That&#8217;s sufficient for most applications.</p>
+</div>
+<div class="paragraph">
+<p><strong>Endian buffer and arithmetic types</strong> support both aligned and unaligned
+integer and floating-point types. Unaligned types are rarely needed, but when
+needed they are often very useful and workarounds are painful. For example:</p>
+</div>
+<div class="paragraph">
+<p>Non-portable code like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>struct S {
+  uint16_t a; // big endian
+  uint32_t b; // big endian
+} __attribute__ ((packed));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Can be replaced with portable code like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>struct S {
+  big_uint16_ut a;
+  big_uint32_ut b;
+};</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="choosing_design_patterns">Design patterns</h3>
+<div class="paragraph">
+<p>Applications often traffic in endian data as records or packets containing
+multiple endian data elements. For simplicity, we will just call them records.</p>
+</div>
+<div class="paragraph">
+<p>If desired endianness differs from native endianness, a conversion has to be
+performed. When should that conversion occur? Three design patterns have
+evolved.</p>
+</div>
+<div class="sect3">
+<h4 id="choosing_convert_only_as_needed_i_e_lazy">Convert only as needed (i.e. lazy)</h4>
+<div class="paragraph">
+<p>This pattern defers conversion to the point in the code where the data
+element is actually used.</p>
+</div>
+<div class="paragraph">
+<p>This pattern is appropriate when which endian element is actually used varies
+greatly according to record content or other circumstances</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="choosing_anticipating_need">Convert in anticipation of need</h4>
+<div class="paragraph">
+<p>This pattern performs conversion to native endianness in anticipation of use,
+such as immediately after reading records. If needed, conversion to the output
+endianness is performed after all possible needs have passed, such as just
+before writing records.</p>
+</div>
+<div class="paragraph">
+<p>One implementation of this pattern is to create a proxy record with endianness
+converted to native in a read function, and expose only that proxy to the rest
+of the implementation. If a write function, if needed, handles the conversion
+from native to the desired output endianness.</p>
+</div>
+<div class="paragraph">
+<p>This pattern is appropriate when all endian elements in a record are typically
+used regardless of record content or other circumstances.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="choosing_convert_only_as_needed_except_locally_in_anticipation_of_need">Convert only as needed, except locally in anticipation of need</h4>
+<div class="paragraph">
+<p>This pattern in general defers conversion but for specific local needs does
+anticipatory conversion. Although particularly appropriate when coupled with the
+endian buffer or arithmetic types, it also works well with the conversion
+functions.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>struct data_t
+{
+  big_int32_t   v1;
+  big_int32_t   v2;
+  big_int32_t   v3;
+};
+
+data_t data;
+
+read(data);
+
+...
+++v1;
+...
+
+int32_t v3_temp = data.v3;  // hoist conversion out of loop
+
+for (int32_t i = 0; i &lt; <code>large-number</code>; ++i)
+{
+  ... <code>lengthy computation that accesses v3_temp</code> ...
+}
+data.v3 = v3_temp;
+
+write(data);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In general the above pseudo-code leaves conversion up to the endian arithmetic
+type <code>big_int32_t</code>. But to avoid conversion inside the loop, a temporary is
+created before the loop is entered, and then used to set the new value of
+<code>data.v3</code> after the loop is complete.</p>
+</div>
+<div class="paragraph">
+<p>Question: Won&#8217;t the compiler&#8217;s optimizer hoist the conversion out of the loop
+anyhow?</p>
+</div>
+<div class="paragraph">
+<p>Answer: VC&#43;&#43; 2015 Preview, and probably others, does not, even for a toy test
+program. Although the savings is small (two register <code>bswap</code> instructions), the
+cost might be significant if the loop is repeated enough times. On the other
+hand, the program may be so dominated by I/O time that even a lengthy loop will
+be immaterial.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="choosing_use_case_examples">Use case examples</h3>
+<div class="sect3">
+<h4 id="choosing_porting_endian_unaware_codebase">Porting endian unaware codebase</h4>
+<div class="paragraph">
+<p>An existing codebase runs on  big endian systems. It does not currently deal
+with endianness. The codebase needs to be modified so it can run on little
+endian systems under various operating systems. To ease transition and protect
+value of existing files, external data will continue to be maintained as big
+endian.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="#arithmetic">endian arithmetic approach</a> is recommended to meet these
+needs. A relatively small number of header files dealing with binary I/O layouts
+need to change types. For example, <code>short</code> or <code>int16_t</code> would change to
+<code>big_int16_t</code>. No changes are required for <code>.cpp</code> files.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="choosing_porting_endian_aware_codebase">Porting endian aware codebase</h4>
+<div class="paragraph">
+<p>An existing codebase runs on little-endian Linux systems. It already deals with
+endianness via
+<a href="http://man7.org/linux/man-pages/man3/endian.3.html">Linux provided functions</a>.
+Because of a business merger, the codebase has to be quickly modified for
+Windows and possibly other operating systems, while still supporting Linux. The
+codebase is reliable and the programmers are all well-aware of endian issues.</p>
+</div>
+<div class="paragraph">
+<p>These factors all argue for an <a href="#conversion">endian conversion approach</a> that
+just mechanically changes the calls to <code>htobe32</code>, etc. to
+<code>boost::endian::native_to_big</code>, etc. and replaces <code>&lt;endian.h&gt;</code> with
+<code>&lt;boost/endian/conversion.hpp&gt;</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="choosing_reliability_and_arithmetic_speed">Reliability and arithmetic-speed</h4>
+<div class="paragraph">
+<p>A new, complex, multi-threaded application is to be developed that must run
+on little endian machines, but do big endian network I/O. The developers believe
+computational speed for endian variable is critical but have seen numerous bugs
+result from inability to reason about endian conversion state. They are also
+worried that future maintenance changes could inadvertently introduce a lot of
+slow conversions if full-blown endian arithmetic types are used.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="#buffers">endian buffers</a> approach is made-to-order for this use case.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="choosing_reliability_and_ease_of_use">Reliability and ease-of-use</h4>
+<div class="paragraph">
+<p>A new, complex, multi-threaded application is to be developed that must run on
+little endian machines, but do big endian network I/O. The developers believe
+computational speed for endian variables is <strong>not critical</strong> but have seen
+numerous bugs result from inability to reason about endian conversion state.
+They are also concerned about ease-of-use both during development and long-term
+maintenance.</p>
+</div>
+<div class="paragraph">
+<p>Removing concern about conversion speed and adding concern about ease-of-use
+tips the balance strongly in favor the
+<a href="#arithmetic">endian arithmetic approach</a>.</p>
+</div>
 </div>
 </div>
 </div>
@@ -2688,28 +2944,28 @@ user-specified endianness, value type, size, and alignment.</p>
     typedef endian_buffer&lt;order::little, double, 64&gt;          little_float64_buf_t;
 
     // unaligned native endian signed integer types
-    typedef implementation-defined_int8_buf_t   native_int8_buf_t;
-    typedef implementation-defined_int16_buf_t  native_int16_buf_t;
-    typedef implementation-defined_int24_buf_t  native_int24_buf_t;
-    typedef implementation-defined_int32_buf_t  native_int32_buf_t;
-    typedef implementation-defined_int40_buf_t  native_int40_buf_t;
-    typedef implementation-defined_int48_buf_t  native_int48_buf_t;
-    typedef implementation-defined_int56_buf_t  native_int56_buf_t;
-    typedef implementation-defined_int64_buf_t  native_int64_buf_t;
+    typedef endian_buffer&lt;order::native, int_least8_t, 8&gt;     native_int8_buf_t;
+    typedef endian_buffer&lt;order::native, int_least16_t, 16&gt;   native_int16_buf_t;
+    typedef endian_buffer&lt;order::native, int_least32_t, 24&gt;   native_int24_buf_t;
+    typedef endian_buffer&lt;order::native, int_least32_t, 32&gt;   native_int32_buf_t;
+    typedef endian_buffer&lt;order::native, int_least64_t, 40&gt;   native_int40_buf_t;
+    typedef endian_buffer&lt;order::native, int_least64_t, 48&gt;   native_int48_buf_t;
+    typedef endian_buffer&lt;order::native, int_least64_t, 56&gt;   native_int56_buf_t;
+    typedef endian_buffer&lt;order::native, int_least64_t, 64&gt;   native_int64_buf_t;
 
     // unaligned native endian unsigned integer types
-    typedef implementation-defined_uint8_buf_t   native_uint8_buf_t;
-    typedef implementation-defined_uint16_buf_t  native_uint16_buf_t;
-    typedef implementation-defined_uint24_buf_t  native_uint24_buf_t;
-    typedef implementation-defined_uint32_buf_t  native_uint32_buf_t;
-    typedef implementation-defined_uint40_buf_t  native_uint40_buf_t;
-    typedef implementation-defined_uint48_buf_t  native_uint48_buf_t;
-    typedef implementation-defined_uint56_buf_t  native_uint56_buf_t;
-    typedef implementation-defined_uint64_buf_t  native_uint64_buf_t;
+    typedef endian_buffer&lt;order::native, uint_least8_t, 8&gt;    native_uint8_buf_t;
+    typedef endian_buffer&lt;order::native, uint_least16_t, 16&gt;  native_uint16_buf_t;
+    typedef endian_buffer&lt;order::native, uint_least32_t, 24&gt;  native_uint24_buf_t;
+    typedef endian_buffer&lt;order::native, uint_least32_t, 32&gt;  native_uint32_buf_t;
+    typedef endian_buffer&lt;order::native, uint_least64_t, 40&gt;  native_uint40_buf_t;
+    typedef endian_buffer&lt;order::native, uint_least64_t, 48&gt;  native_uint48_buf_t;
+    typedef endian_buffer&lt;order::native, uint_least64_t, 56&gt;  native_uint56_buf_t;
+    typedef endian_buffer&lt;order::native, uint_least64_t, 64&gt;  native_uint64_buf_t;
 
     // unaligned native endian floating point types
-    typedef implementation-defined_float32_buf_t  native_float32_buf_t;
-    typedef implementation-defined_float64_buf_t  native_float64_buf_t;
+    typedef endian_buffer&lt;order::native, float, 32&gt;           native_float32_buf_t;
+    typedef endian_buffer&lt;order::native, double, 64&gt;          native_float64_buf_t;
 
     // aligned big endian signed integer buffers
     typedef endian_buffer&lt;order::big, int8_t, 8, align::yes&gt;       big_int8_buf_at;
@@ -2749,10 +3005,6 @@ user-specified endianness, value type, size, and alignment.</p>
   } // namespace endian
 } // namespace boost</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>The <code>implementation-defined</code> text in typedefs above is either <code>big</code> or <code>little</code>
-according to the native endianness of the platform.</p>
 </div>
 <div class="paragraph">
 <p>The expository data member <code>value_</code> stores the current value of the
@@ -3562,28 +3814,28 @@ namespace boost
     typedef endian_arithmetic&lt;order::little, double, 64&gt;          little_float64_t;
 
     // unaligned native endian signed integer types
-    typedef implementation-defined_int8_t   native_int8_t;
-    typedef implementation-defined_int16_t  native_int16_t;
-    typedef implementation-defined_int24_t  native_int24_t;
-    typedef implementation-defined_int32_t  native_int32_t;
-    typedef implementation-defined_int40_t  native_int40_t;
-    typedef implementation-defined_int48_t  native_int48_t;
-    typedef implementation-defined_int56_t  native_int56_t;
-    typedef implementation-defined_int64_t  native_int64_t;
+    typedef endian_arithmetic&lt;order::native, int_least8_t, 8&gt;     native_int8_t;
+    typedef endian_arithmetic&lt;order::native, int_least16_t, 16&gt;   native_int16_t;
+    typedef endian_arithmetic&lt;order::native, int_least32_t, 24&gt;   native_int24_t;
+    typedef endian_arithmetic&lt;order::native, int_least32_t, 32&gt;   native_int32_t;
+    typedef endian_arithmetic&lt;order::native, int_least64_t, 40&gt;   native_int40_t;
+    typedef endian_arithmetic&lt;order::native, int_least64_t, 48&gt;   native_int48_t;
+    typedef endian_arithmetic&lt;order::native, int_least64_t, 56&gt;   native_int56_t;
+    typedef endian_arithmetic&lt;order::native, int_least64_t, 64&gt;   native_int64_t;
 
     // unaligned native endian unsigned integer types
-    typedef implementation-defined_uint8_t   native_uint8_t;
-    typedef implementation-defined_uint16_t  native_uint16_t;
-    typedef implementation-defined_uint24_t  native_uint24_t;
-    typedef implementation-defined_uint32_t  native_uint32_t;
-    typedef implementation-defined_uint40_t  native_uint40_t;
-    typedef implementation-defined_uint48_t  native_uint48_t;
-    typedef implementation-defined_uint56_t  native_uint56_t;
-    typedef implementation-defined_uint64_t  native_uint64_t;
+    typedef endian_arithmetic&lt;order::native, uint_least8_t, 8&gt;    native_uint8_t;
+    typedef endian_arithmetic&lt;order::native, uint_least16_t, 16&gt;  native_uint16_t;
+    typedef endian_arithmetic&lt;order::native, uint_least32_t, 24&gt;  native_uint24_t;
+    typedef endian_arithmetic&lt;order::native, uint_least32_t, 32&gt;  native_uint32_t;
+    typedef endian_arithmetic&lt;order::native, uint_least64_t, 40&gt;  native_uint40_t;
+    typedef endian_arithmetic&lt;order::native, uint_least64_t, 48&gt;  native_uint48_t;
+    typedef endian_arithmetic&lt;order::native, uint_least64_t, 56&gt;  native_uint56_t;
+    typedef endian_arithmetic&lt;order::native, uint_least64_t, 64&gt;  native_uint64_t;
 
     // unaligned native endian floating point types
-    typedef implementation-defined_float32_t  native_float32_t;
-    typedef implementation-defined_float64_t  native_float64_t;
+    typedef endian_arithmetic&lt;order::native, float, 32&gt;           native_float32_t;
+    typedef endian_arithmetic&lt;order::native, double, 64&gt;          native_float64_t;
 
     // aligned big endian signed integer types
     typedef endian_arithmetic&lt;order::big, int8_t, 8, align::yes&gt;       big_int8_at;
@@ -3623,10 +3875,6 @@ namespace boost
   } // namespace endian
 } // namespace boost</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>The <code>implementation-defined</code> text above is either <code>big</code> or <code>little</code> according
-to the endianness of the platform.</p>
 </div>
 <div class="paragraph">
 <p>The only supported value of <code>CHAR_BIT</code> is 8.</p>
@@ -3986,390 +4234,16 @@ when cover integer size differs from endian representation size.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="choosing">Choosing Approach</h2>
+<h2 id="appendix_history">Appendix A: History and Acknowledgments</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="choosing_introduction">Introduction</h3>
-<div class="paragraph">
-<p>Deciding which is the best endianness approach (conversion functions, buffer
-types, or arithmetic types) for a particular application involves complex
-engineering trade-offs. It is hard to assess those trade-offs without some
-understanding of the different interfaces, so you might want to read the
-<a href="#conversion">conversion functions</a>, <a href="#buffers">buffer types</a>, and
-<a href="#arithmetic">arithmetic types</a> pages before diving into this page.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="choosing_choosing_between_conversion_functions_buffer_types_and_arithmetic_types">Choosing between conversion functions, buffer types, and arithmetic types</h3>
-<div class="paragraph">
-<p>The best approach to endianness for a particular application depends on the
-interaction between the application&#8217;s needs and the characteristics of each of
-the three  approaches.</p>
-</div>
-<div class="paragraph">
-<p><strong>Recommendation:</strong> If you are new to endianness, uncertain, or don&#8217;t want to
-invest the time to study engineering trade-offs, use
-<a href="#arithmetic">endian arithmetic types</a>. They are safe, easy to use, and easy to
-maintain. Use the <em><a href="#choosing_anticipating_need">anticipating need</a></em> design
-pattern locally around performance hot spots like lengthy loops, if needed.</p>
-</div>
+<h3 id="apph_history">History</h3>
 <div class="sect3">
-<h4 id="choosing_background">Background</h4>
+<h4 id="apph_changes_requested_by_formal_review">Changes requested by formal review</h4>
 <div class="paragraph">
-<p>A dealing with endianness usually implies a program portability or a data
-portability requirement, and often both. That means real programs dealing with
-endianness are usually complex, so the examples shown here would really be
-written as multiple functions spread across multiple translation units. They
-would involve interfaces that can not be altered as they are supplied by
-third-parties or the standard library.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="choosing_characteristics">Characteristics</h4>
-<div class="paragraph">
-<p>The characteristics that differentiate the three approaches to endianness are
-the endianness invariants, conversion explicitness, arithmetic operations, sizes
-available, and alignment requirements.</p>
-</div>
-<div class="sect4">
-<h5 id="choosing_endianness_invariants">Endianness invariants</h5>
-<div class="paragraph">
-<p><strong>Endian conversion functions</strong> use objects of the ordinary C&#43;&#43; arithmetic types
-like <code>int</code> or <code>unsigned short</code> to hold values. That breaks the implicit
-invariant that the C&#43;&#43; language rules apply. The usual language rules only apply
-if the endianness of the object is currently set to the native endianness for
-the platform. That can make it very hard to reason about logic flow, and result
-in difficult to find bugs.</p>
-</div>
-<div class="paragraph">
-<p>For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>struct data_t  // big endian
-{
-  int32_t   v1;  // description ...
-  int32_t   v2;  // description ...
-  ... additional character data members (i.e. non-endian)
-  int32_t   v3;  // description ...
-};
-
-data_t data;
-
-read(data);
-big_to_native_inplace(data.v1);
-big_to_native_inplace(data.v2);
-
-...
-
-++v1;
-third_party::func(data.v2);
-
-...
-
-native_to_big_inplace(data.v1);
-native_to_big_inplace(data.v2);
-write(data);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The programmer didn&#8217;t bother to convert <code>data.v3</code> to native endianness because
-that member isn&#8217;t used. A later maintainer needs to pass <code>data.v3</code> to the
-third-party function, so adds <code>third_party::func(data.v3);</code> somewhere deep in
-the code. This causes a silent failure because the usual invariant that an
-object of type <code>int32_t</code> holds a value as described by the C&#43;&#43; core language
-does not apply.</p>
-</div>
-<div class="paragraph">
-<p><strong>Endian buffer and arithmetic types</strong> hold values internally as arrays of
-characters with an invariant that the endianness of the array never changes.
-That makes these types easier to use and programs easier to maintain.</p>
-</div>
-<div class="paragraph">
-<p>Here is the same example, using an endian arithmetic type:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>struct data_t
-{
-  big_int32_t   v1;  // description ...
-  big_int32_t   v2;  // description ...
-  ... additional character data members (i.e. non-endian)
-  big_int32_t   v3;  // description ...
-};
-
-data_t data;
-
-read(data);
-
-...
-
-++v1;
-third_party::func(data.v2);
-
-...
-
-write(data);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>A later maintainer can add <code>third_party::func(data.v3)</code> and it will just-work.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="choosing_conversion_explicitness">Conversion explicitness</h5>
-<div class="paragraph">
-<p><strong>Endian conversion functions</strong> and <strong>buffer types</strong> never perform implicit
-conversions. This gives users explicit control of when conversion occurs, and
-may help avoid unnecessary conversions.</p>
-</div>
-<div class="paragraph">
-<p><strong>Endian arithmetic types</strong> perform conversion implicitly. That makes these types
-very easy to use, but can result in unnecessary conversions. Failure to hoist
-conversions out of inner loops can bring a performance penalty.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="choosing_arithmetic_operations">Arithmetic operations</h5>
-<div class="paragraph">
-<p><strong>Endian conversion functions</strong> do not supply arithmetic operations, but this is
-not a concern since this approach uses ordinary C&#43;&#43; arithmetic types to hold
-values.</p>
-</div>
-<div class="paragraph">
-<p><strong>Endian buffer types</strong> do not supply arithmetic operations. Although this
-approach avoids unnecessary conversions, it can result in the introduction of
-additional variables and confuse maintenance programmers.</p>
-</div>
-<div class="paragraph">
-<p><strong>Endian arithmetic types</strong> do supply arithmetic operations. They are very easy to
-use if lots of arithmetic is involved.</p>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="choosing_sizes">Sizes</h4>
-<div class="paragraph">
-<p><strong>Endianness conversion functions</strong> only support 1, 2, 4, and 8 byte integers.
-That&#8217;s sufficient for many applications.</p>
-</div>
-<div class="paragraph">
-<p><strong>Endian buffer and arithmetic types</strong> support 1, 2, 3, 4, 5, 6, 7, and 8 byte
-integers. For an application where memory use or I/O speed is the limiting
-factor, using sizes tailored to application needs can be useful.</p>
-</div>
-<div class="sect4">
-<h5 id="choosing_alignments">Alignments</h5>
-<div class="paragraph">
-<p><strong>Endianness conversion functions</strong> only support aligned integer and
-floating-point types. That&#8217;s sufficient for most applications.</p>
-</div>
-<div class="paragraph">
-<p><strong>Endian buffer and arithmetic types</strong> support both aligned and unaligned
-integer and floating-point types. Unaligned types are rarely needed, but when
-needed they are often very useful and workarounds are painful. For example:</p>
-</div>
-<div class="paragraph">
-<p>Non-portable code like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>struct S {
-  uint16_t a; // big endian
-  uint32_t b; // big endian
-} __attribute__ ((packed));</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Can be replaced with portable code like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>struct S {
-  big_uint16_ut a;
-  big_uint32_ut b;
-};</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="choosing_design_patterns">Design patterns</h4>
-<div class="paragraph">
-<p>Applications often traffic in endian data as records or packets containing
-multiple endian data elements. For simplicity, we will just call them records.</p>
-</div>
-<div class="paragraph">
-<p>If desired endianness differs from native endianness, a conversion has to be
-performed. When should that conversion occur? Three design patterns have
-evolved.</p>
-</div>
-<div class="sect4">
-<h5 id="choosing_convert_only_as_needed_i_e_lazy">Convert only as needed (i.e. lazy)</h5>
-<div class="paragraph">
-<p>This pattern defers conversion to the point in the code where the data
-element is actually used.</p>
-</div>
-<div class="paragraph">
-<p>This pattern is appropriate when which endian element is actually used varies
-greatly according to record content or other circumstances</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="choosing_anticipating_need">Convert in anticipation of need</h5>
-<div class="paragraph">
-<p>This pattern performs conversion to native endianness in anticipation of use,
-such as immediately after reading records. If needed, conversion to the output
-endianness is performed after all possible needs have passed, such as just
-before writing records.</p>
-</div>
-<div class="paragraph">
-<p>One implementation of this pattern is to create a proxy record with endianness
-converted to native in a read function, and expose only that proxy to the rest
-of the implementation. If a write function, if needed, handles the conversion
-from native to the desired output endianness.</p>
-</div>
-<div class="paragraph">
-<p>This pattern is appropriate when all endian elements in a record are typically
-used regardless of record content or other circumstances.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="choosing_convert_only_as_needed_except_locally_in_anticipation_of_need">Convert only as needed, except locally in anticipation of need</h5>
-<div class="paragraph">
-<p>This pattern in general defers conversion but for specific local needs does
-anticipatory conversion. Although particularly appropriate when coupled with the
-endian buffer or arithmetic types, it also works well with the conversion
-functions.</p>
-</div>
-<div class="paragraph">
-<p>Example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code>struct data_t
-{
-  big_int32_t   v1;
-  big_int32_t   v2;
-  big_int32_t   v3;
-};
-
-data_t data;
-
-read(data);
-
-...
-++v1;
-...
-
-int32_t v3_temp = data.v3;  // hoist conversion out of loop
-
-for (int32_t i = 0; i &lt; <code>large-number</code>; ++i)
-{
-  ... <code>lengthy computation that accesses v3_temp</code> ...
-}
-data.v3 = v3_temp;
-
-write(data);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In general the above pseudo-code leaves conversion up to the endian arithmetic
-type <code>big_int32_t</code>. But to avoid conversion inside the loop, a temporary is
-created before the loop is entered, and then used to set the new value of
-<code>data.v3</code> after the loop is complete.</p>
-</div>
-<div class="paragraph">
-<p>Question: Won&#8217;t the compiler&#8217;s optimizer hoist the conversion out of the loop
-anyhow?</p>
-</div>
-<div class="paragraph">
-<p>Answer: VC&#43;&#43; 2015 Preview, and probably others, does not, even for a toy test
-program. Although the savings is small (two register <code>bswap</code> instructions), the
-cost might be significant if the loop is repeated enough times. On the other
-hand, the program may be so dominated by I/O time that even a lengthy loop will
-be immaterial.</p>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="choosing_use_case_examples">Use case examples</h4>
-<div class="sect4">
-<h5 id="choosing_porting_endian_unaware_codebase">Porting endian unaware codebase</h5>
-<div class="paragraph">
-<p>An existing codebase runs on  big endian systems. It does not currently deal
-with endianness. The codebase needs to be modified so it can run on little
-endian systems under various operating systems. To ease transition and protect
-value of existing files, external data will continue to be maintained as big
-endian.</p>
-</div>
-<div class="paragraph">
-<p>The <a href="#arithmetic">endian arithmetic approach</a> is recommended to meet these
-needs. A relatively small number of header files dealing with binary I/O layouts
-need to change types. For example, <code>short</code> or <code>int16_t</code> would change to
-<code>big_int16_t</code>. No changes are required for <code>.cpp</code> files.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="choosing_porting_endian_aware_codebase">Porting endian aware codebase</h5>
-<div class="paragraph">
-<p>An existing codebase runs on little-endian Linux systems. It already deals with
-endianness via
-<a href="http://man7.org/linux/man-pages/man3/endian.3.html">Linux provided functions</a>.
-Because of a business merger, the codebase has to be quickly modified for
-Windows and possibly other operating systems, while still supporting Linux. The
-codebase is reliable and the programmers are all well-aware of endian issues.</p>
-</div>
-<div class="paragraph">
-<p>These factors all argue for an <a href="#conversion">endian conversion approach</a> that
-just mechanically changes the calls to <code>htobe32</code>, etc. to
-<code>boost::endian::native_to_big</code>, etc. and replaces <code>&lt;endian.h&gt;</code> with
-<code>&lt;boost/endian/conversion.hpp&gt;</code>.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="choosing_reliability_and_arithmetic_speed">Reliability and arithmetic-speed</h5>
-<div class="paragraph">
-<p>A new, complex, multi-threaded application is to be developed that must run
-on little endian machines, but do big endian network I/O. The developers believe
-computational speed for endian variable is critical but have seen numerous bugs
-result from inability to reason about endian conversion state. They are also
-worried that future maintenance changes could inadvertently introduce a lot of
-slow conversions if full-blown endian arithmetic types are used.</p>
-</div>
-<div class="paragraph">
-<p>The <a href="#buffers">endian buffers</a> approach is made-to-order for this use case.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="choosing_reliability_and_ease_of_use">Reliability and ease-of-use</h5>
-<div class="paragraph">
-<p>A new, complex, multi-threaded application is to be developed that must run on
-little endian machines, but do big endian network I/O. The developers believe
-computational speed for endian variables is <strong>not critical</strong> but have seen
-numerous bugs result from inability to reason about endian conversion state.
-They are also concerned about ease-of-use both during development and long-term
-maintenance.</p>
-</div>
-<div class="paragraph">
-<p>Removing concern about conversion speed and adding concern about ease-of-use
-tips the balance strongly in favor the
-<a href="#arithmetic">endian arithmetic approach</a>.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="appendix_mini_review_topics">Appendix A: Endian Mini-Review</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The results of the Boost.Endian formal review included a list of issues to be
-resolved before a mini-review.</p>
-</div>
-<div class="paragraph">
-<p>The issues are shown in <strong>bold</strong> below, with the resolution indicated.</p>
+<p>The library was reworked from top to bottom to accommodate changes requested
+during the formal review. The issues that were required to be resolved before
+a mini-review are shown in <strong>bold</strong> below, with the resolution indicated.</p>
 </div>
 <div class="dlist">
 <dl>
@@ -4416,6 +4290,25 @@ directory  also contains several additional benchmark and speed test programs.</
 <a href="#conversion">endian conversion functions</a> now support 32-bit <code>(float)</code>
 and 64-bit <code>(double)</code> floating point, as requested.</p>
 </dd>
+</dl>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This answer is outdated. The support for <code>float</code> and <code>double</code> was subsequently found
+      problematic and has been removed. Recently, support for <code>float</code> and <code>double</code> has
+      been reinstated for <code>endian_buffer</code> and <code>endian_arithmetic</code>, but not for the
+      conversion functions.
+</td>
+</tr>
+</table>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">Support for user defined types (UDTs) is desirable, and should be provided where there would be no conflict with the other concerns.</dt>
 <dd>
 <p>Done. See <a href="#conversion_customization">Customization points for user-defined
@@ -4441,21 +4334,147 @@ mini-review.</p>
 </dd>
 <dt class="hdlist1">Other requested changes.</dt>
 <dd>
-<p> In addition to the named-endianness conversion functions, functions that
+<div class="ulist">
+<ul>
+<li>
+<p>In addition to the named-endianness conversion functions, functions that
 perform compile-time (via template) and run-time (via function argument)
-dispatch are now provided.
- <code>order*native</code> is now a synonym for <code>order*big</code> or <code>order*little</code> according
+dispatch are now provided.</p>
+</li>
+<li>
+<p><code>order::native</code> is now a synonym for <code>order::big</code> or <code>order::little</code> according
 to the endianness of the platform. This reduces the number of template
-specializations required.
- Headers have been reorganized to make them easier to read, with a synopsis
+specializations required.</p>
+</li>
+<li>
+<p>Headers have been reorganized to make them easier to read, with a synopsis
 at the front and implementation following.</p>
+</li>
+</ul>
+</div>
 </dd>
 </dl>
 </div>
 </div>
+<div class="sect3">
+<h4 id="apph_other_changes_since_formal_review">Other changes since formal review</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Header <code>boost/endian/endian.hpp</code> has been renamed to
+<code>boost/endian/arithmetic.hpp</code>. Headers
+<code>boost/endian/conversion.hpp</code> and <code>boost/endian/buffers.hpp</code> have been added.
+Infrastructure file names were changed accordingly.</p>
+</li>
+<li>
+<p>The endian arithmetic type aliases have been renamed, using a naming pattern
+that is consistent for both integer and floating point, and a consistent set of
+aliases supplied for the endian buffer types.</p>
+</li>
+<li>
+<p>The unaligned-type alias names still have the <code>_t</code> suffix, but the
+aligned-type alias names now have an <code>_at</code> suffix.</p>
+</li>
+<li>
+<p><code>endian_reverse()</code> overloads for <code>int8_t</code> and <code>uint8_t</code> have been added for
+improved generality. (Pierre Talbot)</p>
+</li>
+<li>
+<p>Overloads of <code>endian_reverse_inplace()</code> have been replaced with a single
+<code>endian_reverse_inplace()</code> template. (Pierre Talbot)</p>
+</li>
+<li>
+<p>For X86 and X64 architectures, which permit unaligned loads and stores,
+unaligned little endian buffer and arithmetic types use regular loads and
+stores when the size is exact. This makes unaligned little endian buffer and
+arithmetic types significantly more efficient on these architectures. (Jeremy
+Maitin-Shepard)</p>
+</li>
+<li>
+<p>C&#43;&#43;11 features affecting interfaces, such as <code>noexcept</code>, are now used.
+C&#43;&#43;03 compilers are still supported.</p>
+</li>
+<li>
+<p>Acknowledgements have been updated.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="apph_compatibility_with_interim_releases">Compatibility with interim releases</h3>
+<div class="paragraph">
+<p>Prior to the official Boost release, class template <code>endian_arithmetic</code> has been
+used for a decade or more with the same functionality but under the name
+<code>endian</code>. Other names also changed in the official release. If the macro
+<code>BOOST_ENDIAN_DEPRECATED_NAMES</code> is defined, those old now deprecated names are
+still supported. However, the class template <code>endian</code> name is only provided for
+compilers supporting C&#43;&#43;11 template aliases. For C&#43;&#43;03 compilers, the name
+will have to be changed to <code>endian_arithmetic</code>.</p>
+</div>
+<div class="paragraph">
+<p>To support backward header compatibility, deprecated header
+<code>boost/endian/endian.hpp</code> forwards to <code>boost/endian/arithmetic.hpp</code>. It requires
+<code>BOOST_ENDIAN_DEPRECATED_NAMES</code> be defined. It should only be used while
+transitioning to the official Boost release of the library as it will be removed
+in some future release.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="apph_future_directions">Future directions</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Standardization.</dt>
+<dd>
+<p>The plan is to submit Boost.Endian to the C&#43;&#43; standards committee for possible
+inclusion in a Technical Specification or the C&#43;&#43; standard itself.</p>
+</dd>
+<dt class="hdlist1">Specializations for <code>numeric_limits</code>.</dt>
+<dd>
+<p>Roger Leigh requested that all <code>boost::endian</code> types provide <code>numeric_limits</code>
+specializations.
+See <a href="https://github.com/boostorg/endian/issues/4">GitHub issue 4</a>.</p>
+</dd>
+<dt class="hdlist1">Character buffer support.</dt>
+<dd>
+<p>Peter Dimov pointed out during the mini-review that getting and setting basic
+arithmetic types (or <code>&lt;cstdint&gt;</code> equivalents) from/to an offset into an array of
+unsigned char is a common need. See
+<a href="http://lists.boost.org/Archives/boost/2015/01/219574.php">Boost.Endian
+mini-review posting</a>.</p>
+</dd>
+<dt class="hdlist1">Out-of-range detection.</dt>
+<dd>
+<p>Peter Dimov pointed suggested during the mini-review that throwing an exception
+on buffer values being out-of-range might be desirable. See the end of
+<a href="http://lists.boost.org/Archives/boost/2015/01/219659.php">this posting</a> and
+subsequent replies.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="apph_acknowledgements">Acknowledgements</h3>
+<div class="paragraph">
+<p>Comments and suggestions were received from Adder, Benaka Moorthi, Christopher
+Kohlhoff, Cliff Green, Daniel James, Dave Handley, Gennaro Proto, Giovanni Piero
+Deretta, Gordon Woodhull, dizzy, Hartmut Kaiser, Howard Hinnant, Jason Newton,
+Jeff Flinn, Jeremy Maitin-Shepard, John Filo, John Maddock, Kim Barrett, Marsh
+Ray, Martin Bonner, Mathias Gaunard, Matias Capeletto, Neil Mayhew, Nevin Liber,
+Olaf van der Spek, Paul Bristow, Peter Dimov, Pierre Talbot, Phil Endecott,
+Philip Bennefall, Pyry Jahkola, Rene Rivera, Robert Stewart, Roger Leigh, Roland
+Schwarz, Scott McMurray, Sebastian Redl, Tim Blechmann, Tim Moore, tymofey,
+Tomas Puverle, Vincente Botet, Yuval Ronen and Vitaly Budovsk. Apologies if
+anyone has been missed.</p>
+</div>
+<div class="paragraph">
+<p>The documentation was converted into Asciidoc format by Glen Fernandes.</p>
+</div>
+</div>
+</div>
 </div>
 <div class="sect1">
-<h2 id="choosing_copyright_and_license">Appendix B: Copyright and License</h2>
+<h2 id="apph_copyright_and_license">Appendix B: Copyright and License</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This documentation is</p>
@@ -4478,7 +4497,7 @@ at the front and implementation following.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-12-10 00:18:50 UTC
+Last updated 2020-04-22 13:35:00 UTC
 </div>
 </div>
 <style>

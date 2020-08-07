@@ -283,6 +283,7 @@ geometry/reference/iterators/ever_circling_iterator.html
 geometry/reference/models.html
 geometry/reference/models/model_point.html
 geometry/reference/models/model_d2_point_xy.html
+geometry/reference/models/model_d3_point_xyz.html
 geometry/reference/models/model_linestring.html
 geometry/reference/models/model_polygon.html
 geometry/reference/models/model_multi_point.html

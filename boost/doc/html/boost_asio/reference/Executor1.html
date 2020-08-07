@@ -1,6 +1,6 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Executor requirements</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
@@ -55,7 +55,7 @@
         <code class="computeroutput">post</code>, or <code class="computeroutput">defer</code> on an invalid executor is undefined.
         [<span class="emphasis"><em>Note:</em></span> The copy constructor, comparison operators, and
         <code class="computeroutput">context()</code> member function continue to remain valid until <code class="computeroutput">ctx</code>
-        is destroyed. &#8212;<span class="emphasis"><em>end note</em></span>]
+        is destroyed. —<span class="emphasis"><em>end note</em></span>]
       </p>
 <p>
         In the table below, <code class="computeroutput">x1</code> and <code class="computeroutput">x2</code> denote (possibly
@@ -67,7 +67,7 @@
         and <code class="computeroutput">u</code> denotes an identifier.
       </p>
 <div class="table">
-<a name="boost_asio.reference.Executor1.t0"></a><p class="title"><b>Table&#160;15.&#160;Executor requirements</b></p>
+<a name="boost_asio.reference.Executor1.t0"></a><p class="title"><b>Table 15. Executor requirements</b></p>
 <div class="table-contents"><table class="table" summary="Executor requirements">
 <colgroup>
 <col>
@@ -140,7 +140,7 @@
                   can be interchanged with identical effects in any of the expressions
                   defined in these type requirements. [<span class="emphasis"><em>Note:</em></span>
                   Returning <code class="computeroutput">false</code> does not necessarily imply that the
-                  effects are not identical. &#8212;<span class="emphasis"><em>end note</em></span>] <br>
+                  effects are not identical. —<span class="emphasis"><em>end note</em></span>] <br>
                   <br> <code class="computeroutput">operator==</code> shall be reflexive, symmetric, and
                   transitive, and shall not exit via an exception.
                 </p>
@@ -232,7 +232,7 @@
                   function object. Prior to invoking the function object, the executor
                   shall deallocate any memory allocated. [<span class="emphasis"><em>Note:</em></span>
                   Executors defined in this Technical Specification always use the
-                  supplied allocator unless otherwise specified. &#8212;<span class="emphasis"><em>end note</em></span>]
+                  supplied allocator unless otherwise specified. —<span class="emphasis"><em>end note</em></span>]
                   <br> <br> Synchronization: The invocation of <code class="computeroutput">dispatch</code>
                   synchronizes with (C++Std [intro.multithread]) the invocation of
                   <code class="computeroutput">f1</code>.
@@ -258,7 +258,7 @@
                   the function object, the executor shall deallocate any memory allocated.
                   [<span class="emphasis"><em>Note:</em></span> Executors defined in this Technical
                   Specification always use the supplied allocator unless otherwise
-                  specified. &#8212;<span class="emphasis"><em>end note</em></span>] <br> <br> Synchronization:
+                  specified. —<span class="emphasis"><em>end note</em></span>] <br> <br> Synchronization:
                   The invocation of <code class="computeroutput">post</code> or <code class="computeroutput">defer</code> synchronizes
                   with (C++Std [intro.multithread]) the invocation of <code class="computeroutput">f1</code>.<br>
                   <br> [<span class="emphasis"><em>Note:</em></span> Although the requirements placed
@@ -271,7 +271,7 @@
                   caller that <code class="literal">f1</code> is a continuation of the current
                   call context. The executor may use this information to optimize
                   or otherwise adjust the way in which <code class="computeroutput">f1</code> is invoked.
-                  &#8212;<span class="emphasis"><em>end note</em></span>]
+                  —<span class="emphasis"><em>end note</em></span>]
                 </p>
               </td>
 </tr>
@@ -282,7 +282,8 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2019 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2020 Christopher M.
+      Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

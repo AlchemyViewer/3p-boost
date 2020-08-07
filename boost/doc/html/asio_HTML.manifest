@@ -2670,6 +2670,7 @@ boost_asio/reference/ssl__context/clear_options/overload2.html
 boost_asio/reference/ssl__context/context.html
 boost_asio/reference/ssl__context/context/overload1.html
 boost_asio/reference/ssl__context/context/overload2.html
+boost_asio/reference/ssl__context/context/overload3.html
 boost_asio/reference/ssl__context/default_workarounds.html
 boost_asio/reference/ssl__context/file_format.html
 boost_asio/reference/ssl__context/load_verify_file.html
@@ -2757,6 +2758,10 @@ boost_asio/reference/ssl__error__get_stream_category.html
 boost_asio/reference/ssl__error__make_error_code.html
 boost_asio/reference/ssl__error__stream_category.html
 boost_asio/reference/ssl__error__stream_errors.html
+boost_asio/reference/ssl__host_name_verification.html
+boost_asio/reference/ssl__host_name_verification/host_name_verification.html
+boost_asio/reference/ssl__host_name_verification/operator_lp__rp_.html
+boost_asio/reference/ssl__host_name_verification/result_type.html
 boost_asio/reference/ssl__rfc2818_verification.html
 boost_asio/reference/ssl__rfc2818_verification/operator_lp__rp_.html
 boost_asio/reference/ssl__rfc2818_verification/result_type.html
