@@ -18,6 +18,7 @@ extern "C" {
 #include <sys/syscall.h>
 }
 #elif BOOST_OS_WINDOWS
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #endif
 

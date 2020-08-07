@@ -16,6 +16,7 @@
 #include <boost/fiber/detail/config.hpp>
 
 #if BOOST_COMP_MSVC || BOOST_COMP_MSVC_EMULATED
+#define WIN32_LEAN_AND_MEAN
 # include <windows.h>
 #endif
 
