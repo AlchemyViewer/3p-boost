@@ -25,6 +25,8 @@ headers-compile-test [ glob ../include/boost/qvm/*.hpp ]
         qvm
     ;
 
+run math_test.cpp ;
+
 run mat_traits_array_test.cpp ;
 run vec_traits_array_test.cpp ;
 run quat_traits_array_test.cpp ;
@@ -64,6 +66,7 @@ run plus_eq_vv_test.cpp ;
 run plus_vv_test.cpp ;
 run scalar_cast_v_test.cpp ;
 run vec_index_test.cpp ;
+run vec_register_test.cpp ;
 
 run cmp_mm_test.cpp ;
 run determinant_test.cpp ;

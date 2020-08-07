@@ -9,7 +9,7 @@
 #include <boost/math/tools/test.hpp>
 #define BOOST_TEST_MAIN
 #include <boost/test/unit_test.hpp>
-#include <boost/test/floating_point_comparison.hpp>
+#include <boost/test/tools/floating_point_comparison.hpp>
 #include <boost/math/special_functions/next.hpp>
 #include <boost/math/special_functions/ulp.hpp>
 #include <boost/multiprecision/cpp_bin_float.hpp>
@@ -189,7 +189,7 @@ void test_values(const T& val, const char* name)
       }
    }
    //
-   // We need to test float_distance over mulyiple orders of magnitude,
+   // We need to test float_distance over multiple orders of magnitude,
    // the only way to get an accurate true result is to count the representations
    // between the two end points, but we can only really do this for type float:
    //
@@ -245,13 +245,6 @@ BOOST_AUTO_TEST_CASE( test_main )
    test_values(boost::multiprecision::cpp_bin_float_50(0), "cpp_bin_float_50");
 
 #if defined(TEST_SSE2)
-
-#ifdef _MSC_VER
-#  pragma message("Compiling SSE2 test code")
-#endif
-#ifdef __GNUC__
-#  pragma message "Compiling SSE2 test code"
-#endif
 
    int mmx_flags = _mm_getcsr(); // We'll restore these later.
 

@@ -1,6 +1,6 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ip::tcp::acceptor</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
@@ -54,6 +54,18 @@ The TCP acceptor type.
                 </th>
 </tr></thead>
 <tbody>
+<tr>
+<td>
+                  <p>
+                    <a class="link" href="../basic_socket_acceptor__rebind_executor.html" title="basic_socket_acceptor::rebind_executor"><span class="bold"><strong>rebind_executor</strong></span></a>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Rebinds the acceptor type to another executor.
+                  </p>
+                </td>
+</tr>
 <tr>
 <td>
                   <p>
@@ -331,10 +343,8 @@ The TCP acceptor type.
                 </td>
 <td>
                   <p>
-                    Accept a new connection.
-                  </p>
-                  <p>
-                    Accept a new connection and obtain the endpoint of the peer.
+                    Accept a new connection. <br> <span class="silver"> —</span><br> Accept a new connection
+                    and obtain the endpoint of the peer.
                   </p>
                 </td>
 </tr>
@@ -383,23 +393,13 @@ The TCP acceptor type.
                 </td>
 <td>
                   <p>
-                    Construct an acceptor without opening it.
-                  </p>
-                  <p>
-                    Construct an open acceptor.
-                  </p>
-                  <p>
-                    Construct an acceptor opened on the given endpoint.
-                  </p>
-                  <p>
-                    Construct a basic_socket_acceptor on an existing native acceptor.
-                  </p>
-                  <p>
-                    Move-construct a basic_socket_acceptor from another.
-                  </p>
-                  <p>
-                    Move-construct a basic_socket_acceptor from an acceptor of another
-                    protocol type.
+                    Construct an acceptor without opening it. <br> <span class="silver"> —</span><br> Construct
+                    an open acceptor. <br> <span class="silver"> —</span><br> Construct an acceptor opened
+                    on the given endpoint. <br> <span class="silver"> —</span><br> Construct a basic_socket_acceptor
+                    on an existing native acceptor. <br> <span class="silver"> —</span><br> Move-construct
+                    a basic_socket_acceptor from another. <br> <span class="silver"> —</span><br> Move-construct
+                    a basic_socket_acceptor from an acceptor of another protocol
+                    type.
                   </p>
                 </td>
 </tr>
@@ -448,32 +448,6 @@ The TCP acceptor type.
 <td>
                   <p>
                     Get the executor associated with the object.
-                  </p>
-                </td>
-</tr>
-<tr>
-<td>
-                  <p>
-                    <a class="link" href="../basic_socket_acceptor/get_io_context.html" title="basic_socket_acceptor::get_io_context"><span class="bold"><strong>get_io_context</strong></span></a>
-                  </p>
-                </td>
-<td>
-                  <p>
-                    (Deprecated: Use get_executor().) Get the io_context associated
-                    with the object.
-                  </p>
-                </td>
-</tr>
-<tr>
-<td>
-                  <p>
-                    <a class="link" href="../basic_socket_acceptor/get_io_service.html" title="basic_socket_acceptor::get_io_service"><span class="bold"><strong>get_io_service</strong></span></a>
-                  </p>
-                </td>
-<td>
-                  <p>
-                    (Deprecated: Use get_executor().) Get the io_context associated
-                    with the object.
                   </p>
                 </td>
 </tr>
@@ -559,9 +533,8 @@ The TCP acceptor type.
 <td>
                   <p>
                     Gets the non-blocking mode of the native acceptor implementation.
-                  </p>
-                  <p>
-                    Sets the non-blocking mode of the native acceptor implementation.
+                    <br> <span class="silver"> —</span><br> Sets the non-blocking mode of the native acceptor
+                    implementation.
                   </p>
                 </td>
 </tr>
@@ -573,10 +546,8 @@ The TCP acceptor type.
                 </td>
 <td>
                   <p>
-                    Gets the non-blocking mode of the acceptor.
-                  </p>
-                  <p>
-                    Sets the non-blocking mode of the acceptor.
+                    Gets the non-blocking mode of the acceptor. <br> <span class="silver"> —</span><br> Sets
+                    the non-blocking mode of the acceptor.
                   </p>
                 </td>
 </tr>
@@ -600,9 +571,7 @@ The TCP acceptor type.
                 </td>
 <td>
                   <p>
-                    Move-assign a basic_socket_acceptor from another.
-                  </p>
-                  <p>
+                    Move-assign a basic_socket_acceptor from another. <br> <span class="silver"> —</span><br>
                     Move-assign a basic_socket_acceptor from an acceptor of another
                     protocol type.
                   </p>
@@ -777,7 +746,7 @@ The TCP acceptor type.
 <p>
           Opening a socket acceptor with the SO_REUSEADDR option enabled:
         </p>
-<pre class="programlisting">boost::asio::ip::tcp::acceptor acceptor(io_context);
+<pre class="programlisting">boost::asio::ip::tcp::acceptor acceptor(my_context);
 boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::tcp::v4(), port);
 acceptor.open(endpoint.protocol());
 acceptor.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
@@ -797,7 +766,8 @@ acceptor.listen();
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2003-2018 Christopher M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2020 Christopher M.
+      Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

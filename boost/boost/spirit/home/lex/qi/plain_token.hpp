@@ -26,7 +26,8 @@
 #include <boost/mpl/and.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_enum.hpp>
-#include <boost/lexical_cast.hpp>
+#include <iterator> // for std::iterator_traits
+#include <sstream>
 
 namespace boost { namespace spirit
 {
@@ -102,7 +103,7 @@ namespace boost { namespace spirit { namespace qi
                 // been initialized with
 
                 typedef typename
-                    boost::detail::iterator_traits<Iterator>::value_type
+                    std::iterator_traits<Iterator>::value_type
                 token_type;
                 typedef typename token_type::id_type id_type;
 
@@ -119,8 +120,9 @@ namespace boost { namespace spirit { namespace qi
         template <typename Context>
         info what(Context& /*context*/) const
         {
-            return info("token",
-                "token(" + boost::lexical_cast<utf8_string>(id) + ")");
+            std::stringstream ss;
+            ss << "token(" << id << ")";
+            return info("token", ss.str());
         }
 
         TokenId id;
@@ -154,7 +156,7 @@ namespace boost { namespace spirit { namespace qi
                 // been initialized with
 
                 typedef typename
-                    boost::detail::iterator_traits<Iterator>::value_type
+                    std::iterator_traits<Iterator>::value_type
                 token_type;
                 typedef typename token_type::id_type id_type;
 
@@ -172,12 +174,9 @@ namespace boost { namespace spirit { namespace qi
         template <typename Context>
         info what(Context& /*context*/) const
         {
-            return info("token_range"
-              , "token(" +
-                    boost::lexical_cast<utf8_string>(idmin) + ", " +
-                    boost::lexical_cast<utf8_string>(idmax) + ")"
-            );
-            return info("token_range");
+            std::stringstream ss;
+            ss << "token(" << idmin << ", " << idmax << ")";
+            return info("token_range", ss.str());
         }
 
         TokenId idmin, idmax;

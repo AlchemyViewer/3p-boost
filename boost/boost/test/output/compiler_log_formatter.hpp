@@ -16,6 +16,8 @@
 #include <boost/test/detail/global_typedef.hpp>
 #include <boost/test/unit_test_log_formatter.hpp>
 
+#include <boost/test/utils/setcolor.hpp>
+
 #include <boost/test/detail/suppress_warnings.hpp>
 
 //____________________________________________________________________________//
@@ -31,12 +33,12 @@ namespace output {
 //!@brief Log formatter for the Human Readable Format (HRF) log format
 class BOOST_TEST_DECL compiler_log_formatter : public unit_test_log_formatter {
 public:
-    compiler_log_formatter() : m_color_output( false ) {}
+    compiler_log_formatter() : m_color_output( false ), m_color_state() {}
 
     // Formatter interface
     void    log_start( std::ostream&, counter_t test_cases_amount );
     void    log_finish( std::ostream& );
-    void    log_build_info( std::ostream& );
+    void    log_build_info( std::ostream&, bool );
 
     void    test_unit_start( std::ostream&, test_unit const& tu );
     void    test_unit_finish( std::ostream&, test_unit const& tu, unsigned long elapsed );
@@ -59,6 +61,7 @@ protected:
 
     // Data members
     bool    m_color_output;
+    utils::setcolor::state m_color_state;
 };
 
 } // namespace output

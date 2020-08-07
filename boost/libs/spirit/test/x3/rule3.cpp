@@ -5,13 +5,11 @@
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
 
-// this file deliberately contains non-ascii characters
-// boostinspect:noascii
-
 #include <boost/detail/lightweight_test.hpp>
 #include <boost/spirit/home/x3.hpp>
 #include <boost/fusion/include/std_pair.hpp>
 
+#include <boost/variant.hpp>
 #include <string>
 #include <cstring>
 #include <iostream>
@@ -28,6 +26,44 @@ struct f
     }
 };
 
+
+struct stationary : boost::noncopyable
+{
+    explicit stationary(int i) : val{i} {}
+    stationary& operator=(int i) { val = i; return *this; }
+
+    int val;
+};
+
+
+namespace check_stationary {
+
+boost::spirit::x3::rule<class a_r, stationary> const a;
+boost::spirit::x3::rule<class b_r, stationary> const b;
+
+auto const a_def = '{' >> boost::spirit::x3::int_ >> '}';
+auto const b_def = a;
+
+BOOST_SPIRIT_DEFINE(a, b)
+
+}
+
+namespace check_recursive {
+
+using node_t = boost::make_recursive_variant<
+                   int,
+                   std::vector<boost::recursive_variant_>
+               >::type;
+
+boost::spirit::x3::rule<class grammar_r, node_t> const grammar;
+
+auto const grammar_def = '[' >> grammar % ',' >> ']' | boost::spirit::x3::int_;
+
+BOOST_SPIRIT_DEFINE(grammar)
+
+}
+
+
 int main()
 {
     using spirit_test::test_attr;
@@ -35,8 +71,9 @@ int main()
 
     using namespace boost::spirit::x3::ascii;
     using boost::spirit::x3::rule;
-    using boost::spirit::x3::int_;
     using boost::spirit::x3::lit;
+    using boost::spirit::x3::eps;
+    using boost::spirit::x3::unused_type;
 
 
     { // synth attribute value-init
@@ -67,6 +104,28 @@ int main()
 
         BOOST_TEST(test_attr("abcdef", +rdef, s));
         BOOST_TEST(s == "abcdef");
+    }
+
+    {
+        auto r = rule<class r, int>{} = eps[([] (auto& ctx) {
+            using boost::spirit::x3::_val;
+            static_assert(std::is_same<std::decay_t<decltype(_val(ctx))>, unused_type>::value,
+                "Attribute must not be synthesized");
+        })];
+        BOOST_TEST(test("", r));
+    }
+
+    { // ensure no unneeded synthesization, copying and moving occurred
+        stationary st { 0 };
+        BOOST_TEST(test_attr("{42}", check_stationary::b, st));
+        BOOST_TEST_EQ(st.val, 42);
+    }
+
+    {
+        using namespace check_recursive;
+        node_t v;
+        BOOST_TEST(test_attr("[4,2]", grammar, v));
+        BOOST_TEST((node_t{std::vector<node_t>{{4}, {2}}} == v));
     }
 
     return boost::report_errors();

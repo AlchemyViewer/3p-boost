@@ -1,6 +1,6 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Boost Macro Reference</title>
 <link rel="stylesheet" href="../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
@@ -43,6 +43,8 @@
       that allow use of C++14 features with C++11 or earlier compilers</a></span></dt>
 <dt><span class="section"><a href="boost_macro_reference.html#boost_config.boost_macro_reference.macros_that_describe_c__17_features_not_supported">Macros
       that describe C++17 features not supported</a></span></dt>
+<dt><span class="section"><a href="boost_macro_reference.html#boost_config.boost_macro_reference.macros_that_allow_use_of_c__17_features_with_c__14_or_earlier_compilers">Macros
+      that allow use of C++17 features with C++14 or earlier compilers</a></span></dt>
 <dt><span class="section"><a href="boost_macro_reference.html#boost_config.boost_macro_reference.macros_that_describe_features_that_have_been_removed_from_the_standard_">Macros
       that describe features that have been removed from the standard.</a></span></dt>
 <dt><span class="section"><a href="boost_macro_reference.html#boost_config.boost_macro_reference.boost_helper_macros">Boost
@@ -2758,6 +2760,19 @@
 <tr>
 <td>
                 <p>
+                  <code class="computeroutput"><span class="identifier">BOOST_NO_CXX11_HDR_EXCEPTION</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  The standard library does not provide a C++11 compatible version
+                  of &lt;exception&gt;.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
                   <code class="computeroutput"><span class="identifier">BOOST_NO_CXX11_HDR_FORWARD_LIST</span></code>
                 </p>
               </td>
@@ -3237,6 +3252,20 @@
 <tr>
 <td>
                 <p>
+                  <code class="computeroutput"><span class="identifier">BOOST_NO_CXX11_UNRESTRICTED_UNION</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  The compiler does not support an unrestricted union. This is a
+                  union that may contain static data as well as user-defined member
+                  data with non-trivial special member functions.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
                   <code class="computeroutput"><span class="identifier">BOOST_NO_CXX11_USER_DEFINED_LITERALS</span></code>
                 </p>
               </td>
@@ -3546,6 +3575,20 @@
 <tr>
 <td>
                 <p>
+                  <code class="computeroutput"><span class="identifier">BOOST_FINAL</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  If <code class="computeroutput"><span class="identifier">BOOST_NO_CXX11_FINAL</span></code>
+                  is not defined (i.e. C++11 compliant compilers), expands to <code class="computeroutput"><span class="identifier">final</span></code> keyword, otherwise expands
+                  to nothing.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
                   <code class="computeroutput"><span class="identifier">BOOST_MSVC_ENABLE_2012_NOV_CTP</span></code>
                 </p>
               </td>
@@ -3785,8 +3828,10 @@
               </td>
 <td>
                 <p>
-                  This macro works similar to BOOST_CONSTEXPR, but expands to <code class="computeroutput"><span class="keyword">constexpr</span></code> only if the C++14 "relaxed"
-                  <code class="computeroutput"><span class="keyword">constexpr</span></code> is available.
+                  This macro works similar to <code class="computeroutput"><span class="identifier">BOOST_CONSTEXPR</span></code>,
+                  but expands to <code class="computeroutput"><span class="keyword">constexpr</span></code>
+                  only if the C++14 "relaxed" <code class="computeroutput"><span class="keyword">constexpr</span></code>
+                  is available.
                 </p>
               </td>
 </tr></tbody>
@@ -3822,6 +3867,42 @@
 <tr>
 <td>
                 <p>
+                  <code class="computeroutput"><span class="identifier">BOOST_NO_CXX17_HDR_OPTIONAL</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  The compiler does not support the header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">optional</span><span class="special">&gt;</span></code>.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="identifier">BOOST_NO_CXX17_HDR_VARIANT</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  The compiler does not support the header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">variant</span><span class="special">&gt;</span></code>.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="identifier">BOOST_NO_CXX17_HDR_STRING_VIEW</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  The compiler does not support the header <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">string_view</span><span class="special">&gt;</span></code>.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
                   <code class="computeroutput"><span class="identifier">BOOST_NO_CXX17_STD_APPLY</span></code>
                 </p>
               </td>
@@ -3852,6 +3933,104 @@
 <td>
                 <p>
                   The compiler does not support SFINAE-friendly <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">iterator_traits</span></code>.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="identifier">BOOST_NO_CXX17_IF_CONSTEXPR</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  The compiler does not support <code class="computeroutput"><span class="keyword">if</span>
+                  <span class="keyword">constexpr</span></code>.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="identifier">BOOST_NO_CXX17_INLINE_VARIABLES</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  The compiler does not support <code class="computeroutput"><span class="keyword">inline</span></code>
+                  variables.
+                </p>
+              </td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="boost_config.boost_macro_reference.macros_that_allow_use_of_c__17_features_with_c__14_or_earlier_compilers"></a><a name="config_17_for_14"></a><a class="link" href="boost_macro_reference.html#boost_config.boost_macro_reference.macros_that_allow_use_of_c__17_features_with_c__14_or_earlier_compilers" title="Macros that allow use of C++17 features with C++14 or earlier compilers">Macros
+      that allow use of C++17 features with C++14 or earlier compilers</a>
+</h3></div></div></div>
+<p>
+        The following macros allow use of C++17 features even with compilers that
+        do not yet provide compliant C++17 support.
+      </p>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                <p>
+                  Macro
+                </p>
+              </th>
+<th>
+                <p>
+                  Description
+                </p>
+              </th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="identifier">BOOST_INLINE_VARIABLE</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  This macro expands to <code class="computeroutput"><span class="keyword">inline</span></code>
+                  on compilers that support C++17 inline variables and to nothing
+                  otherwise. Users may need to check for <code class="computeroutput"><span class="identifier">BOOST_NO_CXX17_INLINE_VARIABLES</span></code>
+                  for further adjustments to the code.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="identifier">BOOST_IF_CONSTEXPR</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  Expands to <code class="computeroutput"><span class="keyword">if</span> <span class="keyword">constexpr</span></code>
+                  when supported, or <code class="computeroutput"><span class="keyword">if</span></code>
+                  otherwise.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="identifier">BOOST_INLINE_CONSTEXPR</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  This is a shortcut for <code class="computeroutput"><span class="identifier">BOOST_INLINE_VARIABLE</span>
+                  <span class="identifier">BOOST_CONSTEXPR_OR_CONST</span></code>.
                 </p>
               </td>
 </tr>
@@ -4526,6 +4705,33 @@
                   Expands to <code class="computeroutput"><span class="identifier">__attribute__</span><span class="special">((</span><span class="identifier">unused</span><span class="special">))</span></code> when this is available - can
                   be used to disable compiler warnings relating to unused types or
                   variables.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="identifier">BOOST_ATTRIBUTE_NODISCARD</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  Expands to <code class="computeroutput"><span class="special">[[</span><span class="identifier">nodiscard</span><span class="special">]]</span></code> when this is available - can
+                  be used to create a warning when a type or variable is unused.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="identifier">BOOST_ATTRIBUTE_NO_UNIQUE_ADDRESS</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  Expands to <code class="computeroutput"><span class="special">[[</span><span class="identifier">no_unique_address</span><span class="special">]]</span></code> when this is available - can
+                  be used to indicate that a non-static data member need not have
+                  a unique address (for example empty classes).
                 </p>
               </td>
 </tr>
@@ -6252,6 +6458,24 @@
                 Optional: when set the header will print out the name of the library
                 selected (useful for debugging).
               </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">BOOST_AUTO_LINK_NOMANGLE</span></code></span></dt>
+<dd><p>
+                Optional: whan set specifies that we should link to BOOST_LIB_NAME.lib,
+                rather than a mangled-name version.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">BOOST_AUTO_LINK_TAGGED</span></code></span></dt>
+<dd><p>
+                Optional: Specifies that we link to libraries built with the --layout=tagged
+                option. This is essentially the same as the default name-mangled
+                version, but without the compiler name and version, or the Boost
+                version. Just the build options.
+              </p></dd>
+<dt><span class="term"><code class="computeroutput"><span class="identifier">BOOST_AUTO_LINK_SYSTEM</span></code></span></dt>
+<dd><p>
+                Optional: Specifies that we link to libraries built with the --layout=system
+                option. This is essentially the same as the non-name-mangled version,
+                but with the prefix to differentiate static and dll builds
+              </p></dd>
 </dl>
 </div>
 <p>
@@ -6295,7 +6519,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2001-2007 Beman Dawes, Vesa Karvonen, John
+<td align="right"><div class="copyright-footer">Copyright © 2001-2007 Beman Dawes, Vesa Karvonen, John
       Maddock<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)

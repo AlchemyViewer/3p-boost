@@ -1,10 +1,10 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>http::make_chunk</title>
 <link rel="stylesheet" href="../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Beast">
+<link rel="home" href="../../index.html" title="Chapter 1. Boost.Beast">
 <link rel="up" href="../ref.html" title="This Page Intentionally Left Blank 2/2">
 <link rel="prev" href="boost__beast__http__is_fields.html" title="http::is_fields">
 <link rel="next" href="boost__beast__http__make_chunk_last.html" title="http::make_chunk_last">
@@ -27,8 +27,10 @@
 <a name="beast.ref.boost__beast__http__make_chunk"></a><a class="link" href="boost__beast__http__make_chunk.html" title="http::make_chunk">http::make_chunk</a>
 </h4></div></div></div>
 <p>
-        <a class="indexterm" name="idp112957792"></a>
-Returns a <a class="link" href="boost__beast__http__chunk_body.html" title="http::chunk_body"><code class="computeroutput"><span class="identifier">http</span><span class="special">::</span><span class="identifier">chunk_body</span></code></a>.
+        <a class="indexterm" name="idm45387142499472"></a>
+      </p>
+<p>
+        Returns a <a class="link" href="boost__beast__http__chunk_body.html" title="http::chunk_body"><code class="computeroutput"><span class="identifier">chunk_body</span></code></a>.
       </p>
 <h5>
 <a name="beast.ref.boost__beast__http__make_chunk.h0"></a>
@@ -38,7 +40,7 @@ Returns a <a class="link" href="boost__beast__http__chunk_body.html" title="http
         Defined in header <code class="literal">&lt;<a href="../../../../../../boost/beast/http/chunk_encode.hpp" target="_top">boost/beast/http/chunk_encode.hpp</a>&gt;</code>
       </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
-    <span class="keyword">class</span> <a href="../../../../../../doc/html/boost_asio/reference/ConstBufferSequence.html" target="_top"><span class="bold"><strong>ConstBufferSequence</strong></span></a><span class="special">,</span>
+    <span class="keyword">class</span> <a href="../../../../../../doc/html/boost_asio/reference/ConstBufferSequence.html" target="_top"><span class="emphasis"><em>ConstBufferSequence</em></span></a><span class="special">,</span>
     <span class="keyword">class</span><span class="special">...</span> <span class="identifier">Args</span><span class="special">&gt;</span>
 <span class="keyword">auto</span>
 <span class="identifier">make_chunk</span><span class="special">(</span>
@@ -50,7 +52,7 @@ Returns a <a class="link" href="boost__beast__http__chunk_body.html" title="http
         <span class="phrase"><a name="beast.ref.boost__beast__http__make_chunk.description"></a></span><a class="link" href="boost__beast__http__make_chunk.html#beast.ref.boost__beast__http__make_chunk.description">Description</a>
       </h5>
 <p>
-        This functions constructs and returns a complete <a class="link" href="boost__beast__http__chunk_body.html" title="http::chunk_body"><code class="computeroutput"><span class="identifier">http</span><span class="special">::</span><span class="identifier">chunk_body</span></code></a> for a chunk body represented
+        This functions constructs and returns a complete <a class="link" href="boost__beast__http__chunk_body.html" title="http::chunk_body"><code class="computeroutput"><span class="identifier">chunk_body</span></code></a> for a chunk body represented
         by the specified buffer sequence.
       </p>
 <h5>
@@ -95,8 +97,7 @@ Returns a <a class="link" href="boost__beast__http__chunk_body.html" title="http
               </td>
 <td>
                 <p>
-                  Optional arguments passed to the <span class="red">chunk_body</span>
-                  constructor.
+                  Optional arguments passed to the <a class="link" href="boost__beast__http__chunk_body.html" title="http::chunk_body"><code class="computeroutput"><span class="identifier">chunk_body</span></code></a> constructor.
                 </p>
               </td>
 </tr>
@@ -110,13 +111,11 @@ Returns a <a class="link" href="boost__beast__http__chunk_body.html" title="http
         This function is provided as a notational convenience to omit specification
         of the class template arguments.
       </p>
-<p>
-        Convenience header <code class="literal">&lt;<a href="../../../../../../boost/beast/http.hpp" target="_top">boost/beast/http.hpp</a>&gt;</code>
-      </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2016, 2017 Vinnie Falco<p>
+<td align="right"><div class="copyright-footer">Copyright © 2016-2019 Vinnie
+      Falco<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

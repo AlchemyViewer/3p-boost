@@ -17,11 +17,12 @@
 
 // Boost.Test
 #include <boost/test/detail/config.hpp>
-#include <boost/test/detail/workaround.hpp>
 #include <boost/test/detail/global_typedef.hpp>
 
 #include <boost/test/debug.hpp>
 #include <boost/test/debug_config.hpp>
+
+#include <boost/core/ignore_unused.hpp>
 
 // Implementation on Windows
 #if defined(_WIN32) && !defined(UNDER_CE) && !defined(BOOST_DISABLE_WIN32) // ******* WIN32
@@ -83,7 +84,7 @@ namespace std { using ::memset; using ::sprintf; }
 
 #    include <procfs.h>
 
-#  elif defined(linux) || defined(__linux)
+#  elif defined(linux) || defined(__linux__)
 
 #    define BOOST_LINUX_BASED_DEBUG
 
@@ -421,7 +422,9 @@ prepare_gdb_cmnd_file( dbg_startup_info const& dsi )
     static char cmd_file_name[] = "/tmp/btl_gdb_cmd_XXXXXX"; // !! ??
 
     // prepare commands
+    const mode_t cur_umask = ::umask( S_IRWXO | S_IRWXG );
     fd_holder cmd_fd( ::mkstemp( cmd_file_name ) );
+    ::umask( cur_umask );
 
     if( cmd_fd == -1 )
         return 0;
@@ -768,7 +771,7 @@ struct safe_handle_helper
         }
     }
 
-    ~safe_handle_helper() 
+    ~safe_handle_helper()
     {
         close_handle();
     }
@@ -804,7 +807,7 @@ attach_debugger( bool break_or_continue )
 
     if( !dbg_init_done_ev )
         return false;
-        
+
     safe_handle_helper safe_handle_obj( dbg_init_done_ev );
 
     // *************************************************** //
@@ -822,7 +825,7 @@ attach_debugger( bool break_or_continue )
     DWORD format_size = MAX_CMD_LINE;
     DWORD type = REG_SZ;
 
-    bool b_read_key = s_info.m_reg_query_value && 
+    bool b_read_key = s_info.m_reg_query_value &&
           ((*s_info.m_reg_query_value)(
             reg_key,                            // handle of open key
             "Debugger",                         // name of subkey to query
@@ -833,7 +836,7 @@ attach_debugger( bool break_or_continue )
 
     if( !s_info.m_reg_close_key || (*s_info.m_reg_close_key)( reg_key ) != ERROR_SUCCESS )
         return false;
-        
+
     if( !b_read_key )
         return false;
 
@@ -889,7 +892,9 @@ attach_debugger( bool break_or_continue )
 #elif defined(BOOST_UNIX_BASED_DEBUG) // ********************** UNIX
 
     char init_done_lock_fn[] = "/tmp/btl_dbg_init_done_XXXXXX";
+    const mode_t cur_umask = ::umask( S_IRWXO | S_IRWXG );
     fd_holder init_done_lock_fd( ::mkstemp( init_done_lock_fn ) );
+    ::umask( cur_umask );
 
     if( init_done_lock_fd == -1 )
         return false;
@@ -953,7 +958,7 @@ attach_debugger( bool break_or_continue )
 void
 detect_memory_leaks( bool on_off, unit_test::const_string report_file )
 {
-    unit_test::ut_detail::ignore_unused_variable_warning( on_off );
+    boost::ignore_unused( on_off );
 
 #ifdef BOOST_MS_CRT_BASED_DEBUG
     int flags = _CrtSetDbgFlag( _CRTDBG_REPORT_FLAG );
@@ -975,7 +980,7 @@ detect_memory_leaks( bool on_off, unit_test::const_string report_file )
 
     _CrtSetDbgFlag ( flags );
 #else
-    unit_test::ut_detail::ignore_unused_variable_warning( report_file );
+    boost::ignore_unused( report_file );
 #endif // BOOST_MS_CRT_BASED_DEBUG
 }
 
@@ -989,7 +994,7 @@ detect_memory_leaks( bool on_off, unit_test::const_string report_file )
 void
 break_memory_alloc( long mem_alloc_order_num )
 {
-    unit_test::ut_detail::ignore_unused_variable_warning( mem_alloc_order_num );
+    boost::ignore_unused( mem_alloc_order_num );
 
 #ifdef BOOST_MS_CRT_BASED_DEBUG
     // only set the value if one was supplied (do not use default used by UTF just as a indicator to enable leak detection)
@@ -1006,4 +1011,3 @@ break_memory_alloc( long mem_alloc_order_num )
 #include <boost/test/detail/enable_warnings.hpp>
 
 #endif // BOOST_TEST_DEBUG_API_IPP_112006GER
-

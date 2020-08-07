@@ -17,9 +17,11 @@
 #include <memory>
 #include <tuple>
 #include <type_traits>
+#include <utility>
 
 #include <boost/assert.hpp>
 #include <boost/config.hpp>
+#include <boost/core/ignore_unused.hpp>
 #if defined(BOOST_NO_CXX17_STD_APPLY)
 #include <boost/context/detail/apply.hpp>
 #endif
@@ -72,12 +74,12 @@ typedef intrusive::list_member_hook<
 // the context class and the wait-hook
 struct wait_functor {
     // required types
-    typedef wait_hook               hook_type;
-    typedef hook_type           *   hook_ptr;
-    typedef const hook_type     *   const_hook_ptr;
-    typedef context                 value_type;
-    typedef value_type          *   pointer;
-    typedef const value_type    *   const_pointer;
+    using hook_type = wait_hook;
+    using hook_ptr = hook_type *;
+    using const_hook_ptr = const hook_type *;
+    using value_type = context;
+    using pointer = value_type *;
+    using const_pointer = const value_type *;
 
     // required static functions
     static hook_ptr to_hook_ptr( value_type &value);
@@ -146,13 +148,12 @@ private:
         void                                *   vp{ nullptr };
         detail::fss_cleanup_function::ptr_t     cleanup_function{};
 
-        fss_data() noexcept {
-        }
+        fss_data() noexcept = default;
 
         fss_data( void * vp_,
-                  detail::fss_cleanup_function::ptr_t const& fn) noexcept :
+                  detail::fss_cleanup_function::ptr_t fn) noexcept :
             vp( vp_),
-            cleanup_function( fn) {
+            cleanup_function(std::move( fn)) {
             BOOST_ASSERT( cleanup_function);
         }
 
@@ -240,9 +241,8 @@ public:
         operator<<( std::basic_ostream< charT, traitsT > & os, id const& other) {
             if ( nullptr != other.impl_) {
                 return os << other.impl_;
-            } else {
-                return os << "{not-valid}";
             }
+            return os << "{not-valid}";
         }
 
         explicit operator bool() const noexcept {
@@ -277,8 +277,7 @@ public:
     id get_id() const noexcept;
 
     bool is_resumable() const noexcept {
-        if ( c_) return true;
-        else return false;
+        return static_cast<bool>(c_);
     }
 
     void resume() noexcept;
@@ -426,6 +425,8 @@ private:
             auto arg = std::move( arg_);
 #if (defined(BOOST_USE_UCONTEXT)||defined(BOOST_USE_WINFIB))
             std::move( c).resume();
+#else
+            boost::ignore_unused(c);
 #endif
 #if defined(BOOST_NO_CXX17_STD_APPLY)
            boost::context::detail::apply( std::move( fn), std::move( arg) );

@@ -15,6 +15,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/config.hpp>
+#include <boost/context/detail/config.hpp>
 
 #include <boost/fiber/context.hpp>
 #include <boost/fiber/detail/config.hpp>
@@ -43,7 +44,7 @@ enum class cv_status {
 
 class BOOST_FIBERS_DECL condition_variable_any {
 private:
-    typedef context::wait_queue_t   wait_queue_t;
+    using wait_queue_t = context::wait_queue_t;
 
     detail::spinlock    wait_queue_splk_{};
     wait_queue_t        wait_queue_{};
@@ -78,6 +79,10 @@ public:
         // relock external again before returning
         try {
             lt.lock();
+#if defined(BOOST_CONTEXT_HAS_CXXABI_H)
+        } catch ( abi::__forced_unwind const&) {
+            throw;
+#endif
         } catch (...) {
             std::terminate();
         }
@@ -118,6 +123,10 @@ public:
         // relock external again before returning
         try {
             lt.lock();
+#if defined(BOOST_CONTEXT_HAS_CXXABI_H)
+        } catch ( abi::__forced_unwind const&) {
+            throw;
+#endif
         } catch (...) {
             std::terminate();
         }

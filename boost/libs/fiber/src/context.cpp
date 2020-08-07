@@ -39,7 +39,7 @@ private:
     }
 
 public:
-    dispatcher_context( boost::context::preallocated const& palloc, default_stack const& salloc) :
+    dispatcher_context( boost::context::preallocated const& palloc, default_stack && salloc) :
         context{ 0, type::dispatcher_context, launch::post } {
         c_ = boost::context::fiber{ std::allocator_arg, palloc, salloc,
                                     std::bind( & dispatcher_context::run_, this, std::placeholders::_1) };
@@ -62,7 +62,7 @@ static intrusive_ptr< context > make_dispatcher_context() {
     // placement new of context on top of fiber's stack
     return intrusive_ptr< context >{
         new ( storage) dispatcher_context{
-                boost::context::preallocated{ storage, size, sctx }, salloc } };
+                boost::context::preallocated{ storage, size, sctx }, std::move( salloc) } };
 }
 
 // schwarz counter
@@ -75,7 +75,7 @@ struct context_initializer {
             // main fiber context of this thread
             context * main_ctx = new main_context{};
             // scheduler of this thread
-            scheduler * sched = new scheduler{};
+            auto sched = new scheduler{};
             // attach main context to scheduler
             sched->attach_main_context( main_ctx);
             // create and attach dispatcher context to scheduler
@@ -293,8 +293,8 @@ context::schedule( context * ctx) noexcept {
 
 void *
 context::get_fss_data( void const * vp) const {
-    uintptr_t key = reinterpret_cast< uintptr_t >( vp);
-    fss_data_t::const_iterator i = fss_data_.find( key);
+    auto key = reinterpret_cast< uintptr_t >( vp);
+    auto i = fss_data_.find( key);
     return fss_data_.end() != i ? i->second.vp : nullptr;
 }
 
@@ -304,18 +304,14 @@ context::set_fss_data( void const * vp,
                        void * data,
                        bool cleanup_existing) {
     BOOST_ASSERT( cleanup_fn);
-    uintptr_t key = reinterpret_cast< uintptr_t >( vp);
-    fss_data_t::iterator i = fss_data_.find( key);
+    auto key = reinterpret_cast< uintptr_t >( vp);
+    auto i = fss_data_.find( key);
     if ( fss_data_.end() != i) {
         if( cleanup_existing) {
             i->second.do_cleanup();
         }
         if ( nullptr != data) {
-            fss_data_.insert(
-                    i,
-                    std::make_pair(
-                        key,
-                        fss_data{ data, cleanup_fn } ) );
+            i->second = fss_data{ data, cleanup_fn };
         } else {
             fss_data_.erase( i);
         }

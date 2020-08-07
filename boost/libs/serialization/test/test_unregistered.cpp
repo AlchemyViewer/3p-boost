@@ -1,7 +1,7 @@
 /////////1/////////2/////////3/////////4/////////5/////////6/////////7/////////8
 // test_unregistered.cpp
 
-// (C) Copyright 2002 Robert Ramey - http://www.rrsd.com . 
+// (C) Copyright 2002 Robert Ramey - http://www.rrsd.com .
 // Use, modification and distribution is subject to the Boost Software
 // License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -15,7 +15,7 @@
 #include <cstring> // strcmp
 #include <boost/config.hpp>
 #if defined(BOOST_NO_STDC_NAMESPACE)
-namespace std{ 
+namespace std{
     using ::remove;
 }
 #endif
@@ -85,7 +85,7 @@ void save_unregistered1(const char *testfile)
     BOOST_TRY {
         oa << BOOST_SERIALIZATION_NVP(rb1);
     }
-    BOOST_CATCH(boost::archive::archive_exception aex){
+    BOOST_CATCH(boost::archive::archive_exception const& aex){
         except = true;
     }
     BOOST_CATCH_END
@@ -112,7 +112,7 @@ void load_unregistered1(const char *testfile)
     BOOST_TRY {
         ia >> BOOST_SERIALIZATION_NVP(rb1);
     }
-    BOOST_CATCH(boost::archive::archive_exception aex){
+    BOOST_CATCH(boost::archive::archive_exception const& aex){
         except = true;
         BOOST_CHECK_MESSAGE(
             NULL == rb1,
@@ -133,14 +133,14 @@ void save_unregistered2(const char *testfile)
     test_oarchive oa(os, TEST_ARCHIVE_FLAGS);
 
     polymorphic_derived1 *rd1 = new polymorphic_derived1;
-    
+
     // registration is NOT necessary when serializing a polymorphic class
     // through pointer to a derived class
     bool except = false;
     BOOST_TRY {
         oa << BOOST_SERIALIZATION_NVP(rd1);
     }
-    BOOST_CATCH(boost::archive::archive_exception aex){
+    BOOST_CATCH(boost::archive::archive_exception const& aex){
         except = true;
     }
     BOOST_CATCH_END
@@ -159,17 +159,17 @@ void load_unregistered2(const char *testfile)
     test_iarchive ia(is, TEST_ARCHIVE_FLAGS);
 
     polymorphic_derived1 *rd1 = NULL;
-    
+
     // registration is NOT necessary when serializing a polymorphic class
     // or through pointer to a derived class
     bool except = false;
     BOOST_TRY {
         ia >> BOOST_SERIALIZATION_NVP(rd1);
     }
-    BOOST_CATCH(boost::archive::archive_exception aex){
+    BOOST_CATCH(boost::archive::archive_exception const& aex){
         except = true;
         BOOST_CHECK_MESSAGE(
-            NULL == rd1, 
+            NULL == rd1,
             "failed load resulted in a non-null pointer"
         );
     }
@@ -192,7 +192,7 @@ void save_registered(const char *testfile)
     // through a pointer to a base class
     oa.register_type(static_cast<polymorphic_derived1 *>(NULL));
     oa.register_type(static_cast<polymorphic_derived2 *>(NULL));
-    oa << BOOST_SERIALIZATION_NVP(rb1); 
+    oa << BOOST_SERIALIZATION_NVP(rb1);
     oa << BOOST_SERIALIZATION_NVP(rb2);
 
     delete rb1;
@@ -220,7 +220,7 @@ void load_registered(const char *testfile)
         boost::serialization::type_info_implementation<
             polymorphic_derived1
         >::type::get_const_instance()
-        == 
+        ==
         * boost::serialization::type_info_implementation<
             polymorphic_base
         >::type::get_const_instance().get_derived_extended_type_info(*rb1),
@@ -233,7 +233,7 @@ void load_registered(const char *testfile)
         boost::serialization::type_info_implementation<
             polymorphic_derived2
         >::type::get_const_instance()
-        == 
+        ==
         * boost::serialization::type_info_implementation<
             polymorphic_base
         >::type::get_const_instance().get_derived_extended_type_info(*rb2),
@@ -279,7 +279,7 @@ void load_unregistered_pointer(const char *testfile)
     BOOST_TRY {
         ia & BOOST_SERIALIZATION_NVP(instance1) & BOOST_SERIALIZATION_NVP(pointer2);
     }
-    BOOST_CATCH(boost::archive::archive_exception aex){
+    BOOST_CATCH(boost::archive::archive_exception const& aex){
         except = true;
         BOOST_CHECK_MESSAGE(
             std::strcmp(aex.what(), "unregistered class") == 0,

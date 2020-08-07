@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Global on_exit</title>
 <link rel="stylesheet" href="../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
@@ -41,7 +41,7 @@
 <span class="identifier">on_exit</span><span class="special">(</span><span class="identifier">function</span><span class="special">)</span><span class="special">;</span>
 </pre>
 <p>with <code class="computeroutput">function</code> being a callable object with the signature <code class="computeroutput">(int, const std::error_code&amp;)</code> or an <code class="computeroutput">std::future&lt;int&gt;</code>.</p>
-<p><b>Example.&#160;</b></p>
+<p><b>Example. </b></p>
 <p>
 </p>
 <pre class="programlisting"><span class="identifier">io_context</span> <span class="identifier">ios</span><span class="special">;</span>
@@ -65,10 +65,16 @@
 <td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="../../../../doc/src/images/warning.png"></td>
 <th align="left">Warning</th>
 </tr>
-<tr><td align="left" valign="top">
-<p>When used ignore_error it might get invoked on error. </p>
-<p><code class="computeroutput">on_exit</code> uses <code class="computeroutput">boost::asio::signal_set</code> to listen for <code class="computeroutput">SIGCHLD</code> on posix, and so has the same restrictions as that class (do not register a handler for <code class="computeroutput">SIGCHLD</code> except by using <code class="computeroutput">boost::asio::signal_set</code>). </p>
-</td></tr>
+<tr><td align="left" valign="top"><p>When used ignore_error it might get invoked on error. </p></td></tr>
+</table></div>
+<p>
+</p>
+<div class="warning"><table border="0" summary="Warning">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="../../../../doc/src/images/warning.png"></td>
+<th align="left">Warning</th>
+</tr>
+<tr><td align="left" valign="top"><p><code class="computeroutput">on_exit</code> uses <code class="computeroutput">boost::asio::signal_set</code> to listen for <code class="computeroutput">SIGCHLD</code> on posix, and so has the same restrictions as that class (do not register a handler for <code class="computeroutput">SIGCHLD</code> except by using <code class="computeroutput">boost::asio::signal_set</code>). </p></td></tr>
 </table></div>
 <p>
 </p>
@@ -76,8 +82,8 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2006-2012 Julio M. Merino Vidal, Ilya Sokolov,
-      Felipe Tanus, Jeff Flinn, Boris Schaeling<br>Copyright &#169; 2016 Klemens D. Morgenstern<p>
+<td align="right"><div class="copyright-footer">Copyright © 2006-2012 Julio M. Merino Vidal, Ilya Sokolov,
+      Felipe Tanus, Jeff Flinn, Boris Schaeling<br>Copyright © 2016 Klemens D. Morgenstern<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
       </p>

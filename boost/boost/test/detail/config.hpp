@@ -64,10 +64,10 @@ class type_info;
 
 //____________________________________________________________________________//
 
-#if defined(__GNUC__) || BOOST_WORKAROUND(BOOST_MSVC, == 1400)
-#define BOOST_TEST_PROTECTED_VIRTUAL virtual
-#else
+#if BOOST_WORKAROUND(BOOST_MSVC, < 1400)
 #define BOOST_TEST_PROTECTED_VIRTUAL
+#else
+#define BOOST_TEST_PROTECTED_VIRTUAL virtual
 #endif
 
 //____________________________________________________________________________//
@@ -78,7 +78,24 @@ class type_info;
 
 //____________________________________________________________________________//
 
+// Sun compiler does not support visibility on enums
+#if defined(__SUNPRO_CC)
+#define BOOST_TEST_ENUM_SYMBOL_VISIBLE
+#else
+#define BOOST_TEST_ENUM_SYMBOL_VISIBLE BOOST_SYMBOL_VISIBLE
+#endif
+
+//____________________________________________________________________________//
+
 #if defined(BOOST_ALL_DYN_LINK) && !defined(BOOST_TEST_DYN_LINK)
+#  define BOOST_TEST_DYN_LINK
+#endif
+
+// in case any of the define from cmake/b2 is set
+#if !defined(BOOST_TEST_DYN_LINK) \
+    && (defined(BOOST_UNIT_TEST_FRAMEWORK_DYN_LINK) \
+        || defined(BOOST_TEST_EXEC_MONITOR_DYN_LINK) \
+        || defined(BOOST_PRG_EXEC_MONITOR_DYN_LINK) )
 #  define BOOST_TEST_DYN_LINK
 #endif
 
@@ -90,12 +107,16 @@ class type_info;
 #  define BOOST_TEST_ALTERNATIVE_INIT_API
 
 #  ifdef BOOST_TEST_SOURCE
-#    define BOOST_TEST_DECL BOOST_SYMBOL_EXPORT
+#    define BOOST_TEST_DECL BOOST_SYMBOL_EXPORT BOOST_SYMBOL_VISIBLE
 #  else
-#    define BOOST_TEST_DECL BOOST_SYMBOL_IMPORT
+#    define BOOST_TEST_DECL BOOST_SYMBOL_IMPORT BOOST_SYMBOL_VISIBLE
 #  endif  // BOOST_TEST_SOURCE
 #else
-#  define BOOST_TEST_DECL
+#  if defined(BOOST_TEST_INCLUDED)
+#     define BOOST_TEST_DECL
+#  else
+#     define BOOST_TEST_DECL BOOST_SYMBOL_VISIBLE
+#  endif
 #endif
 
 #if !defined(BOOST_TEST_MAIN) && defined(BOOST_AUTO_TEST_MAIN)
@@ -108,7 +129,7 @@ class type_info;
 
 
 
-#ifndef BOOST_PP_VARIADICS /* we can change this only if not already defined) */
+#ifndef BOOST_PP_VARIADICS /* we can change this only if not already defined */
 
 #ifdef __PGI
 #define BOOST_PP_VARIADICS 1
@@ -122,6 +143,27 @@ class type_info;
 #define BOOST_PP_VARIADICS 1
 #endif
 
+#if defined(__NVCC__)
+#define BOOST_PP_VARIADICS 1
+#endif
+
 #endif /* ifndef BOOST_PP_VARIADICS */
+
+// some versions of VC exibit a manifest error with this BOOST_UNREACHABLE_RETURN
+#if BOOST_WORKAROUND(BOOST_MSVC, < 1910)
+# define BOOST_TEST_UNREACHABLE_RETURN(x) return x
+#else
+# define BOOST_TEST_UNREACHABLE_RETURN(x) BOOST_UNREACHABLE_RETURN(x)
+#endif
+
+//____________________________________________________________________________//
+// string_view support
+//____________________________________________________________________________//
+// note the code should always be compatible with compiled version of boost.test
+// using a pre-c++17 compiler
+
+#ifndef BOOST_NO_CXX17_HDR_STRING_VIEW
+#define BOOST_TEST_STRING_VIEW
+#endif
 
 #endif // BOOST_TEST_CONFIG_HPP_071894GER

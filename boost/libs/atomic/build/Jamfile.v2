@@ -1,6 +1,8 @@
 #  Boost.Atomic Library Jamfile
 #
 #  Copyright Helge Bahmann 2011.
+#  Copyright Andrey Semashev 2018.
+#
 #  Distributed under the Boost Software License, Version 1.0.
 #  (See accompanying file LICENSE_1_0.txt or copy at
 #  http://www.boost.org/LICENSE_1_0.txt)
@@ -23,7 +25,7 @@ project boost/atomic
     ;
 
 alias atomic_sources
-   : lockpool.cpp
+   : lock_pool.cpp
    ;
 
 explicit atomic_sources ;
@@ -32,6 +34,5 @@ explicit atomic_sources ;
 lib boost_atomic
    : atomic_sources
    ;
-
 
 boost-install boost_atomic ;

@@ -1,5 +1,5 @@
 
-//  Copyright 2017 Peter Dimov.
+// Copyright 2017 Peter Dimov.
 //
 // Distributed under the Boost Software License, Version 1.0.
 //
@@ -7,10 +7,15 @@
 // http://www.boost.org/LICENSE_1_0.txt
 
 
+#include <boost/mp11/detail/config.hpp>
+
+#if BOOST_MP11_MSVC
+# pragma warning( disable: 4503 ) // decorated name length exceeded
+#endif
+
 #include <boost/mp11/algorithm.hpp>
+#include <boost/mp11/detail/config.hpp>
 #include <boost/core/lightweight_test.hpp>
-#include <boost/config.hpp>
-#include <boost/config/workaround.hpp>
 #include <tuple>
 
 using boost::mp11::mp_size_t;
@@ -49,7 +54,7 @@ struct G
 
 int main()
 {
-#if BOOST_WORKAROUND( BOOST_MSVC, < 1900 )
+#if BOOST_MP11_WORKAROUND( BOOST_MP11_MSVC, < 1900 )
 
     G()( mp_size_t<1>{} );
     G()( mp_size_t<2>{} );

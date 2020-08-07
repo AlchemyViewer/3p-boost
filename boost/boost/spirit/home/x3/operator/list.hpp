@@ -22,7 +22,7 @@ namespace boost { namespace spirit { namespace x3
         static bool const handles_container = true;
         static bool const has_attribute = true;
 
-        list(Left const& left, Right const& right)
+        constexpr list(Left const& left, Right const& right)
           : base_type(left, right) {}
 
         template <typename Iterator, typename Context
@@ -35,21 +35,20 @@ namespace boost { namespace spirit { namespace x3
                 this->left, first, last, context, rcontext, attr))
                 return false;
 
-            Iterator save = first;
-            while (this->right.parse(first, last, context, rcontext, unused)
+            Iterator iter = first;
+            while (this->right.parse(iter, last, context, rcontext, unused)
                 && detail::parse_into_container(
-                    this->left, first, last, context, rcontext, attr))
+                    this->left, iter, last, context, rcontext, attr))
             {
-                save = first;
+                first = iter;
             }
 
-            first = save;
             return true;
         }
     };
 
     template <typename Left, typename Right>
-    inline list<
+    constexpr list<
         typename extension::as_parser<Left>::value_type
       , typename extension::as_parser<Right>::value_type>
     operator%(Left const& left, Right const& right)

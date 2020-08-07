@@ -1,13 +1,13 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>http::error</title>
 <link rel="stylesheet" href="../../../../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../../index.html" title="Chapter&#160;1.&#160;Boost.Beast">
+<link rel="home" href="../../index.html" title="Chapter 1. Boost.Beast">
 <link rel="up" href="../ref.html" title="This Page Intentionally Left Blank 2/2">
-<link rel="prev" href="boost__beast__http__empty_body__value_type.html" title="http::empty_body::value_type">
-<link rel="next" href="boost__beast__http__ext_list.html" title="http::ext_list">
+<link rel="prev" href="boost__beast__async_teardown.html" title="async_teardown">
+<link rel="next" href="boost__beast__http__field.html" title="http::field">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -20,15 +20,17 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="boost__beast__http__empty_body__value_type.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../ref.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="boost__beast__http__ext_list.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="boost__beast__async_teardown.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../ref.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="boost__beast__http__field.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="beast.ref.boost__beast__http__error"></a><a class="link" href="boost__beast__http__error.html" title="http::error">http::error</a>
 </h4></div></div></div>
 <p>
-        <a class="indexterm" name="idp110029568"></a>
-Error codes returned from HTTP algorithms and operations.
+        <a class="indexterm" name="idm45387145796448"></a>
+      </p>
+<p>
+        Error codes returned from HTTP algorithms and operations.
       </p>
 <h5>
 <a name="beast.ref.boost__beast__http__error.h0"></a>
@@ -39,32 +41,6 @@ Error codes returned from HTTP algorithms and operations.
       </p>
 <pre class="programlisting"><span class="keyword">enum</span> <span class="identifier">error</span>
 </pre>
-<p>
-        <a class="indexterm" name="idp110037488"></a>
- <a class="indexterm" name="idp110038592"></a>
- <a class="indexterm" name="idp110039696"></a>
- <a class="indexterm" name="idp110040800"></a>
- <a class="indexterm" name="idp110041904"></a>
- <a class="indexterm" name="idp110043008"></a>
- <a class="indexterm" name="idp110044112"></a>
- <a class="indexterm" name="idp110045216"></a>
- <a class="indexterm" name="idp110046320"></a>
- <a class="indexterm" name="idp110047424"></a>
- <a class="indexterm" name="idp110048528"></a>
- <a class="indexterm" name="idp110049632"></a>
- <a class="indexterm" name="idp110050736"></a>
- <a class="indexterm" name="idp110051840"></a>
- <a class="indexterm" name="idp110052944"></a>
- <a class="indexterm" name="idp110054048"></a>
- <a class="indexterm" name="idp110055152"></a>
- <a class="indexterm" name="idp110056256"></a>
- <a class="indexterm" name="idp110057360"></a>
- <a class="indexterm" name="idp110058464"></a>
- <a class="indexterm" name="idp110059568"></a>
- <a class="indexterm" name="idp110060672"></a>
- <a class="indexterm" name="idp110061776"></a>
-
-      </p>
 <h5>
 <a name="beast.ref.boost__beast__http__error.h1"></a>
         <span class="phrase"><a name="beast.ref.boost__beast__http__error.values"></a></span><a class="link" href="boost__beast__http__error.html#beast.ref.boost__beast__http__error.values">Values</a>
@@ -90,7 +66,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">end_of_stream</code>
+                  <code class="computeroutput"><span class="identifier">end_of_stream</span></code>
                 </p>
               </td>
 <td>
@@ -99,15 +75,16 @@ Error codes returned from HTTP algorithms and operations.
                 </p>
                 <p>
                   This error is returned when attempting to read HTTP data, and the
-                  stream returns the error boost::asio::error::eof before any octets
-                  corresponding to a new HTTP message have been received.
+                  stream returns the error <code class="computeroutput"><span class="identifier">net</span><span class="special">::</span><span class="identifier">error</span><span class="special">::</span><span class="identifier">eof</span></code>
+                  before any octets corresponding to a new HTTP message have been
+                  received.
                 </p>
               </td>
 </tr>
 <tr>
 <td>
                 <p>
-                  <code class="literal">partial_message</code>
+                  <code class="computeroutput"><span class="identifier">partial_message</span></code>
                 </p>
               </td>
 <td>
@@ -123,7 +100,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">need_more</code>
+                  <code class="computeroutput"><span class="identifier">need_more</span></code>
                 </p>
               </td>
 <td>
@@ -140,7 +117,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">unexpected_body</code>
+                  <code class="computeroutput"><span class="identifier">unexpected_body</span></code>
                 </p>
               </td>
 <td>
@@ -149,14 +126,17 @@ Error codes returned from HTTP algorithms and operations.
                 </p>
                 <p>
                   This error is returned when attempting to parse body octets into
-                  a message container which has the empty_body body type.empty_body
+                  a message container which has the @ref empty_body body type.
+                </p>
+                <p>
+                  @see empty_body
                 </p>
               </td>
 </tr>
 <tr>
 <td>
                 <p>
-                  <code class="literal">need_buffer</code>
+                  <code class="computeroutput"><span class="identifier">need_buffer</span></code>
                 </p>
               </td>
 <td>
@@ -164,10 +144,15 @@ Error codes returned from HTTP algorithms and operations.
                   Additional buffers are required.
                 </p>
                 <p>
-                  This error is returned under the following conditions:During serialization
-                  when using buffer_body. The caller should update the body to point
-                  to a new buffer or indicate that there are no more octets in the
-                  body. During parsing when using buffer_body. The caller should
+                  This error is returned under the following conditions:
+                </p>
+                <p>
+                  @li During serialization when using @ref buffer_body. The caller
+                  should update the body to point to a new buffer or indicate that
+                  there are no more octets in the body.
+                </p>
+                <p>
+                  @li During parsing when using @ref buffer_body. The caller should
                   update the body to point to a new storage area to receive additional
                   body octets.
                 </p>
@@ -176,7 +161,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">end_of_chunk</code>
+                  <code class="computeroutput"><span class="identifier">end_of_chunk</span></code>
                 </p>
               </td>
 <td>
@@ -188,7 +173,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">buffer_overflow</code>
+                  <code class="computeroutput"><span class="identifier">buffer_overflow</span></code>
                 </p>
               </td>
 <td>
@@ -205,7 +190,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">header_limit</code>
+                  <code class="computeroutput"><span class="identifier">header_limit</span></code>
                 </p>
               </td>
 <td>
@@ -221,7 +206,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">body_limit</code>
+                  <code class="computeroutput"><span class="identifier">body_limit</span></code>
                 </p>
               </td>
 <td>
@@ -237,7 +222,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">bad_alloc</code>
+                  <code class="computeroutput"><span class="identifier">bad_alloc</span></code>
                 </p>
               </td>
 <td>
@@ -246,14 +231,14 @@ Error codes returned from HTTP algorithms and operations.
                 </p>
                 <p>
                   When basic_fields throws std::bad_alloc, it is converted into this
-                  error by parser.
+                  error by @ref parser.
                 </p>
               </td>
 </tr>
 <tr>
 <td>
                 <p>
-                  <code class="literal">bad_line_ending</code>
+                  <code class="computeroutput"><span class="identifier">bad_line_ending</span></code>
                 </p>
               </td>
 <td>
@@ -265,7 +250,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">bad_method</code>
+                  <code class="computeroutput"><span class="identifier">bad_method</span></code>
                 </p>
               </td>
 <td>
@@ -277,7 +262,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">bad_target</code>
+                  <code class="computeroutput"><span class="identifier">bad_target</span></code>
                 </p>
               </td>
 <td>
@@ -289,7 +274,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">bad_version</code>
+                  <code class="computeroutput"><span class="identifier">bad_version</span></code>
                 </p>
               </td>
 <td>
@@ -301,7 +286,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">bad_status</code>
+                  <code class="computeroutput"><span class="identifier">bad_status</span></code>
                 </p>
               </td>
 <td>
@@ -313,7 +298,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">bad_reason</code>
+                  <code class="computeroutput"><span class="identifier">bad_reason</span></code>
                 </p>
               </td>
 <td>
@@ -325,7 +310,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">bad_field</code>
+                  <code class="computeroutput"><span class="identifier">bad_field</span></code>
                 </p>
               </td>
 <td>
@@ -337,7 +322,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">bad_value</code>
+                  <code class="computeroutput"><span class="identifier">bad_value</span></code>
                 </p>
               </td>
 <td>
@@ -349,7 +334,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">bad_content_length</code>
+                  <code class="computeroutput"><span class="identifier">bad_content_length</span></code>
                 </p>
               </td>
 <td>
@@ -361,7 +346,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">bad_transfer_encoding</code>
+                  <code class="computeroutput"><span class="identifier">bad_transfer_encoding</span></code>
                 </p>
               </td>
 <td>
@@ -373,7 +358,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">bad_chunk</code>
+                  <code class="computeroutput"><span class="identifier">bad_chunk</span></code>
                 </p>
               </td>
 <td>
@@ -385,7 +370,7 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">bad_chunk_extension</code>
+                  <code class="computeroutput"><span class="identifier">bad_chunk_extension</span></code>
                 </p>
               </td>
 <td>
@@ -397,12 +382,47 @@ Error codes returned from HTTP algorithms and operations.
 <tr>
 <td>
                 <p>
-                  <code class="literal">bad_obs_fold</code>
+                  <code class="computeroutput"><span class="identifier">bad_obs_fold</span></code>
                 </p>
               </td>
 <td>
                 <p>
                   An obs-fold exceeded an internal limit.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="identifier">stale_parser</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  The parser is stale.
+                </p>
+                <p>
+                  This happens when attempting to re-use a parser that has already
+                  completed parsing a message. Programs must construct a new parser
+                  for each message. This can be easily done by storing the parser
+                  in an boost or std::optional container.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <code class="computeroutput"><span class="identifier">short_read</span></code>
+                </p>
+              </td>
+<td>
+                <p>
+                  The message body is shorter than expected.
+                </p>
+                <p>
+                  This error is returned by @ref file_body when an unexpected unexpected
+                  end-of-file condition is encountered while trying to read from
+                  the file.
                 </p>
               </td>
 </tr>
@@ -412,13 +432,11 @@ Error codes returned from HTTP algorithms and operations.
 <a name="beast.ref.boost__beast__http__error.h2"></a>
         <span class="phrase"><a name="beast.ref.boost__beast__http__error.description"></a></span><a class="link" href="boost__beast__http__error.html#beast.ref.boost__beast__http__error.description">Description</a>
       </h5>
-<p>
-        Convenience header <code class="literal">&lt;<a href="../../../../../../boost/beast/http.hpp" target="_top">boost/beast/http.hpp</a>&gt;</code>
-      </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright &#169; 2016, 2017 Vinnie Falco<p>
+<td align="right"><div class="copyright-footer">Copyright © 2016-2019 Vinnie
+      Falco<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
@@ -426,7 +444,7 @@ Error codes returned from HTTP algorithms and operations.
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="boost__beast__http__empty_body__value_type.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../ref.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="boost__beast__http__ext_list.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="boost__beast__async_teardown.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../ref.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="boost__beast__http__field.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

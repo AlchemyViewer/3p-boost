@@ -14,6 +14,7 @@
 #include <string>
 #include <iostream>
 #include "test.hpp"
+#include "utils.hpp"
 
 int
 main()
@@ -28,6 +29,12 @@ main()
     using boost::spirit::x3::int_;
     using boost::spirit::x3::lexeme;
     using boost::spirit::x3::char_;
+
+    BOOST_SPIRIT_ASSERT_CONSTEXPR_CTORS(repeat['x']);
+    BOOST_SPIRIT_ASSERT_CONSTEXPR_CTORS(repeat(3)['x']);
+    BOOST_SPIRIT_ASSERT_CONSTEXPR_CTORS(repeat(3, 5)['x']);
+    BOOST_SPIRIT_ASSERT_CONSTEXPR_CTORS(repeat(3, inf)['x']);
+
     {
         BOOST_TEST(test("aaaaaaaa", repeat[char_])); // kleene synonym
         BOOST_TEST(test("aaaaaaaa", repeat(8)[char_]));
@@ -140,5 +147,12 @@ main()
 
         BOOST_TEST(!test("1 2", int_ >> repeat(2)[int_], space));
     }
+
+    { // test move only types
+        std::vector<move_only> v;
+        BOOST_TEST(test_attr("sss", repeat(3)[synth_move_only], v));
+        BOOST_TEST_EQ(v.size(), 3);
+    }
+
     return boost::report_errors();
 }

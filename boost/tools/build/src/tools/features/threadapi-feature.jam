@@ -3,15 +3,23 @@
 # (See accompanying file LICENSE_1_0.txt or copy at
 # http://www.boost.org/LICENSE_1_0.txt)
 
-# TODO: Documentation.
-
 import property-set ;
 import feature : feature ;
+import toolset ;
+import features/os-feature ;
 
-if ! [ feature.valid threadapi ]
-{
-    feature threadapi : win32 pthread : optional propagated ;
-}
+#| tag::doc[]
+
+[[bbv2.builtin.features.threadapi]]`threadapi`::
+*Allowed values:* `pthread`, `win32`.
++
+Selects threading implementation. The default is `win32` if `<target-os>` is
+`windows` and `pthread` otherwise.
+
+|# # end::doc[]
+
+feature threadapi : pthread win32 : symmetric propagated ;
+toolset.add-defaults <target-os>windows:<threadapi>win32 ;
 
 rule get-default ( property-set )
 {
@@ -20,10 +28,12 @@ rule get-default ( property-set )
     return $(api) ;
 }
 
+# Obsolete rule that didn't quite work.  Remove this
+# after all references to it have been cleaned up.
 rule detect ( properties * )
 {
-    local ps = [ property-set.create $(properties) ] ;
-    local api = [ $(ps).get <threadapi> ] ;
-    if ! $(api) { api = [ get-default $(ps) ] ; }
-    return <threadapi>$(api) <relevant>threadapi:<relevant>target-os ;
+    # local ps = [ property-set.create $(properties) ] ;
+    # local api = [ $(ps).get <threadapi> ] ;
+    # if ! $(api) { api = [ get-default $(ps) ] ; }
+    # return <threadapi>$(api) <relevant>threadapi:<relevant>target-os ;
 }

@@ -5,9 +5,6 @@
     file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
 
-// this file deliberately contains non-ascii characters
-// boostinspect:noascii
-
 #include <boost/detail/lightweight_test.hpp>
 #include <boost/spirit/home/x3.hpp>
 
@@ -24,11 +21,25 @@ main()
 
     using namespace boost::spirit::x3::ascii;
     using boost::spirit::x3::rule;
-    using boost::spirit::x3::int_;
     using boost::spirit::x3::lit;
+    using boost::spirit::x3::int_;
     using boost::spirit::x3::unused_type;
     using boost::spirit::x3::phrase_parse;
     using boost::spirit::x3::skip_flag;
+    using boost::spirit::x3::traits::has_attribute;
+
+#ifdef BOOST_SPIRIT_X3_NO_RTTI
+    BOOST_SPIRIT_ASSERT_CONSTEXPR_CTORS(rule<class r>{});
+#endif
+    BOOST_SPIRIT_ASSERT_CONSTEXPR_CTORS(rule<class r>{"r"});
+    BOOST_SPIRIT_ASSERT_CONSTEXPR_CTORS(rule<class r>{"r"} = 'x');
+
+    // check attribute advertising
+    static_assert( has_attribute<rule<class r, int>, /*Context=*/unused_type>::value, "");
+    static_assert(!has_attribute<rule<class r     >, /*Context=*/unused_type>::value, "");
+    static_assert( has_attribute<decltype(rule<class r, int>{} = int_), /*Context=*/unused_type>::value, "");
+    static_assert(!has_attribute<decltype(rule<class r     >{} = int_), /*Context=*/unused_type>::value, "");
+
 
     { // basic tests
 

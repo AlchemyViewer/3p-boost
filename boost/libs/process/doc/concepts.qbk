@@ -16,11 +16,11 @@ In that it is different than other facilities (like sockets) and provides anothe
 Pipes are typically used for interprocess communication. The main reason is, that pipes can be directly assigned to the process stdio, i.e. stderr, stdin and stdout.
 Additionally, half of the pipe can be inherited to the child process and closed in the father process. This will cause the pipe to be broken when the child process exits.
 
-Though please not, that if the the same thread reads and write to a pipe, it will only talk to itself.
+Though please note, that if the the same thread reads and write to a pipe, it will only talk to itself.
 
 [section:anonymous Anonymous Pipes]
 
-The usual type of pipes, are the anonymous ones. Since the have no name, 
+The most common pipes are anonymous. Since the have no name,
 a handle to them can only be obtained from duplicating either handle.
 
 In this library the following functions are used for the creation of unnamed pipes:
