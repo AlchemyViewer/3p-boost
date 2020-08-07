@@ -14,14 +14,9 @@ rule po-test ( source : input-file ? )
 {
     return
         [ run $(source) : : $(input-file) ]
-## With Boost 1.72 on Mac, even hacking up
-## libs/program_options/test/minitest.hpp to try to catch exceptions across
-## the dylib boundary doesn't reliably work. Only run static.
-## Seems related to https://stackoverflow.com/q/21737201 but I don't know how
-## to turn on RTTI for the dylib.
-##      [ run $(source) : : $(input-file) 
-##        : <link>shared <define>BOOST_PROGRAM_OPTIONS_DYN_LINK=1
-##        : $(source:B)_dll ] 
+        [ run $(source) : : $(input-file) 
+          : <link>shared <define>BOOST_PROGRAM_OPTIONS_DYN_LINK=1
+          : $(source:B)_dll ] 
     ;   
 }    
 

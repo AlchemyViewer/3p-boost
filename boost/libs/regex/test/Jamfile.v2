@@ -151,13 +151,7 @@ test-suite regex
 
 
       [ link concepts/concept_check.cpp ../build//boost_regex ]
-## nat 2016-03-11 icu_concept_check.cpp seems to use std::basic_ostream<int>,
-## which isn't supported by libc++: only std::basic_ostream<char> and
-## std::basic_ostream<wchar_t> are required by the standard, so that's all
-## libc++ provides. This test will not work with libc++. I don't know jam
-## syntax well enough to suppress it only on Darwin.
-## http://lists.apple.com/archives/xcode-users/2012/Jul/msg00092.html
-##    [ link concepts/icu_concept_check.cpp ../build//boost_regex ]
+      [ link concepts/icu_concept_check.cpp ../build//boost_regex ]
       [ link concepts/range_concept_check.cpp ../build//boost_regex ]
       [ run concepts/test_bug_11988.cpp ../build//boost_regex ]
       

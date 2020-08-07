@@ -170,16 +170,12 @@ test_suite* init_unit_test_suite(int, char* [])
 #ifndef __CYGWIN__
     test->add(BOOST_TEST_CASE(&wrap_throw_delayed<&test_seekg>::execute));
 #endif
-
-/*==========================================================================*|
-//  As of Boost 1.72.0, test_seekp() produces 12 errors it's not worth trying
-//  to debug, since Boost.Iostreams is deprecated and we use it very little.
+    
     test->add(BOOST_TEST_CASE(&wrap_nothrow      <&test_seekp>::execute));
     test->add(BOOST_TEST_CASE(&wrap_throw        <&test_seekp>::execute));
 #ifndef __CYGWIN__
     test->add(BOOST_TEST_CASE(&wrap_throw_delayed<&test_seekp>::execute));
 #endif
-|*==========================================================================*/
 #endif // BOOST_MSVC
 
     return test;

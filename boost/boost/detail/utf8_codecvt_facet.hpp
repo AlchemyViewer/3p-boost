@@ -84,7 +84,6 @@
 #include <cstddef>  // for std::size_t
 
 #include <boost/config.hpp>
-#include <boost/config/codecvt_do_length_const.hpp>
 #include <boost/detail/workaround.hpp>
 
 #if defined(BOOST_NO_STDC_NAMESPACE)

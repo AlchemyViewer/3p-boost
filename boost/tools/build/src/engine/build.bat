@@ -63,7 +63,6 @@ goto :eof
 REM Tests whether the given string is not empty
 call :Clear_Error
 setlocal
-echo on
 set test=%1
 if not defined test (
     call :Clear_Error

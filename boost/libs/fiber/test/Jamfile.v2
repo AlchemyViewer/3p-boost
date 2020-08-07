@@ -1285,8 +1285,7 @@ test-suite minimal :
     asm native ;
 
 test-suite extra :
-##  extra-asm extra-native ;
-    extra-asm ;
+    extra-asm extra-native ;
 
 explicit minmal ;
 explicit extra ;

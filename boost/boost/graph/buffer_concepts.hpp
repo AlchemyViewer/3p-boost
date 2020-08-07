@@ -89,6 +89,4 @@ namespace boost {
 } // end `namespace boost`
 #include <boost/concept/detail/concept_undef.hpp>
 
-#include <boost/concept/detail/concept_undef.hpp>
-
 #endif // !BOOST_GRAPH_BUFFER_CONCEPTS_HPP

@@ -35,8 +35,6 @@ void bar(boost::future<int> fooResult)
 
 int main()
 {
-// This test cannot succeed if future::then() has been suppressed.
-#if ! defined(BOOST_THREAD_DONT_PROVIDE_FUTURE_CONTINUATION)
   std::cout << __FILE__ << ":" << __LINE__ << std::endl;
   try {
     IntPromise p(new boost::promise<int>());
@@ -57,7 +55,6 @@ int main()
   } catch(...) {
     return 2;
   }
-#endif
   std::cout << __FILE__ << ":" << __LINE__ << std::endl;
 }
 

@@ -124,7 +124,7 @@
 // by the act of including one of that library's headers.  This macro turns 
 // that feature off.
 // #define BOOST_WHATEVER_NO_LIB
-
+ 
 // BOOST_LIB_BUILDID: Set to the same value as the value passed to Boost.Build's
 // --buildid command line option.  For example if you built using:
 //
@@ -136,3 +136,4 @@
 //
 // to ensure the correct libraries are selected at link time.
 // #define BOOST_LIB_BUILDID amd64
+

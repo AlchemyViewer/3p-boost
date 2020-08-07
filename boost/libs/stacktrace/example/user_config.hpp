@@ -10,7 +10,7 @@
 #define USER_CONFIG_HPP
 
 #include <boost/stacktrace/stacktrace_fwd.hpp>
-#include <ios>                      // std::streamsize
+
 #include <iosfwd>
 
 namespace boost { namespace stacktrace {

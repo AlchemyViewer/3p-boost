@@ -122,10 +122,6 @@ make_fcontext PROC BOOST_CONTEXT_EXPORT FRAME
 	xor  rcx, rcx
     mov  [rax+0b0h], rcx
 
-    ; ND: Zero argument for fiber local storage, or it gets assigned some random garbage 
-	xor rcx,rcx
-	mov [rax+0b8h],rcx
-	
 	; save MMX control- and status-word
     stmxcsr  [rax+0a0h]
     ; save x87 control-word

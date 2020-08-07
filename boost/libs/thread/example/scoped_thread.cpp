@@ -64,7 +64,6 @@ int main()
       do_something_in_current_thread();
   }
 #if 0
-// the following test produces a bus error on Mac.
   {
     int some_local_state=0;
     boost::thread t(( func(some_local_state) ));

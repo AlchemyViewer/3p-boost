@@ -113,28 +113,23 @@ test-suite minimal :
                cxx11_variadic_templates ]
     : test_fiber_asm ]
 
-## On macOS, get SIGSEGV, likely because of this:
-## https://lists.apple.com/archives/darwin-dev/2008/Jan/msg00232.html
-## However, adding _XOPEN_SOURCE causes
-## boost/chrono/detail/inlined/thread_clock.hpp to attempt to call
-## pthread_mach_thread_np(), which is undefined.
-##[ run test_fiber.cpp :
-##    : :
-##    <conditional>@native-impl
-##    [ requires cxx11_auto_declarations
-##               cxx11_constexpr
-##               cxx11_defaulted_functions
-##               cxx11_final
-##               cxx11_hdr_thread
-##               cxx11_hdr_tuple
-##               cxx11_lambdas
-##               cxx11_noexcept
-##               cxx11_nullptr
-##               cxx11_rvalue_references
-##               cxx11_template_aliases
-##               cxx11_thread_local
-##               cxx11_variadic_templates ]
-##    : test_fiber_native ] ;
+[ run test_fiber.cpp :
+    : :
+    <conditional>@native-impl
+    [ requires cxx11_auto_declarations
+               cxx11_constexpr
+               cxx11_defaulted_functions
+               cxx11_final
+               cxx11_hdr_thread
+               cxx11_hdr_tuple
+               cxx11_lambdas
+               cxx11_noexcept
+               cxx11_nullptr
+               cxx11_rvalue_references
+               cxx11_template_aliases
+               cxx11_thread_local
+               cxx11_variadic_templates ]
+    : test_fiber_native ]
 
 [ run test_fiber.cpp :
     : :

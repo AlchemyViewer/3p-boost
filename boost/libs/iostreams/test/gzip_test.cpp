@@ -236,11 +236,7 @@ void multipart_test()
 test_suite* init_unit_test_suite(int, char* []) 
 {
     test_suite* test = BOOST_TEST_SUITE("gzip test");
-/*==========================================================================*|
-//  As of Boost 1.72, this fails. But since we don't use Boost.Iostreams for
-//  [de]compression, that doesn't matter to us.
     test->add(BOOST_TEST_CASE(&compression_test));
-|*==========================================================================*/
     test->add(BOOST_TEST_CASE(&multiple_member_test));
     test->add(BOOST_TEST_CASE(&array_source_test));
     test->add(BOOST_TEST_CASE(&header_test));
