@@ -36,7 +36,7 @@ Protocol::socket::template rebind_executor&lt; Executor1 &gt;::other accept(
     const executor_type &amp; ex,
     endpoint_type &amp; peer_endpoint,
     boost::system::error_code &amp; ec,
-    typename enable_if&lt; is_executor&lt; Executor1 &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; is_executor&lt; Executor1 &gt;::value||execution::is_executor&lt; Executor1 &gt;::value &gt;::type *  = 0);
 </pre>
 <p>
             This function is used to accept a new connection from a peer. The function

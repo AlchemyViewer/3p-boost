@@ -39,16 +39,16 @@
 <a name="boost_process.design.scope"></a><a class="link" href="design.html#boost_process.design.scope" title="Scope">Scope</a>
 </h3></div></div></div>
 <p>
-        This library is meant to give an wrapper around the different OS-specific
+        This library is meant to give a wrapper around the different OS-specific
         methods to launch processes. Its aim is to provide all functionality that
         is available on those systems and allow the user to do all related things,
         which require using the OS APIs.
       </p>
 <p>
         <span class="bold"><strong>This library does not try to provide a full library
-        for everything process related</strong></span> In many discussions the proposal
+        for everything process related.</strong></span> In many discussions the proposal
         was made to build boost.process into a DSEL <a href="#ftn.boost_process.design.scope.f0" class="footnote" name="boost_process.design.scope.f0"><sup class="footnote">[29]</sup></a> of some sort. This is not the goal, it rather provides the facilities
-        to build such a DSEL-Library on top of it. Therefore the library also does
+        to build such a DSEL-library on top of it. Therefore the library also does
         <span class="bold"><strong>not</strong></span> force any particular use (such as only
         asynchronous communication) on its user. It rather could be integrated with
         such a library.
@@ -90,7 +90,7 @@
 <p>
       </p>
 <p>
-        In the following section the avaible styles will be described. Note that
+        In the following section the available styles will be described. Note that
         the overload style is implemented via type traits, so the types will be listed.
       </p>
 <div class="caution"><table border="0" summary="Caution">
@@ -166,7 +166,7 @@
 <br class="table-break"><p>
         When using the overloading variant, a single string will result in a cmd
         interpretation, several strings will yield a exe-args interpretation. Both
-        version can be set explicitly:
+        versions can be set explicitly:
       </p>
 <p>
 </p>
@@ -185,7 +185,7 @@
 </tr>
 <tr><td align="left" valign="top"><p>
           If a '"' sign is used in the argument style, it will be passed as
-          part of the argument. If the same effect it wanted with the cmd syntax,
+          part of the argument. If the same effect is wanted with the cmd syntax,
           it ought to be escaped, i.e. '\"'.
         </p></td></tr>
 </table></div>

@@ -37,7 +37,7 @@ void spawn(
     const Executor &amp; ex,
     Function &amp;&amp; function,
     const boost::coroutines::attributes &amp; attributes = boost::coroutines::attributes(),
-    typename enable_if&lt; is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; is_executor&lt; Executor &gt;::value||execution::is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
 </pre>
 <p>
           This function is used to launch a new coroutine.

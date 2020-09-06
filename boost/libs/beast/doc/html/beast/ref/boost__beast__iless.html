@@ -7,7 +7,7 @@
 <link rel="home" href="../../index.html" title="Chapter 1. Boost.Beast">
 <link rel="up" href="../ref.html" title="This Page Intentionally Left Blank 2/2">
 <link rel="prev" href="boost__beast__iequal/operator_lp__rp_.html" title="iequal::operator()">
-<link rel="next" href="boost__beast__iless/operator_lp__rp_.html" title="iless::operator()">
+<link rel="next" href="boost__beast__iless/is_transparent.html" title="iless::is_transparent">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -20,7 +20,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="boost__beast__iequal/operator_lp__rp_.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../ref.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="boost__beast__iless/operator_lp__rp_.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="boost__beast__iequal/operator_lp__rp_.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../ref.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="boost__beast__iless/is_transparent.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -40,6 +40,37 @@
 </pre>
 <h5>
 <a name="beast.ref.boost__beast__iless.h1"></a>
+        <span class="phrase"><a name="beast.ref.boost__beast__iless.types"></a></span><a class="link" href="boost__beast__iless.html#beast.ref.boost__beast__iless.types">Types</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                <p>
+                  Name
+                </p>
+              </th>
+<th>
+                <p>
+                  Description
+                </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+                <p>
+                  <span class="bold"><strong><a class="link" href="boost__beast__iless/is_transparent.html" title="iless::is_transparent">is_transparent</a></strong></span>
+                </p>
+              </td>
+<td>
+              </td>
+</tr></tbody>
+</table></div>
+<h5>
+<a name="beast.ref.boost__beast__iless.h2"></a>
         <span class="phrase"><a name="beast.ref.boost__beast__iless.member_functions"></a></span><a class="link" href="boost__beast__iless.html#beast.ref.boost__beast__iless.member_functions">Member
         Functions</a>
       </h5>
@@ -71,11 +102,14 @@
 </tr></tbody>
 </table></div>
 <h5>
-<a name="beast.ref.boost__beast__iless.h2"></a>
+<a name="beast.ref.boost__beast__iless.h3"></a>
         <span class="phrase"><a name="beast.ref.boost__beast__iless.description"></a></span><a class="link" href="boost__beast__iless.html#beast.ref.boost__beast__iless.description">Description</a>
       </h5>
 <p>
-        The case-comparison operation is defined only for low-ASCII characters.
+        The case-comparison operation is defined only for low-ASCII characters. As
+        of C++14, containers using this class as the <code class="computeroutput"><span class="identifier">Compare</span></code>
+        type will take part in heterogeneous lookup if the search term is implicitly
+        convertible to <a class="link" href="boost__beast__string_view.html" title="string_view"><code class="computeroutput"><span class="identifier">string_view</span></code></a>.
       </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
@@ -89,7 +123,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="boost__beast__iequal/operator_lp__rp_.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../ref.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="boost__beast__iless/operator_lp__rp_.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="boost__beast__iequal/operator_lp__rp_.html"><img src="../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../ref.html"><img src="../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../index.html"><img src="../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="boost__beast__iless/is_transparent.html"><img src="../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

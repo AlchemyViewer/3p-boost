@@ -27,7 +27,7 @@
 <a name="beast.ref.boost__beast__http__parser.body_limit"></a><a class="link" href="body_limit.html" title="http::parser::body_limit">http::parser::body_limit</a>
 </h5></div></div></div>
 <p>
-          <a class="indexterm" name="idm45387165965408"></a>
+          <a class="indexterm" name="idm46062531133616"></a>
         </p>
 <p>
           (Inherited from <a class="link" href="../boost__beast__http__basic_parser.html" title="http::basic_parser"><code class="computeroutput"><span class="identifier">http</span><span class="special">::</span><span class="identifier">basic_parser</span></code></a>)
@@ -41,7 +41,7 @@
         </h6>
 <pre class="programlisting"><span class="keyword">void</span>
 <span class="identifier">body_limit</span><span class="special">(</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">uint64_t</span> <span class="identifier">v</span><span class="special">);</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">uint64_t</span> <span class="special">&gt;</span> <span class="identifier">v</span><span class="special">);</span>
 </pre>
 <h6>
 <a name="beast.ref.boost__beast__http__parser.body_limit.h1"></a>
@@ -106,7 +106,9 @@
                 </td>
 <td>
                   <p>
-                    The payload body limit to set
+                    An optional integral value representing the body limit. If this
+                    is equal to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">none</span></code>,
+                    then the body limit is disabled.
                   </p>
                 </td>
 </tr></tbody>

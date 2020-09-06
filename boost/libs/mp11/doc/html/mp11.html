@@ -452,6 +452,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#changelog">Revision History</a>
 <ul class="sectlevel2">
+<li><a href="#changes_in_1_74_0">Changes in 1.74.0</a></li>
 <li><a href="#changes_in_1_73_0">Changes in 1.73.0</a></li>
 <li><a href="#changes_in_1_70_0">Changes in 1.70.0</a></li>
 <li><a href="#changes_in_1_69_0">Changes in 1.69.0</a></li>
@@ -682,6 +683,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#tuple_applyf_tp">tuple_apply(f, tp)</a></li>
 <li><a href="#construct_from_tuplettp">construct_from_tuple&lt;T&gt;(tp)</a></li>
 <li><a href="#tuple_for_eachtp_f">tuple_for_each(tp, f)</a></li>
+<li><a href="#tuple_transformf_tp">tuple_transform(f, tp&#8230;&#8203;)</a></li>
 </ul>
 </li>
 <li><a href="#mp11">Convenience Header, &lt;boost/mp11.hpp&gt;</a></li>
@@ -1228,7 +1230,7 @@ template&lt;class... Tp,
 <div class="sect2">
 <h3 id="computing_return_types">Computing Return Types</h3>
 <div class="paragraph">
-<p>C++17 has a standard variant type, called <code>std::variant</code>. It also defines a function template
+<p>C&#43;&#43;17 has a standard variant type, called <code>std::variant</code>. It also defines a function template
 <code>std::visit</code> that can be used to apply a function to the contained value of one or more variants.
 So for instance, if the variant <code>v1</code> contains <code>1</code>, and the variant <code>v2</code> contains <code>2.0f</code>,
 <code>std::visit(f, v1, v2)</code> will call <code>f(1, 2.0f)</code>.</p>
@@ -1281,20 +1283,37 @@ calling <code>f</code> with all possible combinations of variant values.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>(Unfortunately, we can&#8217;t just define this metafunction inside <code>rvisit</code>; the language prohibits defining template aliases inside functions.)</p>
+<p>It turns out that C&#43;&#43;17 already contains a metafunction that returns the result of the application of a function <code>F</code> to arguments
+of type <code>T&#8230;&#8203;</code>: <code>std::invoke_result_t&lt;F, T&#8230;&#8203;&gt;</code>. We can make use of it to simplify our <code>Qret</code> to</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>template&lt;class F&gt; struct Qret
+{
+    template&lt;class... T&gt; using fn = std::invoke_result_t&lt;F, T...&gt;;
+};</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>which in Mp11 can be expressed more concisely as</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>using Qret = mp_bind_front&lt;std::invoke_result_t, F&gt;;</pre>
+</div>
 </div>
 <div class="paragraph">
 <p>With <code>Qret</code> in hand, a <code>variant</code> of the possible return types is just a matter of applying it over the possible combinations of the variant values:</p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>using R = mp_product_q&lt;Qret&lt;F&gt;, std::remove_reference_t&lt;V&gt;...&gt;;</pre>
+<pre>using R = mp_product_q&lt;Qret, remove_cv_ref&lt;V&gt;...&gt;;</pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Why does this work? <code>mp_product&lt;F, L1&lt;T1&#8230;&#8203;&gt;, L2&lt;T2&#8230;&#8203;&gt;, &#8230;&#8203;, Ln&lt;Tn&#8230;&#8203;&gt;&gt;</code> returns <code>L1&lt;F&lt;U1, U2, &#8230;&#8203;, Un&gt;, &#8230;&#8203;&gt;</code>, where <code>Ui</code> traverse all
 possible combinations of list values. Since in our case all <code>Li</code> are <code>std::variant</code>, the result will also be <code>std::variant</code>. (<code>mp_product_q</code> is
-the same as <code>mp_product</code>, but for quoted metafunctions such as our <code>Qret&lt;F&gt;</code>.)</p>
+the same as <code>mp_product</code>, but for quoted metafunctions such as our <code>Qret</code>.)</p>
 </div>
 <div class="paragraph">
 <p>One more step remains. Suppose that, as above, we&#8217;re passing two variants of type <code>std::variant&lt;short, int, float&gt;</code> and <code>F</code> is
@@ -1303,7 +1322,7 @@ elements will be the same, either <code>int</code> or <code>float</code>, and we
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>using R = mp_unique&lt;mp_product_q&lt;Qret&lt;F&gt;, std::remove_reference_t&lt;V&gt;...&gt;&gt;;</pre>
+<pre>using R = mp_unique&lt;mp_product_q&lt;Qret, remove_cv_ref&lt;V&gt;...&gt;&gt;;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1320,15 +1339,14 @@ elements will be the same, either <code>int</code> or <code>float</code>, and we
 
 using namespace boost::mp11;
 
-template&lt;class F&gt; struct Qret
-{
-    template&lt;class... T&gt; using fn =
-        decltype( std::declval&lt;F&gt;()( std::declval&lt;T&gt;()... ) );
-};
+template&lt;class T&gt; using remove_cv_ref = typename std::remove_cv&lt;
+    typename std::remove_reference&lt;T&gt;::type&gt;::type;
 
 template&lt;class F, class... V&gt; auto rvisit( F&amp;&amp; f, V&amp;&amp;... v )
 {
-    using R = mp_unique&lt;mp_product_q&lt;Qret&lt;F&gt;, std::remove_reference_t&lt;V&gt;...&gt;&gt;;
+    using Qret = mp_bind_front&lt;std::invoke_result_t, F&gt;;
+
+    using R = mp_unique&lt;mp_product_q&lt;Qret, remove_cv_ref&lt;V&gt;...&gt;&gt;;
 
     return std::visit( [&amp;]( auto&amp;&amp;... x )
         { return R( std::forward&lt;F&gt;(f)( std::forward&lt;decltype(x)&gt;(x)... ) ); },
@@ -1354,7 +1372,7 @@ int main()
 
     print_variant( "v1", v1 );
 
-    std::variant&lt;short, int, double&gt; v2( 3.14 );
+    std::variant&lt;short, int, double&gt; const v2( 3.14 );
 
     print_variant( "v2", v2 );
 
@@ -1370,6 +1388,19 @@ int main()
 <div class="sect1">
 <h2 id="changelog">Revision History</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="changes_in_1_74_0">Changes in 1.74.0</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Improved compilation performance of <code>mp_with_index&lt;N&gt;</code> for large <code>N</code></p>
+</li>
+<li>
+<p>Added <code>tuple_transform</code> (contributed by Hans Dembinski)</p>
+</li>
+</ul>
+</div>
+</div>
 <div class="sect2">
 <h3 id="changes_in_1_73_0">Changes in 1.73.0</h3>
 <div class="ulist">
@@ -3088,7 +3119,8 @@ using R4 = mp_repeat_c&lt;L4, 0&gt;; // mp_list&lt;&gt;</code></pre>
 <div class="paragraph">
 <p><code>mp_product&lt;F, L1&lt;T1&#8230;&#8203;&gt;, L2&lt;T2&#8230;&#8203;&gt;, &#8230;&#8203;, Ln&lt;Tn&#8230;&#8203;&gt;&gt;</code> evaluates <code>F&lt;U1, U2, &#8230;&#8203;, Un&gt;</code> for values <code>Ui</code> taken from
 the Cartesian product of the lists, as if the elements <code>Ui</code> are formed by <code>n</code> nested loops, each traversing <code>Li</code>.
-It returns a list of the form <code>L1&lt;V&#8230;&#8203;&gt;</code> containing the results of the application of <code>F</code>.</p>
+It returns a list of the form <code>L1&lt;V&#8230;&#8203;&gt;</code> containing the results of the application of <code>F</code>. The degenerate case
+of zero lists, <code>mp_product&lt;F&gt;</code>, returns <code>mp_list&lt;F&lt;&gt;&gt;</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width: 85%;">
 <caption class="title">Illustration 7. mp_product on two lists</caption>
@@ -4952,11 +4984,36 @@ The name of the function doesn&#8217;t match the C&#43;&#43;17 one to avoid ambi
 </div>
 </div>
 <div class="paragraph">
-<p><code>tuple_for_each(tp, f)</code> applies the function object <code>f</code> to each element of <code>tp</code> by evaluating the
+<p><code>tuple_for_each(tp, f)</code> applies the function object <code>f</code> to each element of <code>tp</code> in order by evaluating the
 expression <code>f(std::get&lt;J&gt;(std::forward&lt;Tp&gt;(tp)))</code> for <code>J</code> in 0..<code>N-1</code>, where <code>N</code> is <code>std::tuple_size&lt;typename std::remove_reference&lt;Tp&gt;::type&gt;::value</code>.</p>
 </div>
 <div class="paragraph">
 <p>Returns <code>std::forward&lt;F&gt;(f)</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="tuple_transformf_tp">tuple_transform(f, tp&#8230;&#8203;)</h4>
+<div class="literalblock">
+<div class="content">
+<pre>template&lt;class F, class... Tp&gt; constexpr /*...*/ tuple_transform(F const&amp; f, Tp&amp;&amp;... tp);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>tuple_transform(f, tp&#8230;&#8203;)</code> accepts a function object <code>f</code> followed by one or more tuples of equal length
+(<code>std::tuple</code>, <code>std::pair</code> and <code>std::array</code> are considered tuples.)</p>
+</div>
+<div class="paragraph">
+<p>The callable <code>f</code> must accept as many arguments as there are tuples. The function object is called with the
+first elements of each tuple, with the second elements of each tuple, and so on, as if by evaluating
+the expression <code>f(std::get&lt;J&gt;(std::forward&lt;Tp&gt;(tp))&#8230;&#8203;)</code> for <code>J</code> in 0..<code>N-1</code>, where <code>N</code> is the length of
+the tuples.</p>
+</div>
+<div class="paragraph">
+<p>The order in which the elements of the tuples are processed is unspecified.</p>
+</div>
+<div class="paragraph">
+<p>The results are returned as a <code>std::tuple&lt;T&#8230;&#8203;&gt;</code> with <code>T&#8230;&#8203;</code> deduced from the return values of <code>f</code> (lvalue
+references are preserved, rvalue references are returned by value.)</p>
 </div>
 </div>
 </div>
@@ -5024,7 +5081,7 @@ into this documentation by Glen Fernandes.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-22 13:35:34 UTC
+Last updated 2020-08-11 14:56:26 UTC
 </div>
 </div>
 <style>

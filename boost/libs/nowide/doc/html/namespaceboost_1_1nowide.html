@@ -58,7 +58,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost_1_1nowide_1_1args.html">args</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">args is a class that fixes standard main() function arguments and changes them to UTF-8 under Microsoft Windows.  <a href="classboost_1_1nowide_1_1args.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><code>args</code> is a class that temporarily replaces standard main() function arguments with their equal, but UTF-8 encoded values under Microsoft Windows for the lifetime of the instance.  <a href="classboost_1_1nowide_1_1args.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost_1_1nowide_1_1basic__filebuf.html">basic_filebuf</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This forward declaration defines the <a class="el" href="classboost_1_1nowide_1_1basic__filebuf.html" title="This forward declaration defines the basic_filebuf type.">basic_filebuf</a> type.  <a href="classboost_1_1nowide_1_1basic__filebuf.html#details">More...</a><br /></td></tr>
@@ -106,6 +106,14 @@ Typedefs</h2></td></tr>
 <tr class="separator:a202f3231c051ab92b707ac8dbb6e7395"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acbf122c4620ecaa5b5cb73bd527415b5"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classboost_1_1nowide_1_1basic__stackstring.html">basic_stackstring</a>&lt; char, wchar_t, 16 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#acbf122c4620ecaa5b5cb73bd527415b5">short_stackstring</a></td></tr>
 <tr class="separator:acbf122c4620ecaa5b5cb73bd527415b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61eecc2b14a6045459fc7adc4d53017c"><td class="memItemLeft" align="right" valign="top"><a id="a61eecc2b14a6045459fc7adc4d53017c"></a>
+typedef struct ::__stat64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#a61eecc2b14a6045459fc7adc4d53017c">stat_t</a></td></tr>
+<tr class="memdesc:a61eecc2b14a6045459fc7adc4d53017c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typedef for the file info structure. Able to hold 64 bit filesize and timestamps on Windows and usually also on other 64 Bit systems This allows to write portable code with option LFS support. <br /></td></tr>
+<tr class="separator:a61eecc2b14a6045459fc7adc4d53017c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4992fd8039bd8478db74e5aa0c92e63"><td class="memItemLeft" align="right" valign="top"><a id="ab4992fd8039bd8478db74e5aa0c92e63"></a>
+typedef struct ::_stat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#ab4992fd8039bd8478db74e5aa0c92e63">posix_stat_t</a></td></tr>
+<tr class="memdesc:ab4992fd8039bd8478db74e5aa0c92e63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Typedef for the file info structure used in the POSIX stat call Resolves to <code>struct _stat</code> on Windows and <code>struct stat</code> otherwise This allows to write portable code using the default stat function. <br /></td></tr>
+<tr class="separator:ab4992fd8039bd8478db74e5aa0c92e63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -161,9 +169,28 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="names
 <tr class="separator:ad42e1fc3dd7ac556a551fbac3fa553e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00544a475ceab4163eb8c12ee80eb9ec"><td class="memItemLeft" align="right" valign="top">std::locale&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#a00544a475ceab4163eb8c12ee80eb9ec">nowide_filesystem</a> ()</td></tr>
 <tr class="separator:a00544a475ceab4163eb8c12ee80eb9ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9eef6435c2ba78f230b5de7956f032dc"><td class="memItemLeft" align="right" valign="top"><a id="a9eef6435c2ba78f230b5de7956f032dc"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>BOOST_STATIC_ASSERT</b> (sizeof(std::mbstate_t) &gt;=2)</td></tr>
-<tr class="separator:a9eef6435c2ba78f230b5de7956f032dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3a31a8430ec37306143ebe54776c805"><td class="memTemplParams" colspan="2"><a id="aa3a31a8430ec37306143ebe54776c805"></a>
+template&lt;typename CharType , typename Traits &gt; </td></tr>
+<tr class="memitem:aa3a31a8430ec37306143ebe54776c805"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>swap</b> (<a class="el" href="classboost_1_1nowide_1_1basic__filebuf.html">basic_filebuf</a>&lt; CharType, Traits &gt; &amp;lhs, <a class="el" href="classboost_1_1nowide_1_1basic__filebuf.html">basic_filebuf</a>&lt; CharType, Traits &gt; &amp;rhs)</td></tr>
+<tr class="separator:aa3a31a8430ec37306143ebe54776c805"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a952b29bdc65c5d67ad8547be5c0b629d"><td class="memTemplParams" colspan="2"><a id="a952b29bdc65c5d67ad8547be5c0b629d"></a>
+template&lt;typename CharType , typename Traits &gt; </td></tr>
+<tr class="memitem:a952b29bdc65c5d67ad8547be5c0b629d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>swap</b> (<a class="el" href="classboost_1_1nowide_1_1basic__ifstream.html">basic_ifstream</a>&lt; CharType, Traits &gt; &amp;lhs, <a class="el" href="classboost_1_1nowide_1_1basic__ifstream.html">basic_ifstream</a>&lt; CharType, Traits &gt; &amp;rhs)</td></tr>
+<tr class="separator:a952b29bdc65c5d67ad8547be5c0b629d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf5973a159ff279a31ff05fcfff6f6ce"><td class="memTemplParams" colspan="2"><a id="abf5973a159ff279a31ff05fcfff6f6ce"></a>
+template&lt;typename CharType , typename Traits &gt; </td></tr>
+<tr class="memitem:abf5973a159ff279a31ff05fcfff6f6ce"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>swap</b> (<a class="el" href="classboost_1_1nowide_1_1basic__ofstream.html">basic_ofstream</a>&lt; CharType, Traits &gt; &amp;lhs, <a class="el" href="classboost_1_1nowide_1_1basic__ofstream.html">basic_ofstream</a>&lt; CharType, Traits &gt; &amp;rhs)</td></tr>
+<tr class="separator:abf5973a159ff279a31ff05fcfff6f6ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee8d2383f22f63cd085cf0fb8802ca65"><td class="memTemplParams" colspan="2"><a id="aee8d2383f22f63cd085cf0fb8802ca65"></a>
+template&lt;typename CharType , typename Traits &gt; </td></tr>
+<tr class="memitem:aee8d2383f22f63cd085cf0fb8802ca65"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>swap</b> (<a class="el" href="classboost_1_1nowide_1_1basic__fstream.html">basic_fstream</a>&lt; CharType, Traits &gt; &amp;lhs, <a class="el" href="classboost_1_1nowide_1_1basic__fstream.html">basic_fstream</a>&lt; CharType, Traits &gt; &amp;rhs)</td></tr>
+<tr class="separator:aee8d2383f22f63cd085cf0fb8802ca65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eb5b391f04d80ba00f37725cd9c5356"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#a4eb5b391f04d80ba00f37725cd9c5356">stat</a> (const char *path, <a class="el" href="namespaceboost_1_1nowide.html#a61eecc2b14a6045459fc7adc4d53017c">stat_t</a> *buffer)</td></tr>
+<tr class="memdesc:a4eb5b391f04d80ba00f37725cd9c5356"><td class="mdescLeft">&#160;</td><td class="mdescRight">UTF-8 aware stat function, returns 0 on success.  <a href="#a4eb5b391f04d80ba00f37725cd9c5356">More...</a><br /></td></tr>
+<tr class="separator:a4eb5b391f04d80ba00f37725cd9c5356"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ba612d55b59b53f8700ad006b8b4301"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#a6ba612d55b59b53f8700ad006b8b4301">stat</a> (const char *path, <a class="el" href="namespaceboost_1_1nowide.html#ab4992fd8039bd8478db74e5aa0c92e63">posix_stat_t</a> *buffer)</td></tr>
+<tr class="memdesc:a6ba612d55b59b53f8700ad006b8b4301"><td class="mdescLeft">&#160;</td><td class="mdescRight">UTF-8 aware stat function, returns 0 on success.  <a href="#a6ba612d55b59b53f8700ad006b8b4301">More...</a><br /></td></tr>
+<tr class="separator:a6ba612d55b59b53f8700ad006b8b4301"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a1050806ab54313352e937ceb8f21a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#a2a1050806ab54313352e937ceb8f21a6">dummy_exported_function</a> ()</td></tr>
 <tr class="separator:a2a1050806ab54313352e937ceb8f21a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -633,6 +660,76 @@ Variables</h2></td></tr>
 <p>Set environment variable <em>key</em> to <em>value</em>. </p>
 <p>if overwrite is not 0, that the old value is always overwritten, otherwise, if the variable exists it remains unchanged</p>
 <p><em>key</em> and <em>value</em> are UTF-8 on Windows </p><dl class="section return"><dt>Returns</dt><dd>zero on success, else nonzero </dd></dl>
+
+</div>
+</div>
+<a id="a4eb5b391f04d80ba00f37725cd9c5356"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4eb5b391f04d80ba00f37725cd9c5356">&#9670;&nbsp;</a></span>stat() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int boost::nowide::stat </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceboost_1_1nowide.html#a61eecc2b14a6045459fc7adc4d53017c">stat_t</a> *&#160;</td>
+          <td class="paramname"><em>buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>UTF-8 aware stat function, returns 0 on success. </p>
+<p>Return information about a file from an UTF-8 encoded path </p>
+
+</div>
+</div>
+<a id="a6ba612d55b59b53f8700ad006b8b4301"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ba612d55b59b53f8700ad006b8b4301">&#9670;&nbsp;</a></span>stat() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int boost::nowide::stat </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceboost_1_1nowide.html#ab4992fd8039bd8478db74e5aa0c92e63">posix_stat_t</a> *&#160;</td>
+          <td class="paramname"><em>buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>UTF-8 aware stat function, returns 0 on success. </p>
+<p>Return information about a file from an UTF-8 encoded path </p>
 
 </div>
 </div>

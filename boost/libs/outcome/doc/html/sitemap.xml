@@ -104,7 +104,7 @@
   
   <url>
     <loc>/tutorial/essential/result.html</loc>
-    <lastmod>2019-03-23T21:56:56+00:00</lastmod>
+    <lastmod>2020-07-07T23:06:43+01:00</lastmod>
   </url>
   
   <url>
@@ -254,7 +254,7 @@
   
   <url>
     <loc>/tutorial/essential/outcome/inspecting.html</loc>
-    <lastmod>2019-02-08T22:18:08+00:00</lastmod>
+    <lastmod>2020-06-19T15:42:26+01:00</lastmod>
   </url>
   
   <url>
@@ -444,7 +444,7 @@
   
   <url>
     <loc>/changelog.html</loc>
-    <lastmod>2020-04-07T10:22:38+01:00</lastmod>
+    <lastmod>2020-07-07T15:18:51+01:00</lastmod>
   </url>
   
   <url>
@@ -1420,7 +1420,7 @@
   
   <url>
     <loc>/tags/exception.html</loc>
-    <lastmod>2019-02-08T22:18:08+00:00</lastmod>
+    <lastmod>2020-06-19T15:42:26+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1443,7 +1443,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2020-02-03T12:05:24+00:00</lastmod>
+    <lastmod>2020-07-03T14:21:54+01:00</lastmod>
   </url>
   
   <url>
@@ -1502,7 +1502,7 @@
   
   <url>
     <loc>/tags/namespace.html</loc>
-    <lastmod>2019-03-23T21:56:56+00:00</lastmod>
+    <lastmod>2020-07-07T23:06:43+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1562,7 +1562,7 @@
   
   <url>
     <loc>/tags/result.html</loc>
-    <lastmod>2019-03-23T21:56:56+00:00</lastmod>
+    <lastmod>2020-07-07T23:06:43+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1586,7 +1586,7 @@
   
   <url>
     <loc>/tags/try.html</loc>
-    <lastmod>2019-03-23T21:56:56+00:00</lastmod>
+    <lastmod>2020-07-07T23:06:43+01:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -1640,6 +1640,11 @@
   <url>
     <loc>/reference/macros/disable_execinfo.html</loc>
     <lastmod>2018-12-12T22:01:42+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/reference/macros/enable_legacy_support_for.html</loc>
+    <lastmod>2020-05-24T12:48:39+01:00</lastmod>
   </url>
   
   <url>
@@ -1708,16 +1713,6 @@
   </url>
   
   <url>
-    <loc>/reference/concepts/valueorerror.html</loc>
-    <lastmod>2018-12-13T17:36:11+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/reference/concepts/valueornone.html</loc>
-    <lastmod>2018-12-13T17:36:11+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/reference/policies/all_narrow.html</loc>
     <lastmod>2019-01-22T01:11:40+00:00</lastmod>
   </url>
@@ -1759,12 +1754,22 @@
   
   <url>
     <loc>/reference/types/basic_outcome.html</loc>
-    <lastmod>2020-02-03T12:05:24+00:00</lastmod>
+    <lastmod>2020-05-24T12:48:39+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/reference/concepts/basic_outcome.html</loc>
+    <lastmod>2020-05-24T12:48:39+01:00</lastmod>
   </url>
   
   <url>
     <loc>/reference/types/basic_result.html</loc>
-    <lastmod>2020-02-03T12:05:24+00:00</lastmod>
+    <lastmod>2020-05-24T12:48:39+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/reference/concepts/basic_result.html</loc>
+    <lastmod>2020-05-24T12:48:39+01:00</lastmod>
   </url>
   
   <url>
@@ -1864,12 +1869,12 @@
   
   <url>
     <loc>/reference/traits/is_basic_outcome.html</loc>
-    <lastmod>2019-01-30T16:16:10+00:00</lastmod>
+    <lastmod>2020-05-24T12:48:39+01:00</lastmod>
   </url>
   
   <url>
     <loc>/reference/traits/is_basic_result.html</loc>
-    <lastmod>2019-01-30T16:16:10+00:00</lastmod>
+    <lastmod>2020-05-24T12:48:39+01:00</lastmod>
   </url>
   
   <url>
@@ -2005,6 +2010,16 @@
   <url>
     <loc>/reference/converters/value_or_error.html</loc>
     <lastmod>2018-12-15T17:49:37+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/reference/concepts/value_or_error.html</loc>
+    <lastmod>2020-05-24T12:48:39+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/reference/concepts/value_or_none.html</loc>
+    <lastmod>2020-05-24T12:48:39+01:00</lastmod>
   </url>
   
   <url>

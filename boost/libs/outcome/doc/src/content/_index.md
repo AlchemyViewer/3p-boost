@@ -38,7 +38,7 @@ guaranteed and is C-compatible for `result<T, E>`[^1], thus making Outcome based
 Ben Craig's work on [P1886 *Error speed benchmarking*](https://wg21.link/P1886) has led to
 a [`better_optimisation`](https://github.com/ned14/outcome/tree/better_optimisation) branch intended
 to be merged end of 2020 as Outcome v2.2.0, after twelve months of testing. This branch has a number
-of major changes to Outcome v2:
+of major and breaking changes to Outcome v2:
 
 1. A new trait `is_move_bitcopying<T>` is added, which opts types into a library-based emulation of
 [P1029 *move = bitcopies*](https://wg21.link/P1029). [Experimental `std::error`](https://wg21.link/P1028) is opted in by default.
@@ -57,6 +57,11 @@ world code. It is expected that the build time impact of union storage won't be 
 union storage for trivially copyable types is much easier than for non-TC types.
 
 3. The compile time requirement for `E` types to have a default constructor is removed.
+
+4. `BOOST_OUTCOME_TRY(var, expr)` no longer always declares `var` as `auto &&var`, but simply uses it
+as is. This allows `TRY` to initialise or assign. You can use the macro `OUTCOME21_TRY` if you
+want the pre-Outcome v2.2 behaviour. You may find the regular expression `_TRY\(([^(]*?),(.*?)\);` =>
+`_TRY(auto &&\1,\2);` of use to you when upgrading code.
 {{% /notice %}}
 
 ## Sample usage

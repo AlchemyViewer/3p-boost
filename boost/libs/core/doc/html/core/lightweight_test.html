@@ -34,7 +34,7 @@
 </dl></div>
 <div class="simplesect">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="idm44829126070128"></a>Authors</h3></div></div></div>
+<a name="idm46188351426208"></a>Authors</h3></div></div></div>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
           Peter Dimov
@@ -75,9 +75,11 @@
 <span class="preprocessor">#define</span> <span class="identifier">BOOST_TEST_GE</span><span class="special">(</span><span class="identifier">expr1</span><span class="special">,</span> <span class="identifier">expr2</span><span class="special">)</span> <span class="comment">/*unspecified*/</span>
 <span class="preprocessor">#define</span> <span class="identifier">BOOST_TEST_CSTR_EQ</span><span class="special">(</span><span class="identifier">expr1</span><span class="special">,</span> <span class="identifier">expr2</span><span class="special">)</span> <span class="comment">/*unspecified*/</span>
 <span class="preprocessor">#define</span> <span class="identifier">BOOST_TEST_CSTR_NE</span><span class="special">(</span><span class="identifier">expr1</span><span class="special">,</span> <span class="identifier">expr2</span><span class="special">)</span> <span class="comment">/*unspecified*/</span>
+<span class="preprocessor">#define</span> <span class="identifier">BOOST_TEST_WITH</span><span class="special">(</span><span class="identifier">expr1</span><span class="special">,</span> <span class="identifier">expr2</span><span class="special">,</span> <span class="identifier">pred</span><span class="special">)</span> <span class="comment">/*unspecified*/</span>
 <span class="preprocessor">#define</span> <span class="identifier">BOOST_TEST_ALL_EQ</span><span class="special">(</span><span class="identifier">begin1</span><span class="special">,</span> <span class="identifier">end1</span><span class="special">,</span> <span class="identifier">begin2</span><span class="special">,</span> <span class="identifier">end2</span><span class="special">)</span> <span class="comment">/* unspecified */</span>
 <span class="preprocessor">#define</span> <span class="identifier">BOOST_TEST_ALL_WITH</span><span class="special">(</span><span class="identifier">begin1</span><span class="special">,</span> <span class="identifier">end1</span><span class="special">,</span> <span class="identifier">begin2</span><span class="special">,</span> <span class="identifier">end2</span><span class="special">,</span> <span class="identifier">predicate</span><span class="special">)</span> <span class="comment">/* unspecified */</span>
 <span class="preprocessor">#define</span> <span class="identifier">BOOST_TEST_THROWS</span><span class="special">(</span><span class="identifier">expr</span><span class="special">,</span> <span class="identifier">excep</span><span class="special">)</span> <span class="comment">/*unspecified*/</span>
+<span class="preprocessor">#define</span> <span class="identifier">BOOST_TEST_NO_THROW</span><span class="special">(</span><span class="identifier">expr</span><span class="special">)</span> <span class="comment">/*unspecified*/</span>
 
 <span class="keyword">namespace</span> <span class="identifier">boost</span>
 <span class="special">{</span>
@@ -219,6 +221,18 @@
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
+<a name="core.lightweight_test.header_boost_core_lightweight_te.boost_test_with"></a><a class="link" href="lightweight_test.html#core.lightweight_test.header_boost_core_lightweight_te.boost_test_with" title="BOOST_TEST_WITH">BOOST_TEST_WITH</a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="identifier">BOOST_TEST_WITH</span><span class="special">(</span><span class="identifier">expr1</span><span class="special">,</span> <span class="identifier">expr2</span><span class="special">,</span> <span class="identifier">pred</span><span class="special">)</span>
+</pre>
+<p>
+          If <code class="computeroutput"><span class="identifier">pred</span><span class="special">(</span><span class="identifier">expr1</span><span class="special">,</span> <span class="identifier">expr2</span><span class="special">)</span></code>
+          is not true increases the error count and outputs a message containing
+          both expressions.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
 <a name="core.lightweight_test.header_boost_core_lightweight_te.boost_test_all_eq"></a><a class="link" href="lightweight_test.html#core.lightweight_test.header_boost_core_lightweight_te.boost_test_all_eq" title="BOOST_TEST_ALL_EQ">BOOST_TEST_ALL_EQ</a>
 </h4></div></div></div>
 <pre class="programlisting"><span class="identifier">BOOST_TEST_ALL_EQ</span><span class="special">(</span><span class="identifier">begin1</span><span class="special">,</span> <span class="identifier">end1</span><span class="special">,</span> <span class="identifier">begin2</span><span class="special">,</span> <span class="identifier">end2</span><span class="special">)</span>
@@ -257,6 +271,23 @@
           If <code class="computeroutput"><span class="identifier">BOOST_NO_EXCEPTIONS</span></code>
           is defined, this macro expands to nothing and <code class="computeroutput"><span class="identifier">expr</span></code>
           is not evaluated.
+        </p>
+</div>
+<div class="section">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="core.lightweight_test.header_boost_core_lightweight_te.boost_test_no_throw"></a><a class="link" href="lightweight_test.html#core.lightweight_test.header_boost_core_lightweight_te.boost_test_no_throw" title="BOOST_TEST_NO_THROW">BOOST_TEST_NO_THROW</a>
+</h4></div></div></div>
+<pre class="programlisting"><span class="identifier">BOOST_TEST_NO_THROW</span><span class="special">(</span><span class="identifier">expr</span><span class="special">)</span>
+</pre>
+<p>
+          If <code class="computeroutput"><span class="identifier">BOOST_NO_EXCEPTIONS</span></code>
+          is <span class="bold"><strong>not</strong></span> defined and if <code class="computeroutput"><span class="identifier">expr</span></code>
+          throws an exception, increases the error count and outputs a message containing
+          the expression and (if possible) the exception message.
+        </p>
+<p>
+          If <code class="computeroutput"><span class="identifier">BOOST_NO_EXCEPTIONS</span></code>
+          is defined, <code class="computeroutput"><span class="identifier">expr</span></code> is evaluated.
         </p>
 </div>
 <div class="section">

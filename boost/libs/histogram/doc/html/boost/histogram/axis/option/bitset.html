@@ -7,7 +7,7 @@
 <link rel="home" href="../../../../index.html" title="Chapter 1. Boost.Histogram">
 <link rel="up" href="../../../../histogram/reference.html#header.boost.histogram.axis.option_hpp" title="Header &lt;boost/histogram/axis/option.hpp&gt;">
 <link rel="prev" href="bit.html" title="Struct template bit">
-<link rel="next" href="none.html" title="Global none">
+<link rel="next" href="circular.html" title="Global circular">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -20,7 +20,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="bit.html"><img src="../../../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../../histogram/reference.html#header.boost.histogram.axis.option_hpp"><img src="../../../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../../index.html"><img src="../../../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="none.html"><img src="../../../../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="bit.html"><img src="../../../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../../histogram/reference.html#header.boost.histogram.axis.option_hpp"><img src="../../../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../../index.html"><img src="../../../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="circular.html"><img src="../../../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.histogram.axis.option.bitset"></a><div class="titlepage"></div>
@@ -34,16 +34,16 @@
 </span><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">unsigned</span> Bits<span class="special">&gt;</span> 
 <span class="keyword">struct</span> <a class="link" href="bitset.html" title="Struct template bitset">bitset</a> <span class="special">:</span> <span class="keyword">public</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">integral_constant</span><span class="special">&lt;</span> <span class="keyword">unsigned</span><span class="special">,</span> <span class="identifier">Bits</span> <span class="special">&gt;</span> <span class="special">{</span>
 
-  <span class="comment">// <a class="link" href="bitset.html#idm45095474888800-bb">public static functions</a></span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">unsigned</span> B<span class="special">&gt;</span> <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="link" href="bitset.html#idm45095474888240-bb"><span class="identifier">test</span></a><span class="special">(</span><a class="link" href="bitset.html" title="Struct template bitset">bitset</a><span class="special">&lt;</span> <span class="identifier">B</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="bitset.html#idm46471892443936-bb">public static functions</a></span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">unsigned</span> B<span class="special">&gt;</span> <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a class="link" href="bitset.html#idm46471892443376-bb"><span class="identifier">test</span></a><span class="special">(</span><a class="link" href="bitset.html" title="Struct template bitset">bitset</a><span class="special">&lt;</span> <span class="identifier">B</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm46146077841920"></a><h2>Description</h2>
+<a name="idm45803116669344"></a><h2>Description</h2>
 <div class="refsect2">
-<a name="idm46146077841504"></a><h3>
-<a name="idm45095474888800-bb"></a><code class="computeroutput">bitset</code> public static functions</h3>
+<a name="idm45803116668928"></a><h3>
+<a name="idm46471892443936-bb"></a><code class="computeroutput">bitset</code> public static functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">unsigned</span> B<span class="special">&gt;</span> <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a name="idm45095474888240-bb"></a><span class="identifier">test</span><span class="special">(</span><a class="link" href="bitset.html" title="Struct template bitset">bitset</a><span class="special">&lt;</span> <span class="identifier">B</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span></pre>Returns true if all option flags in the argument are set and false otherwise. </li></ol></div>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">unsigned</span> B<span class="special">&gt;</span> <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">auto</span> <a name="idm46471892443376-bb"></a><span class="identifier">test</span><span class="special">(</span><a class="link" href="bitset.html" title="Struct template bitset">bitset</a><span class="special">&lt;</span> <span class="identifier">B</span> <span class="special">&gt;</span><span class="special">)</span><span class="special">;</span></pre>Returns true if all option flags in the argument are set and false otherwise. </li></ol></div>
 </div>
 </div>
 </div>
@@ -58,7 +58,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="bit.html"><img src="../../../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../../histogram/reference.html#header.boost.histogram.axis.option_hpp"><img src="../../../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../../index.html"><img src="../../../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="none.html"><img src="../../../../../../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="bit.html"><img src="../../../../../../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../../../../histogram/reference.html#header.boost.histogram.axis.option_hpp"><img src="../../../../../../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../../../../index.html"><img src="../../../../../../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="circular.html"><img src="../../../../../../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

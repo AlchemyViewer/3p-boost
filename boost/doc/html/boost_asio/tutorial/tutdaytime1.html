@@ -55,7 +55,8 @@ int main(int argc, char* argv[])
     }
 </pre>
 <p>
-        All programs that use asio need to have at least one <a class="link" href="../reference/io_context.html" title="io_context">io_context</a>
+        All programs that use asio need to have at least one I/O execution context,
+        such as an <a class="link" href="../reference/io_context.html" title="io_context">io_context</a>
         object.
       </p>
 <pre class="programlisting">    boost::asio::io_context io_context;

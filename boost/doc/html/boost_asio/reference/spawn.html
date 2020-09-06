@@ -47,7 +47,7 @@ void <a class="link" href="spawn/overload2.html" title="spawn (2 of 7 overloads)
     Handler &amp;&amp; handler,
     Function &amp;&amp; function,
     const boost::coroutines::attributes &amp; attributes = boost::coroutines::attributes(),
-    typename enable_if&lt;!is_executor&lt; typename decay&lt; Handler &gt;::type &gt;::value &amp;&amp;!is_convertible&lt; Handler &amp;, execution_context &amp; &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; !is_executor&lt; typename decay&lt; Handler &gt;::type &gt;::value &amp;&amp;!execution::is_executor&lt; typename decay&lt; Handler &gt;::type &gt;::value &amp;&amp;!is_convertible&lt; Handler &amp;, execution_context &amp; &gt;::value &gt;::type *  = 0);
   <span class="emphasis"><em>» <a class="link" href="spawn/overload2.html" title="spawn (2 of 7 overloads)">more...</a></em></span>
 </pre>
 <p>
@@ -72,7 +72,7 @@ void <a class="link" href="spawn/overload4.html" title="spawn (4 of 7 overloads)
     const Executor &amp; ex,
     Function &amp;&amp; function,
     const boost::coroutines::attributes &amp; attributes = boost::coroutines::attributes(),
-    typename enable_if&lt; is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; is_executor&lt; Executor &gt;::value||execution::is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
   <span class="emphasis"><em>» <a class="link" href="spawn/overload4.html" title="spawn (4 of 7 overloads)">more...</a></em></span>
 </pre>
 <p>

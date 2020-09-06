@@ -77,7 +77,7 @@ template&lt;
     typename <a class="link" href="../Executor1.html" title="Executor requirements">Executor1</a>&gt;
 Protocol::socket::template rebind_executor&lt; Executor1 &gt;::other <a class="link" href="accept/overload7.html" title="basic_socket_acceptor::accept (7 of 16 overloads)">accept</a>(
     const Executor1 &amp; ex,
-    typename enable_if&lt; is_executor&lt; Executor1 &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; is_executor&lt; Executor1 &gt;::value||execution::is_executor&lt; Executor1 &gt;::value &gt;::type *  = 0);
   <span class="emphasis"><em>» <a class="link" href="accept/overload7.html" title="basic_socket_acceptor::accept (7 of 16 overloads)">more...</a></em></span>
 
 template&lt;
@@ -92,7 +92,7 @@ template&lt;
 Protocol::socket::template rebind_executor&lt; Executor1 &gt;::other <a class="link" href="accept/overload9.html" title="basic_socket_acceptor::accept (9 of 16 overloads)">accept</a>(
     const Executor1 &amp; ex,
     boost::system::error_code &amp; ec,
-    typename enable_if&lt; is_executor&lt; Executor1 &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; is_executor&lt; Executor1 &gt;::value||execution::is_executor&lt; Executor1 &gt;::value &gt;::type *  = 0);
   <span class="emphasis"><em>» <a class="link" href="accept/overload9.html" title="basic_socket_acceptor::accept (9 of 16 overloads)">more...</a></em></span>
 
 template&lt;
@@ -117,7 +117,7 @@ template&lt;
 Protocol::socket::template rebind_executor&lt; Executor1 &gt;::other <a class="link" href="accept/overload13.html" title="basic_socket_acceptor::accept (13 of 16 overloads)">accept</a>(
     const Executor1 &amp; ex,
     endpoint_type &amp; peer_endpoint,
-    typename enable_if&lt; is_executor&lt; Executor1 &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; is_executor&lt; Executor1 &gt;::value||execution::is_executor&lt; Executor1 &gt;::value &gt;::type *  = 0);
   <span class="emphasis"><em>» <a class="link" href="accept/overload13.html" title="basic_socket_acceptor::accept (13 of 16 overloads)">more...</a></em></span>
 
 template&lt;
@@ -134,7 +134,7 @@ Protocol::socket::template rebind_executor&lt; Executor1 &gt;::other <a class="l
     const executor_type &amp; ex,
     endpoint_type &amp; peer_endpoint,
     boost::system::error_code &amp; ec,
-    typename enable_if&lt; is_executor&lt; Executor1 &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; is_executor&lt; Executor1 &gt;::value||execution::is_executor&lt; Executor1 &gt;::value &gt;::type *  = 0);
   <span class="emphasis"><em>» <a class="link" href="accept/overload15.html" title="basic_socket_acceptor::accept (15 of 16 overloads)">more...</a></em></span>
 
 template&lt;

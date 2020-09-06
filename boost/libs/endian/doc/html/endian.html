@@ -453,6 +453,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#changelog">Revision History</a>
 <ul class="sectlevel2">
+<li><a href="#overview_changes_in_1_74_0">Changes in 1.74.0</a></li>
 <li><a href="#overview_changes_in_1_72_0">Changes in 1.72.0</a></li>
 <li><a href="#overview_changes_in_1_71_0">Changes in 1.71.0</a></li>
 </ul>
@@ -1079,8 +1080,9 @@ limitations, support for floating point types was not reliable and was removed.
 For example, simply reversing the endianness of a floating point number can
 result in a signaling-NAN.</p>
 <div class="paragraph">
-<p>Support for <code>float</code> and <code>double</code> has since been reinstated for <code>endian_buffer</code>
-and <code>endian_arithmetic</code>. The conversion functions still do not support floating
+<p>Support for <code>float</code> and <code>double</code> has since been reinstated for <code>endian_buffer</code>,
+<code>endian_arithmetic</code> and the conversion functions that reverse endianness in place.
+The conversion functions that take and return by value still do not support floating
 point due to the above issues; reversing the bytes of a floating point number
 does not necessarily produce another valid floating point number.</p>
 </div>
@@ -1093,6 +1095,22 @@ does not necessarily produce another valid floating point number.</p>
 <div class="sect1">
 <h2 id="changelog">Revision History</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="overview_changes_in_1_74_0">Changes in 1.74.0</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Enabled scoped enumeration types in <code>endian_reverse</code></p>
+</li>
+<li>
+<p>Enabled <code>bool</code>, <code>enum</code>, <code>float</code>, <code>double</code> in <code>endian_reverse_inplace</code></p>
+</li>
+<li>
+<p>Added an overload of <code>endian_reverse_inplace</code> for arrays</p>
+</li>
+</ul>
+</div>
+</div>
 <div class="sect2">
 <h3 id="overview_changes_in_1_72_0">Changes in 1.72.0</h3>
 <div class="ulist">
@@ -1566,8 +1584,21 @@ extensive description of <a href="https://en.wikipedia.org/wiki/Endianness">Endi
 </table>
 </div>
 <div class="paragraph">
-<p>The standard integral types (C&#43;&#43;std 3.9.1) except <code>bool</code> are collectively
-called the <strong>endian types</strong>.</p>
+<p>The standard integral types (C&#43;&#43;std [basic.fundamental]) except <code>bool</code> and
+the scoped enumeration types (C&#43;&#43;std [dcl.enum]) are collectively called the
+<strong>endian types</strong>. In the absence of padding bits, which is true on the platforms
+supported by the Boost.Endian library, endian types have the property that all
+of their bit patterns are valid values, which means that when an object of an
+endian type has its constituent bytes reversed, the result is another valid value.
+This allows <code>endian_reverse</code> to take and return by value.</p>
+</div>
+<div class="paragraph">
+<p>Other built-in types, such as <code>bool</code>, <code>float</code>, or unscoped enumerations, do not
+have the same property, which means that reversing their constituent bytes may
+produce an invalid value, leading to undefined behavior. These types are therefore
+disallowed in <code>endian_reverse</code>, but are still allowed in <code>endian_reverse_inplace</code>.
+Even if an object becomes invalid as a result of reversing its bytes, as long as
+its value is never read, there would be no undefined behavior.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1612,6 +1643,9 @@ namespace endian
 
   template &lt;class EndianReversible&gt;
     void endian_reverse_inplace(EndianReversible&amp; x) noexcept;
+
+  template&lt;class EndianReversibleInplace, std::size_t N&gt;
+    void endian_reverse_inplace(EndianReversibleInplace (&amp;x)[N]) noexcept;
 
   template &lt;class EndianReversibleInplace&gt;
     void big_to_native_inplace(EndianReversibleInplace&amp; x) noexcept;
@@ -1779,12 +1813,12 @@ reversed.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Returns the value of <code>x</code> with the order of bytes reversed for all data members
-of types or arrays of types that meet the <code>EndianReversible</code> requirements, and;</p>
+<p>Is expected to be implemented by the user, as a non-member function in the same
+namespace as <code>T</code> that can be found by argument dependent lookup (ADL);</p>
 </li>
 <li>
-<p>Is a non-member function in the same namespace as <code>T</code> that can be found by
-argument dependent lookup (ADL).</p>
+<p>Should return the value of <code>x</code> with the order of bytes reversed for all data members
+of types or arrays of types that meet the <code>EndianReversible</code> requirements.</p>
 </li>
 </ul>
 </div></div></td>
@@ -1793,7 +1827,7 @@ argument dependent lookup (ADL).</p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="conversion_endianreversibleinplace">EndianReversibleInplace requirements (in addition to <code>CopyConstructible</code>)</h6>
+<h6 id="conversion_endianreversibleinplace">EndianReversibleInplace requirements</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -1809,10 +1843,11 @@ argument dependent lookup (ADL).</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>endian_reverse_inplace(mlx)</code></p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
-<p><code>T</code> is an endian type or a class type.</p>
+<p><code>T</code> is an integral type, an enumeration type, <code>float</code>, <code>double</code>, a class type,
+or an array type.</p>
 </div>
 <div class="paragraph">
-<p>If <code>T</code> is an endian type, reverses the order of bytes in <code>mlx</code>.</p>
+<p>If <code>T</code> is not a class type or an array type, reverses the order of bytes in <code>mlx</code>.</p>
 </div>
 <div class="paragraph">
 <p>If <code>T</code> is a class type, the function:</p>
@@ -1820,15 +1855,18 @@ argument dependent lookup (ADL).</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Reverses the order of bytes of all data members of <code>mlx</code> that have types or
-arrays of types that meet the <code>EndianReversible</code> or <code>EndianReversibleInplace</code>
-requirements, and;</p>
+<p>Is expected to be implemented by the user, as a non-member function in the same
+namespace as <code>T</code> that can be found by argument dependent lookup (ADL);</p>
 </li>
 <li>
-<p>Is a non-member function in the same namespace as <code>T</code> that can be found by
-argument dependent lookup (ADL).</p>
+<p>Should reverse the order of bytes of all data members of <code>mlx</code> that have types or
+arrays of types that meet the <code>EndianReversible</code> or <code>EndianReversibleInplace</code>
+requirements.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>If <code>T</code> is an array type, calls <code>endian_reverse_inplace</code> on each element.</p>
 </div></div></td>
 </tr>
 </tbody>
@@ -1841,10 +1879,10 @@ argument dependent lookup (ADL).</p>
 </td>
 <td class="content">
 Because there is a function template for <code>endian_reverse_inplace</code> that
-calls <code>endian_reverse</code>, only <code>endian_reverse</code> is required for a user-defined
-type to meet the <code>EndianReversibleInplace</code> requirements. Although User-defined
-types are not required to supply an <code>endian_reverse_inplace</code> function, doing so
-may improve efficiency.
+calls <code>endian_reverse</code> for class types, only <code>endian_reverse</code> is required for a
+user-defined type to meet the <code>EndianReversibleInplace</code> requirements. Although
+user-defined types are not required to supply an <code>endian_reverse_inplace</code> function,
+doing so may improve efficiency.
 </td>
 </tr>
 </table>
@@ -1889,7 +1927,8 @@ Endian endian_reverse(Endian x) noexcept;</code></pre>
 <dl>
 <dt class="hdlist1">Requires</dt>
 <dd>
-<p><code>Endian</code> must be a standard integral type that is not <code>bool</code>.</p>
+<p><code>Endian</code> must be a standard integral type that is not <code>bool</code>,
+or a scoped enumeration type.</p>
 </dd>
 <dt class="hdlist1">Returns</dt>
 <dd>
@@ -2049,7 +2088,32 @@ void endian_reverse_inplace(EndianReversible&amp; x) noexcept;</code></pre>
 <dl>
 <dt class="hdlist1">Effects</dt>
 <dd>
-<p><code>x = endian_reverse(x)</code>.</p>
+<p>When <code>EndianReversible</code> is a class type,
+<code>x = endian_reverse(x);</code>. When <code>EndianReversible</code> is an integral
+type, an enumeration type, <code>float</code>, or <code>double</code>, reverses the
+order of the constituent bytes of <code>x</code>. Otherwise, the program is
+ill-formed.</p>
+</dd>
+</dl>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>template&lt;class EndianReversibleInplace, std::size_t N&gt;
+void endian_reverse_inplace(EndianReversibleInplace (&amp;x)[N]) noexcept;</code></pre>
+</div>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p></p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Effects</dt>
+<dd>
+<p>Calls <code>endian_reverse_inplace(x[i])</code> for <code>i</code> from <code>0</code> to <code>N-1</code>.</p>
 </dd>
 </dl>
 </div>
@@ -2447,32 +2511,24 @@ representation of <code>v</code>, in forward or reverse order depending on wheth
 <div class="paragraph">
 <p>See the <a href="#overview_faq">Overview FAQ</a> for a library-wide FAQ.</p>
 </div>
-<div class="paragraph">
-<p><strong>Why are both value returning and modify-in-place functions provided?</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Why are both value returning and modify-in-place functions provided?</dt>
+<dd>
 <p>Returning the result by value is the standard C and C&#43;&#43; idiom for functions
 that compute a value from an argument. Modify-in-place functions allow cleaner
 code in many real-world endian use cases and are more efficient for user-defined
 types that have members such as string data that do not need to be reversed.
 Thus both forms are provided.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Why not use the Linux names (htobe16, htole16, be16toh, le16toh, etc.) ?</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
+</dd>
+<dt class="hdlist1">Why not use the Linux names (htobe16, htole16, be16toh, le16toh, etc.) ?</dt>
+<dd>
 <p>Those names are non-standard and vary even between POSIX-like operating
 systems. A C&#43;&#43; library TS was going to use those names, but found they were
 sometimes implemented as macros. Since macros do not respect scoping and
 namespace rules, to use them would be very error prone.</p>
-</li>
-</ul>
+</dd>
+</dl>
 </div>
 </div>
 <div class="sect2">
@@ -3499,7 +3555,7 @@ will no longer be relying on unspecified behavior.</p>
 <p>1-8 byte (unaligned) | 1, 2, 4, 8 byte (aligned)</p>
 </li>
 <li>
-<p>Choice of  value type</p>
+<p>Choice of value type</p>
 </li>
 </ul>
 </div>
@@ -3696,7 +3752,7 @@ and to improve code readability and searchability.
 <div class="sect2">
 <h3 id="arithmetic_class_template_endian_arithmetic">Class template <code>endian_arithmetic</code></h3>
 <div class="paragraph">
-<p>An <code>endian_integer</code> is an integer byte-holder with user-specified endianness,
+<p><code>endian_arithmetic</code> is an integer byte-holder with user-specified endianness,
 value type, size, and alignment. The usual operations on arithmetic types are
 supplied.</p>
 </div>
@@ -4497,7 +4553,7 @@ anyone has been missed.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-22 13:35:00 UTC
+Last updated 2020-08-11 14:55:46 UTC
 </div>
 </div>
 <style>

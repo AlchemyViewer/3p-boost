@@ -36,7 +36,7 @@
 associated_executor&lt; T, Executor &gt;::type get_associated_executor(
     const T &amp; t,
     const Executor &amp; ex,
-    typename enable_if&lt; is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; is_executor&lt; Executor &gt;::value||execution::is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
 </pre>
 <h6>
 <a name="boost_asio.reference.get_associated_executor.overload2.h0"></a>

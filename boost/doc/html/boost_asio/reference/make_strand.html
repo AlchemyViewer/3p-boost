@@ -40,7 +40,7 @@ The <code class="computeroutput">boost::asio::make_strand</code>
     typename <a class="link" href="Executor1.html" title="Executor requirements">Executor</a>&gt;
 strand&lt; Executor &gt; <a class="link" href="make_strand/overload1.html" title="make_strand (1 of 2 overloads)">make_strand</a>(
     const Executor &amp; ex,
-    typename enable_if&lt; is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; is_executor&lt; Executor &gt;::value||execution::is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
   <span class="emphasis"><em>» <a class="link" href="make_strand/overload1.html" title="make_strand (1 of 2 overloads)">more...</a></em></span>
 </pre>
 <p>

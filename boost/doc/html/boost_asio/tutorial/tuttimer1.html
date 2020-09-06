@@ -42,9 +42,12 @@
 #include &lt;boost/asio.hpp&gt;
 </pre>
 <p>
-        All programs that use asio need to have at least one <a class="link" href="../reference/io_context.html" title="io_context">io_context</a>
-        object. This class provides access to I/O functionality. We declare an object
-        of this type first thing in the main function.
+        All programs that use asio need to have at least one I/O execution context,
+        such as an <a class="link" href="../reference/io_context.html" title="io_context">io_context</a>
+        or <a class="link" href="../reference/thread_pool.html" title="thread_pool">thread_pool</a> object.
+        An I/O execution context provides access to I/O functionality. We declare
+        an object of type <a class="link" href="../reference/io_context.html" title="io_context">io_context</a>
+        first thing in the main function.
       </p>
 <pre class="programlisting">int main()
 {

@@ -37,7 +37,7 @@
 overlapped_ptr(
     const Executor &amp; ex,
     Handler &amp;&amp; handler,
-    typename enable_if&lt; is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; execution::is_executor&lt; Executor &gt;::value||is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
 </pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

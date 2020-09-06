@@ -34,7 +34,7 @@
     typename <a class="link" href="../../Executor1.html" title="Executor requirements">Executor1</a>&gt;
 Protocol::socket::template rebind_executor&lt; Executor1 &gt;::other accept(
     const Executor1 &amp; ex,
-    typename enable_if&lt; is_executor&lt; Executor1 &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; is_executor&lt; Executor1 &gt;::value||execution::is_executor&lt; Executor1 &gt;::value &gt;::type *  = 0);
 </pre>
 <p>
             This function is used to accept a new connection from a peer. The function

@@ -744,7 +744,36 @@ Timeperiod shift Duration          --&gt; Timeperiod
 <div class="titlepage"><div><div><h3 class="title">
 <a name="date_time.changes"></a>Change History</h3></div></div></div>
 <h4>
-<a name="id-1.3.14.13.9.2"></a>Changes from Boost 1.72 to 1.73 </h4>
+<a name="id-1.3.14.13.9.2"></a>Changes from Boost 1.73 to 1.74 </h4>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Bug-Fix</td>
+<td>
+	    Fix constrained_value::assign to be constexpr so ptime and date construction are constexpr. See: 
+            <a href="https://github.com/boostorg/date_time/pull/161" target="_top">pull 161</a> and
+	    <a href="https://github.com/boostorg/date_time/pull/162" target="_top">pull 161</a>.
+          </td>
+</tr>
+<tr>
+<td>Bug-Fix</td>
+<td>
+	    Suppress MSVC CRT deprecations on Clang. See:
+	    <a href="https://github.com/boostorg/date_time/pull/160" target="_top">pull 160</a>.
+          </td>
+</tr>
+</tbody>
+</table></div>
+<h4>
+<a name="id-1.3.14.13.9.4"></a>Changes from Boost 1.72 to 1.73 </h4>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -803,7 +832,7 @@ Remove the link library to resolve linking/visibility concerns
 </tbody>
 </table></div>
 <h4>
-<a name="id-1.3.14.13.9.4"></a>Changes from Boost 1.41 to 1.44 (date_time 1.08 to 1.09)</h4>
+<a name="id-1.3.14.13.9.6"></a>Changes from Boost 1.41 to 1.44 (date_time 1.08 to 1.09)</h4>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -823,7 +852,7 @@ Remove the link library to resolve linking/visibility concerns
 </tr></tbody>
 </table></div>
 <h4>
-<a name="id-1.3.14.13.9.6"></a>Changes from Boost 1.40 to 1.41 (date_time 1.07 to 1.08)</h4>
+<a name="id-1.3.14.13.9.8"></a>Changes from Boost 1.40 to 1.41 (date_time 1.07 to 1.08)</h4>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -855,7 +884,7 @@ Remove the link library to resolve linking/visibility concerns
 </tbody>
 </table></div>
 <h4>
-<a name="id-1.3.14.13.9.8"></a>Changes from Boost 1.38 to 1.40 (date_time 1.06 to 1.07)</h4>
+<a name="id-1.3.14.13.9.10"></a>Changes from Boost 1.38 to 1.40 (date_time 1.06 to 1.07)</h4>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -876,7 +905,7 @@ Remove the link library to resolve linking/visibility concerns
 </tr></tbody>
 </table></div>
 <h4>
-<a name="id-1.3.14.13.9.10"></a>Changes from Boost 1.34 to 1.38 (date_time 1.05 to 1.06)</h4>
+<a name="id-1.3.14.13.9.12"></a>Changes from Boost 1.34 to 1.38 (date_time 1.05 to 1.06)</h4>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -990,7 +1019,7 @@ Remove the link library to resolve linking/visibility concerns
 </tbody>
 </table></div>
 <h4>
-<a name="id-1.3.14.13.9.12"></a>Changes from Boost 1.33 to 1.34 (date_time 1.04 to 1.05)</h4>
+<a name="id-1.3.14.13.9.14"></a>Changes from Boost 1.33 to 1.34 (date_time 1.04 to 1.05)</h4>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -1078,7 +1107,7 @@ Remove the link library to resolve linking/visibility concerns
 </tbody>
 </table></div>
 <h4>
-<a name="id-1.3.14.13.9.14"></a>Changes from Boost 1.32 to 1.33 (date_time 1.03 to 1.04)</h4>
+<a name="id-1.3.14.13.9.16"></a>Changes from Boost 1.32 to 1.33 (date_time 1.03 to 1.04)</h4>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -1218,7 +1247,7 @@ void save_to(archive_type&amp; ar,
 </tbody>
 </table></div>
 <h4>
-<a name="id-1.3.14.13.9.16"></a>Changes from Boost 1.31 to 1.32 (date_time 1.02 to 1.03)</h4>
+<a name="id-1.3.14.13.9.18"></a>Changes from Boost 1.31 to 1.32 (date_time 1.02 to 1.03)</h4>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -1413,7 +1442,7 @@ ws &gt;&gt; d; //Feb 29th, 2000</pre>
 </tbody>
 </table></div>
 <h4>
-<a name="id-1.3.14.13.9.18"></a>Changes from Boost 1.30 to 1.31 (date_time 1.01 to 1.02)</h4>
+<a name="id-1.3.14.13.9.20"></a>Changes from Boost 1.30 to 1.31 (date_time 1.01 to 1.02)</h4>
 <div class="informaltable"><table class="table">
 <colgroup>
 <col>
@@ -1502,7 +1531,7 @@ td = -td; //-5 hours</pre>
 </tbody>
 </table></div>
 <h4>
-<a name="id-1.3.14.13.9.20"></a>Changes from Boost 1.29 to 1.30 (date_time 1.00 to 1.01)</h4>
+<a name="id-1.3.14.13.9.22"></a>Changes from Boost 1.29 to 1.30 (date_time 1.00 to 1.01)</h4>
 <p>
     Notice: The interface to the partial_date class (see <a class="link" href="gregorian.html#date_time.gregorian.date_algorithms" title="Date Generators/Algorithms">date_algorithms</a>) was changed. The order of construction parameters was changed which will cause some code to fail execution. This change was made to facilitate more generic local time adjustment code. Thus instead of specifying partial_date pd(Dec,25) the code needs to be changed to partial_date pd(25, Dec);
   </p>

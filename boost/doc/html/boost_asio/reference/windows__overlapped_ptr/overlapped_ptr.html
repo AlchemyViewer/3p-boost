@@ -53,7 +53,7 @@ template&lt;
 explicit <a class="link" href="overlapped_ptr/overload3.html" title="windows::overlapped_ptr::overlapped_ptr (3 of 3 overloads)">overlapped_ptr</a>(
     const Executor &amp; ex,
     Handler &amp;&amp; handler,
-    typename enable_if&lt; is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; execution::is_executor&lt; Executor &gt;::value||is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
   <span class="emphasis"><em>» <a class="link" href="overlapped_ptr/overload3.html" title="windows::overlapped_ptr::overlapped_ptr (3 of 3 overloads)">more...</a></em></span>
 </pre>
 </div>

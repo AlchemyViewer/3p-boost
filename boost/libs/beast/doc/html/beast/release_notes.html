@@ -28,6 +28,177 @@
 </h2></div></div></div>
 <h4>
 <a name="beast.release_notes.h0"></a>
+      <span class="phrase"><a name="beast.release_notes.boost_1_74"></a></span><a class="link" href="release_notes.html#beast.release_notes.boost_1_74">Boost
+      1.74</a>
+    </h4>
+<p>
+      <span class="bold"><strong>API Changes</strong></span>
+    </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+          The API to Asio has undergone changes. Please refer to the Asio release
+          notes for details.
+        </li>
+<li class="listitem">
+          Beast has been updated to track and respect developer choices in the use
+          of Asio. In particular:
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; ">
+<li class="listitem">
+                Define <code class="computeroutput"><span class="identifier">BOOST_ASIO_NO_DEPRECATED</span></code>
+                to disallow deprecated invocation and allocation hooks.
+              </li>
+<li class="listitem">
+                Define <code class="computeroutput"><span class="identifier">BOOST_ASIO_NO_TS_EXECUTORS</span></code>
+                to ensure that executors conform to the <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p0443r11.html" target="_top">Standard
+                Executors</a> proposal.
+              </li>
+<li class="listitem">
+                Define <code class="computeroutput"><span class="identifier">BOOST_ASIO_USE_TS_EXECUTOR_AS_DEFAULT</span></code>
+                to select <a href="https://cplusplus.github.io/networking-ts/draft.pdf" target="_top">Networking
+                TS</a> style executors by default. If this macro is not defined,
+                Asio default executors will be the <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p0443r11.html" target="_top">Standard
+                Executors</a> implementation.
+              </li>
+</ul></div>
+        </li>
+<li class="listitem">
+          <a href="https://github.com/boostorg/beast/issues/1897" target="_top">#1897</a> Parser <code class="computeroutput"><span class="identifier">body_limit</span></code>
+          is optional (API Change) <span class="emphasis"><em>Actions Required</em></span>
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem">
+                The signature of <code class="computeroutput"><span class="identifier">basic_parser</span><span class="special">&lt;&gt;::</span><span class="identifier">body_limit</span><span class="special">(</span><span class="identifier">n</span><span class="special">)</span></code> has changed. It now accepts an optional
+                <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">uint64_t</span></code>. The caller may indicate
+                that no body limit is required by calling <code class="computeroutput"><span class="identifier">body_limit</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">none</span><span class="special">)</span></code>. The default limits remain in place
+                in order to maintain 'safe by default' behaviour.
+              </li></ul></div>
+        </li>
+<li class="listitem">
+          <a href="https://github.com/boostorg/beast/issues/1934" target="_top">#1934</a> Remove deprecated interfaces (API Change) <span class="emphasis"><em>Actions Required</em></span>
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; ">
+<li class="listitem">
+                The macro <code class="computeroutput"><span class="identifier">BOOST_BEAST_NO_DEPRECATED</span></code>
+                will no longer be noticed by Beast. The only way to enable deprecated
+                functionality is now the macro <code class="computeroutput"><span class="identifier">BOOST_BEAST_ALLOW_DEPRECATED</span></code>
+                which is undefined by default. That is, all deprecated behaviour
+                is disabled by default.
+              </li>
+<li class="listitem">
+                The following deprecated functions have been removed: - <code class="computeroutput"><span class="identifier">websocket</span><span class="special">::</span><span class="identifier">async_accept_ex</span></code> - <code class="computeroutput"><span class="identifier">websocket</span><span class="special">::</span><span class="identifier">async_handshake_ex</span></code> - <code class="computeroutput"><span class="identifier">websocket</span><span class="special">::</span><span class="identifier">accept_ex</span></code> - <code class="computeroutput"><span class="identifier">websocket</span><span class="special">::</span><span class="identifier">handshake_ex</span></code>
+                Programs still using these names should be refactored to use the
+                <code class="computeroutput"><span class="identifier">decorator</span></code> feature
+                and the remaining handshake and accept functions.
+              </li>
+<li class="listitem">
+                <code class="computeroutput"><span class="identifier">websocket</span><span class="special">::</span><span class="identifier">role_type</span></code> has been removed. Users
+                should use <code class="computeroutput"><span class="identifier">beast</span><span class="special">::</span><span class="identifier">role_type</span></code>
+                instead.
+              </li>
+<li class="listitem">
+                <code class="computeroutput"><span class="identifier">handler_ptr</span></code> has been
+                removed. Users should use <code class="computeroutput"><span class="identifier">net</span><span class="special">::</span><span class="identifier">bind_handler</span></code>
+                and/or <code class="computeroutput"><span class="identifier">bind_front_handler</span></code>
+                instead.
+              </li>
+<li class="listitem">
+                Code that depends on <code class="computeroutput"><span class="identifier">mutable_data_type</span></code>
+                should be refactored to use <code class="computeroutput"><span class="identifier">mutable_buffers_type</span></code>.
+                Classes affected are: - <code class="computeroutput"><span class="identifier">buffers_adaptor</span></code>
+                - <code class="computeroutput"><span class="identifier">flat_buffer</span></code> -
+                <code class="computeroutput"><span class="identifier">flat_static_buffer</span></code>
+                - <code class="computeroutput"><span class="identifier">multi_buffer</span></code> -
+                <code class="computeroutput"><span class="identifier">static_buffer</span></code>
+              </li>
+<li class="listitem">
+                The <code class="computeroutput"><span class="identifier">reset</span></code> function
+                has been removed from <code class="computeroutput"><span class="identifier">flat_static_buffer</span></code>.
+                Use the <code class="computeroutput"><span class="identifier">clear</span></code> function
+                instead.
+              </li>
+<li class="listitem">
+                The <code class="computeroutput"><span class="identifier">core</span><span class="special">/</span><span class="identifier">type_traits</span><span class="special">.</span><span class="identifier">hpp</span></code> public header has been removed
+                and along with it the type trait <code class="computeroutput"><span class="identifier">is_completion_handler</span></code>.
+                Beast uses the CompletionHandler correctness checks provided by Asio.
+                In a c++20 environment, these convert to concept checks.
+              </li>
+<li class="listitem">
+                The error code enum <code class="computeroutput"><span class="identifier">invalid_code_lenths</span></code>
+                (sic) was a synonym of <code class="computeroutput"><span class="identifier">invalid_code_lengths</span></code>.
+                Affected programs should be modified to use <code class="computeroutput"><span class="identifier">invalid_code_lengths</span></code>.
+              </li>
+<li class="listitem">
+                The file <code class="computeroutput"><span class="identifier">core</span><span class="special">/</span><span class="identifier">buffers_adapter</span><span class="special">.</span><span class="identifier">hpp</span></code> has been removed along with
+                the deprecated alias typename <code class="computeroutput"><span class="identifier">buffers_adapter</span></code>.
+                Affected programs should use <code class="computeroutput"> <span class="identifier">core</span><span class="special">/</span><span class="identifier">buffers_adapator</span><span class="special">.</span><span class="identifier">hpp</span></code>
+                and the type <code class="computeroutput"><span class="identifier">buffers_adaptor</span></code>.
+              </li>
+</ul></div>
+        </li>
+<li class="listitem">
+          <a href="https://github.com/boostorg/beast/issues/1956" target="_top">#1956</a> Deprecate <code class="computeroutput"><span class="identifier">string_param</span></code>
+          (API Change) <span class="emphasis"><em>Actions Required</em></span> <code class="computeroutput"><span class="identifier">string_param</span></code>,
+          which was previously the argument type when setting field values has been
+          replaced by <code class="computeroutput"><span class="identifier">string_view</span></code>.
+          Because of this, it is no longer possible to set message field values directly
+          as integrals. Users are requied to convert numeric arguments to a string
+          type prior to calling <code class="computeroutput"><span class="identifier">fields</span><span class="special">::</span><span class="identifier">set</span></code>
+          et. al. Beast provides the non-allocating <code class="computeroutput"><span class="identifier">to_static_string</span><span class="special">()</span></code> function for this purpose. To set Content-Length
+          field manually, call <code class="computeroutput"><span class="identifier">message</span><span class="special">::</span><span class="identifier">content_length</span></code>.
+        </li>
+</ul></div>
+<p>
+      <span class="bold"><strong>Fixes</strong></span>
+    </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+          <a href="https://github.com/boostorg/beast/issues/1913" target="_top">#1913</a> Fix standalone compilation error with <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string_view</span></code>
+        </li>
+<li class="listitem">
+          <a href="https://github.com/boostorg/beast/issues/1925" target="_top">#1925</a>  <a href="https://github.com/boostorg/beast/issues/1916" target="_top">#1916</a> Fix compile errors on Visual Studio with /std:c++latest
+        </li>
+<li class="listitem">
+          <a href="https://github.com/boostorg/beast/issues/1924" target="_top">#1924</a> Fix c++20 deprecation warning in <code class="computeroutput"><span class="identifier">span_body</span></code>
+        </li>
+<li class="listitem">
+          <a href="https://github.com/boostorg/beast/issues/1920" target="_top">#1920</a> Fix use <code class="computeroutput"><span class="identifier">buffered_read_stream</span></code>
+          with <code class="computeroutput"><span class="identifier">use_awaitable</span></code>
+        </li>
+<li class="listitem">
+          <a href="https://github.com/boostorg/beast/issues/1918" target="_top">#1918</a> Fix <code class="computeroutput"><span class="identifier">async_detect_ssl</span></code>
+          with <code class="computeroutput"><span class="identifier">use_awaitable</span></code>
+        </li>
+<li class="listitem">
+          <a href="https://github.com/boostorg/beast/issues/1944" target="_top">#1944</a> Fix <code class="computeroutput"><span class="identifier">FILE</span></code> namespace
+          qualification
+        </li>
+<li class="listitem">
+          <a href="https://github.com/boostorg/beast/issues/1942" target="_top">#1942</a> Fix http read <code class="computeroutput"><span class="identifier">bytes_transferred</span></code>
+        </li>
+<li class="listitem">
+          <a href="https://github.com/boostorg/beast/issues/1943" target="_top">#1943</a> Fix <code class="computeroutput"><span class="identifier">basic_stream</span></code>
+          <code class="computeroutput"><span class="identifier">expires_after</span></code>
+        </li>
+<li class="listitem">
+          <a href="https://github.com/boostorg/beast/issues/1980" target="_top">#1980</a> Fix <code class="computeroutput"><span class="identifier">max</span></code> compile
+          error
+        </li>
+<li class="listitem">
+          <a href="https://github.com/boostorg/beast/issues/1949" target="_top">#1949</a> <code class="computeroutput"><span class="identifier">iless</span></code> and <code class="computeroutput"><span class="identifier">iequal</span></code> take part in Heterogeneous Lookup
+        </li>
+</ul></div>
+<p>
+      <span class="bold"><strong>Miscellaneous</strong></span>
+    </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+          <a href="https://github.com/boostorg/beast/issues/1907" target="_top">#1907</a>  OpenSSL 1.0.2 or later is required when using SSL/TLS streams.
+          This is a requirement inherited from Boost.Asio.
+        </li>
+<li class="listitem">
+          Additional tests have been added to ensure correct integration with C++20
+          coroutines when avaialable.
+        </li>
+</ul></div>
+<h4>
+<a name="beast.release_notes.h1"></a>
       <span class="phrase"><a name="beast.release_notes.boost_1_73"></a></span><a class="link" href="release_notes.html#beast.release_notes.boost_1_73">Boost
       1.73</a>
     </h4>
@@ -145,7 +316,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="beast.release_notes.h1"></a>
+<a name="beast.release_notes.h2"></a>
       <span class="phrase"><a name="beast.release_notes.boost_1_72"></a></span><a class="link" href="release_notes.html#beast.release_notes.boost_1_72">Boost
       1.72</a>
     </h4>
@@ -217,7 +388,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="beast.release_notes.h2"></a>
+<a name="beast.release_notes.h3"></a>
       <span class="phrase"><a name="beast.release_notes.boost_1_71"></a></span><a class="link" href="release_notes.html#beast.release_notes.boost_1_71">Boost
       1.71</a>
     </h4>
@@ -379,7 +550,7 @@
           Documentation is built with SaxonHE instead of xsltproc
         </li></ul></div>
 <h4>
-<a name="beast.release_notes.h3"></a>
+<a name="beast.release_notes.h4"></a>
       <span class="phrase"><a name="beast.release_notes.boost_1_70"></a></span><a class="link" href="release_notes.html#beast.release_notes.boost_1_70">Boost
       1.70</a>
     </h4>
@@ -835,7 +1006,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="beast.release_notes.h4"></a>
+<a name="beast.release_notes.h5"></a>
       <span class="phrase"><a name="beast.release_notes.boost_1_69"></a></span><a class="link" href="release_notes.html#beast.release_notes.boost_1_69">Boost
       1.69</a>
     </h4>
@@ -898,7 +1069,7 @@
           Add <code class="computeroutput"><span class="identifier">timeout_socket</span></code>
         </li></ul></div>
 <h4>
-<a name="beast.release_notes.h5"></a>
+<a name="beast.release_notes.h6"></a>
       <span class="phrase"><a name="beast.release_notes.boost_1_68"></a></span><a class="link" href="release_notes.html#beast.release_notes.boost_1_68">Boost
       1.68</a>
     </h4>
@@ -1051,7 +1222,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="beast.release_notes.h6"></a>
+<a name="beast.release_notes.h7"></a>
       <span class="phrase"><a name="beast.release_notes.boost_1_67"></a></span><a class="link" href="release_notes.html#beast.release_notes.boost_1_67">Boost
       1.67</a>
     </h4>
@@ -1250,7 +1421,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="beast.release_notes.h7"></a>
+<a name="beast.release_notes.h8"></a>
       <span class="phrase"><a name="beast.release_notes.boost_1_66"></a></span><a class="link" href="release_notes.html#beast.release_notes.boost_1_66">Boost
       1.66</a>
     </h4>

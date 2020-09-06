@@ -51,7 +51,7 @@
   <span class="identifier">x</span> <span class="special">=</span> <span class="number">1</span><span class="special">;</span>
   <span class="identifier">y</span> <span class="special">=</span> <span class="number">1</span><span class="special">;</span>
 
-<span class="identifier">thread2</span>
+<span class="identifier">thread2</span><span class="special">:</span>
   <span class="keyword">if</span> <span class="special">(</span><span class="identifier">y</span> <span class="special">==</span> <span class="number">1</span><span class="special">)</span> <span class="special">{</span>
     <span class="identifier">assert</span><span class="special">(</span><span class="identifier">x</span> <span class="special">==</span> <span class="number">1</span><span class="special">);</span>
   <span class="special">}</span>
@@ -222,6 +222,19 @@
         This provides the same ordering guarantees as previously, but elides a (possibly
         expensive) memory ordering operation in the case C is executed.
       </p>
+<div class="note"><table border="0" summary="Note">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../../../doc/src/images/note.png"></td>
+<th align="left">Note</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          Atomic fences are only indended to constraint ordering of regular and atomic
+          loads and stores for the purpose of thread synchronization. <code class="computeroutput"><span class="identifier">atomic_thread_fence</span></code> is not intended to
+          be used to order some architecture-specific memory accesses, such as non-temporal
+          loads and stores on x86 or write combining memory accesses. Use specialized
+          instructions for these purposes.
+        </p></td></tr>
+</table></div>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">

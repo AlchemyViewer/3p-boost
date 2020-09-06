@@ -221,6 +221,21 @@ The allocator type to use if the handler does not have an associated allocator. 
 [heading See Also]
 [link beast.ref.boost__beast__stable_async_base `stable_async_base`]
  
+[section:executor_type async_base::executor_type]
+[indexterm2 executor_type..async_base]
+
+
+The type of executor associated with this object. 
+[heading Synopsis]
+```
+using executor_type = ``['implementation-defined]``;
+```
+
+[heading Description]
+If a class derived from [link beast.ref.boost__beast__async_base `async_base`] is a completion handler, then the associated executor of the derived class will be this type. 
+
+[endsect]
+
 [section:allocator_type async_base::allocator_type]
 [indexterm2 allocator_type..async_base]
 
@@ -233,21 +248,6 @@ using allocator_type = net::associated_allocator_t< Handler, Allocator >;
 
 [heading Description]
 If a class derived from [link beast.ref.boost__beast__async_base `async_base`] is a completion handler, then the associated allocator of the derived class will be this type. 
-
-[endsect]
-
-[section:executor_type async_base::executor_type]
-[indexterm2 executor_type..async_base]
-
-
-The type of executor associated with this object. 
-[heading Synopsis]
-```
-using executor_type = net::associated_executor_t< Handler, Executor1 >;
-```
-
-[heading Description]
-If a class derived from [link beast.ref.boost__beast__async_base `async_base`] is a completion handler, then the associated executor of the derived class will be this type. 
 
 [endsect]
 
@@ -2058,20 +2058,20 @@ Insert a field.
 void
 ``[link beast.ref.boost__beast__http__basic_fields.insert.overload1 insert]``(
     field name,
-    string_param const& value);
+    string_view const& value);
   ``[''''&raquo;''' [link beast.ref.boost__beast__http__basic_fields.insert.overload1 `more...`]]``
 
 void
 ``[link beast.ref.boost__beast__http__basic_fields.insert.overload2 insert]``(
     string_view name,
-    string_param const& value);
+    string_view const& value);
   ``[''''&raquo;''' [link beast.ref.boost__beast__http__basic_fields.insert.overload2 `more...`]]``
 
 void
 ``[link beast.ref.boost__beast__http__basic_fields.insert.overload3 insert]``(
     field name,
     string_view name_string,
-    string_param const& value);
+    string_view const& value);
   ``[''''&raquo;''' [link beast.ref.boost__beast__http__basic_fields.insert.overload3 `more...`]]``
 ```
  
@@ -2083,7 +2083,7 @@ Insert a field.
 void
 insert(
     field name,
-    string_param const& value);
+    string_view const& value);
 ```
 
 [heading Description]
@@ -2102,7 +2102,7 @@ The field name.
     [`value`
     ]
     [
-The value of the field, as a [link beast.ref.boost__beast__string_param `string_param`]
+The value of the field, as a [link beast.ref.boost__beast__string_view `string_view`]
     ]
   ]
 ]
@@ -2117,7 +2117,7 @@ Insert a field.
 void
 insert(
     string_view name,
-    string_param const& value);
+    string_view const& value);
 ```
 
 [heading Description]
@@ -2136,7 +2136,7 @@ The field name.
     [`value`
     ]
     [
-The value of the field, as a [link beast.ref.boost__beast__string_param `string_param`]
+The value of the field, as a [link beast.ref.boost__beast__string_view `string_view`]
     ]
   ]
 ]
@@ -2152,7 +2152,7 @@ void
 insert(
     field name,
     string_view name_string,
-    string_param const& value);
+    string_view const& value);
 ```
 
 [heading Description]
@@ -2178,7 +2178,7 @@ The literal text corresponding to the field name. If name != [link beast.ref.boo
     [`value`
     ]
     [
-The value of the field, as a [link beast.ref.boost__beast__string_param `string_param`]
+The value of the field, as a [link beast.ref.boost__beast__string_view `string_view`]
     ]
   ]
 ]
@@ -2197,13 +2197,13 @@ Set a field value, removing any other instances of that field.
 void
 ``[link beast.ref.boost__beast__http__basic_fields.set.overload1 set]``(
     field name,
-    string_param const& value);
+    string_view const& value);
   ``[''''&raquo;''' [link beast.ref.boost__beast__http__basic_fields.set.overload1 `more...`]]``
 
 void
 ``[link beast.ref.boost__beast__http__basic_fields.set.overload2 set]``(
     string_view name,
-    string_param const& value);
+    string_view const& value);
   ``[''''&raquo;''' [link beast.ref.boost__beast__http__basic_fields.set.overload2 `more...`]]``
 ```
  
@@ -2215,7 +2215,7 @@ Set a field value, removing any other instances of that field.
 void
 set(
     field name,
-    string_param const& value);
+    string_view const& value);
 ```
 
 [heading Description]
@@ -2234,7 +2234,7 @@ The field name.
     [`value`
     ]
     [
-The value of the field, as a [link beast.ref.boost__beast__string_param `string_param`]
+The value of the field, as a [link beast.ref.boost__beast__string_view `string_view`]
     ]
   ]
 ]
@@ -2251,7 +2251,7 @@ Set a field value, removing any other instances of that field.
 void
 set(
     string_view name,
-    string_param const& value);
+    string_view const& value);
 ```
 
 [heading Description]
@@ -2270,7 +2270,7 @@ The field name.
     [`value`
     ]
     [
-The value of the field, as a [link beast.ref.boost__beast__string_param `string_param`]
+The value of the field, as a [link beast.ref.boost__beast__string_view `string_view`]
     ]
   ]
 ]
@@ -2996,13 +2996,6 @@ The ConstBufferSequence used to represent the readable bytes.
 The MutableBufferSequence used to represent the writable bytes. 
     ]
   ]
-  [
-    [[*[link beast.ref.boost__beast__basic_flat_buffer.mutable_data_type mutable_data_type]]
-    ]
-    [
-
-    ]
-  ]
 ]
 [heading Member Functions]
 [table [[Name][Description]]
@@ -3187,19 +3180,6 @@ The ConstBufferSequence used to represent the readable bytes.
 [heading Synopsis]
 ```
 using const_buffers_type = net::const_buffer;
-```
-
-[heading Description]
-
-[endsect]
-
-[section:mutable_data_type basic_flat_buffer::mutable_data_type]
-[indexterm2 mutable_data_type..basic_flat_buffer]
-
-
-[heading Synopsis]
-```
-using mutable_data_type = net::mutable_buffer;
 ```
 
 [heading Description]
@@ -6352,7 +6332,7 @@ Set the limit on the payload body.
 ```
 void
 body_limit(
-    std::uint64_t v);
+    boost::optional< std::uint64_t > v);
 ```
 
 [heading Description]
@@ -6373,7 +6353,7 @@ The default limit is 1MB for requests and 8MB for responses.
     [`v`
     ]
     [
-The payload body limit to set 
+An optional integral value representing the body limit. If this is equal to `boost::none`, then the body limit is disabled. 
     ]
   ]
 ]
@@ -6610,7 +6590,7 @@ Defined in header [include_file boost/beast/core/basic_stream.hpp]
 ```
 template<
     class __Protocol__,
-    class __Executor__ = net::executor,
+    class __Executor__ = net::any_io_executor,
     class __RatePolicy__ = ``[link beast.ref.boost__beast__unlimited_rate_policy unlimited_rate_policy]``>
 class basic_stream
 ```
@@ -6905,7 +6885,7 @@ A type meeting the requirements of ['Protocol] representing the protocol the pro
     [`Executor`
     ]
     [
-A type meeting the requirements of ['Executor] to be used for submitting all completion handlers which do not already have an associated executor. If this type is omitted, the default of `net::executor` will be used.
+A type meeting the requirements of ['Executor] to be used for submitting all completion handlers which do not already have an associated executor. If this type is omitted, the default of `net::any_io_executor` will be used.
     ]
   ]
 ]
@@ -7244,7 +7224,7 @@ Set the timeout for the next logical operation.
 ```
 void
 expires_after(
-    std::chrono::nanoseconds expiry_time);
+    net::steady_timer::duration expiry_time);
 ```
 
 [heading Description]
@@ -8309,7 +8289,7 @@ A function object that is called prior to each connection attempt. The signature
 ```
 bool connect_condition(
     error_code const& ec,
-    Iterator next);
+    typename Protocol::endpoint const& next);
 ```
 
     ]
@@ -13515,7 +13495,7 @@ This alias is set to the best available implementation of ['File] given the plat
 The type of the underlying file handle. 
 [heading Synopsis]
 ```
-using native_handle_type = FILE*;
+using native_handle_type = std::FILE*;
 ```
 
 [heading Description]
@@ -13529,7 +13509,7 @@ This is platform-specific.
 
 Returns the native handle associated with the file. 
 ```
-FILE*
+std::FILE*
 ``[link beast.ref.boost__beast__file.native_handle.overload1 native_handle]``() const;
   ``[''''&raquo;''' [link beast.ref.boost__beast__file.native_handle.overload1 `more...`]]``
 ```
@@ -13539,7 +13519,7 @@ Set the native handle associated with the file.
 ```
 void
 ``[link beast.ref.boost__beast__file.native_handle.overload2 native_handle]``(
-    FILE* f);
+    std::FILE* f);
   ``[''''&raquo;''' [link beast.ref.boost__beast__file.native_handle.overload2 `more...`]]``
 ```
  
@@ -13549,7 +13529,7 @@ void
 Returns the native handle associated with the file. 
 [heading Synopsis]
 ```
-FILE*
+std::FILE*
 native_handle() const;
 ```
 
@@ -13565,7 +13545,7 @@ Set the native handle associated with the file.
 ```
 void
 native_handle(
-    FILE* f);
+    std::FILE* f);
 ```
 
 [heading Description]
@@ -14539,7 +14519,7 @@ This class implements a file using the interfaces present in the C++ Standard Li
 The type of the underlying file handle. 
 [heading Synopsis]
 ```
-using native_handle_type = FILE*;
+using native_handle_type = std::FILE*;
 ```
 
 [heading Description]
@@ -14629,7 +14609,7 @@ The moved-from object behaves as if default constructed.
 
 Returns the native handle associated with the file. 
 ```
-FILE*
+std::FILE*
 ``[link beast.ref.boost__beast__file_stdio.native_handle.overload1 native_handle]``() const;
   ``[''''&raquo;''' [link beast.ref.boost__beast__file_stdio.native_handle.overload1 `more...`]]``
 ```
@@ -14639,7 +14619,7 @@ Set the native handle associated with the file.
 ```
 void
 ``[link beast.ref.boost__beast__file_stdio.native_handle.overload2 native_handle]``(
-    FILE* f);
+    std::FILE* f);
   ``[''''&raquo;''' [link beast.ref.boost__beast__file_stdio.native_handle.overload2 `more...`]]``
 ```
  
@@ -14648,7 +14628,7 @@ void
 Returns the native handle associated with the file. 
 [heading Synopsis]
 ```
-FILE*
+std::FILE*
 native_handle() const;
 ```
 
@@ -14663,7 +14643,7 @@ Set the native handle associated with the file.
 ```
 void
 native_handle(
-    FILE* f);
+    std::FILE* f);
 ```
 
 [heading Description]
@@ -18979,6 +18959,16 @@ Defined in header [include_file boost/beast/core/string.hpp]
 struct iequal
 ```
 
+[heading Types]
+[table [[Name][Description]]
+  [
+    [[*[link beast.ref.boost__beast__iequal.is_transparent is_transparent]]
+    ]
+    [
+
+    ]
+  ]
+]
 [heading Member Functions]
 [table [[Name][Description]]
   [
@@ -18990,8 +18980,22 @@ struct iequal
   ]
 ]
 [heading Description]
-The case-comparison operation is defined only for low-ASCII characters. 
+The case-comparison operation is defined only for low-ASCII characters.
+As of C++14, containers using this class as the `Compare` type will take part in heterogeneous lookup if the search term is implicitly convertible to [link beast.ref.boost__beast__string_view `string_view`]. 
  
+[section:is_transparent iequal::is_transparent]
+[indexterm2 is_transparent..iequal]
+
+
+[heading Synopsis]
+```
+using is_transparent = void;
+```
+
+[heading Description]
+
+[endsect]
+
 [section:operator_lp__rp_ iequal::operator()]
 [indexterm2 operator()..iequal]
 
@@ -19021,6 +19025,16 @@ Defined in header [include_file boost/beast/core/string.hpp]
 struct iless
 ```
 
+[heading Types]
+[table [[Name][Description]]
+  [
+    [[*[link beast.ref.boost__beast__iless.is_transparent is_transparent]]
+    ]
+    [
+
+    ]
+  ]
+]
 [heading Member Functions]
 [table [[Name][Description]]
   [
@@ -19032,8 +19046,22 @@ struct iless
   ]
 ]
 [heading Description]
-The case-comparison operation is defined only for low-ASCII characters. 
+The case-comparison operation is defined only for low-ASCII characters.
+As of C++14, containers using this class as the `Compare` type will take part in heterogeneous lookup if the search term is implicitly convertible to [link beast.ref.boost__beast__string_view `string_view`]. 
  
+[section:is_transparent iless::is_transparent]
+[indexterm2 is_transparent..iless]
+
+
+[heading Synopsis]
+```
+using is_transparent = void;
+```
+
+[heading Description]
+
+[endsect]
+
 [section:operator_lp__rp_ iless::operator()]
 [indexterm2 operator()..iless]
 
@@ -22819,7 +22847,7 @@ Set the limit on the payload body.
 ```
 void
 body_limit(
-    std::uint64_t v);
+    boost::optional< std::uint64_t > v);
 ```
 
 [heading Description]
@@ -22840,7 +22868,7 @@ The default limit is 1MB for requests and 8MB for responses.
     [`v`
     ]
     [
-The payload body limit to set 
+An optional integral value representing the body limit. If this is equal to `boost::none`, then the body limit is disabled. 
     ]
   ]
 ]
@@ -23747,7 +23775,7 @@ A type meeting the requirements of ['Protocol] representing the protocol the pro
     [`Executor`
     ]
     [
-A type meeting the requirements of ['Executor] to be used for submitting all completion handlers which do not already have an associated executor. If this type is omitted, the default of `net::executor` will be used.
+A type meeting the requirements of ['Executor] to be used for submitting all completion handlers which do not already have an associated executor. If this type is omitted, the default of `net::any_io_executor` will be used.
     ]
   ]
 ]
@@ -27581,6 +27609,22 @@ The object will be destroyed just before the completion handler is invoked, or w
 
 [endsect]
 
+[section:executor_type stable_async_base::executor_type]
+[indexterm2 executor_type..stable_async_base]
+
+(Inherited from [link beast.ref.boost__beast__async_base `async_base`])
+
+The type of executor associated with this object. 
+[heading Synopsis]
+```
+using executor_type = ``['implementation-defined]``;
+```
+
+[heading Description]
+If a class derived from [link beast.ref.boost__beast__async_base `async_base`] is a completion handler, then the associated executor of the derived class will be this type. 
+
+[endsect]
+
 [section:allocator_type stable_async_base::allocator_type]
 [indexterm2 allocator_type..stable_async_base]
 
@@ -27594,22 +27638,6 @@ using allocator_type = net::associated_allocator_t< Handler, Allocator >;
 
 [heading Description]
 If a class derived from [link beast.ref.boost__beast__async_base `async_base`] is a completion handler, then the associated allocator of the derived class will be this type. 
-
-[endsect]
-
-[section:executor_type stable_async_base::executor_type]
-[indexterm2 executor_type..stable_async_base]
-
-(Inherited from [link beast.ref.boost__beast__async_base `async_base`])
-
-The type of executor associated with this object. 
-[heading Synopsis]
-```
-using executor_type = net::associated_executor_t< Handler, Executor1 >;
-```
-
-[heading Description]
-If a class derived from [link beast.ref.boost__beast__async_base `async_base`] is a completion handler, then the associated executor of the derived class will be this type. 
 
 [endsect]
 
@@ -31962,7 +31990,7 @@ For asynchronous operations, the application must ensure that they are are all p
 
 To declare the [link beast.ref.boost__beast__websocket__stream `stream`] object with a [link beast.ref.boost__beast__tcp_stream `tcp_stream`] in a multi-threaded asynchronous program using a strand, you may write: 
 ```
-websocket::stream<tcp_stream> ws{net::io_context::strand(ioc)};
+websocket::stream<tcp_stream> ws{net::make_strand(ioc)};
 ```
 
 Alternatively, for a single-threaded or synchronous application you may write: 
@@ -36707,178 +36735,6 @@ none();
 
 [endsect]
 
-[section:boost__beast__string_param string_param]
-
-A function parameter which efficiently converts to string. 
-[heading Synopsis]
-Defined in header [include_file boost/beast/core/string_param.hpp]
-  
-```
-class string_param
-```
-
-[heading Member Functions]
-[table [[Name][Description]]
-  [
-    [[*[link beast.ref.boost__beast__string_param.operator_string_view_const operator string_view const]]
-    ]
-    [
-
-Implicit conversion to [link beast.ref.boost__beast__string_view `string_view`]. 
-    ]
-  ]
-  [
-    [[*[link beast.ref.boost__beast__string_param.operator_eq_ operator=]]
-    ]
-    [
-
-Copy assignment (disallowed) 
-    ]
-  ]
-  [
-    [[*[link beast.ref.boost__beast__string_param.str str]]
-    ]
-    [
-
-Returns the contained string. 
-    ]
-  ]
-  [
-    [[*[link beast.ref.boost__beast__string_param.string_param string_param]]
-    ]
-    [
-
-Copy constructor (disallowed) 
-
-Constructor. 
-    ]
-  ]
-]
-[heading Description]
-This is used as a function parameter type to allow callers notational convenience: objects other than strings may be passed in contexts where a string is expected. The conversion to string is made using `operator<<` to a non-dynamically allocated static buffer if possible, else to a `std::string` on overflow.
-
-To use it, modify your function signature to accept [link beast.ref.boost__beast__string_param `string_param`] and then extract the string inside the function: 
-```
-void print(string_param s)
-{
-    std::cout << s.str();
-}
-```
-
- 
-[section:string_param string_param::string_param]
-[indexterm2 string_param..string_param]
-
-
-Copy constructor (disallowed) 
-```
-``[link beast.ref.boost__beast__string_param.string_param.overload1 string_param]``(
-    string_param const&);
-  ``[''''&raquo;''' [link beast.ref.boost__beast__string_param.string_param.overload1 `more...`]]``
-```
-
-
-Constructor. 
-```
-template<
-    class... Args>
-``[link beast.ref.boost__beast__string_param.string_param.overload2 string_param]``(
-    Args const&... args);
-  ``[''''&raquo;''' [link beast.ref.boost__beast__string_param.string_param.overload2 `more...`]]``
-```
- 
-[section:overload1 string_param::string_param (1 of 2 overloads)]
-
-Copy constructor (disallowed) 
-[heading Synopsis]
-```
-string_param(
-    string_param const&);
-```
-
-[heading Description]
-
-[endsect]
-
-[section:overload2 string_param::string_param (2 of 2 overloads)]
-
-Constructor. 
-[heading Synopsis]
-```
-template<
-    class... Args>
-string_param(
-    Args const&... args);
-```
-
-[heading Description]
-This function constructs a string as if by concatenating the result of streaming each argument in order into an output stream. It is used as a notational convenience at call sites which expect a parameter with the semantics of a [link beast.ref.boost__beast__string_view `string_view`].
-The implementation uses a small, internal static buffer to avoid memory allocations especially for the case where the list of arguments to be converted consists of a single integral type.
-
-[heading Parameters]
-[table [[Name][Description]]
-  [
-    [`args`
-    ]
-    [
-One or more arguments to convert 
-    ]
-  ]
-]
-
-[endsect]
-
-
-[endsect]
-
-[section:operator_eq_ string_param::operator=]
-[indexterm2 operator=..string_param]
-
-
-Copy assignment (disallowed) 
-[heading Synopsis]
-```
-string_param&
-operator=(
-    string_param const&);
-```
-
-[heading Description]
-
-[endsect]
-
-[section:str string_param::str]
-[indexterm2 str..string_param]
-
-
-Returns the contained string. 
-[heading Synopsis]
-```
-string_view
-str() const;
-```
-
-[heading Description]
-
-[endsect]
-
-[section:operator_string_view_const string_param::operator string_view const]
-[indexterm2 operator string_view const..string_param]
-
-
-Implicit conversion to [link beast.ref.boost__beast__string_view `string_view`]. 
-[heading Synopsis]
-```
-operator string_view const() const;
-```
-
-[heading Description]
-
-[endsect]
-
-
-[endsect]
-
 [section:boost__beast__websocket__stream_base__timeout websocket::stream_base::timeout]
 
 Stream option to control the behavior of websocket timeouts. 
@@ -37282,6 +37138,130 @@ This rate policy object does not apply any rate limit.
 
 [endsect]
 
+[section:boost__beast__http__empty_body__value_type http::empty_body::value_type]
+
+The type of container used for the body. 
+[heading Synopsis]
+Defined in header [include_file boost/beast/http/empty_body.hpp]
+  
+```
+struct value_type
+```
+
+[heading Description]
+This determines the type of [link beast.ref.boost__beast__http__message.body.overload1 `message::body`] when this body type is used with a message container. 
+
+
+[endsect]
+
+[section:boost__beast__http__buffer_body__value_type http::buffer_body::value_type]
+
+The type of the body member when used in a message. 
+[heading Synopsis]
+Defined in header [include_file boost/beast/http/buffer_body.hpp]
+  
+```
+struct value_type
+```
+
+[heading Data Members]
+[table [[Name][Description]]
+  [
+    [[*[link beast.ref.boost__beast__http__buffer_body__value_type.data data]]
+    ]
+    [
+
+A pointer to a contiguous area of memory of [link beast.ref.boost__beast__http__buffer_body__value_type.size `size`] octets, else `nullptr`. 
+    ]
+  ]
+  [
+    [[*[link beast.ref.boost__beast__http__buffer_body__value_type.more more]]
+    ]
+    [
+
+`true` if this is not the last buffer. 
+    ]
+  ]
+  [
+    [[*[link beast.ref.boost__beast__http__buffer_body__value_type.size size]]
+    ]
+    [
+
+The number of octets in the buffer pointed to by [link beast.ref.boost__beast__http__buffer_body__value_type.data `data`]. 
+    ]
+  ]
+]
+[heading Description]
+ 
+[section:data http::buffer_body::value_type::data]
+[indexterm2 data..http::buffer_body::value_type]
+
+
+A pointer to a contiguous area of memory of [link beast.ref.boost__beast__http__buffer_body__value_type.size `size`] octets, else `nullptr`. 
+[heading Synopsis]
+```
+void* data = nullptr;
+```
+
+[heading Description]
+
+[heading When Serializing]
+
+If this is `nullptr` and `more` is `true`, the error [link beast.ref.boost__beast__http__error `error::need_buffer`] will be returned from [link beast.ref.boost__beast__http__serializer.get `serializer::get`] Otherwise, the serializer will use the memory pointed to by `data` having `size` octets of valid storage as the next buffer representing the body.
+
+[heading When Parsing]
+
+If this is `nullptr`, the error [link beast.ref.boost__beast__http__error `error::need_buffer`] will be returned from [link beast.ref.boost__beast__http__parser.put `parser::put`]. Otherwise, the parser will store body octets into the memory pointed to by `data` having `size` octets of valid storage. After octets are stored, the `data` and `size` members are adjusted: `data` is incremented to point to the next octet after the data written, while `size` is decremented to reflect the remaining space at the memory location pointed to by `data`. 
+
+[endsect]
+
+[section:size http::buffer_body::value_type::size]
+[indexterm2 size..http::buffer_body::value_type]
+
+
+The number of octets in the buffer pointed to by [link beast.ref.boost__beast__http__buffer_body__value_type.data `data`]. 
+[heading Synopsis]
+```
+std::size_t size = 0;
+```
+
+[heading Description]
+
+[heading When Serializing]
+
+If `data` is `nullptr` during serialization, this value is ignored. Otherwise, it represents the number of valid body octets pointed to by `data`.
+
+[heading When Parsing]
+
+The value of this field will be decremented during parsing to indicate the number of remaining free octets in the buffer pointed to by `data`. When it reaches zero, the parser will return [link beast.ref.boost__beast__http__error `error::need_buffer`], indicating to the caller that the values of `data` and `size` should be updated to point to a new memory buffer. 
+
+[endsect]
+
+[section:more http::buffer_body::value_type::more]
+[indexterm2 more..http::buffer_body::value_type]
+
+
+`true` if this is not the last buffer. 
+[heading Synopsis]
+```
+bool more = true;
+```
+
+[heading Description]
+
+[heading When Serializing]
+
+If this is `true` and `data` is `nullptr`, the error [link beast.ref.boost__beast__http__error `error::need_buffer`] will be returned from [link beast.ref.boost__beast__http__serializer.get `serializer::get`]
+
+[heading When Parsing]
+
+This field is not used during parsing. 
+
+[endsect]
+
+
+[endsect]
+
 [section:boost__beast__http__basic_file_body__value_type http::basic_file_body::value_type]
 
 The type of the [link beast.ref.boost__beast__http__message.body.overload1 `message::body`] member. 
@@ -37589,130 +37569,6 @@ Set to the error, if any occurred
     ]
   ]
 ]
-
-[endsect]
-
-
-[endsect]
-
-[section:boost__beast__http__empty_body__value_type http::empty_body::value_type]
-
-The type of container used for the body. 
-[heading Synopsis]
-Defined in header [include_file boost/beast/http/empty_body.hpp]
-  
-```
-struct value_type
-```
-
-[heading Description]
-This determines the type of [link beast.ref.boost__beast__http__message.body.overload1 `message::body`] when this body type is used with a message container. 
-
-
-[endsect]
-
-[section:boost__beast__http__buffer_body__value_type http::buffer_body::value_type]
-
-The type of the body member when used in a message. 
-[heading Synopsis]
-Defined in header [include_file boost/beast/http/buffer_body.hpp]
-  
-```
-struct value_type
-```
-
-[heading Data Members]
-[table [[Name][Description]]
-  [
-    [[*[link beast.ref.boost__beast__http__buffer_body__value_type.data data]]
-    ]
-    [
-
-A pointer to a contiguous area of memory of [link beast.ref.boost__beast__http__buffer_body__value_type.size `size`] octets, else `nullptr`. 
-    ]
-  ]
-  [
-    [[*[link beast.ref.boost__beast__http__buffer_body__value_type.more more]]
-    ]
-    [
-
-`true` if this is not the last buffer. 
-    ]
-  ]
-  [
-    [[*[link beast.ref.boost__beast__http__buffer_body__value_type.size size]]
-    ]
-    [
-
-The number of octets in the buffer pointed to by [link beast.ref.boost__beast__http__buffer_body__value_type.data `data`]. 
-    ]
-  ]
-]
-[heading Description]
- 
-[section:data http::buffer_body::value_type::data]
-[indexterm2 data..http::buffer_body::value_type]
-
-
-A pointer to a contiguous area of memory of [link beast.ref.boost__beast__http__buffer_body__value_type.size `size`] octets, else `nullptr`. 
-[heading Synopsis]
-```
-void* data = nullptr;
-```
-
-[heading Description]
-
-[heading When Serializing]
-
-If this is `nullptr` and `more` is `true`, the error [link beast.ref.boost__beast__http__error `error::need_buffer`] will be returned from [link beast.ref.boost__beast__http__serializer.get `serializer::get`] Otherwise, the serializer will use the memory pointed to by `data` having `size` octets of valid storage as the next buffer representing the body.
-
-[heading When Parsing]
-
-If this is `nullptr`, the error [link beast.ref.boost__beast__http__error `error::need_buffer`] will be returned from [link beast.ref.boost__beast__http__parser.put `parser::put`]. Otherwise, the parser will store body octets into the memory pointed to by `data` having `size` octets of valid storage. After octets are stored, the `data` and `size` members are adjusted: `data` is incremented to point to the next octet after the data written, while `size` is decremented to reflect the remaining space at the memory location pointed to by `data`. 
-
-[endsect]
-
-[section:size http::buffer_body::value_type::size]
-[indexterm2 size..http::buffer_body::value_type]
-
-
-The number of octets in the buffer pointed to by [link beast.ref.boost__beast__http__buffer_body__value_type.data `data`]. 
-[heading Synopsis]
-```
-std::size_t size = 0;
-```
-
-[heading Description]
-
-[heading When Serializing]
-
-If `data` is `nullptr` during serialization, this value is ignored. Otherwise, it represents the number of valid body octets pointed to by `data`.
-
-[heading When Parsing]
-
-The value of this field will be decremented during parsing to indicate the number of remaining free octets in the buffer pointed to by `data`. When it reaches zero, the parser will return [link beast.ref.boost__beast__http__error `error::need_buffer`], indicating to the caller that the values of `data` and `size` should be updated to point to a new memory buffer. 
-
-[endsect]
-
-[section:more http::buffer_body::value_type::more]
-[indexterm2 more..http::buffer_body::value_type]
-
-
-`true` if this is not the last buffer. 
-[heading Synopsis]
-```
-bool more = true;
-```
-
-[heading Description]
-
-[heading When Serializing]
-
-If this is `true` and `data` is `nullptr`, the error [link beast.ref.boost__beast__http__error `error::need_buffer`] will be returned from [link beast.ref.boost__beast__http__serializer.get `serializer::get`]
-
-[heading When Parsing]
-
-This field is not used during parsing. 
 
 [endsect]
 
@@ -38801,13 +38657,6 @@ The ConstBufferSequence used to represent the readable bytes.
 The MutableBufferSequence used to represent the writable bytes. 
     ]
   ]
-  [
-    [[*[link beast.ref.boost__beast__basic_flat_buffer.mutable_data_type mutable_data_type]]
-    ]
-    [
-
-    ]
-  ]
 ]
 [heading Member Functions]
 [table [[Name][Description]]
@@ -39607,7 +39456,7 @@ A TCP/IP stream socket with timeouts and a polymorphic executor.
 Defined in header [include_file boost/beast/core/tcp_stream.hpp]
   
 ```
-using tcp_stream = basic_stream< net::ip::tcp, net::executor, unlimited_rate_policy >;
+using tcp_stream = basic_stream< net::ip::tcp, net::any_io_executor, unlimited_rate_policy >;
 ```
 
 [heading Types]
@@ -39899,7 +39748,7 @@ A type meeting the requirements of ['Protocol] representing the protocol the pro
     [`Executor`
     ]
     [
-A type meeting the requirements of ['Executor] to be used for submitting all completion handlers which do not already have an associated executor. If this type is omitted, the default of `net::executor` will be used.
+A type meeting the requirements of ['Executor] to be used for submitting all completion handlers which do not already have an associated executor. If this type is omitted, the default of `net::any_io_executor` will be used.
     ]
   ]
 ]
@@ -54007,14 +53856,6 @@ Too many length or distance symbols.
     [
 
 Invalid code lengths. 
-
-    ]
-  ]
-  [
-    [`invalid_code_lenths`
-    ]
-    [
-
 
     ]
   ]

@@ -11,6 +11,12 @@ http://www.boost.org/LICENSE_1_0.txt
 # Revision History
 :idprefix: changelog_
 
+## Changes in 1.74.0
+
+* Added support for derived types in `visit`
+* Improved compilation performance for many (hundreds of) alternatives.
+* Added support for `visit<R>`
+
 ## Changes in 1.73.0
 
 * Added support for `std::hash`, `boost::hash`.

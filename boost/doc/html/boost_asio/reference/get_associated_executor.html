@@ -43,7 +43,7 @@ template&lt;
 associated_executor&lt; T, Executor &gt;::type <a class="link" href="get_associated_executor/overload2.html" title="get_associated_executor (2 of 3 overloads)">get_associated_executor</a>(
     const T &amp; t,
     const Executor &amp; ex,
-    typename enable_if&lt; is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; is_executor&lt; Executor &gt;::value||execution::is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
   <span class="emphasis"><em>» <a class="link" href="get_associated_executor/overload2.html" title="get_associated_executor (2 of 3 overloads)">more...</a></em></span>
 
 template&lt;

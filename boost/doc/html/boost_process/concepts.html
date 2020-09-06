@@ -69,16 +69,16 @@
         to be broken when the child process exits.
       </p>
 <p>
-        Though please note, that if the the same thread reads and write to a pipe,
-        it will only talk to itself.
+        Though please note, that if the same thread reads and writes to a pipe, it
+        will only talk to itself.
       </p>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="boost_process.concepts.pipes.anonymous"></a><a class="link" href="concepts.html#boost_process.concepts.pipes.anonymous" title="Anonymous Pipes">Anonymous Pipes</a>
 </h4></div></div></div>
 <p>
-          The most common pipes are anonymous. Since the have no name, a handle to
-          them can only be obtained from duplicating either handle.
+          The most common pipes are anonymous. Since they have no name, a handle
+          to them can only be obtained from duplicating either handle.
         </p>
 <p>
           In this library the following functions are used for the creation of unnamed
@@ -145,8 +145,8 @@
 <p>
           A process will return an integer value indicating whether it was successful.
           On posix there are more codes associated with that, but not so on windows.
-          Therefore there is not such encoding currently in the library. However
-          an exit code of zero means the process was successful, while one different
+          Therefore there is no such encoding currently in the library. However an
+          exit code of zero means the process was successful, while one different
           than zero indicates an error.
         </p>
 </div>
@@ -156,7 +156,7 @@
 </h4></div></div></div>
 <p>
           Processes can also be forced to exit. There are two ways to do this, signal
-          the process to so and wait, and just terminate the process without conditions.
+          the process to do so and wait, and just terminate the process without conditions.
         </p>
 <p>
           Usually the first approach is to signal an exit request, but windows -
