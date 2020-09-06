@@ -156,6 +156,9 @@ run tuple_apply.cpp ;
 compile tuple_apply_cx.cpp ;
 run construct_from_tuple.cpp ;
 compile construct_from_tuple_cx.cpp ;
+run tuple_transform.cpp ;
+run tuple_transform_2.cpp ;
+compile tuple_transform_cx.cpp ;
 
 # set
 run mp_set_contains.cpp ;

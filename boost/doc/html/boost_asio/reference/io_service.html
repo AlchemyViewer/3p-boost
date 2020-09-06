@@ -57,12 +57,12 @@ Typedef for backwards compatibility.
 <tr>
 <td>
                 <p>
-                  <a class="link" href="io_context__executor_type.html" title="io_context::executor_type"><span class="bold"><strong>executor_type</strong></span></a>
+                  <a class="link" href="io_context__basic_executor_type.html" title="io_context::basic_executor_type"><span class="bold"><strong>basic_executor_type</strong></span></a>
                 </p>
               </td>
 <td>
                 <p>
-                  Executor used to submit functions to an io_context.
+                  Executor implementation type used to submit functions to an io_context.
                 </p>
               </td>
 </tr>
@@ -112,6 +112,18 @@ Typedef for backwards compatibility.
 <td>
                 <p>
                   The type used to count the number of handlers executed by the context.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
+                  <a class="link" href="io_context/executor_type.html" title="io_context::executor_type"><span class="bold"><strong>executor_type</strong></span></a>
+                </p>
+              </td>
+<td>
+                <p>
+                  Executor used to submit functions to an io_context.
                 </p>
               </td>
 </tr>
@@ -180,7 +192,7 @@ Typedef for backwards compatibility.
 <tr>
 <td>
                 <p>
-                  <a class="link" href="io_context/io_context.html" title="io_context::io_context"><span class="bold"><strong>io_context</strong></span></a>
+                  <a class="link" href="io_context/io_context.html" title="io_context::io_context"><span class="bold"><strong>io_context</strong></span></a> <span class="silver">[constructor]</span>
                 </p>
               </td>
 <td>
@@ -390,7 +402,7 @@ Typedef for backwards compatibility.
 <tr>
 <td>
                 <p>
-                  <a class="link" href="io_context/_io_context.html" title="io_context::~io_context"><span class="bold"><strong>~io_context</strong></span></a>
+                  <a class="link" href="io_context/_io_context.html" title="io_context::~io_context"><span class="bold"><strong>~io_context</strong></span></a> <span class="silver">[destructor]</span>
                 </p>
               </td>
 <td>
@@ -672,11 +684,32 @@ io_context.run();
         to do. For example, the <a class="link" href="io_context.html" title="io_context"><code class="computeroutput">io_context</code></a>
         may be being run in a background thread that is launched prior to the application's
         asynchronous operations. The <code class="computeroutput">run()</code> call may be kept running
-        by creating an object of type boost::asio::executor_work_guard&lt;io_context::executor_type&gt;:
+        by creating an executor that tracks work against the <a class="link" href="io_context.html" title="io_context"><code class="computeroutput">io_context</code></a>:
       </p>
 <pre class="programlisting">boost::asio::io_context io_context;
-boost::asio::executor_work_guard&lt;boost::asio::io_context::executor_type&gt;
-  = boost::asio::make_work_guard(io_context);
+auto work = boost::asio::require(io_context.get_executor(),
+    boost::asio::execution::outstanding_work.tracked);
+...
+</pre>
+<p>
+        If using C++03, which lacks automatic variable type deduction, you may compute
+        the return type of the require call:
+      </p>
+<pre class="programlisting">boost::asio::io_context io_context;
+typename boost::asio::require_result&lt;
+    boost::asio::io_context::executor_type,
+    boost::asio::exeution::outstanding_work_t::tracked_t&gt;
+  work = boost::asio::require(io_context.get_executor(),
+    boost::asio::execution::outstanding_work.tracked);
+...
+</pre>
+<p>
+        or store the result in the type-erasing executor wrapper, any_io_executor:
+      </p>
+<pre class="programlisting">boost::asio::io_context io_context;
+boost::asio::any_io_executor work
+  = boost::asio::require(io_context.get_executor(),
+      boost::asio::execution::outstanding_work.tracked);
 ...
 </pre>
 <p>
@@ -687,13 +720,15 @@ boost::asio::executor_work_guard&lt;boost::asio::io_context::executor_type&gt;
       </p>
 <p>
         Alternatively, if the application requires that all operations and handlers
-        be allowed to finish normally, the work object may be explicitly reset.
+        be allowed to finish normally, store the work-tracking executor in an any_io_executor
+        object, so that it may be explicitly reset.
       </p>
 <pre class="programlisting">boost::asio::io_context io_context;
-boost::asio::executor_work_guard&lt;boost::asio::io_context::executor_type&gt;
-  = boost::asio::make_work_guard(io_context);
+boost::asio::any_io_executor work
+  = boost::asio::require(io_context.get_executor(),
+      boost::asio::execution::outstanding_work.tracked);
 ...
-work.reset(); // Allow run() to exit.
+work = boost::asio::any_io_executor(); // Allow run() to exit.
 </pre>
 <h5>
 <a name="boost_asio.reference.io_service.h9"></a>

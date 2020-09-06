@@ -165,7 +165,9 @@
 <span class="keyword">using</span> <span class="identifier">tcp</span> <span class="special">=</span> <span class="identifier">net</span><span class="special">::</span><span class="identifier">ip</span><span class="special">::</span><span class="identifier">tcp</span><span class="special">;</span>
 
 <span class="identifier">net</span><span class="special">::</span><span class="identifier">io_context</span> <span class="identifier">ioc</span><span class="special">;</span>
-<span class="keyword">auto</span> <span class="identifier">work</span> <span class="special">=</span> <span class="identifier">net</span><span class="special">::</span><span class="identifier">make_work_guard</span><span class="special">(</span><span class="identifier">ioc</span><span class="special">);</span>
+<span class="identifier">net</span><span class="special">::</span><span class="identifier">any_io_executor</span> <span class="identifier">work</span> <span class="special">=</span>
+    <span class="identifier">net</span><span class="special">::</span><span class="identifier">require</span><span class="special">(</span><span class="identifier">ioc</span><span class="special">.</span><span class="identifier">get_executor</span><span class="special">(),</span>
+        <span class="identifier">net</span><span class="special">::</span><span class="identifier">execution</span><span class="special">::</span><span class="identifier">outstanding_work</span><span class="special">.</span><span class="identifier">tracked</span><span class="special">);</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">thread</span> <span class="identifier">t</span><span class="special">{[&amp;](){</span> <span class="identifier">ioc</span><span class="special">.</span><span class="identifier">run</span><span class="special">();</span> <span class="special">}};</span>
 
 <span class="identifier">error_code</span> <span class="identifier">ec</span><span class="special">;</span>

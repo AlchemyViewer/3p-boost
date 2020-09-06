@@ -27,7 +27,7 @@
 <a name="beast.ref.boost__beast__tcp_stream"></a><a class="link" href="boost__beast__tcp_stream.html" title="tcp_stream">tcp_stream</a>
 </h4></div></div></div>
 <p>
-        <a class="indexterm" name="idm45387149063792"></a>
+        <a class="indexterm" name="idm46062514387872"></a>
       </p>
 <p>
         A TCP/IP stream socket with timeouts and a polymorphic executor.
@@ -39,7 +39,7 @@
 <p>
         Defined in header <code class="literal">&lt;<a href="../../../../../../boost/beast/core/tcp_stream.hpp" target="_top">boost/beast/core/tcp_stream.hpp</a>&gt;</code>
       </p>
-<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">tcp_stream</span> <span class="special">=</span> <span class="identifier">basic_stream</span><span class="special">&lt;</span> <span class="identifier">net</span><span class="special">::</span><span class="identifier">ip</span><span class="special">::</span><span class="identifier">tcp</span><span class="special">,</span> <span class="identifier">net</span><span class="special">::</span><span class="identifier">executor</span><span class="special">,</span> <span class="identifier">unlimited_rate_policy</span> <span class="special">&gt;;</span>
+<pre class="programlisting"><span class="keyword">using</span> <span class="identifier">tcp_stream</span> <span class="special">=</span> <span class="identifier">basic_stream</span><span class="special">&lt;</span> <span class="identifier">net</span><span class="special">::</span><span class="identifier">ip</span><span class="special">::</span><span class="identifier">tcp</span><span class="special">,</span> <span class="identifier">net</span><span class="special">::</span><span class="identifier">any_io_executor</span><span class="special">,</span> <span class="identifier">unlimited_rate_policy</span> <span class="special">&gt;;</span>
 </pre>
 <h5>
 <a name="beast.ref.boost__beast__tcp_stream.h1"></a>
@@ -563,7 +563,7 @@
                   A type meeting the requirements of <span class="emphasis"><em>Executor</em></span>
                   to be used for submitting all completion handlers which do not
                   already have an associated executor. If this type is omitted, the
-                  default of <code class="computeroutput"><span class="identifier">net</span><span class="special">::</span><span class="identifier">executor</span></code>
+                  default of <code class="computeroutput"><span class="identifier">net</span><span class="special">::</span><span class="identifier">any_io_executor</span></code>
                   will be used.
                 </p>
               </td>

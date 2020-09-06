@@ -18,17 +18,17 @@ Branch  | Linux and OSX | Windows | Coverage
 develop | [![Build Status Travis](https://travis-ci.org/boostorg/histogram.svg?branch=develop)](https://travis-ci.org/boostorg/histogram/branches) | [![Build status Appveyor](https://ci.appveyor.com/api/projects/status/p27laa26ti1adyf1/branch/develop?svg=true)](https://ci.appveyor.com/project/HDembinski/histogram-d5g5k/branch/develop) | [![Coveralls](https://coveralls.io/repos/github/boostorg/histogram/badge.svg?branch=develop)](https://coveralls.io/github/boostorg/histogram?branch=develop)
 master  | [![Build Status Travis](https://travis-ci.org/boostorg/histogram.svg?branch=master)](https://travis-ci.org/boostorg/histogram/branches) | [![Build status Appveyor](https://ci.appveyor.com/api/projects/status/p27laa26ti1adyf1/branch/master?svg=true)](https://ci.appveyor.com/project/HDembinski/histogram-d5g5k/branch/master) | [![Coveralls](https://coveralls.io/repos/github/boostorg/histogram/badge.svg?branch=master)](https://coveralls.io/github/boostorg/histogram?branch=master)
 
-Boost.Histogram is a very fast state-of-the-art multi-dimensional [histogram](https://en.wikipedia.org/wiki/Histogram) class for the beginner and expert alike.
+Boost.Histogram is a very fast state-of-the-art multi-dimensional generalised [histogram](https://en.wikipedia.org/wiki/Histogram) class for the beginner and expert alike.
 
 * Header-only
 * Easy to use, easy to customize
-* Just count or use arbitrary accumulators to compute means, minimum, maximum, ...
+* Just count or use arbitrary accumulators in each cell to compute means, minimum, maximum, ...
 * Supports multi-threading and restricted environments (no heap allocation, exceptions or RTTI)
 * Has [Python bindings](https://github.com/scikit-hep/boost-histogram)
 
 Check out the [full documentation](https://www.boost.org/doc/libs/develop/libs/histogram/doc/html/index.html).
 
-💡 Boost.Histogram is a mature library, but if you find some issue or find the documentation lacking, tell us about it by [submitting an issue](https://github.com/boostorg/histogram/issues). Chat with us on the [Boost channel on Slack](https://cpplang.slack.com) and [Gitter](https://gitter.im/boostorg/histogram).
+💡 Boost.Histogram is a mature library with 100 % of code lines covered by unit tests, benchmarked for performance, and has extensive documentation. If you still find some issue or find the documentation lacking, tell us about it by [submitting an issue](https://github.com/boostorg/histogram/issues). Chat with us on the [Boost channel on Slack](https://cpplang.slack.com) and [Gitter](https://gitter.im/boostorg/histogram).
 
 ## Code examples
 

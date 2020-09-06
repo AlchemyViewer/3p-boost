@@ -121,7 +121,7 @@ std::size_t read_until(
           To read data into a <code class="computeroutput">std::string</code> until a newline is encountered:
         </p>
 <pre class="programlisting">std::string data;
-std::string n = boost::asio::read_until(s,
+std::size_t n = boost::asio::read_until(s,
     boost::asio::dynamic_buffer(data), '\n');
 std::string line = data.substr(0, n);
 data.erase(0, n);

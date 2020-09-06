@@ -74,11 +74,15 @@
 [include requirements/LegacyCompletionHandler.qbk]
 [include requirements/MoveAcceptHandler.qbk]
 [include requirements/MutableBufferSequence.qbk]
+[include requirements/OperationState.qbk]
 [include requirements/ProtoAllocator.qbk]
 [include requirements/Protocol.qbk]
 [include requirements/RangeConnectHandler.qbk]
 [include requirements/ReadHandler.qbk]
+[include requirements/Receiver.qbk]
 [include requirements/ResolveHandler.qbk]
+[include requirements/Scheduler.qbk]
+[include requirements/Sender.qbk]
 [include requirements/Service.qbk]
 [include requirements/SettableSerialPortOption.qbk]
 [include requirements/SettableSocketOption.qbk]
@@ -110,7 +114,9 @@
             not(contains(compoundname, 'std_allocator_void')) and
             not(contains(compoundname, 'thread_function')) and
             not(contains(compoundname, 'context_impl')) and
-            not(contains(compoundname, 'initiate_'))">
+            not(contains(compoundname, 'initiate_')) and
+            not(contains(compoundname, '_adapter')) and
+            not(contains(compoundname, '_is_deprecated'))">
           <xsl:call-template name="class"/>
         </xsl:if>
       </xsl:when>
@@ -124,7 +130,9 @@
             not(contains(name, 'std_allocator_void')) and
             not(contains(name, 'thread_function')) and
             not(contains(name, 'io_context_impl')) and
-            not(contains(name, 'initiate_'))">
+            not(contains(name, 'initiate_')) and
+            not(contains(name, '_adapter')) and
+            not(contains(name, '_is_deprecated'))">
           <xsl:call-template name="namespace-memberdef"/>
         </xsl:if>
       </xsl:otherwise>
@@ -133,6 +141,7 @@
 
   <xsl:value-of select="$newline"/>
   <xsl:text>[endsect]</xsl:text>
+  <xsl:value-of select="$newline"/>
 
 </xsl:template>
 
@@ -214,7 +223,11 @@
 
 <xsl:template name="make-id">
   <xsl:param name="name"/>
+  <xsl:param name="static"/>
   <xsl:choose>
+    <xsl:when test="$name='query' and $static='yes'">
+      <xsl:text>query__static</xsl:text>
+    </xsl:when>
     <xsl:when test="contains($name, 'boost::system::')">
       <xsl:call-template name="make-id">
         <xsl:with-param name="name"
@@ -261,6 +274,12 @@
       <xsl:call-template name="make-id">
         <xsl:with-param name="name"
          select="concat(substring-before($name, '&gt;'), '_gt_', substring-after($name, '&gt;'))"/>
+      </xsl:call-template>
+    </xsl:when>
+    <xsl:when test="contains($name, '&amp;')">
+      <xsl:call-template name="make-id">
+        <xsl:with-param name="name"
+         select="concat(substring-before($name, '&amp;'), '_amp_', substring-after($name, '&amp;'))"/>
       </xsl:call-template>
     </xsl:when>
     <xsl:when test="contains($name, '[')">
@@ -774,6 +793,9 @@
   <xsl:value-of select="$newline"/>
   <xsl:text>['Convenience header: ]</xsl:text>
   <xsl:choose>
+    <xsl:when test="contains($file, 'boost/asio/execution')">
+      <xsl:text>[^boost/asio/execution.hpp]</xsl:text>
+    </xsl:when>
     <xsl:when test="contains($file, 'boost/asio/ssl')">
       <xsl:text>[^boost/asio/ssl.hpp]</xsl:text>
     </xsl:when>
@@ -826,6 +848,7 @@
 <xsl:call-template name="class-tables">
   <xsl:with-param name="class-name" select="$class-name"/>
   <xsl:with-param name="class-id" select="$class-id"/>
+  <xsl:with-param name="unqualified-class-name" select="$unqualified-class-name"/>
 </xsl:call-template>
 
 <xsl:apply-templates select="detaileddescription" mode="markup"/>
@@ -847,6 +870,7 @@
 <xsl:template name="class-tables">
 <xsl:param name="class-name"/>
 <xsl:param name="class-id"/>
+<xsl:param name="unqualified-class-name"/>
 <xsl:if test="
     count(
       sectiondef[@kind='public-type'] |
@@ -909,6 +933,7 @@
   <xsl:variable name="id">
     <xsl:call-template name="make-id">
       <xsl:with-param name="name" select="$name"/>
+      <xsl:with-param name="static" select="@static"/>
     </xsl:call-template>
   </xsl:variable>
   <xsl:variable name="doxygen-id">
@@ -927,7 +952,11 @@
   <xsl:if test="$overload-position = 1">
   [
     [[link boost_asio.reference.<xsl:value-of select="$class-id"/>.<xsl:value-of select="$id"/>
-      <xsl:text> </xsl:text>[*<xsl:value-of select="$escaped-name"/><xsl:text>]]]
+      <xsl:text> </xsl:text>[*<xsl:value-of select="$escaped-name"/><xsl:text>]]</xsl:text>
+      <xsl:if test="$name=$unqualified-class-name"> [constructor]</xsl:if>
+      <xsl:if test="starts-with($name, '~')"> [destructor]</xsl:if>
+      <xsl:if test="@static='yes'"> [static]</xsl:if>
+      <xsl:text>]
     [</xsl:text><xsl:value-of select="briefdescription"/>
   </xsl:if>
   <xsl:if test="not($overload-position = 1) and not(briefdescription = preceding-sibling::*/briefdescription)">
@@ -958,6 +987,7 @@
   <xsl:variable name="id">
     <xsl:call-template name="make-id">
       <xsl:with-param name="name" select="$name"/>
+      <xsl:with-param name="static" select="@static"/>
     </xsl:call-template>
   </xsl:variable>
   <xsl:variable name="doxygen-id">
@@ -976,7 +1006,11 @@
   <xsl:if test="$overload-position = 1">
   [
     [[link boost_asio.reference.<xsl:value-of select="$class-id"/>.<xsl:value-of select="$id"/>
-      <xsl:text> </xsl:text>[*<xsl:value-of select="$name"/><xsl:text>]]]
+      <xsl:text> </xsl:text>[*<xsl:value-of select="$name"/><xsl:text>]]</xsl:text>
+      <xsl:if test="$name=$unqualified-class-name"> [constructor]</xsl:if>
+      <xsl:if test="starts-with($name, '~')"> [destructor]</xsl:if>
+      <xsl:if test="@static='yes'"> [static]</xsl:if>
+      <xsl:text>]
     [</xsl:text><xsl:value-of select="briefdescription"/>
   </xsl:if>
   <xsl:if test="not($overload-position = 1) and not(briefdescription = preceding-sibling::*/briefdescription)">
@@ -1008,6 +1042,7 @@
   <xsl:variable name="id">
     <xsl:call-template name="make-id">
       <xsl:with-param name="name" select="$name"/>
+      <xsl:with-param name="static" select="@static"/>
     </xsl:call-template>
   </xsl:variable>
   <xsl:variable name="doxygen-id">
@@ -1026,7 +1061,11 @@
   <xsl:if test="$overload-position = 1">
   [
     [[link boost_asio.reference.<xsl:value-of select="$class-id"/>.<xsl:value-of select="$id"/>
-      <xsl:text> </xsl:text>[*<xsl:value-of select="$name"/><xsl:text>]]]
+      <xsl:text> </xsl:text>[*<xsl:value-of select="$name"/><xsl:text>]]</xsl:text>
+      <xsl:if test="$name=$unqualified-class-name"> [constructor]</xsl:if>
+      <xsl:if test="starts-with($name, '~')"> [destructor]</xsl:if>
+      <xsl:if test="@static='yes'"> [static]</xsl:if>
+      <xsl:text>]
     [</xsl:text><xsl:value-of select="briefdescription"/>
   </xsl:if>
   <xsl:if test="not($overload-position = 1) and not(briefdescription = preceding-sibling::*/briefdescription)">
@@ -1054,22 +1093,24 @@
   <xsl:sort select="name"/>
   [
     [[link boost_asio.reference.<xsl:value-of select="$class-id"/>.<xsl:value-of select="name"/>
-      <xsl:text> </xsl:text>[*<xsl:value-of select="name"/>]]]
+      <xsl:text> </xsl:text>[*<xsl:value-of select="name"/><xsl:text>]]</xsl:text>
+      <xsl:if test="@static='yes'"> [static]</xsl:if>]
     [<xsl:value-of select="briefdescription"/>]
   ]
 </xsl:for-each>
 ]
 </xsl:if>
 
-<xsl:if test="count(sectiondef[@kind='protected-attrib' or @kind='protected-static-attrib']) > 0">
+<xsl:if test="count(sectiondef[@kind='protected-attrib' or @kind='protected-static-attrib']/memberdef[not(name='impl_')]) > 0">
 [heading Protected Data Members]
 [table
   [[Name][Description]]
-<xsl:for-each select="sectiondef[@kind='protected-attrib' or @kind='protected-static-attrib']/memberdef" mode="class-table">
+<xsl:for-each select="sectiondef[@kind='protected-attrib' or @kind='protected-static-attrib']/memberdef[not(name='impl_')]" mode="class-table">
   <xsl:sort select="name"/>
   [
     [[link boost_asio.reference.<xsl:value-of select="$class-id"/>.<xsl:value-of select="name"/>
-      <xsl:text> </xsl:text>[*<xsl:value-of select="name"/>]]]
+      <xsl:text> </xsl:text>[*<xsl:value-of select="name"/><xsl:text>]]</xsl:text>
+      <xsl:if test="@static='yes'"> [static]</xsl:if>]
     [<xsl:value-of select="briefdescription"/>]
   ]
 </xsl:for-each>
@@ -1180,7 +1221,7 @@
 <xsl:param name="class-name"/>
 <xsl:param name="class-id"/>
 <xsl:param name="class-file"/>
-<xsl:apply-templates select="sectiondef[@kind='public-type' or @kind='public-func' or @kind='public-static-func' or @kind='public-attrib' or @kind='public-static-attrib' or @kind='protected-func' or @kind='protected-static-func' or @kind='protected-attrib' or @kind='protected-static-attrib' or @kind='friend' or @kind='related']/memberdef[not(type = 'friend class') and not(contains(name, '_helper'))]" mode="class-detail">
+<xsl:apply-templates select="sectiondef[@kind='public-type' or @kind='public-func' or @kind='public-static-func' or @kind='public-attrib' or @kind='public-static-attrib' or @kind='protected-func' or @kind='protected-static-func' or @kind='protected-attrib' or @kind='protected-static-attrib' or @kind='friend' or @kind='related']/memberdef[not(type = 'friend class') and not(contains(name, '_helper')) and not(name = 'impl_')]" mode="class-detail">
   <xsl:sort select="name"/>
   <xsl:with-param name="class-name" select="$class-name"/>
   <xsl:with-param name="class-id" select="$class-id"/>
@@ -1219,6 +1260,7 @@
   <xsl:variable name="id">
     <xsl:call-template name="make-id">
       <xsl:with-param name="name" select="$name"/>
+      <xsl:with-param name="static" select="@static"/>
     </xsl:call-template>
   </xsl:variable>
   <xsl:variable name="doxygen-id">
@@ -1362,7 +1404,7 @@
   </xsl:text>typedef <xsl:value-of select="type"/><xsl:text> </xsl:text><xsl:value-of select="name"/>;<xsl:text>
 
 </xsl:text>
-<xsl:if test="count(type/ref) &gt; 0 and not(contains(type, '*'))">
+<xsl:if test="count(type/ref) &gt; 0 and not(contains(type, '*')) and not(contains(name, 'polymorphic_query_result_type'))">
   <xsl:variable name="class-refid">
     <xsl:choose>
       <xsl:when test="type='basic_address_iterator&lt; address_v4 &gt;'">
@@ -1399,6 +1441,11 @@
           </xsl:with-param>
         </xsl:call-template>
       </xsl:with-param>
+      <xsl:with-param name="unqualified-class-name">
+        <xsl:call-template name="strip-ns">
+          <xsl:with-param name="name" select="compoundname"/>
+        </xsl:call-template>
+      </xsl:with-param>
     </xsl:call-template>
     <xsl:apply-templates select="detaileddescription" mode="markup"/>
   </xsl:for-each>
@@ -1407,6 +1454,14 @@
 
 
 <xsl:template name="variable">
+<xsl:if test="contains(name, 'is_applicable_property_v')">
+<xsl:text>
+  template &lt;typename T&gt;</xsl:text>
+</xsl:if>
+<xsl:if test="contains(name, 'context_as')">
+<xsl:text>
+  template &lt;typename U&gt;</xsl:text>
+</xsl:if>
 <xsl:text>
   </xsl:text><xsl:if test="@static='yes'">static </xsl:if><xsl:value-of
  select="type"/><xsl:text> </xsl:text><xsl:value-of select="name"/>
@@ -1492,6 +1547,15 @@
         <xsl:when test="declname = 'Args'">
           <xsl:value-of select="declname"/>
         </xsl:when>
+        <xsl:when test="declname = 'AwaitableExecutor'">
+          <xsl:value-of select="concat('``[link boost_asio.reference.Executor1 ', declname, ']``')"/>
+        </xsl:when>
+        <xsl:when test="declname = 'Bits'">
+          <xsl:value-of select="declname"/>
+        </xsl:when>
+        <xsl:when test="declname = 'Blocking'">
+          <xsl:value-of select="declname"/>
+        </xsl:when>
         <xsl:when test="declname = 'BufferSequence'">
           <xsl:value-of select="declname"/>
         </xsl:when>
@@ -1518,6 +1582,9 @@
         </xsl:when>
         <xsl:when test="declname = 'DatagramSocketService1'">
           <xsl:value-of select="concat('``[link boost_asio.reference.DatagramSocketService ', declname, ']``')"/>
+        </xsl:when>
+        <xsl:when test="declname = 'E'">
+          <xsl:value-of select="declname"/>
         </xsl:when>
         <xsl:when test="declname = 'EndpointIterator'">
           <xsl:value-of select="declname"/>
@@ -1579,6 +1646,12 @@
         <xsl:when test="declname = 'OtherHandler'">
           <xsl:value-of select="declname"/>
         </xsl:when>
+        <xsl:when test="declname = 'OtherSupportableProperties'">
+          <xsl:value-of select="declname"/>
+        </xsl:when>
+        <xsl:when test="declname = 'OutstandingWork'">
+          <xsl:value-of select="declname"/>
+        </xsl:when>
         <xsl:when test="declname = 'PasswordCallback'">
           <xsl:value-of select="declname"/>
         </xsl:when>
@@ -1591,6 +1664,12 @@
         <xsl:when test="declname = 'PointerToPodType'">
           <xsl:value-of select="declname"/>
         </xsl:when>
+        <xsl:when test="declname = 'Properties'">
+          <xsl:value-of select="declname"/>
+        </xsl:when>
+        <xsl:when test="declname = 'Property'">
+          <xsl:value-of select="declname"/>
+        </xsl:when>
         <xsl:when test="declname = 'Protocol1'">
           <xsl:value-of select="concat('``[link boost_asio.reference.Protocol ', declname, ']``')"/>
         </xsl:when>
@@ -1599,6 +1678,9 @@
         </xsl:when>
         <xsl:when test="declname = 'RawSocketService1'">
           <xsl:value-of select="concat('``[link boost_asio.reference.RawSocketService ', declname, ']``')"/>
+        </xsl:when>
+        <xsl:when test="declname = 'Relationship'">
+          <xsl:value-of select="declname"/>
         </xsl:when>
         <xsl:when test="declname = 'Rep'">
           <xsl:value-of select="declname"/>
@@ -1624,6 +1706,15 @@
         <xsl:when test="declname = 'StreamSocketService1'">
           <xsl:value-of select="concat('``[link boost_asio.reference.StreamSocketService ', declname, ']``')"/>
         </xsl:when>
+        <xsl:when test="declname = 'SupportableProperties'">
+          <xsl:value-of select="declname"/>
+        </xsl:when>
+        <xsl:when test="declname = 'R'">
+          <xsl:value-of select="declname"/>
+        </xsl:when>
+        <xsl:when test="declname = 'S'">
+          <xsl:value-of select="declname"/>
+        </xsl:when>
         <xsl:when test="declname = 'T'">
           <xsl:value-of select="declname"/>
         </xsl:when>
@@ -1643,6 +1734,9 @@
           <xsl:value-of select="declname"/>
         </xsl:when>
         <xsl:when test="declname = 'U'">
+          <xsl:value-of select="declname"/>
+        </xsl:when>
+        <xsl:when test="declname = 'Vs'">
           <xsl:value-of select="declname"/>
         </xsl:when>
         <xsl:when test="declname = 'VerifyCallback'">

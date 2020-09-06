@@ -35,12 +35,7 @@
           in a synchronous manner, in conjunction with the <code class="computeroutput">co_await</code>
           keyword, as shown in the following example:
         </p>
-<pre class="programlisting">boost::asio::co_spawn(executor,
-    [socket = std::move(socket)]() mutable
-    {
-      return echo(std::move(socket));
-    },
-    boost::asio::detached);
+<pre class="programlisting">boost::asio::co_spawn(executor, echo(std::move(socket)), boost::asio::detached);
 
 // ...
 
@@ -69,9 +64,12 @@ boost::asio::awaitable&lt;void&gt; echo(tcp::socket socket)
           synchronisation is required.
         </p>
 <p>
-          The second argument is a nullary function object that returns a <a class="link" href="../../reference/awaitable.html" title="awaitable"><code class="computeroutput">boost::asio::awaitable&lt;R&gt;</code></a>,
-          where <code class="computeroutput">R</code> is the type of return value produced by the coroutine.
-          In the above example, the coroutine returns <code class="computeroutput">void</code>.
+          The second argument is an <a class="link" href="../../reference/awaitable.html" title="awaitable"><code class="computeroutput">awaitable&lt;R&gt;</code></a>,
+          that is the result of the coroutine's entry point function, and in the
+          above example is the result of the call to <code class="computeroutput">echo</code>. (Alternatively,
+          this argument can be a function object that returns the <a class="link" href="../../reference/awaitable.html" title="awaitable"><code class="computeroutput">awaitable&lt;R&gt;</code></a>.)
+          The template parameter <code class="computeroutput">R</code> is the type of return value produced
+          by the coroutine. In the above example, the coroutine returns <code class="computeroutput">void</code>.
         </p>
 <p>
           The third argument is a completion token, and this is used by <code class="computeroutput">co_spawn()</code>

@@ -10,6 +10,11 @@ http://www.boost.org/LICENSE_1_0.txt
 [#changelog]
 # Revision History
 
+## Changes in 1.74.0
+
+* Improved compilation performance of `mp_with_index<N>` for large `N`
+* Added `tuple_transform` (contributed by Hans Dembinski)
+
 ## Changes in 1.73.0
 
 * Added `mp_unique_if` (contributed by Kris Jusiak)

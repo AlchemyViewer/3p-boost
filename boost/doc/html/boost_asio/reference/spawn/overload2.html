@@ -37,7 +37,7 @@ void spawn(
     Handler &amp;&amp; handler,
     Function &amp;&amp; function,
     const boost::coroutines::attributes &amp; attributes = boost::coroutines::attributes(),
-    typename enable_if&lt;!is_executor&lt; typename decay&lt; Handler &gt;::type &gt;::value &amp;&amp;!is_convertible&lt; Handler &amp;, execution_context &amp; &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; !is_executor&lt; typename decay&lt; Handler &gt;::type &gt;::value &amp;&amp;!execution::is_executor&lt; typename decay&lt; Handler &gt;::type &gt;::value &amp;&amp;!is_convertible&lt; Handler &amp;, execution_context &amp; &gt;::value &gt;::type *  = 0);
 </pre>
 <p>
           This function is used to launch a new coroutine.

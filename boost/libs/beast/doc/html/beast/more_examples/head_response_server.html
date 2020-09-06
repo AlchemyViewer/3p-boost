@@ -73,7 +73,7 @@
         <span class="comment">// set of headers that would be sent for a GET request,</span>
         <span class="comment">// including the Content-Length, except for the body.</span>
         <span class="identifier">res</span><span class="special">.</span><span class="identifier">result</span><span class="special">(</span><span class="identifier">status</span><span class="special">::</span><span class="identifier">ok</span><span class="special">);</span>
-        <span class="identifier">res</span><span class="special">.</span><span class="identifier">set</span><span class="special">(</span><span class="identifier">field</span><span class="special">::</span><span class="identifier">content_length</span><span class="special">,</span> <span class="identifier">payload</span><span class="special">.</span><span class="identifier">size</span><span class="special">());</span>
+        <span class="identifier">res</span><span class="special">.</span><span class="identifier">content_length</span><span class="special">(</span><span class="identifier">payload</span><span class="special">.</span><span class="identifier">size</span><span class="special">());</span>
 
         <span class="comment">// For GET requests, we include the body</span>
         <span class="keyword">if</span><span class="special">(</span><span class="identifier">req</span><span class="special">.</span><span class="identifier">method</span><span class="special">()</span> <span class="special">==</span> <span class="identifier">verb</span><span class="special">::</span><span class="identifier">get</span><span class="special">)</span>

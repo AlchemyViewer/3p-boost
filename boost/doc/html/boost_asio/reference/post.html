@@ -43,7 +43,7 @@ template&lt;
 <a class="link" href="asynchronous_operations.html#boost_asio.reference.asynchronous_operations.automatic_deduction_of_initiating_function_return_type"><span class="emphasis"><em>DEDUCED</em></span></a> <a class="link" href="post/overload2.html" title="post (2 of 3 overloads)">post</a>(
     const Executor &amp; ex,
     CompletionToken &amp;&amp; token = <a class="link" href="asynchronous_operations.html#boost_asio.reference.asynchronous_operations.default_completion_tokens"><span class="emphasis"><em>DEFAULT</em></span></a>,
-    typename enable_if&lt; is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; execution::is_executor&lt; Executor &gt;::value||is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
   <span class="emphasis"><em>» <a class="link" href="post/overload2.html" title="post (2 of 3 overloads)">more...</a></em></span>
 
 template&lt;

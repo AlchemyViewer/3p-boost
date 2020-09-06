@@ -293,6 +293,34 @@
               for user-defined next layer types.
             </p>
 </dd>
+<dt><span class="term"> Windows and OpenSSL: How do I install and build with OpenSSL on
+          Microsoft Windows? </span></dt>
+<dd>
+<p>
+              An easy method is to use command-line package installers chocolatey
+              or scoop. Examples: "choco install -y openssl --x86 --version
+              1.1.1.700" or "scoop install openssl@1.1.1g -a 32bit -g"
+            </p>
+<p>
+              If you've installed OpenSSL to a directory with spaces in the name,
+              it's often preferable to create a symbolic link so that you may use
+              a simpler path, such as:
+            </p>
+<p>
+              mklink /D "OpenSSL" "Program Files (x86)\OpenSSL-Win32"
+            </p>
+<p>
+              Set the environment variable OPENSSL_ROOT to the location of the new
+              install:
+            </p>
+<p>
+              set OPENSSL_ROOT=C:/OpenSSL
+            </p>
+<p>
+              Then, proceed to build. Refer to beast/.dockers/windows-vs-32/Dockerfile
+              for an example of building the test cases with OpenSSL.
+            </p>
+</dd>
 </dl>
 </div>
 </div>

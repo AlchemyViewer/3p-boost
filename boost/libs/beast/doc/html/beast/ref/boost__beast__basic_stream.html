@@ -38,7 +38,7 @@
       </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">class</span> <a href="../../../../../../doc/html/boost_asio/reference/Protocol.html" target="_top"><span class="emphasis"><em>Protocol</em></span></a><span class="special">,</span>
-    <span class="keyword">class</span> <a href="../../../../../../doc/html/boost_asio/reference/Executor1.html" target="_top"><span class="emphasis"><em>Executor</em></span></a> <span class="special">=</span> <span class="identifier">net</span><span class="special">::</span><span class="identifier">executor</span><span class="special">,</span>
+    <span class="keyword">class</span> <a href="../../../../../../doc/html/boost_asio/reference/Executor1.html" target="_top"><span class="emphasis"><em>Executor</em></span></a> <span class="special">=</span> <span class="identifier">net</span><span class="special">::</span><span class="identifier">any_io_executor</span><span class="special">,</span>
     <span class="keyword">class</span> <a class="link" href="../concepts/RatePolicy.html" title="RatePolicy"><span class="emphasis"><em>RatePolicy</em></span></a> <span class="special">=</span> <a class="link" href="boost__beast__unlimited_rate_policy.html" title="unlimited_rate_policy">unlimited_rate_policy</a><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">basic_stream</span>
 </pre>
@@ -567,7 +567,7 @@
                   A type meeting the requirements of <span class="emphasis"><em>Executor</em></span>
                   to be used for submitting all completion handlers which do not
                   already have an associated executor. If this type is omitted, the
-                  default of <code class="computeroutput"><span class="identifier">net</span><span class="special">::</span><span class="identifier">executor</span></code>
+                  default of <code class="computeroutput"><span class="identifier">net</span><span class="special">::</span><span class="identifier">any_io_executor</span></code>
                   will be used.
                 </p>
               </td>

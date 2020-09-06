@@ -121,6 +121,18 @@
           integer representations are not supported. Note that C++20 makes two's
           complement representation of signed integers mandatory.
         </li>
+<li class="listitem">
+          <span class="bold"><strong>Types with padding bits are not supported</strong></span>:
+          As discussed in <a class="link" href="interface.html#atomic.interface.interface_atomic_ref.caveats" title="Caveats">this
+          section</a>, <span class="bold"><strong>Boost.Atomic</strong></span> cannot support
+          types with padding bits because their content is undefined, and there is
+          no portable way to initialize them to a predefined value. This makes operations
+          like <code class="computeroutput"><span class="identifier">compare_exchange_strong</span></code>/<code class="computeroutput"><span class="identifier">compare_exchange_weak</span></code> fail, and given
+          that in some cases other operations are built upon these, potentially all
+          operations become unreliable. <span class="bold"><strong>Boost.Atomic</strong></span>
+          does support padding bits for floating point types on platforms where the
+          location of the padding bits is known at compile time.
+        </li>
 </ul></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

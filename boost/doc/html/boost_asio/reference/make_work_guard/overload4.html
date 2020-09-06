@@ -37,7 +37,7 @@
 executor_work_guard&lt; typename associated_executor&lt; T, Executor &gt;::type &gt; make_work_guard(
     const T &amp; t,
     const Executor &amp; ex,
-    typename enable_if&lt; is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; is_executor&lt; Executor &gt;::value||execution::is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
 </pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

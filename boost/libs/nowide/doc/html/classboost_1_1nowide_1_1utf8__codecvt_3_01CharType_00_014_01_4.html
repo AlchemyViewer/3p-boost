@@ -77,27 +77,27 @@ typedef CharType&#160;</td><td class="memItemRight" valign="bottom"><b>uchar</b>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a0903d83446c6d078c54cf203e29a9380"><td class="memItemLeft" align="right" valign="top"><a id="a0903d83446c6d078c54cf203e29a9380"></a>
-virtual std::codecvt_base::result&#160;</td><td class="memItemRight" valign="bottom"><b>do_unshift</b> (std::mbstate_t &amp;, char *from, char *, char *&amp;next) const</td></tr>
-<tr class="separator:a0903d83446c6d078c54cf203e29a9380"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b61ad77e60885ca90021c49da26293c"><td class="memItemLeft" align="right" valign="top"><a id="a1b61ad77e60885ca90021c49da26293c"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>do_encoding</b> () const  throw ()</td></tr>
-<tr class="separator:a1b61ad77e60885ca90021c49da26293c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03fc9501527bfb2473c4910fb7920899"><td class="memItemLeft" align="right" valign="top"><a id="a03fc9501527bfb2473c4910fb7920899"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>do_max_length</b> () const  throw ()</td></tr>
-<tr class="separator:a03fc9501527bfb2473c4910fb7920899"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a840c137a8f0597d7c66c0a50a04d7c95"><td class="memItemLeft" align="right" valign="top"><a id="a840c137a8f0597d7c66c0a50a04d7c95"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>do_always_noconv</b> () const  throw ()</td></tr>
-<tr class="separator:a840c137a8f0597d7c66c0a50a04d7c95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca37820560abbaff55f7839872156356"><td class="memItemLeft" align="right" valign="top"><a id="aca37820560abbaff55f7839872156356"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>do_length</b> (std::mbstate_t &amp;, const char *from, const char *from_end, size_t max) const</td></tr>
-<tr class="separator:aca37820560abbaff55f7839872156356"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af07c45045977a7d0220705d2344b00b4"><td class="memItemLeft" align="right" valign="top"><a id="af07c45045977a7d0220705d2344b00b4"></a>
-virtual std::codecvt_base::result&#160;</td><td class="memItemRight" valign="bottom"><b>do_in</b> (std::mbstate_t &amp;, const char *from, const char *from_end, const char *&amp;from_next, uchar *to, uchar *to_end, uchar *&amp;to_next) const</td></tr>
-<tr class="separator:af07c45045977a7d0220705d2344b00b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d8fb589a570335d06fac8184a7711e4"><td class="memItemLeft" align="right" valign="top"><a id="a8d8fb589a570335d06fac8184a7711e4"></a>
-virtual std::codecvt_base::result&#160;</td><td class="memItemRight" valign="bottom"><b>do_out</b> (std::mbstate_t &amp;, const uchar *from, const uchar *from_end, const uchar *&amp;from_next, char *to, char *to_end, char *&amp;to_next) const</td></tr>
-<tr class="separator:a8d8fb589a570335d06fac8184a7711e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ab645691ed7337ed8d20ad84a0c8fea"><td class="memItemLeft" align="right" valign="top"><a id="a6ab645691ed7337ed8d20ad84a0c8fea"></a>
+std::codecvt_base::result&#160;</td><td class="memItemRight" valign="bottom"><b>do_unshift</b> (std::mbstate_t &amp;, char *from, char *, char *&amp;next) const override</td></tr>
+<tr class="separator:a6ab645691ed7337ed8d20ad84a0c8fea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92139cb1c5c57fc29e9c51f767c23a2b"><td class="memItemLeft" align="right" valign="top"><a id="a92139cb1c5c57fc29e9c51f767c23a2b"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>do_encoding</b> () const noexcept override</td></tr>
+<tr class="separator:a92139cb1c5c57fc29e9c51f767c23a2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1b3cbf4b2780c9404fb3814983a40d1"><td class="memItemLeft" align="right" valign="top"><a id="af1b3cbf4b2780c9404fb3814983a40d1"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>do_max_length</b> () const noexcept override</td></tr>
+<tr class="separator:af1b3cbf4b2780c9404fb3814983a40d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44d31b08f724b005136255074368dffb"><td class="memItemLeft" align="right" valign="top"><a id="a44d31b08f724b005136255074368dffb"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>do_always_noconv</b> () const noexcept override</td></tr>
+<tr class="separator:a44d31b08f724b005136255074368dffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6ded4b32d860a321fd35ede55027ab0"><td class="memItemLeft" align="right" valign="top"><a id="ae6ded4b32d860a321fd35ede55027ab0"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>do_length</b> (std::mbstate_t &amp;, const char *from, const char *from_end, size_t max) const override</td></tr>
+<tr class="separator:ae6ded4b32d860a321fd35ede55027ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76b889e0aea29b4418d769eb5c0181f2"><td class="memItemLeft" align="right" valign="top"><a id="a76b889e0aea29b4418d769eb5c0181f2"></a>
+std::codecvt_base::result&#160;</td><td class="memItemRight" valign="bottom"><b>do_in</b> (std::mbstate_t &amp;, const char *from, const char *from_end, const char *&amp;from_next, uchar *to, uchar *to_end, uchar *&amp;to_next) const override</td></tr>
+<tr class="separator:a76b889e0aea29b4418d769eb5c0181f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a644a6e6a220559907073f3d139c89dca"><td class="memItemLeft" align="right" valign="top"><a id="a644a6e6a220559907073f3d139c89dca"></a>
+std::codecvt_base::result&#160;</td><td class="memItemRight" valign="bottom"><b>do_out</b> (std::mbstate_t &amp;, const uchar *from, const uchar *from_end, const uchar *&amp;from_next, char *to, char *to_end, char *&amp;to_next) const override</td></tr>
+<tr class="separator:a644a6e6a220559907073f3d139c89dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename CharType&gt;<br />

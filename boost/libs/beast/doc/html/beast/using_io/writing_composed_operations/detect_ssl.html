@@ -436,13 +436,13 @@
     <span class="keyword">void</span> <span class="keyword">operator</span><span class="special">()(</span>
         <span class="identifier">DetectHandler</span><span class="special">&amp;&amp;</span> <span class="identifier">h</span><span class="special">,</span>
         <span class="identifier">AsyncReadStream</span><span class="special">*</span> <span class="identifier">s</span><span class="special">,</span> <span class="comment">// references are passed as pointers</span>
-        <span class="identifier">DynamicBuffer</span><span class="special">&amp;</span> <span class="identifier">b</span><span class="special">)</span>
+        <span class="identifier">DynamicBuffer</span><span class="special">*</span> <span class="identifier">b</span><span class="special">)</span>
     <span class="special">{</span>
         <span class="identifier">detect_ssl_op</span><span class="special">&lt;</span>
             <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">decay</span><span class="special">&lt;</span><span class="identifier">DetectHandler</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">,</span>
             <span class="identifier">AsyncReadStream</span><span class="special">,</span>
             <span class="identifier">DynamicBuffer</span><span class="special">&gt;(</span>
-                <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward</span><span class="special">&lt;</span><span class="identifier">DetectHandler</span><span class="special">&gt;(</span><span class="identifier">h</span><span class="special">),</span> <span class="special">*</span><span class="identifier">s</span><span class="special">,</span> <span class="identifier">b</span><span class="special">);</span>
+                <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward</span><span class="special">&lt;</span><span class="identifier">DetectHandler</span><span class="special">&gt;(</span><span class="identifier">h</span><span class="special">),</span> <span class="special">*</span><span class="identifier">s</span><span class="special">,</span> <span class="special">*</span><span class="identifier">b</span><span class="special">);</span>
     <span class="special">}</span>
 <span class="special">};</span>
 
@@ -508,7 +508,7 @@
             <span class="identifier">detail</span><span class="special">::</span><span class="identifier">run_detect_ssl_op</span><span class="special">{},</span>
             <span class="identifier">token</span><span class="special">,</span>
             <span class="special">&amp;</span><span class="identifier">stream</span><span class="special">,</span> <span class="comment">// pass the reference by pointer</span>
-            <span class="identifier">buffer</span><span class="special">);</span>
+            <span class="special">&amp;</span><span class="identifier">buffer</span><span class="special">);</span>
 <span class="special">}</span>
 </pre>
 <p>

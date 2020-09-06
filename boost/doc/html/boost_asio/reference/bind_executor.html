@@ -37,7 +37,7 @@ Associate an object of type
 executor_binder&lt; typename decay&lt; T &gt;::type, Executor &gt; <a class="link" href="bind_executor/overload1.html" title="bind_executor (1 of 2 overloads)">bind_executor</a>(
     const Executor &amp; ex,
     T &amp;&amp; t,
-    typename enable_if&lt; is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; is_executor&lt; Executor &gt;::value||execution::is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
   <span class="emphasis"><em>» <a class="link" href="bind_executor/overload1.html" title="bind_executor (1 of 2 overloads)">more...</a></em></span>
 </pre>
 <p>

@@ -443,6 +443,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#changelog">Revision History</a>
 <ul class="sectlevel2">
+<li><a href="#changelog_changes_in_1_74_0">Changes in 1.74.0</a></li>
 <li><a href="#changelog_changes_in_1_72_0">Changes in 1.72.0</a></li>
 <li><a href="#changelog_changes_in_1_71_0">Changes in 1.71.0</a></li>
 <li><a href="#changelog_changes_in_1_65_0">Changes in 1.65.0</a></li>
@@ -588,6 +589,28 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#atomic_shared_ptr_members">Members</a></li>
 </ul>
 </li>
+<li><a href="#owner_less">owner_less</a>
+<ul class="sectlevel2">
+<li><a href="#owner_less_description">Description</a></li>
+<li><a href="#owner_less_synopsis">Synopsis</a></li>
+<li><a href="#owner_less_members">Members</a></li>
+</ul>
+</li>
+<li><a href="#owner_equal_to">owner_equal_to</a>
+<ul class="sectlevel2">
+<li><a href="#owner_equal_to_description">Description</a></li>
+<li><a href="#owner_equal_to_synopsis">Synopsis</a></li>
+<li><a href="#owner_equal_to_members">Members</a></li>
+</ul>
+</li>
+<li><a href="#owner_hash">owner_hash</a>
+<ul class="sectlevel2">
+<li><a href="#owner_hash_to_description">Description</a></li>
+<li><a href="#owner_hash_to_example">Example</a></li>
+<li><a href="#owner_hash_to_synopsis">Synopsis</a></li>
+<li><a href="#owner_hash_to_members">Members</a></li>
+</ul>
+</li>
 <li><a href="#techniques">Appendix A: Smart Pointer Programming Techniques</a>
 <ul class="sectlevel2">
 <li><a href="#techniques_incomplete">Using incomplete classes for implementation hiding</a></li>
@@ -675,7 +698,7 @@ acquisition is initialization" idiom described in Bjarne Stroustrup&#8217;s "The
 <p><code><a href="#shared_ptr">shared_ptr</a></code>, a versatile tool for managing shared ownership of an object or array;</p>
 </li>
 <li>
-<p><code><a href="#weak_ptr">weak_ptr</a></code>, a non-owning observer to a shared_ptr-managed object that can be promoted temporarily to shared_ptr;</p>
+<p><code><a href="#weak_ptr">weak_ptr</a></code>, a non-owning observer to a <code>shared_ptr</code>-managed object that can be promoted temporarily to <code>shared_ptr</code>;</p>
 </li>
 <li>
 <p><code><a href="#intrusive_ptr">intrusive_ptr</a></code>, a pointer to objects with an embedded reference count;</p>
@@ -694,7 +717,7 @@ acquisition is initialization" idiom described in Bjarne Stroustrup&#8217;s "The
 <div class="ulist">
 <ul>
 <li>
-<p><code><a href="#make_shared">make_shared</a></code>, a factory function for creating objects that returns a <code>shared_ptr</code>;</p>
+<p><code><a href="#make_shared">make_shared</a></code> and <code>allocate_shared</code>, factory functions for creating objects that return a <code>shared_ptr</code>;</p>
 </li>
 <li>
 <p><code><a href="#make_unique">make_unique</a></code>, a factory function returning <code>std::unique_ptr</code>;</p>
@@ -704,6 +727,9 @@ acquisition is initialization" idiom described in Bjarne Stroustrup&#8217;s "The
 </li>
 <li>
 <p><code><a href="#enable_shared_from_this">enable_shared_from_this</a></code>, a helper base class that enables the acquisition of a <code>shared_ptr</code> pointing to <code>this</code>;</p>
+</li>
+<li>
+<p><code><a href="#enable_shared_from">enable_shared_from</a></code>, a newer and better replacement for <code>enable_shared_from_this</code>;</p>
 </li>
 <li>
 <p><code><a href="#pointer_to_other">pointer_to_other</a></code>, a helper trait for converting one smart pointer type to another;</p>
@@ -728,6 +754,29 @@ are not allowed to throw exceptions.</p>
 <div class="sect1">
 <h2 id="changelog">Revision History</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="changelog_changes_in_1_74_0">Changes in 1.74.0</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Added <code>owner_equals</code> to <code>shared_ptr</code>, <code>weak_ptr</code>, <code>local_shared_ptr</code></p>
+</li>
+<li>
+<p>Added <code>owner_hash_value</code> to <code>shared_ptr</code>, <code>weak_ptr</code></p>
+</li>
+<li>
+<p>Added <code>owner_equal_to</code>, <code>owner_hash</code></p>
+</li>
+<li>
+<p>Added <code>std::hash</code> specializations for <code>shared_ptr</code>, <code>local_shared_ptr</code></p>
+</li>
+<li>
+<p>Added <code>boost::hash</code> support to, and <code>std::hash</code>, <code>std::equal_to</code>
+specializations for, <code>weak_ptr</code></p>
+</li>
+</ul>
+</div>
+</div>
 <div class="sect2">
 <h3 id="changelog_changes_in_1_72_0">Changes in 1.72.0</h3>
 <div class="ulist">
@@ -1535,8 +1584,13 @@ functions defined in <code>&lt;boost/smart_ptr/make_shared.hpp&gt;</code>. These
 
     void swap(shared_ptr &amp; b) noexcept;
 
-    template&lt;class Y&gt; bool owner_before(shared_ptr&lt;Y&gt; const &amp; rhs) const noexcept;
-    template&lt;class Y&gt; bool owner_before(weak_ptr&lt;Y&gt; const &amp; rhs) const noexcept;
+    template&lt;class Y&gt; bool owner_before(shared_ptr&lt;Y&gt; const &amp; r) const noexcept;
+    template&lt;class Y&gt; bool owner_before(weak_ptr&lt;Y&gt; const &amp; r) const noexcept;
+
+    template&lt;class Y&gt; bool owner_equals(shared_ptr&lt;Y&gt; const &amp; r) const noexcept;
+    template&lt;class Y&gt; bool owner_equals(weak_ptr&lt;Y&gt; const &amp; r) const noexcept;
+
+    std::size_t owner_hash_value() const noexcept;
   };
 
   template&lt;class T, class U&gt;
@@ -2599,12 +2653,12 @@ On C++03 compilers, the return value is of an unspecified type.
 <h4 id="shared_ptr_owner_before">owner_before</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>template&lt;class Y&gt; bool owner_before(shared_ptr&lt;Y&gt; const &amp; rhs) const noexcept;</code></pre>
+<pre class="highlight"><code>template&lt;class Y&gt; bool owner_before(shared_ptr&lt;Y&gt; const &amp; r) const noexcept;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>template&lt;class Y&gt; bool owner_before(weak_ptr&lt;Y&gt; const &amp; rhs) const noexcept;</code></pre>
+<pre class="highlight"><code>template&lt;class Y&gt; bool owner_before(weak_ptr&lt;Y&gt; const &amp; r) const noexcept;</code></pre>
 </div>
 </div>
 <div class="ulist none">
@@ -2613,9 +2667,61 @@ On C++03 compilers, the return value is of an unspecified type.
 <p></p>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">Effects</dt>
+<dt class="hdlist1">Returns</dt>
 <dd>
 <p>See the description of <code>operator&lt;</code>.</p>
+</dd>
+</dl>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="shared_ptr_owner_equals">owner_equals</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>template&lt;class Y&gt; bool owner_equals(shared_ptr&lt;Y&gt; const &amp; r) const noexcept;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>template&lt;class Y&gt; bool owner_equals(weak_ptr&lt;Y&gt; const &amp; r) const noexcept;</code></pre>
+</div>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p></p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Returns</dt>
+<dd>
+<p><code>true</code> if and only if <code>*this</code> and <code>r</code> share ownership or are both empty.</p>
+</dd>
+</dl>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="shared_ptr_owner_hash_value">owner_hash_value</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>std::size_t owner_hash_value() const noexcept;</code></pre>
+</div>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p></p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Returns</dt>
+<dd>
+<p>An unspecified hash value such that two instances that share ownership
+have the same hash value.</p>
 </dd>
 </dl>
 </div>
@@ -3501,6 +3607,11 @@ if(shared_ptr&lt;int&gt; r = q.lock())
 
     template&lt;class Y&gt; bool owner_before( weak_ptr&lt;Y&gt; const &amp; r ) const noexcept;
     template&lt;class Y&gt; bool owner_before( shared_ptr&lt;Y&gt; const &amp; r ) const noexcept;
+
+    template&lt;class Y&gt; bool owner_equals( weak_ptr&lt;Y&gt; const &amp; r ) const noexcept;
+    template&lt;class Y&gt; bool owner_equals( shared_ptr&lt;Y&gt; const &amp; r ) const noexcept;
+
+    std::size_t owner_hash_value() const noexcept;
   };
 
   template&lt;class T, class U&gt;
@@ -3873,6 +3984,9 @@ This function is an extension, not present in <code>std::weak_ptr</code>.
 </li>
 </ul>
 </div>
+</div>
+<div class="sect3">
+<h4 id="weak_ptr_owner_before">owner_before</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code>template&lt;class Y&gt; bool owner_before( weak_ptr&lt;Y&gt; const &amp; r ) const noexcept;</code></pre>
@@ -3892,6 +4006,58 @@ This function is an extension, not present in <code>std::weak_ptr</code>.
 <dt class="hdlist1">Returns</dt>
 <dd>
 <p>See the description of <code>operator&lt;</code>.</p>
+</dd>
+</dl>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="weak_ptr_owner_equals">owner_equals</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>template&lt;class Y&gt; bool owner_equals( weak_ptr&lt;Y&gt; const &amp; r ) const noexcept;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>template&lt;class Y&gt; bool owner_equals( shared_ptr&lt;Y&gt; const &amp; r ) const noexcept;</code></pre>
+</div>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p></p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Returns</dt>
+<dd>
+<p><code>true</code> if and only if <code>*this</code> and <code>r</code> share ownership or are both empty.</p>
+</dd>
+</dl>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="weak_ptr_owner_hash_value">owner_hash_value</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>std::size_t owner_hash_value() const noexcept;</code></pre>
+</div>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p></p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Returns</dt>
+<dd>
+<p>An unspecified hash value such that two instances that share ownership
+have the same hash value.</p>
 </dd>
 </dl>
 </div>
@@ -6988,7 +7154,11 @@ wraps it into an outer <code>shared_ptr</code> with a non-atomic use count (conc
 
     // owner_before
 
-    template&lt;class Y&gt; bool owner_before(local_shared_ptr&lt;Y&gt; const &amp; rhs) const noexcept;
+    template&lt;class Y&gt; bool owner_before(local_shared_ptr&lt;Y&gt; const &amp; r) const noexcept;
+
+    // owner_equals
+
+    template&lt;class Y&gt; bool owner_equals(local_shared_ptr&lt;Y&gt; const &amp; r) const noexcept;
   };
 
   // comparisons
@@ -7861,7 +8031,7 @@ On C++03 compilers, the return value is of an unspecified type.
 <h4 id="local_shared_ptr_owner_before">owner_before</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>template&lt;class Y&gt; bool owner_before(local_shared_ptr&lt;Y&gt; const &amp; rhs) const noexcept;</code></pre>
+<pre class="highlight"><code>template&lt;class Y&gt; bool owner_before(local_shared_ptr&lt;Y&gt; const &amp; r) const noexcept;</code></pre>
 </div>
 </div>
 <div class="ulist none">
@@ -7870,9 +8040,32 @@ On C++03 compilers, the return value is of an unspecified type.
 <p></p>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">Effects</dt>
+<dt class="hdlist1">Returns</dt>
 <dd>
 <p>See the description of <code>operator&lt;</code>.</p>
+</dd>
+</dl>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="local_shared_ptr_owner_equals">owner_equals</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>template&lt;class Y&gt; bool owner_equals(local_shared_ptr&lt;Y&gt; const &amp; r) const noexcept;</code></pre>
+</div>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p></p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Returns</dt>
+<dd>
+<p><code>true</code> if and only if <code>*this</code> and <code>r</code> share ownership or are both empty.</p>
 </dd>
 </dl>
 </div>
@@ -9240,6 +9433,193 @@ The <code>int</code> argument is intended to be of type <code>memory_order</code
 <dt class="hdlist1">Remarks</dt>
 <dd>
 <p>The old value of <code>w</code> is not preserved in either case.</p>
+</dd>
+</dl>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="owner_less">owner_less</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="owner_less_description">Description</h3>
+<div class="paragraph">
+<p><code>owner_less&lt;T&gt;</code> is a helper function object that compares two smart
+pointer objects using <code>owner_before</code>. It is only provided for compatibility
+with C&#43;&#43;11 and corresponds to the standard component of the same name.</p>
+</div>
+<div class="paragraph">
+<p>When using Boost smart pointers, the use of <code>owner_less</code> is unnecessary, as
+the supplied <code>operator&lt;</code> overloads (and, correspondingly, <code>std::less</code>) return
+the same result.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="owner_less_synopsis">Synopsis</h3>
+<div class="paragraph">
+<p><code>owner_less</code> is defined in <code>&lt;boost/smart_ptr/owner_less.hpp&gt;</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>namespace boost {
+
+  template&lt;class T = void&gt; struct owner_less
+  {
+    typedef bool result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+
+    template&lt;class U, class V&gt; bool operator()( U const &amp; u, V const &amp; v ) const noexcept;
+  };
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="owner_less_members">Members</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>template&lt;class U, class V&gt; bool operator()( U const &amp; u, V const &amp; v ) const noexcept;</code></pre>
+</div>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p></p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Returns</dt>
+<dd>
+<p><code>u.owner_before( v )</code>.</p>
+</dd>
+</dl>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="owner_equal_to">owner_equal_to</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="owner_equal_to_description">Description</h3>
+<div class="paragraph">
+<p><code>owner_equal_to&lt;T&gt;</code> is a helper function object that compares two smart
+pointer objects using <code>owner_equals</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="owner_equal_to_synopsis">Synopsis</h3>
+<div class="paragraph">
+<p><code>owner_equal_to</code> is defined in <code>&lt;boost/smart_ptr/owner_equal_to.hpp&gt;</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>namespace boost {
+
+  template&lt;class T = void&gt; struct owner_equal_to
+  {
+    typedef bool result_type;
+    typedef T first_argument_type;
+    typedef T second_argument_type;
+
+    template&lt;class U, class V&gt; bool operator()( U const &amp; u, V const &amp; v ) const noexcept;
+  };
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="owner_equal_to_members">Members</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>template&lt;class U, class V&gt; bool operator()( U const &amp; u, V const &amp; v ) const noexcept;</code></pre>
+</div>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p></p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Returns</dt>
+<dd>
+<p><code>u.owner_equals( v )</code>.</p>
+</dd>
+</dl>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="owner_hash">owner_hash</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="owner_hash_to_description">Description</h3>
+<div class="paragraph">
+<p><code>owner_hash&lt;T&gt;</code> is a helper function object that takes a smart pointer <code>p</code>
+and returns <code>p.owner_hash_value()</code>. It&#8217;s useful for creating unordered
+containers of <code>shared_ptr</code> that use ownership-based equality, instead of
+the default pointer value equality. (It can be used with <code>weak_ptr</code> too,
+but there&#8217;s no need, because <code>boost::hash</code> and <code>std::hash</code> for <code>weak_ptr</code>
+already use ownership-based equality.)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="owner_hash_to_example">Example</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>std::unordered_set&lt; boost::shared_ptr&lt;void&gt;,
+  boost::owner_hash&lt; boost::shared_ptr&lt;void&gt; &gt;,
+  boost::owner_equal_to&lt; boost::shared_ptr&lt;void&gt; &gt; &gt; set;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="owner_hash_to_synopsis">Synopsis</h3>
+<div class="paragraph">
+<p><code>owner_hash</code> is defined in <code>&lt;boost/smart_ptr/owner_hash.hpp&gt;</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>namespace boost {
+
+  template&lt;class T&gt; struct owner_hash
+  {
+    typedef std::size_t result_type;
+    typedef T argument_type;
+
+    std::size_t operator()( T const &amp; p ) const noexcept;
+  };
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="owner_hash_to_members">Members</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>std::size_t operator()( T const &amp; p ) const noexcept;</code></pre>
+</div>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p></p>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Returns</dt>
+<dd>
+<p><code>p.owner_hash_value()</code>.</p>
 </dd>
 </dl>
 </div>
@@ -10890,7 +11270,7 @@ mandates that relational operations on pointers are unspecified (5.9
 <p>Copyright 2002 Darin Adler</p>
 </li>
 <li>
-<p>Copyright 2003-2017 Peter Dimov</p>
+<p>Copyright 2003-2020 Peter Dimov</p>
 </li>
 <li>
 <p>Copyright 2005, 2006 Ion Gaztañaga</p>
@@ -10914,12 +11294,13 @@ mandates that relational operations on pointers are unspecified (5.9
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-04-22 13:35:58 UTC
+Last updated 2020-08-11 14:56:52 UTC
 </div>
 </div>
 <style>
 
 *:not(pre)>code { background: none; color: #600000; }
+:not(pre):not([class^=L])>code { background: none; color: #600000; }
 table tr.even, table tr.alt, table tr:nth-of-type(even) { background: none; }
 
 </style>

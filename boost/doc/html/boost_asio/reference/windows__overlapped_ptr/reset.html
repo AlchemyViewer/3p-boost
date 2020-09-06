@@ -53,7 +53,7 @@ template&lt;
 void <a class="link" href="reset/overload3.html" title="windows::overlapped_ptr::reset (3 of 3 overloads)">reset</a>(
     const Executor &amp; ex,
     Handler &amp;&amp; handler,
-    typename enable_if&lt; is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; execution::is_executor&lt; Executor &gt;::value||is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
   <span class="emphasis"><em>» <a class="link" href="reset/overload3.html" title="windows::overlapped_ptr::reset (3 of 3 overloads)">more...</a></em></span>
 </pre>
 </div>

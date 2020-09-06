@@ -35,7 +35,7 @@
     typename <a class="link" href="../Executor1.html" title="Executor requirements">Executor</a>&gt;
 strand&lt; Executor &gt; make_strand(
     const Executor &amp; ex,
-    typename enable_if&lt; is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
+    typename enable_if&lt; is_executor&lt; Executor &gt;::value||execution::is_executor&lt; Executor &gt;::value &gt;::type *  = 0);
 </pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

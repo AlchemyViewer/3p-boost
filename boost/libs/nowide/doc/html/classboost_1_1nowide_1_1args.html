@@ -51,7 +51,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>args is a class that fixes standard main() function arguments and changes them to UTF-8 under Microsoft Windows.  
+<p><code>args</code> is a class that temporarily replaces standard main() function arguments with their equal, but UTF-8 encoded values under Microsoft Windows for the lifetime of the instance.  
  <a href="classboost_1_1nowide_1_1args.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="args_8hpp_source.html">boost/nowide/args.hpp</a>&gt;</code></p>
@@ -66,12 +66,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a78a61e8fe5bb40884f8b3038b98762b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>args is a class that fixes standard main() function arguments and changes them to UTF-8 under Microsoft Windows. </p>
-<p>The class uses <code>GetCommandLineW()</code>, <code>CommandLineToArgvW()</code> and <code>GetEnvironmentStringsW()</code> in order to obtain the information. It does not relate to actual values of argc,argv and env under Windows.</p>
-<p>It restores the original values in its destructor</p>
+<div class="textblock"><p><code>args</code> is a class that temporarily replaces standard main() function arguments with their equal, but UTF-8 encoded values under Microsoft Windows for the lifetime of the instance. </p>
+<p>The class uses <code>GetCommandLineW()</code>, <code>CommandLineToArgvW()</code> and <code>GetEnvironmentStringsW()</code> in order to obtain Unicode-encoded values. It does not relate to actual values of argc, argv and env under Windows.</p>
+<p>It restores the original values in its destructor (usually at the end of the <code>main</code> function).</p>
 <p>If any of the system calls fails, an exception of type std::runtime_error will be thrown and argc, argv, env remain unchanged.</p>
-<dl class="section note"><dt>Note</dt><dd>the class owns the memory of the newly allocated strings </dd></dl>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<dl class="section note"><dt>Note</dt><dd>The class owns the memory of the newly allocated strings. So you need to keep it alive as long as you use the values.</dd></dl>
+<p>Usage: </p><div class="fragment"><div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv, <span class="keywordtype">char</span>** env) {</div><div class="line">  <a class="code" href="classboost_1_1nowide_1_1args.html">boost::nowide::args</a> _(argc, argv, env); <span class="comment">// Note the _ as a &quot;don&#39;t care&quot; name for the instance</span></div><div class="line">  <span class="comment">// Use argv and env as usual, they are now UTF-8 encoded on Windows</span></div><div class="line">  <span class="keywordflow">return</span> 0; <span class="comment">// Memory held by args is released</span></div><div class="line">}</div></div><!-- fragment --> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3ff755fe4f03cc192f31121d5ea78d7d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3ff755fe4f03cc192f31121d5ea78d7d">&#9670;&nbsp;</a></span>args() <span class="overload">[1/2]</span></h2>
 
@@ -174,7 +174,7 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Restore original argc,argv,env values, if changed </p>
+<p>Restore original argc, argv, env values, if changed </p>
 
 </div>
 </div>

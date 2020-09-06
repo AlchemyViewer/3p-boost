@@ -8,7 +8,7 @@
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../boost_circular_buffer_c___reference.html#header.boost.circular_buffer.base_hpp" title="Header &lt;boost/circular_buffer/base.hpp&gt;">
 <link rel="prev" href="../BOOST_CB_ENABLE_DEBUG.html" title="Macro BOOST_CB_ENABLE_DEBUG">
-<link rel="next" href="operator_idm46232845570128.html" title="Function template operator==">
+<link rel="next" href="operator_idm44862801084320.html" title="Function template operator==">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
 <table cellpadding="2" width="100%"><tr>
@@ -21,7 +21,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../BOOST_CB_ENABLE_DEBUG.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_circular_buffer_c___reference.html#header.boost.circular_buffer.base_hpp"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="operator_idm46232845570128.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="../BOOST_CB_ENABLE_DEBUG.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_circular_buffer_c___reference.html#header.boost.circular_buffer.base_hpp"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="operator_idm44862801084320.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.circular_buffer"></a><div class="titlepage"></div>
@@ -36,115 +36,117 @@
 <span class="keyword">class</span> <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a> <span class="special">:</span> <span class="keyword">private</span> <span class="identifier">empty_value</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">{</span>
 <span class="keyword">public</span><span class="special">:</span>
   <span class="comment">// <a class="link" href="circular_buffer.html#boost.circular_buffertypes">types</a></span>
-  <span class="keyword">typedef</span> <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span>                                                                                               <a name="boost.circular_buffer.this_type"></a><span class="identifier">this_type</span><span class="special">;</span>               <span class="comment">// The type of this <code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code>. </span>
-  <span class="keyword">typedef</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">allocator_traits</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">value_type</span>                                                                         <a name="boost.circular_buffer.value_type"></a><span class="identifier">value_type</span><span class="special">;</span>              <span class="comment">// The type of elements stored in the <code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code>. </span>
-  <span class="keyword">typedef</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">allocator_traits</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">pointer</span>                                                                            <a name="boost.circular_buffer.pointer"></a><span class="identifier">pointer</span><span class="special">;</span>                 <span class="comment">// A pointer to an element. </span>
-  <span class="keyword">typedef</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">allocator_traits</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">const_pointer</span>                                                                      <a name="boost.circular_buffer.const_pointer"></a><span class="identifier">const_pointer</span><span class="special">;</span>           <span class="comment">// A const pointer to the element. </span>
-  <span class="keyword">typedef</span> <span class="identifier">value_type</span> <span class="special">&amp;</span>                                                                                                              <a name="boost.circular_buffer.reference"></a><span class="identifier">reference</span><span class="special">;</span>               <span class="comment">// A reference to an element. </span>
-  <span class="keyword">typedef</span> <span class="keyword">const</span> <span class="identifier">value_type</span> <span class="special">&amp;</span>                                                                                                        <a name="boost.circular_buffer.const_reference"></a><span class="identifier">const_reference</span><span class="special">;</span>         <span class="comment">// A const reference to an element. </span>
-  <span class="keyword">typedef</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">allocator_traits</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">difference_type</span>                                                                    <a class="link" href="circular_buffer.html#boost.circular_buffer.difference_type"><span class="identifier">difference_type</span></a><span class="special">;</span>       
-  <span class="keyword">typedef</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">allocator_traits</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">size_type</span>                                                                          <a class="link" href="circular_buffer.html#boost.circular_buffer.size_type"><span class="identifier">size_type</span></a><span class="special">;</span>             
-  <span class="keyword">typedef</span> <span class="identifier">Alloc</span>                                                                                                                     <a name="boost.circular_buffer.allocator_type"></a><span class="identifier">allocator_type</span><span class="special">;</span>          <span class="comment">// The type of an allocator used in the <code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code>. </span>
-  <span class="keyword">typedef</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span> <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">,</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">const_traits</span><span class="special">&lt;</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">allocator_traits</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&gt;</span> <span class="special">&gt;</span>    <a name="boost.circular_buffer.const_iterator"></a><span class="identifier">const_iterator</span><span class="special">;</span>          <span class="comment">// A const (random access) iterator used to iterate through the <code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code>. </span>
-  <span class="keyword">typedef</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span> <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">,</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">nonconst_traits</span><span class="special">&lt;</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">allocator_traits</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&gt;</span> <span class="special">&gt;</span> <a name="boost.circular_buffer.iterator"></a><span class="identifier">iterator</span><span class="special">;</span>                <span class="comment">// A (random access) iterator used to iterate through the <code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code>. </span>
-  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">reverse_iterator</span><span class="special">&lt;</span> <span class="identifier">const_iterator</span> <span class="special">&gt;</span>                                                                                   <a name="boost.circular_buffer.const_reverse_iterator"></a><span class="identifier">const_reverse_iterator</span><span class="special">;</span>  <span class="comment">// A const iterator used to iterate backwards through a <code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code>. </span>
-  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">reverse_iterator</span><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span>                                                                                         <a name="boost.circular_buffer.reverse_iterator"></a><span class="identifier">reverse_iterator</span><span class="special">;</span>        <span class="comment">// An iterator used to iterate backwards through a <code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code>. </span>
-  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">pointer</span><span class="special">,</span> <span class="identifier">size_type</span> <span class="special">&gt;</span>                                                                                           <a class="link" href="circular_buffer.html#boost.circular_buffer.array_range"><span class="identifier">array_range</span></a><span class="special">;</span>           
-  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">const_pointer</span><span class="special">,</span> <span class="identifier">size_type</span> <span class="special">&gt;</span>                                                                                     <a class="link" href="circular_buffer.html#boost.circular_buffer.const_array_range"><span class="identifier">const_array_range</span></a><span class="special">;</span>     
-  <span class="keyword">typedef</span> <span class="identifier">size_type</span>                                                                                                                 <a class="link" href="circular_buffer.html#boost.circular_buffer.capacity_type"><span class="identifier">capacity_type</span></a><span class="special">;</span>         
-  <span class="keyword">typedef</span> <span class="keyword">const</span> <span class="identifier">value_type</span> <span class="special">&amp;</span>                                                                                                        <a name="boost.circular_buffer.param_value_type"></a><span class="identifier">param_value_type</span><span class="special">;</span>        <span class="comment">// A type representing the "best" way to pass the value_type to a method. </span>
-  <span class="keyword">typedef</span> <span class="identifier">value_type</span> <span class="special">&amp;&amp;</span>                                                                                                             <a class="link" href="circular_buffer.html#boost.circular_buffer.rvalue_type"><span class="identifier">rvalue_type</span></a><span class="special">;</span>           
+  <span class="keyword">typedef</span> <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span>                                                               <a name="boost.circular_buffer.this_type"></a><span class="identifier">this_type</span><span class="special">;</span>               <span class="comment">// The type of this <code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code>. </span>
+  <span class="keyword">typedef</span> <span class="identifier">Alloc</span><span class="special">::</span><span class="identifier">value_type</span>                                                                         <a name="boost.circular_buffer.value_type"></a><span class="identifier">value_type</span><span class="special">;</span>              <span class="comment">// The type of elements stored in the <code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code>. </span>
+  <span class="keyword">typedef</span> <span class="identifier">allocator_pointer</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span>                                                          <a name="boost.circular_buffer.pointer"></a><span class="identifier">pointer</span><span class="special">;</span>                 <span class="comment">// A pointer to an element. </span>
+  <span class="keyword">typedef</span> <span class="identifier">allocator_const_pointer</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span>                                                    <a name="boost.circular_buffer.const_pointer"></a><span class="identifier">const_pointer</span><span class="special">;</span>           <span class="comment">// A const pointer to the element. </span>
+  <span class="keyword">typedef</span> <span class="identifier">value_type</span> <span class="special">&amp;</span>                                                                              <a name="boost.circular_buffer.reference"></a><span class="identifier">reference</span><span class="special">;</span>               <span class="comment">// A reference to an element. </span>
+  <span class="keyword">typedef</span> <span class="keyword">const</span> <span class="identifier">value_type</span> <span class="special">&amp;</span>                                                                        <a name="boost.circular_buffer.const_reference"></a><span class="identifier">const_reference</span><span class="special">;</span>         <span class="comment">// A const reference to an element. </span>
+  <span class="keyword">typedef</span> <span class="identifier">allocator_difference_type</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span>                                                  <a class="link" href="circular_buffer.html#boost.circular_buffer.difference_type"><span class="identifier">difference_type</span></a><span class="special">;</span>       
+  <span class="keyword">typedef</span> <span class="identifier">allocator_size_type</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span>                                                        <a class="link" href="circular_buffer.html#boost.circular_buffer.size_type"><span class="identifier">size_type</span></a><span class="special">;</span>             
+  <span class="keyword">typedef</span> <span class="identifier">Alloc</span>                                                                                     <a name="boost.circular_buffer.allocator_type"></a><span class="identifier">allocator_type</span><span class="special">;</span>          <span class="comment">// The type of an allocator used in the <code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code>. </span>
+  <span class="keyword">typedef</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span> <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">,</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">const_traits</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&gt;</span>    <a name="boost.circular_buffer.const_iterator"></a><span class="identifier">const_iterator</span><span class="special">;</span>          <span class="comment">// A const (random access) iterator used to iterate through the <code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code>. </span>
+  <span class="keyword">typedef</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">iterator</span><span class="special">&lt;</span> <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">,</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">nonconst_traits</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&gt;</span> <a name="boost.circular_buffer.iterator"></a><span class="identifier">iterator</span><span class="special">;</span>                <span class="comment">// A (random access) iterator used to iterate through the <code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code>. </span>
+  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">reverse_iterator</span><span class="special">&lt;</span> <span class="identifier">const_iterator</span> <span class="special">&gt;</span>                                                   <a name="boost.circular_buffer.const_reverse_iterator"></a><span class="identifier">const_reverse_iterator</span><span class="special">;</span>  <span class="comment">// A const iterator used to iterate backwards through a <code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code>. </span>
+  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">reverse_iterator</span><span class="special">&lt;</span> <span class="identifier">iterator</span> <span class="special">&gt;</span>                                                         <a name="boost.circular_buffer.reverse_iterator"></a><span class="identifier">reverse_iterator</span><span class="special">;</span>        <span class="comment">// An iterator used to iterate backwards through a <code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code>. </span>
+  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">pointer</span><span class="special">,</span> <span class="identifier">size_type</span> <span class="special">&gt;</span>                                                           <a class="link" href="circular_buffer.html#boost.circular_buffer.array_range"><span class="identifier">array_range</span></a><span class="special">;</span>           
+  <span class="keyword">typedef</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span><span class="special">&lt;</span> <span class="identifier">const_pointer</span><span class="special">,</span> <span class="identifier">size_type</span> <span class="special">&gt;</span>                                                     <a class="link" href="circular_buffer.html#boost.circular_buffer.const_array_range"><span class="identifier">const_array_range</span></a><span class="special">;</span>     
+  <span class="keyword">typedef</span> <span class="identifier">size_type</span>                                                                                 <a class="link" href="circular_buffer.html#boost.circular_buffer.capacity_type"><span class="identifier">capacity_type</span></a><span class="special">;</span>         
+  <span class="keyword">typedef</span> <span class="keyword">const</span> <span class="identifier">value_type</span> <span class="special">&amp;</span>                                                                        <a name="boost.circular_buffer.param_value_type"></a><span class="identifier">param_value_type</span><span class="special">;</span>        <span class="comment">// A type representing the "best" way to pass the value_type to a method. </span>
+  <span class="keyword">typedef</span> <span class="identifier">value_type</span> <span class="special">&amp;&amp;</span>                                                                             <a class="link" href="circular_buffer.html#boost.circular_buffer.rvalue_type"><span class="identifier">rvalue_type</span></a><span class="special">;</span>           
 
   <span class="comment">// <a class="link" href="circular_buffer.html#boost.circular_bufferconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <span class="keyword">explicit</span> <a class="link" href="circular_buffer.html#idm46232845700400-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">allocator_type</span> <span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">explicit</span> <a class="link" href="circular_buffer.html#idm46232845687840-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="identifier">capacity_type</span><span class="special">,</span> 
+  <span class="keyword">explicit</span> <a class="link" href="circular_buffer.html#idm44862801214592-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">allocator_type</span> <span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="circular_buffer.html#idm44862801202032-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="identifier">capacity_type</span><span class="special">,</span> 
                            <span class="keyword">const</span> <span class="identifier">allocator_type</span> <span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="circular_buffer.html#idm46232845679216-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">,</span> 
+  <a class="link" href="circular_buffer.html#idm44862801193408-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">,</span> 
                   <span class="keyword">const</span> <span class="identifier">allocator_type</span> <span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="circular_buffer.html#idm46232845667056-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="identifier">capacity_type</span><span class="special">,</span> <span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">,</span> 
+  <a class="link" href="circular_buffer.html#idm44862801181248-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="identifier">capacity_type</span><span class="special">,</span> <span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">,</span> 
                   <span class="keyword">const</span> <span class="identifier">allocator_type</span> <span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="circular_buffer.html#idm46232845652032-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="circular_buffer.html#idm46232845643792-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="circular_buffer.html#idm44862801166224-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="circular_buffer.html#idm44862801157984-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> InputIterator<span class="special">&gt;</span> 
-    <a class="link" href="circular_buffer.html#idm46232845635648-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="identifier">InputIterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">,</span> 
+    <a class="link" href="circular_buffer.html#idm44862801149840-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="identifier">InputIterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">,</span> 
                     <span class="keyword">const</span> <span class="identifier">allocator_type</span> <span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> InputIterator<span class="special">&gt;</span> 
-    <a class="link" href="circular_buffer.html#idm46232845622160-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="identifier">capacity_type</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">,</span> 
+    <a class="link" href="circular_buffer.html#idm44862801136352-bb"><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="identifier">capacity_type</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">,</span> 
                     <span class="keyword">const</span> <span class="identifier">allocator_type</span> <span class="special">&amp;</span> <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span> <a class="link" href="circular_buffer.html#idm46232845594704-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span> <a class="link" href="circular_buffer.html#idm44862801108896-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
   <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span> 
-  <a class="link" href="circular_buffer.html#idm46232845578624-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <a class="link" href="circular_buffer.html#idm46232845603120-bb"><span class="special">~</span><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="circular_buffer.html#idm44862801092816-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <a class="link" href="circular_buffer.html#idm44862801117312-bb"><span class="special">~</span><span class="identifier">circular_buffer</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="circular_buffer.html#idm46232846800464-bb">public member functions</a></span>
-  <span class="identifier">allocator_type</span> <a class="link" href="circular_buffer.html#idm46232846799904-bb"><span class="identifier">get_allocator</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">allocator_type</span> <span class="special">&amp;</span> <a class="link" href="circular_buffer.html#idm46232846791248-bb"><span class="identifier">get_allocator</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm46232846781712-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm46232846769056-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="circular_buffer.html#idm46232846756224-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_iterator</span> <a class="link" href="circular_buffer.html#idm46232846743552-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">reverse_iterator</span> <a class="link" href="circular_buffer.html#idm46232846730704-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">reverse_iterator</span> <a class="link" href="circular_buffer.html#idm46232846718032-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_reverse_iterator</span> <a class="link" href="circular_buffer.html#idm46232846705184-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">const_reverse_iterator</span> <a class="link" href="circular_buffer.html#idm46232846692496-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">reference</span> <a class="link" href="circular_buffer.html#idm46232846679792-bb"><span class="keyword">operator</span> <span class="special">[</span><span class="special">]</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_reference</span> <a class="link" href="circular_buffer.html#idm46232846668512-bb"><span class="keyword">operator</span> <span class="special">[</span><span class="special">]</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">reference</span> <a class="link" href="circular_buffer.html#idm46232846656944-bb"><span class="identifier">at</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_reference</span> <a class="link" href="circular_buffer.html#idm46232846645632-bb"><span class="identifier">at</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">reference</span> <a class="link" href="circular_buffer.html#idm46232846634032-bb"><span class="identifier">front</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">reference</span> <a class="link" href="circular_buffer.html#idm46232846623920-bb"><span class="identifier">back</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_reference</span> <a class="link" href="circular_buffer.html#idm46232846613824-bb"><span class="identifier">front</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">const_reference</span> <a class="link" href="circular_buffer.html#idm46232846603440-bb"><span class="identifier">back</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">array_range</span> <a class="link" href="circular_buffer.html#idm46232846593056-bb"><span class="identifier">array_one</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">array_range</span> <a class="link" href="circular_buffer.html#idm46232846559728-bb"><span class="identifier">array_two</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">const_array_range</span> <a class="link" href="circular_buffer.html#idm46232846549344-bb"><span class="identifier">array_one</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">const_array_range</span> <a class="link" href="circular_buffer.html#idm46232846538256-bb"><span class="identifier">array_two</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">pointer</span> <a class="link" href="circular_buffer.html#idm46232846527600-bb"><span class="identifier">linearize</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="circular_buffer.html#idm46232846511696-bb"><span class="identifier">is_linearized</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846499184-bb"><span class="identifier">rotate</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">size_type</span> <a class="link" href="circular_buffer.html#idm46232846473008-bb"><span class="identifier">size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">size_type</span> <a class="link" href="circular_buffer.html#idm46232846461264-bb"><span class="identifier">max_size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="circular_buffer.html#idm46232846449952-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">bool</span> <a class="link" href="circular_buffer.html#idm46232846438848-bb"><span class="identifier">full</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">size_type</span> <a class="link" href="circular_buffer.html#idm46232846426880-bb"><span class="identifier">reserve</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="identifier">capacity_type</span> <a class="link" href="circular_buffer.html#idm46232846416128-bb"><span class="identifier">capacity</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846404368-bb"><span class="identifier">set_capacity</span></a><span class="special">(</span><span class="identifier">capacity_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846385872-bb"><span class="identifier">resize</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846363632-bb"><span class="identifier">rset_capacity</span></a><span class="special">(</span><span class="identifier">capacity_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846345136-bb"><span class="identifier">rresize</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846322896-bb"><span class="identifier">assign</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846303888-bb"><span class="identifier">assign</span></a><span class="special">(</span><span class="identifier">capacity_type</span><span class="special">,</span> <span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> InputIterator<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846282000-bb"><span class="identifier">assign</span></a><span class="special">(</span><span class="identifier">InputIterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="circular_buffer.html#idm44862802316704-bb">public member functions</a></span>
+  <span class="identifier">allocator_type</span> <a class="link" href="circular_buffer.html#idm44862802316144-bb"><span class="identifier">get_allocator</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">allocator_type</span> <span class="special">&amp;</span> <a class="link" href="circular_buffer.html#idm44862802307488-bb"><span class="identifier">get_allocator</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm44862802297952-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm44862802285296-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="circular_buffer.html#idm44862802272656-bb"><span class="identifier">begin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="circular_buffer.html#idm44862802259984-bb"><span class="identifier">cbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="circular_buffer.html#idm44862802258864-bb"><span class="identifier">end</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_iterator</span> <a class="link" href="circular_buffer.html#idm44862802246016-bb"><span class="identifier">cend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">reverse_iterator</span> <a class="link" href="circular_buffer.html#idm44862802244896-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">reverse_iterator</span> <a class="link" href="circular_buffer.html#idm44862802232224-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="circular_buffer.html#idm44862802219376-bb"><span class="identifier">rbegin</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">const_reverse_iterator</span> <a class="link" href="circular_buffer.html#idm44862802206688-bb"><span class="identifier">rend</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">reference</span> <a class="link" href="circular_buffer.html#idm44862802193984-bb"><span class="keyword">operator</span> <span class="special">[</span><span class="special">]</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_reference</span> <a class="link" href="circular_buffer.html#idm44862802182704-bb"><span class="keyword">operator</span> <span class="special">[</span><span class="special">]</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">reference</span> <a class="link" href="circular_buffer.html#idm44862802171136-bb"><span class="identifier">at</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_reference</span> <a class="link" href="circular_buffer.html#idm44862802159824-bb"><span class="identifier">at</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">reference</span> <a class="link" href="circular_buffer.html#idm44862802148224-bb"><span class="identifier">front</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">reference</span> <a class="link" href="circular_buffer.html#idm44862802138112-bb"><span class="identifier">back</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_reference</span> <a class="link" href="circular_buffer.html#idm44862802128016-bb"><span class="identifier">front</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">const_reference</span> <a class="link" href="circular_buffer.html#idm44862802117632-bb"><span class="identifier">back</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">array_range</span> <a class="link" href="circular_buffer.html#idm44862802107248-bb"><span class="identifier">array_one</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">array_range</span> <a class="link" href="circular_buffer.html#idm44862802073920-bb"><span class="identifier">array_two</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">const_array_range</span> <a class="link" href="circular_buffer.html#idm44862802063536-bb"><span class="identifier">array_one</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">const_array_range</span> <a class="link" href="circular_buffer.html#idm44862802052448-bb"><span class="identifier">array_two</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">pointer</span> <a class="link" href="circular_buffer.html#idm44862802041792-bb"><span class="identifier">linearize</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="circular_buffer.html#idm44862802025888-bb"><span class="identifier">is_linearized</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862802013376-bb"><span class="identifier">rotate</span></a><span class="special">(</span><span class="identifier">const_iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="circular_buffer.html#idm44862801987200-bb"><span class="identifier">size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="circular_buffer.html#idm44862801975456-bb"><span class="identifier">max_size</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="circular_buffer.html#idm44862801964144-bb"><span class="identifier">empty</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">bool</span> <a class="link" href="circular_buffer.html#idm44862801953040-bb"><span class="identifier">full</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">size_type</span> <a class="link" href="circular_buffer.html#idm44862801941072-bb"><span class="identifier">reserve</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="identifier">capacity_type</span> <a class="link" href="circular_buffer.html#idm44862801930320-bb"><span class="identifier">capacity</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801918560-bb"><span class="identifier">set_capacity</span></a><span class="special">(</span><span class="identifier">capacity_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801900064-bb"><span class="identifier">resize</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801877824-bb"><span class="identifier">rset_capacity</span></a><span class="special">(</span><span class="identifier">capacity_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801859328-bb"><span class="identifier">rresize</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span> <span class="special">=</span> <span class="identifier">value_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801837088-bb"><span class="identifier">assign</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801818080-bb"><span class="identifier">assign</span></a><span class="special">(</span><span class="identifier">capacity_type</span><span class="special">,</span> <span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> InputIterator<span class="special">&gt;</span> <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801796192-bb"><span class="identifier">assign</span></a><span class="special">(</span><span class="identifier">InputIterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> InputIterator<span class="special">&gt;</span> 
-    <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846262016-bb"><span class="identifier">assign</span></a><span class="special">(</span><span class="identifier">capacity_type</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846236496-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846221232-bb"><span class="identifier">push_back</span></a><span class="special">(</span><span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846206112-bb"><span class="identifier">push_back</span></a><span class="special">(</span><span class="identifier">rvalue_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846190960-bb"><span class="identifier">push_back</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846176496-bb"><span class="identifier">push_front</span></a><span class="special">(</span><span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846161360-bb"><span class="identifier">push_front</span></a><span class="special">(</span><span class="identifier">rvalue_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846146192-bb"><span class="identifier">push_front</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846131728-bb"><span class="identifier">pop_back</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846119808-bb"><span class="identifier">pop_front</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm46232846107888-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm46232846083520-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">rvalue_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm46232846059168-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846035472-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
+    <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801776208-bb"><span class="identifier">assign</span></a><span class="special">(</span><span class="identifier">capacity_type</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801750688-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801735424-bb"><span class="identifier">push_back</span></a><span class="special">(</span><span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801720304-bb"><span class="identifier">push_back</span></a><span class="special">(</span><span class="identifier">rvalue_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801705152-bb"><span class="identifier">push_back</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801690688-bb"><span class="identifier">push_front</span></a><span class="special">(</span><span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801675552-bb"><span class="identifier">push_front</span></a><span class="special">(</span><span class="identifier">rvalue_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801660384-bb"><span class="identifier">push_front</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801645920-bb"><span class="identifier">pop_back</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801634000-bb"><span class="identifier">pop_front</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm44862801622080-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm44862801597712-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">rvalue_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm44862801573360-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801549664-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> InputIterator<span class="special">&gt;</span> 
-    <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232846003120-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm46232845962752-bb"><span class="identifier">rinsert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm46232845938880-bb"><span class="identifier">rinsert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">rvalue_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm46232845915024-bb"><span class="identifier">rinsert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232845891840-bb"><span class="identifier">rinsert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
+    <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801517312-bb"><span class="identifier">insert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm44862801476944-bb"><span class="identifier">rinsert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm44862801453072-bb"><span class="identifier">rinsert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">rvalue_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm44862801429216-bb"><span class="identifier">rinsert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801406032-bb"><span class="identifier">rinsert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">size_type</span><span class="special">,</span> <span class="identifier">param_value_type</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> InputIterator<span class="special">&gt;</span> 
-    <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232845860000-bb"><span class="identifier">rinsert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm46232845820080-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm46232845803744-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm46232845786592-bb"><span class="identifier">rerase</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm46232845767280-bb"><span class="identifier">rerase</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232845747952-bb"><span class="identifier">erase_begin</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232845731184-bb"><span class="identifier">erase_end</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span><span class="special">;</span>
-  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm46232845714432-bb"><span class="identifier">clear</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+    <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801374192-bb"><span class="identifier">rinsert</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">,</span> <span class="identifier">InputIterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm44862801334272-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm44862801317936-bb"><span class="identifier">erase</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm44862801300784-bb"><span class="identifier">rerase</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="identifier">iterator</span> <a class="link" href="circular_buffer.html#idm44862801281472-bb"><span class="identifier">rerase</span></a><span class="special">(</span><span class="identifier">iterator</span><span class="special">,</span> <span class="identifier">iterator</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801262144-bb"><span class="identifier">erase_begin</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801245376-bb"><span class="identifier">erase_end</span></a><span class="special">(</span><span class="identifier">size_type</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">void</span> <a class="link" href="circular_buffer.html#idm44862801228624-bb"><span class="identifier">clear</span></a><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
 <a name="id-1.3.9.16.3.3.4"></a><h2>Description</h2>
@@ -181,12 +183,12 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
 <p>
-<span class="keyword">typedef</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">allocator_traits</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">difference_type</span> <a name="boost.circular_buffer.difference_type"></a><span class="identifier">difference_type</span><span class="special">;</span></p>
+<span class="keyword">typedef</span> <span class="identifier">allocator_difference_type</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a name="boost.circular_buffer.difference_type"></a><span class="identifier">difference_type</span><span class="special">;</span></p>
 <p>(A signed integral type used to represent the distance between two iterators.) </p>
 </li>
 <li class="listitem">
 <p>
-<span class="keyword">typedef</span> <span class="identifier">cb_details</span><span class="special">::</span><span class="identifier">allocator_traits</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">size_type</span> <a name="boost.circular_buffer.size_type"></a><span class="identifier">size_type</span><span class="special">;</span></p>
+<span class="keyword">typedef</span> <span class="identifier">allocator_size_type</span><span class="special">&lt;</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a name="boost.circular_buffer.size_type"></a><span class="identifier">size_type</span><span class="special">;</span></p>
 <p>(An unsigned integral type that can represent any non-negative value of the container's distance type.) </p>
 </li>
 <li class="listitem">
@@ -218,7 +220,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm46232845700400-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">allocator_type</span> <span class="special">&amp;</span> alloc <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Create an empty <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> with zero capacity. <p>
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm44862801214592-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">allocator_type</span> <span class="special">&amp;</span> alloc <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Create an empty <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> with zero capacity. <p>
 
 
 </p>
@@ -280,7 +282,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm46232845687840-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><span class="identifier">capacity_type</span> buffer_capacity<span class="special">,</span> 
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm44862801202032-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><span class="identifier">capacity_type</span> buffer_capacity<span class="special">,</span> 
                          <span class="keyword">const</span> <span class="identifier">allocator_type</span> <span class="special">&amp;</span> alloc <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre>Create an empty <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> with the specified capacity. <p>
 
 
@@ -325,7 +327,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm46232845679216-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><span class="identifier">size_type</span> n<span class="special">,</span> <span class="identifier">param_value_type</span> item<span class="special">,</span> 
+<pre class="literallayout"><a name="idm44862801193408-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><span class="identifier">size_type</span> n<span class="special">,</span> <span class="identifier">param_value_type</span> item<span class="special">,</span> 
                 <span class="keyword">const</span> <span class="identifier">allocator_type</span> <span class="special">&amp;</span> alloc <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre>Create a full <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> with the specified capacity and filled with <code class="computeroutput">n</code> copies of <code class="computeroutput">item</code>. <p>
 
 
@@ -374,7 +376,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm46232845667056-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><span class="identifier">capacity_type</span> buffer_capacity<span class="special">,</span> <span class="identifier">size_type</span> n<span class="special">,</span> 
+<pre class="literallayout"><a name="idm44862801181248-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><span class="identifier">capacity_type</span> buffer_capacity<span class="special">,</span> <span class="identifier">size_type</span> n<span class="special">,</span> 
                 <span class="identifier">param_value_type</span> item<span class="special">,</span> 
                 <span class="keyword">const</span> <span class="identifier">allocator_type</span> <span class="special">&amp;</span> alloc <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre>Create a <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> with the specified capacity and filled with <code class="computeroutput">n</code> copies of <code class="computeroutput">item</code>. <p>
 
@@ -433,7 +435,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm46232845652032-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span> cb<span class="special">)</span><span class="special">;</span></pre>The copy constructor. <p>Creates a copy of the specified <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. 
+<pre class="literallayout"><a name="idm44862801166224-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span> cb<span class="special">)</span><span class="special">;</span></pre>The copy constructor. <p>Creates a copy of the specified <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. 
 
 
 </p>
@@ -471,7 +473,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm46232845643792-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;&amp;</span> cb<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>The move constructor. <p>Move constructs a <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> from <code class="computeroutput">cb</code>, leaving <code class="computeroutput">cb</code> empty. 
+<pre class="literallayout"><a name="idm44862801157984-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;&amp;</span> cb<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>The move constructor. <p>Move constructs a <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> from <code class="computeroutput">cb</code>, leaving <code class="computeroutput">cb</code> empty. 
 
 
 
@@ -515,7 +517,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> InputIterator<span class="special">&gt;</span> 
-  <a name="idm46232845635648-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><span class="identifier">InputIterator</span> first<span class="special">,</span> <span class="identifier">InputIterator</span> last<span class="special">,</span> 
+  <a name="idm44862801149840-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><span class="identifier">InputIterator</span> first<span class="special">,</span> <span class="identifier">InputIterator</span> last<span class="special">,</span> 
                   <span class="keyword">const</span> <span class="identifier">allocator_type</span> <span class="special">&amp;</span> alloc <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre>Create a full <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> filled with a copy of the range. <p>
 
 
@@ -571,7 +573,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> InputIterator<span class="special">&gt;</span> 
-  <a name="idm46232845622160-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><span class="identifier">capacity_type</span> buffer_capacity<span class="special">,</span> <span class="identifier">InputIterator</span> first<span class="special">,</span> 
+  <a name="idm44862801136352-bb"></a><span class="identifier">circular_buffer</span><span class="special">(</span><span class="identifier">capacity_type</span> buffer_capacity<span class="special">,</span> <span class="identifier">InputIterator</span> first<span class="special">,</span> 
                   <span class="identifier">InputIterator</span> last<span class="special">,</span> 
                   <span class="keyword">const</span> <span class="identifier">allocator_type</span> <span class="special">&amp;</span> alloc <span class="special">=</span> <span class="identifier">allocator_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre>Create a <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> with the specified capacity and filled with a copy of the range. <p>
 
@@ -634,7 +636,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </li>
 <li class="listitem">
 <pre class="literallayout"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span> 
-<a name="idm46232845594704-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span> cb<span class="special">)</span><span class="special">;</span></pre>The assign operator. <p>Makes this <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> to become a copy of the specified <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. 
+<a name="idm44862801108896-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span> cb<span class="special">)</span><span class="special">;</span></pre>The assign operator. <p>Makes this <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> to become a copy of the specified <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. 
 
 
 </p>
@@ -685,7 +687,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </li>
 <li class="listitem">
 <pre class="literallayout"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span> 
-<a name="idm46232845578624-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;&amp;</span> cb<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Move assigns content of <code class="computeroutput">cb</code> to <code class="computeroutput">*this</code>, leaving <code class="computeroutput">cb</code> empty. <p>
+<a name="idm44862801092816-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;&amp;</span> cb<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Move assigns content of <code class="computeroutput">cb</code> to <code class="computeroutput">*this</code>, leaving <code class="computeroutput">cb</code> empty. <p>
 
 
 
@@ -728,7 +730,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm46232845603120-bb"></a><span class="special">~</span><span class="identifier">circular_buffer</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>The destructor. <p>Destroys the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. 
+<pre class="literallayout"><a name="idm44862801117312-bb"></a><span class="special">~</span><span class="identifier">circular_buffer</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>The destructor. <p>Destroys the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. 
 </p>
 <p><b>Iterator Invalidation. </b>Invalidates all iterators pointing to the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> (including iterators equal to <code class="computeroutput">end()</code>). </p>
 <p>
@@ -757,10 +759,10 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </div>
 <div class="refsect2">
 <a name="id-1.3.9.16.3.3.4.6"></a><h3>
-<a name="idm46232846800464-bb"></a><code class="computeroutput">circular_buffer</code> public member functions</h3>
+<a name="idm44862802316704-bb"></a><code class="computeroutput">circular_buffer</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">allocator_type</span> <a name="idm46232846799904-bb"></a><span class="identifier">get_allocator</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the allocator. <p>
+<pre class="literallayout"><span class="identifier">allocator_type</span> <a name="idm44862802316144-bb"></a><span class="identifier">get_allocator</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the allocator. <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -796,7 +798,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">allocator_type</span> <span class="special">&amp;</span> <a name="idm46232846791248-bb"></a><span class="identifier">get_allocator</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the allocator reference. <p>
+<pre class="literallayout"><span class="identifier">allocator_type</span> <span class="special">&amp;</span> <a name="idm44862802307488-bb"></a><span class="identifier">get_allocator</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the allocator reference. <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -841,7 +843,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm46232846781712-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the iterator pointing to the beginning of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm44862802297952-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the iterator pointing to the beginning of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -877,7 +879,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm46232846769056-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the iterator pointing to the end of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm44862802285296-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the iterator pointing to the end of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -913,7 +915,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm46232846756224-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the const iterator pointing to the beginning of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm44862802272656-bb"></a><span class="identifier">begin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the const iterator pointing to the beginning of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -948,8 +950,9 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </tbody>
 </table></div>
 </li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm44862802259984-bb"></a><span class="identifier">cbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm46232846743552-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the const iterator pointing to the end of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm44862802258864-bb"></a><span class="identifier">end</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the const iterator pointing to the end of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -984,8 +987,9 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </tbody>
 </table></div>
 </li>
+<li class="listitem"><pre class="literallayout"><span class="identifier">const_iterator</span> <a name="idm44862802246016-bb"></a><span class="identifier">cend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre></li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">reverse_iterator</span> <a name="idm46232846730704-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the iterator pointing to the beginning of the "reversed" <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="identifier">reverse_iterator</span> <a name="idm44862802244896-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the iterator pointing to the beginning of the "reversed" <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -1021,7 +1025,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">reverse_iterator</span> <a name="idm46232846718032-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the iterator pointing to the end of the "reversed" <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="identifier">reverse_iterator</span> <a name="idm44862802232224-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the iterator pointing to the end of the "reversed" <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -1057,7 +1061,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm46232846705184-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the const iterator pointing to the beginning of the "reversed" <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm44862802219376-bb"></a><span class="identifier">rbegin</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the const iterator pointing to the beginning of the "reversed" <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -1093,7 +1097,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm46232846692496-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the const iterator pointing to the end of the "reversed" <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="identifier">const_reverse_iterator</span> <a name="idm44862802206688-bb"></a><span class="identifier">rend</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the const iterator pointing to the end of the "reversed" <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -1129,7 +1133,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">reference</span> <a name="idm46232846679792-bb"></a><span class="keyword">operator</span> <span class="special">[</span><span class="special">]</span><span class="special">(</span><span class="identifier">size_type</span> index<span class="special">)</span><span class="special">;</span></pre>Get the element at the <code class="computeroutput">index</code> position. <p>
+<pre class="literallayout"><span class="identifier">reference</span> <a name="idm44862802193984-bb"></a><span class="keyword">operator</span> <span class="special">[</span><span class="special">]</span><span class="special">(</span><span class="identifier">size_type</span> index<span class="special">)</span><span class="special">;</span></pre>Get the element at the <code class="computeroutput">index</code> position. <p>
 
 
 
@@ -1184,7 +1188,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_reference</span> <a name="idm46232846668512-bb"></a><span class="keyword">operator</span> <span class="special">[</span><span class="special">]</span><span class="special">(</span><span class="identifier">size_type</span> index<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>Get the element at the <code class="computeroutput">index</code> position. <p>
+<pre class="literallayout"><span class="identifier">const_reference</span> <a name="idm44862802182704-bb"></a><span class="keyword">operator</span> <span class="special">[</span><span class="special">]</span><span class="special">(</span><span class="identifier">size_type</span> index<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>Get the element at the <code class="computeroutput">index</code> position. <p>
 
 
 
@@ -1239,7 +1243,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">reference</span> <a name="idm46232846656944-bb"></a><span class="identifier">at</span><span class="special">(</span><span class="identifier">size_type</span> index<span class="special">)</span><span class="special">;</span></pre>Get the element at the <code class="computeroutput">index</code> position. <p>
+<pre class="literallayout"><span class="identifier">reference</span> <a name="idm44862802171136-bb"></a><span class="identifier">at</span><span class="special">(</span><span class="identifier">size_type</span> index<span class="special">)</span><span class="special">;</span></pre>Get the element at the <code class="computeroutput">index</code> position. <p>
 
 
 </p>
@@ -1289,7 +1293,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_reference</span> <a name="idm46232846645632-bb"></a><span class="identifier">at</span><span class="special">(</span><span class="identifier">size_type</span> index<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>Get the element at the <code class="computeroutput">index</code> position. <p>
+<pre class="literallayout"><span class="identifier">const_reference</span> <a name="idm44862802159824-bb"></a><span class="identifier">at</span><span class="special">(</span><span class="identifier">size_type</span> index<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>Get the element at the <code class="computeroutput">index</code> position. <p>
 
 
 </p>
@@ -1339,7 +1343,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">reference</span> <a name="idm46232846634032-bb"></a><span class="identifier">front</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Get the first element. <p>
+<pre class="literallayout"><span class="identifier">reference</span> <a name="idm44862802148224-bb"></a><span class="identifier">front</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Get the first element. <p>
 
 
 </p>
@@ -1380,7 +1384,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">reference</span> <a name="idm46232846623920-bb"></a><span class="identifier">back</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Get the last element. <p>
+<pre class="literallayout"><span class="identifier">reference</span> <a name="idm44862802138112-bb"></a><span class="identifier">back</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Get the last element. <p>
 
 
 </p>
@@ -1421,7 +1425,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_reference</span> <a name="idm46232846613824-bb"></a><span class="identifier">front</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>Get the first element. <p>
+<pre class="literallayout"><span class="identifier">const_reference</span> <a name="idm44862802128016-bb"></a><span class="identifier">front</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>Get the first element. <p>
 
 
 </p>
@@ -1462,7 +1466,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_reference</span> <a name="idm46232846603440-bb"></a><span class="identifier">back</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>Get the last element. <p>
+<pre class="literallayout"><span class="identifier">const_reference</span> <a name="idm44862802117632-bb"></a><span class="identifier">back</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>Get the last element. <p>
 
 
 </p>
@@ -1503,7 +1507,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">array_range</span> <a name="idm46232846593056-bb"></a><span class="identifier">array_one</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Get the first continuous array of the internal buffer. <p>This method in combination with <code class="computeroutput">array_two()</code> can be useful when passing the stored data into a legacy C API as an array. Suppose there is a <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> of capacity 10, containing 7 characters <code class="computeroutput">'a', 'b', ..., 'g'</code> where <code class="computeroutput">buff[0] == 'a'</code>, <code class="computeroutput">buff[1] == 'b'</code>, ... and <code class="computeroutput">buff[6] == 'g'</code>:<br>
+<pre class="literallayout"><span class="identifier">array_range</span> <a name="idm44862802107248-bb"></a><span class="identifier">array_one</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Get the first continuous array of the internal buffer. <p>This method in combination with <code class="computeroutput">array_two()</code> can be useful when passing the stored data into a legacy C API as an array. Suppose there is a <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> of capacity 10, containing 7 characters <code class="computeroutput">'a', 'b', ..., 'g'</code> where <code class="computeroutput">buff[0] == 'a'</code>, <code class="computeroutput">buff[1] == 'b'</code>, ... and <code class="computeroutput">buff[6] == 'g'</code>:<br>
 <br>
  <code class="computeroutput">circular_buffer&lt;char&gt; buff(10);</code><br>
 <br>
@@ -1584,7 +1588,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">array_range</span> <a name="idm46232846559728-bb"></a><span class="identifier">array_two</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Get the second continuous array of the internal buffer. <p>This method in combination with <code class="computeroutput">array_one()</code> can be useful when passing the stored data into a legacy C API as an array. 
+<pre class="literallayout"><span class="identifier">array_range</span> <a name="idm44862802073920-bb"></a><span class="identifier">array_two</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Get the second continuous array of the internal buffer. <p>This method in combination with <code class="computeroutput">array_one()</code> can be useful when passing the stored data into a legacy C API as an array. 
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -1620,7 +1624,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_array_range</span> <a name="idm46232846549344-bb"></a><span class="identifier">array_one</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>Get the first continuous array of the internal buffer. <p>This method in combination with <code class="computeroutput">array_two() const</code> can be useful when passing the stored data into a legacy C API as an array. 
+<pre class="literallayout"><span class="identifier">const_array_range</span> <a name="idm44862802063536-bb"></a><span class="identifier">array_one</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>Get the first continuous array of the internal buffer. <p>This method in combination with <code class="computeroutput">array_two() const</code> can be useful when passing the stored data into a legacy C API as an array. 
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -1656,7 +1660,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">const_array_range</span> <a name="idm46232846538256-bb"></a><span class="identifier">array_two</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>Get the second continuous array of the internal buffer. <p>This method in combination with <code class="computeroutput">array_one() const</code> can be useful when passing the stored data into a legacy C API as an array. 
+<pre class="literallayout"><span class="identifier">const_array_range</span> <a name="idm44862802052448-bb"></a><span class="identifier">array_two</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>Get the second continuous array of the internal buffer. <p>This method in combination with <code class="computeroutput">array_one() const</code> can be useful when passing the stored data into a legacy C API as an array. 
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -1692,7 +1696,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">pointer</span> <a name="idm46232846527600-bb"></a><span class="identifier">linearize</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Linearize the internal buffer into a continuous array. <p>This method can be useful when passing the stored data into a legacy C API as an array. 
+<pre class="literallayout"><span class="identifier">pointer</span> <a name="idm44862802041792-bb"></a><span class="identifier">linearize</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Linearize the internal buffer into a continuous array. <p>This method can be useful when passing the stored data into a legacy C API as an array. 
 
 
 </p>
@@ -1742,7 +1746,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">bool</span> <a name="idm46232846511696-bb"></a><span class="identifier">is_linearized</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Is the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> linearized? <p>
+<pre class="literallayout"><span class="keyword">bool</span> <a name="idm44862802025888-bb"></a><span class="identifier">is_linearized</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Is the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> linearized? <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -1778,7 +1782,7 @@ For detailed documentation of the <a class="link" href="circular_buffer.html" ti
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846499184-bb"></a><span class="identifier">rotate</span><span class="special">(</span><span class="identifier">const_iterator</span> new_begin<span class="special">)</span><span class="special">;</span></pre>Rotate elements in the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>A more effective implementation of <code class="computeroutput"><a href="https://www.boost.org/sgi/stl/rotate.html" target="_top">std::rotate</a></code>. 
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862802013376-bb"></a><span class="identifier">rotate</span><span class="special">(</span><span class="identifier">const_iterator</span> new_begin<span class="special">)</span><span class="special">;</span></pre>Rotate elements in the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>A more effective implementation of <code class="computeroutput"><a href="https://www.boost.org/sgi/stl/rotate.html" target="_top">std::rotate</a></code>. 
 
 
 
@@ -1842,7 +1846,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm46232846473008-bb"></a><span class="identifier">size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the number of elements currently stored in the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm44862801987200-bb"></a><span class="identifier">size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the number of elements currently stored in the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -1878,7 +1882,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm46232846461264-bb"></a><span class="identifier">max_size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the largest possible size or capacity of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. (It depends on allocator's max_size()). <p>
+<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm44862801975456-bb"></a><span class="identifier">max_size</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the largest possible size or capacity of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. (It depends on allocator's max_size()). <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -1914,7 +1918,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">bool</span> <a name="idm46232846449952-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Is the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> empty? <p>
+<pre class="literallayout"><span class="keyword">bool</span> <a name="idm44862801964144-bb"></a><span class="identifier">empty</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Is the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> empty? <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -1950,7 +1954,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">bool</span> <a name="idm46232846438848-bb"></a><span class="identifier">full</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Is the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> full? <p>
+<pre class="literallayout"><span class="keyword">bool</span> <a name="idm44862801953040-bb"></a><span class="identifier">full</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Is the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> full? <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -1986,7 +1990,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm46232846426880-bb"></a><span class="identifier">reserve</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the maximum number of elements which can be inserted into the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> without overwriting any of already stored elements. <p>
+<pre class="literallayout"><span class="identifier">size_type</span> <a name="idm44862801941072-bb"></a><span class="identifier">reserve</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the maximum number of elements which can be inserted into the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> without overwriting any of already stored elements. <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -2022,7 +2026,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">capacity_type</span> <a name="idm46232846416128-bb"></a><span class="identifier">capacity</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the capacity of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="identifier">capacity_type</span> <a name="idm44862801930320-bb"></a><span class="identifier">capacity</span><span class="special">(</span><span class="special">)</span> <span class="keyword">const</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Get the capacity of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -2058,7 +2062,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846404368-bb"></a><span class="identifier">set_capacity</span><span class="special">(</span><span class="identifier">capacity_type</span> new_capacity<span class="special">)</span><span class="special">;</span></pre>Change the capacity of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801918560-bb"></a><span class="identifier">set_capacity</span><span class="special">(</span><span class="identifier">capacity_type</span> new_capacity<span class="special">)</span><span class="special">;</span></pre>Change the capacity of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 
 
@@ -2115,7 +2119,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846385872-bb"></a><span class="identifier">resize</span><span class="special">(</span><span class="identifier">size_type</span> new_size<span class="special">,</span> <span class="identifier">param_value_type</span> item <span class="special">=</span> <span class="identifier">value_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre>Change the size of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801900064-bb"></a><span class="identifier">resize</span><span class="special">(</span><span class="identifier">size_type</span> new_size<span class="special">,</span> <span class="identifier">param_value_type</span> item <span class="special">=</span> <span class="identifier">value_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre>Change the size of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 
 </p>
@@ -2174,7 +2178,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846363632-bb"></a><span class="identifier">rset_capacity</span><span class="special">(</span><span class="identifier">capacity_type</span> new_capacity<span class="special">)</span><span class="special">;</span></pre>Change the capacity of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801877824-bb"></a><span class="identifier">rset_capacity</span><span class="special">(</span><span class="identifier">capacity_type</span> new_capacity<span class="special">)</span><span class="special">;</span></pre>Change the capacity of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 
 
@@ -2231,7 +2235,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846345136-bb"></a><span class="identifier">rresize</span><span class="special">(</span><span class="identifier">size_type</span> new_size<span class="special">,</span> <span class="identifier">param_value_type</span> item <span class="special">=</span> <span class="identifier">value_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre>Change the size of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801859328-bb"></a><span class="identifier">rresize</span><span class="special">(</span><span class="identifier">size_type</span> new_size<span class="special">,</span> <span class="identifier">param_value_type</span> item <span class="special">=</span> <span class="identifier">value_type</span><span class="special">(</span><span class="special">)</span><span class="special">)</span><span class="special">;</span></pre>Change the size of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 
 </p>
@@ -2290,7 +2294,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846322896-bb"></a><span class="identifier">assign</span><span class="special">(</span><span class="identifier">size_type</span> n<span class="special">,</span> <span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Assign <code class="computeroutput">n</code> items into the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>The content of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> will be removed and replaced with <code class="computeroutput">n</code> copies of the <code class="computeroutput">item</code>. 
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801837088-bb"></a><span class="identifier">assign</span><span class="special">(</span><span class="identifier">size_type</span> n<span class="special">,</span> <span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Assign <code class="computeroutput">n</code> items into the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>The content of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> will be removed and replaced with <code class="computeroutput">n</code> copies of the <code class="computeroutput">item</code>. 
 
 
 </p>
@@ -2346,7 +2350,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846303888-bb"></a><span class="identifier">assign</span><span class="special">(</span><span class="identifier">capacity_type</span> buffer_capacity<span class="special">,</span> <span class="identifier">size_type</span> n<span class="special">,</span> <span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Assign <code class="computeroutput">n</code> items into the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> specifying the capacity. <p>The capacity of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> will be set to the specified value and the content of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> will be removed and replaced with <code class="computeroutput">n</code> copies of the <code class="computeroutput">item</code>. 
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801818080-bb"></a><span class="identifier">assign</span><span class="special">(</span><span class="identifier">capacity_type</span> buffer_capacity<span class="special">,</span> <span class="identifier">size_type</span> n<span class="special">,</span> <span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Assign <code class="computeroutput">n</code> items into the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> specifying the capacity. <p>The capacity of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> will be set to the specified value and the content of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> will be removed and replaced with <code class="computeroutput">n</code> copies of the <code class="computeroutput">item</code>. 
 
 
 
@@ -2412,7 +2416,7 @@ then after call to the method:<br>
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> InputIterator<span class="special">&gt;</span> 
-  <span class="keyword">void</span> <a name="idm46232846282000-bb"></a><span class="identifier">assign</span><span class="special">(</span><span class="identifier">InputIterator</span> first<span class="special">,</span> <span class="identifier">InputIterator</span> last<span class="special">)</span><span class="special">;</span></pre>Assign a copy of the range into the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>The content of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> will be removed and replaced with copies of elements from the specified range. 
+  <span class="keyword">void</span> <a name="idm44862801796192-bb"></a><span class="identifier">assign</span><span class="special">(</span><span class="identifier">InputIterator</span> first<span class="special">,</span> <span class="identifier">InputIterator</span> last<span class="special">)</span><span class="special">;</span></pre>Assign a copy of the range into the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>The content of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> will be removed and replaced with copies of elements from the specified range. 
 
 
 
@@ -2475,7 +2479,7 @@ then after call to the method:<br>
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> InputIterator<span class="special">&gt;</span> 
-  <span class="keyword">void</span> <a name="idm46232846262016-bb"></a><span class="identifier">assign</span><span class="special">(</span><span class="identifier">capacity_type</span> buffer_capacity<span class="special">,</span> <span class="identifier">InputIterator</span> first<span class="special">,</span> 
+  <span class="keyword">void</span> <a name="idm44862801776208-bb"></a><span class="identifier">assign</span><span class="special">(</span><span class="identifier">capacity_type</span> buffer_capacity<span class="special">,</span> <span class="identifier">InputIterator</span> first<span class="special">,</span> 
               <span class="identifier">InputIterator</span> last<span class="special">)</span><span class="special">;</span></pre>Assign a copy of the range into the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> specifying the capacity. <p>The capacity of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> will be set to the specified value and the content of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> will be removed and replaced with copies of elements from the specified range. 
 
 
@@ -2544,7 +2548,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846236496-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span> cb<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Swap the contents of two <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>s. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801750688-bb"></a><span class="identifier">swap</span><span class="special">(</span><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">,</span> <span class="identifier">Alloc</span> <span class="special">&gt;</span> <span class="special">&amp;</span> cb<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Swap the contents of two <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>s. <p>
 
 
 </p>
@@ -2594,7 +2598,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846221232-bb"></a><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert a new element at the end of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801735424-bb"></a><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert a new element at the end of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 
 </p>
@@ -2645,7 +2649,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846206112-bb"></a><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">rvalue_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert a new element at the end of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> using rvalue references or rvalues references emulation. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801720304-bb"></a><span class="identifier">push_back</span><span class="special">(</span><span class="identifier">rvalue_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert a new element at the end of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> using rvalue references or rvalues references emulation. <p>
 
 
 </p>
@@ -2696,7 +2700,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846190960-bb"></a><span class="identifier">push_back</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Insert a new default-constructed element at the end of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801705152-bb"></a><span class="identifier">push_back</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Insert a new default-constructed element at the end of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 </p>
 <p><b>Exception Safety. </b>Basic; no-throw if the operation in the <span class="emphasis"><em>Throws</em></span> section does not throw anything. </p>
@@ -2733,7 +2737,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846176496-bb"></a><span class="identifier">push_front</span><span class="special">(</span><span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert a new element at the beginning of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801690688-bb"></a><span class="identifier">push_front</span><span class="special">(</span><span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert a new element at the beginning of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 
 </p>
@@ -2784,7 +2788,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846161360-bb"></a><span class="identifier">push_front</span><span class="special">(</span><span class="identifier">rvalue_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert a new element at the beginning of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> using rvalue references or rvalues references emulation. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801675552-bb"></a><span class="identifier">push_front</span><span class="special">(</span><span class="identifier">rvalue_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert a new element at the beginning of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code> using rvalue references or rvalues references emulation. <p>
 
 
 </p>
@@ -2835,7 +2839,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846146192-bb"></a><span class="identifier">push_front</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Insert a new default-constructed element at the beginning of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801660384-bb"></a><span class="identifier">push_front</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Insert a new default-constructed element at the beginning of the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 </p>
 <p><b>Exception Safety. </b>Basic; no-throw if the operation in the <span class="emphasis"><em>Throws</em></span> section does not throw anything. </p>
@@ -2872,7 +2876,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846131728-bb"></a><span class="identifier">pop_back</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Remove the last element from the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801645920-bb"></a><span class="identifier">pop_back</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Remove the last element from the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 
 </p>
@@ -2913,7 +2917,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846119808-bb"></a><span class="identifier">pop_front</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Remove the first element from the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801634000-bb"></a><span class="identifier">pop_front</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>Remove the first element from the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 
 </p>
@@ -2954,7 +2958,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm46232846107888-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert an element at the specified position. <p>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm44862801622080-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert an element at the specified position. <p>
 
 
 
@@ -3021,7 +3025,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm46232846083520-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">rvalue_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert an element at the specified position. <p>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm44862801597712-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">rvalue_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert an element at the specified position. <p>
 
 
 
@@ -3088,7 +3092,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm46232846059168-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">)</span><span class="special">;</span></pre>Insert a default-constructed element at the specified position. <p>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm44862801573360-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">)</span><span class="special">;</span></pre>Insert a default-constructed element at the specified position. <p>
 
 
 
@@ -3149,7 +3153,7 @@ then after call to the method:<br>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232846035472-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">size_type</span> n<span class="special">,</span> <span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert <code class="computeroutput">n</code> copies of the <code class="computeroutput">item</code> at the specified position. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801549664-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">size_type</span> n<span class="special">,</span> <span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert <code class="computeroutput">n</code> copies of the <code class="computeroutput">item</code> at the specified position. <p>
 
 
 
@@ -3233,7 +3237,7 @@ The number of <code class="computeroutput">min[pos - begin(), max[0, n - reserve
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> InputIterator<span class="special">&gt;</span> 
-  <span class="keyword">void</span> <a name="idm46232846003120-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">InputIterator</span> first<span class="special">,</span> <span class="identifier">InputIterator</span> last<span class="special">)</span><span class="special">;</span></pre>Insert the range <code class="computeroutput">[first, last)</code> at the specified position. <p>
+  <span class="keyword">void</span> <a name="idm44862801517312-bb"></a><span class="identifier">insert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">InputIterator</span> first<span class="special">,</span> <span class="identifier">InputIterator</span> last<span class="special">)</span><span class="special">;</span></pre>Insert the range <code class="computeroutput">[first, last)</code> at the specified position. <p>
 
 
 
@@ -3318,7 +3322,7 @@ The number of <code class="computeroutput">min[pos - begin(), max[0, distance(fi
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm46232845962752-bb"></a><span class="identifier">rinsert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert an element before the specified position. <p>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm44862801476944-bb"></a><span class="identifier">rinsert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert an element before the specified position. <p>
 
 
 
@@ -3385,7 +3389,7 @@ The number of <code class="computeroutput">min[pos - begin(), max[0, distance(fi
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm46232845938880-bb"></a><span class="identifier">rinsert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">rvalue_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert an element before the specified position. <p>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm44862801453072-bb"></a><span class="identifier">rinsert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">rvalue_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert an element before the specified position. <p>
 
 
 
@@ -3452,7 +3456,7 @@ The number of <code class="computeroutput">min[pos - begin(), max[0, distance(fi
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm46232845915024-bb"></a><span class="identifier">rinsert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">)</span><span class="special">;</span></pre>Insert an element before the specified position. <p>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm44862801429216-bb"></a><span class="identifier">rinsert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">)</span><span class="special">;</span></pre>Insert an element before the specified position. <p>
 
 
 
@@ -3513,7 +3517,7 @@ The number of <code class="computeroutput">min[pos - begin(), max[0, distance(fi
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232845891840-bb"></a><span class="identifier">rinsert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">size_type</span> n<span class="special">,</span> <span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert <code class="computeroutput">n</code> copies of the <code class="computeroutput">item</code> before the specified position. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801406032-bb"></a><span class="identifier">rinsert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">size_type</span> n<span class="special">,</span> <span class="identifier">param_value_type</span> item<span class="special">)</span><span class="special">;</span></pre>Insert <code class="computeroutput">n</code> copies of the <code class="computeroutput">item</code> before the specified position. <p>
 
 
 
@@ -3597,7 +3601,7 @@ The number of <code class="computeroutput">min[end() - pos, max[0, n - reserve()
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> InputIterator<span class="special">&gt;</span> 
-  <span class="keyword">void</span> <a name="idm46232845860000-bb"></a><span class="identifier">rinsert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">InputIterator</span> first<span class="special">,</span> <span class="identifier">InputIterator</span> last<span class="special">)</span><span class="special">;</span></pre>Insert the range <code class="computeroutput">[first, last)</code> before the specified position. <p>
+  <span class="keyword">void</span> <a name="idm44862801374192-bb"></a><span class="identifier">rinsert</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">,</span> <span class="identifier">InputIterator</span> first<span class="special">,</span> <span class="identifier">InputIterator</span> last<span class="special">)</span><span class="special">;</span></pre>Insert the range <code class="computeroutput">[first, last)</code> before the specified position. <p>
 
 
 
@@ -3682,7 +3686,7 @@ The number of <code class="computeroutput">min[end() - pos, max[0, distance(firs
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm46232845820080-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">)</span><span class="special">;</span></pre>Remove an element at the specified position. <p>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm44862801334272-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">)</span><span class="special">;</span></pre>Remove an element at the specified position. <p>
 
 
 
@@ -3742,7 +3746,7 @@ The number of <code class="computeroutput">min[end() - pos, max[0, distance(firs
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm46232845803744-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">iterator</span> last<span class="special">)</span><span class="special">;</span></pre>Erase the range <code class="computeroutput">[first, last)</code>. <p>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm44862801317936-bb"></a><span class="identifier">erase</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">iterator</span> last<span class="special">)</span><span class="special">;</span></pre>Erase the range <code class="computeroutput">[first, last)</code>. <p>
 
 
 
@@ -3808,7 +3812,7 @@ The number of <code class="computeroutput">min[end() - pos, max[0, distance(firs
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm46232845786592-bb"></a><span class="identifier">rerase</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">)</span><span class="special">;</span></pre>Remove an element at the specified position. <p>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm44862801300784-bb"></a><span class="identifier">rerase</span><span class="special">(</span><span class="identifier">iterator</span> pos<span class="special">)</span><span class="special">;</span></pre>Remove an element at the specified position. <p>
 
 
 
@@ -3877,7 +3881,7 @@ The number of <code class="computeroutput">min[end() - pos, max[0, distance(firs
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm46232845767280-bb"></a><span class="identifier">rerase</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">iterator</span> last<span class="special">)</span><span class="special">;</span></pre>Erase the range <code class="computeroutput">[first, last)</code>. <p>
+<pre class="literallayout"><span class="identifier">iterator</span> <a name="idm44862801281472-bb"></a><span class="identifier">rerase</span><span class="special">(</span><span class="identifier">iterator</span> first<span class="special">,</span> <span class="identifier">iterator</span> last<span class="special">)</span><span class="special">;</span></pre>Erase the range <code class="computeroutput">[first, last)</code>. <p>
 
 
 
@@ -3952,7 +3956,7 @@ The number of <code class="computeroutput">min[end() - pos, max[0, distance(firs
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232845747952-bb"></a><span class="identifier">erase_begin</span><span class="special">(</span><span class="identifier">size_type</span> n<span class="special">)</span><span class="special">;</span></pre>Remove first <code class="computeroutput">n</code> elements (with constant complexity for scalar types). <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801262144-bb"></a><span class="identifier">erase_begin</span><span class="special">(</span><span class="identifier">size_type</span> n<span class="special">)</span><span class="special">;</span></pre>Remove first <code class="computeroutput">n</code> elements (with constant complexity for scalar types). <p>
 
 
 
@@ -4016,7 +4020,7 @@ The number of <code class="computeroutput">min[end() - pos, max[0, distance(firs
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232845731184-bb"></a><span class="identifier">erase_end</span><span class="special">(</span><span class="identifier">size_type</span> n<span class="special">)</span><span class="special">;</span></pre>Remove last <code class="computeroutput">n</code> elements (with constant complexity for scalar types). <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801245376-bb"></a><span class="identifier">erase_end</span><span class="special">(</span><span class="identifier">size_type</span> n<span class="special">)</span><span class="special">;</span></pre>Remove last <code class="computeroutput">n</code> elements (with constant complexity for scalar types). <p>
 
 
 
@@ -4080,7 +4084,7 @@ The number of <code class="computeroutput">min[end() - pos, max[0, distance(firs
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">void</span> <a name="idm46232845714432-bb"></a><span class="identifier">clear</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Remove all stored elements from the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
+<pre class="literallayout"><span class="keyword">void</span> <a name="idm44862801228624-bb"></a><span class="identifier">clear</span><span class="special">(</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>Remove all stored elements from the <code class="computeroutput"><code class="computeroutput"><a class="link" href="circular_buffer.html" title="Class template circular_buffer">circular_buffer</a></code></code>. <p>
 
 </p>
 <p><b>Exception Safety. </b>No-throw. </p>
@@ -4129,7 +4133,7 @@ The number of <code class="computeroutput">min[end() - pos, max[0, distance(firs
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../BOOST_CB_ENABLE_DEBUG.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_circular_buffer_c___reference.html#header.boost.circular_buffer.base_hpp"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="operator_idm46232845570128.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="../BOOST_CB_ENABLE_DEBUG.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../boost_circular_buffer_c___reference.html#header.boost.circular_buffer.base_hpp"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="operator_idm44862801084320.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

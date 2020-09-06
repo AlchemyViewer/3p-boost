@@ -282,7 +282,7 @@
                   in the reduced axis. If <code class="computeroutput"><span class="identifier">n</span></code>
                   is larger than 1, <code class="computeroutput"><span class="identifier">n</span></code>
                   adjacent bins are merged into one larger cell. If this constructor
-                  is not implemented, <code class="computeroutput"><a class="link" href="../boost/histogram/algorithm/reduce_idm45095475099312.html" title="Function template reduce">boost::histogram::algorithm::reduce</a></code>
+                  is not implemented, <code class="computeroutput"><a class="link" href="../boost/histogram/algorithm/reduce_idm46471892733392.html" title="Function template reduce">boost::histogram::algorithm::reduce</a></code>
                   throws an exception on an attempt to reduce this axis.
                 </p>
               </td>
@@ -336,32 +336,14 @@
               </td>
 <td>
                 <p>
-                  <code class="computeroutput"><span class="keyword">const</span> <span class="identifier">M</span><span class="special">&amp;</span></code>
-                </p>
-              </td>
-<td>
-                <p>
-                  Const member function which returns a const reference to the metadata
-                  associated with the axis (usually a string).
-                </p>
-              </td>
-</tr>
-<tr>
-<td>
-                <p>
-                  <code class="computeroutput"><span class="identifier">a</span><span class="special">.</span><span class="identifier">metadata</span><span class="special">()</span></code>
-                </p>
-              </td>
-<td>
-                <p>
                   <code class="computeroutput"><span class="identifier">M</span><span class="special">&amp;</span></code>
                 </p>
               </td>
 <td>
                 <p>
-                  Likewise, but non-const member function which returns a reference
-                  to the metadata. If this member function exists, also the previous
-                  one must exist.
+                  Const and non-const member functions must exist, which both returns
+                  a mutable reference to the metadata associated with the axis (usually
+                  a string).
                 </p>
               </td>
 </tr>
@@ -460,6 +442,9 @@
         <span class="phrase"><a name="histogram.concepts.Axis.models"></a></span><a class="link" href="concepts.html#histogram.concepts.Axis.models">Models</a>
       </h5>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+            <code class="computeroutput"><a class="link" href="../boost/histogram/axis/boolean.html" title="Class template boolean">boost::histogram::axis::boolean</a></code>
+          </li>
 <li class="listitem">
             <code class="computeroutput"><a class="link" href="../boost/histogram/axis/category.html" title="Class template category">boost::histogram::axis::category</a></code>
           </li>

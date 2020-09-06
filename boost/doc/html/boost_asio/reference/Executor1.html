@@ -26,6 +26,121 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="boost_asio.reference.Executor1"></a><a class="link" href="Executor1.html" title="Executor requirements">Executor requirements</a>
 </h3></div></div></div>
+<h5>
+<a name="boost_asio.reference.Executor1.h0"></a>
+        <span class="phrase"><a name="boost_asio.reference.Executor1.standard_executors"></a></span><a class="link" href="Executor1.html#boost_asio.reference.Executor1.standard_executors">Standard
+        executors</a>
+      </h5>
+<p>
+        Let <code class="computeroutput">executor-of-impl</code> be the exposition-only concept
+      </p>
+<pre class="programlisting">template&lt;class E, class F&gt;
+  concept executor-of-impl =
+    invocable&lt;decay_t&lt;F&gt;&amp;&gt; &amp;&amp;
+    constructible_from&lt;decay_t&lt;F&gt;, F&gt; &amp;&amp;
+    move_constructible&lt;decay_t&lt;F&gt;&gt; &amp;&amp;
+    copy_constructible&lt;E&gt; &amp;&amp;
+    is_nothrow_copy_constructible_v&lt;E&gt; &amp;&amp;
+    equality_comparable&lt;E&gt; /* nothrow */ &amp;&amp;
+    requires(const E&amp; e, F&amp;&amp; f) {
+      execution::execute(e, (F&amp;&amp;)f);
+    };
+</pre>
+<p>
+        Then the <code class="computeroutput">executor</code> and <code class="computeroutput">executor_of</code> concepts are
+        defined as follows:
+      </p>
+<pre class="programlisting">template&lt;class E&gt;
+  concept executor =
+    executor-of-impl&lt;E, execution::invocable_archetype&gt;;
+
+template&lt;class E, class F&gt;
+  concept executor_of =
+    executor&lt;E&gt; &amp;&amp;
+    executor-of-impl&lt;E, F&gt;;
+</pre>
+<p>
+        Neither an executor's equality comparison nor <code class="computeroutput">swap</code> operation
+        shall exit via an exception.
+      </p>
+<p>
+        None of an executor type's copy constructor, destructor, equality comparison,
+        <code class="computeroutput">swap</code> function, <code class="computeroutput">execute</code> function, or associated
+        <code class="computeroutput">query</code> functions shall introduce data races as a result of concurrent
+        invocations of those functions from different threads.
+      </p>
+<p>
+        For any two (possibly const) values <code class="computeroutput">x1</code> and <code class="computeroutput">x2</code> of
+        some executor type <code class="computeroutput">X</code>, <code class="computeroutput">x1 == x2</code> shall return <code class="computeroutput">true</code>
+        only if <code class="computeroutput">boost::asio::query(x1,p) == boost::asio::query(x2,p)</code>
+        for every property <code class="computeroutput">p</code> where both <code class="computeroutput">boost::asio::query(x1,p)</code>
+        and <code class="computeroutput">boost::asio::query(x2,p)</code> are well-formed and result in a
+        non-void type that is <code class="computeroutput">equality_comparable</code> (C++Std [equalitycomparable]).
+        [<span class="emphasis"><em>Note:</em></span> The above requirements imply that <code class="computeroutput">x1 ==
+        x2</code> returns <code class="computeroutput">true</code> if <code class="computeroutput">x1</code> and <code class="computeroutput">x2</code>
+        can be interchanged with identical effects. An executor may conceptually
+        contain additional properties which are not exposed by a named property type
+        that can be observed via <code class="computeroutput">boost::asio::query</code>; in this case, it
+        is up to the concrete executor implementation to decide if these properties
+        affect equality. Returning <code class="computeroutput">false</code> does not necessarily imply
+        that the effects are not identical. —<span class="emphasis"><em>end note</em></span>]
+      </p>
+<p>
+        An executor type's destructor shall not block pending completion of the submitted
+        function objects. [<span class="emphasis"><em>Note:</em></span> The ability to wait for completion
+        of submitted function objects may be provided by the associated execution
+        context. —<span class="emphasis"><em>end note</em></span>]
+      </p>
+<p>
+        In addition to the above requirements, types <code class="computeroutput">E</code> and <code class="computeroutput">F</code>
+        model <code class="computeroutput">executor_of</code> only if they satisfy the requirements of the
+        Table below.
+      </p>
+<p>
+        Let:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+            <code class="computeroutput">e</code> denotes a (possibly const) executor object of type <code class="computeroutput">E</code>,
+          </li>
+<li class="listitem">
+            <code class="computeroutput">cf</code> denotes the function object <code class="computeroutput">DECAY_COPY(std::forward&lt;F&gt;(f))</code>
+          </li>
+<li class="listitem">
+            <code class="computeroutput">f</code> denotes a function of type <code class="computeroutput">F&amp;&amp;</code> invocable
+            as <code class="computeroutput">cf()</code> and where <code class="computeroutput">decay_t&lt;F&gt;</code> models
+            <code class="computeroutput">move_constructible</code>.
+          </li>
+</ul></div>
+<p>
+        The expression <code class="computeroutput">execution::execute(e, f)</code>:
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+            Evaluates <code class="computeroutput">DECAY_COPY(std::forward&lt;F&gt;(f))</code> on the calling
+            thread to create <code class="computeroutput">cf</code> that will be invoked at most once by
+            an execution agent.
+          </li>
+<li class="listitem">
+            May block pending completion of this invocation. Synchronizes with [intro.multithread]
+            the invocation of <code class="computeroutput">f</code>.
+          </li>
+<li class="listitem">
+            Shall not propagate any exception thrown by the function object or any
+            other function submitted to the executor.
+          </li>
+</ul></div>
+<p>
+        [<span class="emphasis"><em>Note:</em></span> The treatment of exceptions thrown by one-way
+        submitted functions is implementation-defined. The forward progress guarantee
+        of the associated execution agent(s) is implementation-defined. —<span class="emphasis"><em>end
+        note</em></span>]
+      </p>
+<h5>
+<a name="boost_asio.reference.Executor1.h1"></a>
+        <span class="phrase"><a name="boost_asio.reference.Executor1.networking_ts_style_executors"></a></span><a class="link" href="Executor1.html#boost_asio.reference.Executor1.networking_ts_style_executors">Networking
+        TS-style executors</a>
+      </h5>
 <p>
         The library describes a standard set of requirements for <span class="emphasis"><em>executors</em></span>.
         A type meeting the <code class="computeroutput">Executor</code> requirements embodies a set of rules
