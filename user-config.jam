@@ -1,0 +1,1 @@
+using zlib : 1.2.11 : <search>ZLIB_LIB_PATH <name>ZLIB_LIB_NAME <include>ZLIB_INCLUDE_PATH ;
