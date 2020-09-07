@@ -57,7 +57,7 @@ source_environment_tempfile="$stage/source_environment.sh"
 
 # Explicitly request each of the libraries named in BOOST_LIBS.
 # Use magic bash syntax to prefix each entry in BOOST_LIBS with "--with-".
-BOOST_BJAM_OPTIONS="address-model=$AUTOBUILD_ADDRSIZE architecture=x86 link=static --layout=tagged -sNO_BZIP2=1 \
+BOOST_BJAM_OPTIONS="address-model=$AUTOBUILD_ADDRSIZE architecture=x86 --layout=tagged -sNO_BZIP2=1 \
                     ${BOOST_LIBS[*]/#/--with-}"
 
 # Turn these into a bash array: it's important that all of cxxflags (which
@@ -131,7 +131,6 @@ run_tests()
         # read individual directories from stdin below
         while read testdir
         do  sep "$testdir"
-             link=static
             "${bjam}" "$testdir" "$@"
         done < /dev/stdin
     fi
@@ -181,11 +180,11 @@ print(since(start, now), ' $* '.center(72, '='), file=sys.stderr)
 case "$AUTOBUILD_PLATFORM" in
 
     windows*)
-        INCLUDE_PATH="$(native "${stage}"/packages/include)"
-        ZLIB_RELEASE_PATH="$(native "${stage}"/packages/lib/release)"
-        ICU_PATH="$(native "${stage}"/packages)"
+        INCLUDE_PATH="$(cygpath -m "${stage}"/packages/include)"
+        ZLIB_DEBUG_PATH="$(cygpath -m "${stage}"/packages/lib/debug)"
+        ZLIB_RELEASE_PATH="$(cygpath -m "${stage}"/packages/lib/release)"
 
-        case "$AUTOBUILD_VSVER" in
+        case "$AUTOBUILD_WIN_VSVER" in
             120)
                 bootstrapver="vc12"
                 bjamtoolset="msvc-12.0"
@@ -225,22 +224,33 @@ case "$AUTOBUILD_PLATFORM" in
         # https://www.boost.org/doc/libs/release/doc/html/stacktrace/configuration_and_build.html
         # This helps avoid macro collisions in consuming source files:
         # https://github.com/boostorg/stacktrace/issues/76#issuecomment-489347839
-        WINDOWS_BJAM_OPTIONS=("--toolset=$bjamtoolset" -j2 \
-            --abbreviate-paths 
-            "include=$INCLUDE_PATH" "-sICU_PATH=$ICU_PATH" \
-            "-sZLIB_INCLUDE=$INCLUDE_PATH/zlib" \
-            cxxflags=/FS \
-            cxxflags=/DBOOST_STACKTRACE_LINK \
-            "${BOOST_BJAM_OPTIONS[@]}")
+        WINDOWS_BJAM_OPTIONS=(link=shared runtime-link=shared \
+        debug-symbols=on \
+        debug-store=database \
+        pch=off \
+        --toolset=$bjamtoolset \
+        -j$NUMBER_OF_PROCESSORS \
+        --hash \
+        include=$INCLUDE_PATH \
+        cxxflags=/std:c++17 \
+        cxxflags=/permissive- \
+        cxxflags=/FS \
+        define=BOOST_STACKTRACE_LINK \
+        define=ZLIB_DLL \
+        "${BOOST_BJAM_OPTIONS[@]}")
 
-        RELEASE_BJAM_OPTIONS=("${WINDOWS_BJAM_OPTIONS[@]}" \
-            "-sZLIB_LIBPATH=$ZLIB_RELEASE_PATH" \
-            "-sZLIB_LIBRARY_PATH=$ZLIB_RELEASE_PATH" \
-            "-sZLIB_NAME=zlib")
-        sep "build"
-        "${bjam}" link=static variant=release \
-            --prefix="$(native "${stage}")" --libdir="$(native "${stage_release}")" \
-            "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
+        DEBUG_BJAM_OPTIONS=("${WINDOWS_BJAM_OPTIONS[@]}" variant=debug)
+
+        cp "$top/user-config.jam" user-config.jam
+        sed -i -e "s#ZLIB_LIB_PATH#${ZLIB_DEBUG_PATH}#g" user-config.jam
+        sed -i -e "s#ZLIB_LIB_NAME#zlibd#g" user-config.jam
+        sed -i -e "s#ZLIB_INCLUDE_PATH#${INCLUDE_PATH}/zlib#g" user-config.jam
+
+        USER_CONFIG="$(cygpath -m -a ./user-config.jam)"
+
+        sep "debugbuild"
+        "${bjam}" --prefix="$(cygpath -m  ${stage})" --libdir="$(cygpath -m  ${stage_debug})" \
+            "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM define=BOOST_ALL_DYN_LINK --user-config="$USER_CONFIG" -a -q stage
 
         # Constraining Windows unit tests to link=static produces unit-test
         # link errors. While it may be possible to edit the test/Jamfile.v2
@@ -265,12 +275,62 @@ case "$AUTOBUILD_PLATFORM" in
              -e 'stacktrace/' \
              -e 'thread/' \
              | \
-        run_tests variant=release \
-                  --prefix="$(native "${stage}")" --libdir="$(native "${stage_release}")" \
-                  $RELEASE_BJAM_OPTIONS $BOOST_BUILD_SPAM -a -q
+        run_tests \
+                  --prefix="$(native "${stage}")" --libdir="$(native "${stage_debug}")" \
+                  "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q
 
         # Move the libs
+        mv "${stage_lib}"/*.dll "${stage_debug}"
+        mv "${stage_lib}"/*.lib "${stage_debug}"
+        mv "${stage_lib}"/*.pdb "${stage_debug}"
+
+        sep "clean"
+        "${bjam}" --clean-all
+
+        RELEASE_BJAM_OPTIONS=("${WINDOWS_BJAM_OPTIONS[@]}" variant=release optimization=speed lto=on lto-mode=full)
+
+        cp "$top/user-config.jam" user-config.jam
+        sed -i -e "s#ZLIB_LIB_PATH#${ZLIB_RELEASE_PATH}#g" user-config.jam
+        sed -i -e "s#ZLIB_LIB_NAME#zlib#g" user-config.jam
+        sed -i -e "s#ZLIB_INCLUDE_PATH#${INCLUDE_PATH}/zlib#g" user-config.jam
+
+        USER_CONFIG="$(cygpath -m -a ./user-config.jam)"
+
+        sep "releasebuild"
+        "${bjam}" --prefix="$(cygpath -m  ${stage})" --libdir="$(cygpath -m  ${stage_release})" \
+            "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM define=BOOST_ALL_DYN_LINK --user-config="$USER_CONFIG" -a -q stage
+
+        # Constraining Windows unit tests to link=static produces unit-test
+        # link errors. While it may be possible to edit the test/Jamfile.v2
+        # logic in such a way as to succeed statically, it's simpler to allow
+        # dynamic linking for test purposes. However -- with dynamic linking,
+        # some test executables expect to implicitly load a couple of ICU
+        # DLLs. But our installed ICU doesn't even package those DLLs!
+        # TODO: Does this clutter our eventual tarball, or are the extra Boost
+        # DLLs in a separate build directory?
+        # In any case, we still observe failures in certain libraries' unit
+        # tests. Certain libraries depend on ICU; thread tests are so deeply
+        # nested that even with --abbreviate-paths, the .rsp file pathname is
+        # too long for Windows. Poor sad broken Windows.
+
+        # conditionally run unit tests
+        find_test_dirs "${BOOST_LIBS[@]}" | \
+        grep -v \
+             -e 'date_time/' \
+             -e 'filesystem/' \
+             -e 'iostreams/' \
+             -e 'regex/' \
+             -e 'stacktrace/' \
+             -e 'thread/' \
+             | \
+        run_tests \
+                  --prefix="$(native "${stage}")" --libdir="$(native "${stage_release}")" \
+                  $RELEASE_BJAM_OPTIONS $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q
+
+        # Move the libs
+        mv "${stage_lib}"/*.dll "${stage_release}"
         mv "${stage_lib}"/*.lib "${stage_release}"
+        mv "${stage_lib}"/*.pdb "${stage_release}"
 
         sep "version"
         # bjam doesn't need vsvars, but our hand compilation does
@@ -306,6 +366,7 @@ case "$AUTOBUILD_PLATFORM" in
         # Building Boost.Regex without --disable-icu causes the viewer link to
         # fail for lack of an ICU library.
         DARWIN_BJAM_OPTIONS=("${BOOST_BJAM_OPTIONS[@]}" \
+            link=static \
             "include=${stage}/packages/include" \
             "include=${stage}/packages/include/zlib/" \
             "-sZLIB_INCLUDE=${stage}/packages/include/zlib/" \
@@ -370,7 +431,7 @@ case "$AUTOBUILD_PLATFORM" in
         sep "bootstrap"
         ./bootstrap.sh --prefix=$(pwd) --without-icu
 
-        DEBUG_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc "include=$stage/packages/include/zlib/" \
+        DEBUG_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc link=static debug-symbols=on "include=$stage/packages/include/zlib/" \
             "-sZLIB_LIBPATH=$stage/packages/lib/debug" \
             "-sZLIB_INCLUDE=${stage}\/packages/include/zlib/" \
             "${BOOST_BJAM_OPTIONS[@]}" \
@@ -401,7 +462,7 @@ case "$AUTOBUILD_PLATFORM" in
         sep "clean"
         "${bjam}" --clean
 
-        RELEASE_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc "include=$stage/packages/include/zlib/" \
+        RELEASE_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc link=static debug-symbols=on "include=$stage/packages/include/zlib/" \
             "-sZLIB_LIBPATH=$stage/packages/lib/release" \
             "-sZLIB_INCLUDE=${stage}\/packages/include/zlib/" \
             "${BOOST_BJAM_OPTIONS[@]}" \
