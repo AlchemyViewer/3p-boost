@@ -194,6 +194,10 @@ case "$AUTOBUILD_PLATFORM" in
                 bootstrapver="vc141"
                 bjamtoolset="msvc-14.1"
                 ;;
+            16*)
+                bootstrapver="vc142"
+                bjamtoolset="msvc-14.2"
+                ;;
             *)
                 echo "Unrecognized AUTOBUILD_VSVER='$AUTOBUILD_VSVER'" 1>&2 ; exit 1
                 ;;
