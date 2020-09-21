@@ -450,6 +450,7 @@ case "$AUTOBUILD_PLATFORM" in
         find_test_dirs "${BOOST_LIBS[@]}" | \
         grep -v \
              -e 'atomic/' \
+             -e 'chrono/' \
              -e 'date_time/' \
              -e 'filesystem/test/issues' \
              -e 'regex/test/de_fuzz' \
@@ -482,6 +483,7 @@ case "$AUTOBUILD_PLATFORM" in
         find_test_dirs "${BOOST_LIBS[@]}" | \
         grep -v \
              -e 'atomic/' \
+             -e 'chrono/' \
              -e 'date_time/' \
              -e 'filesystem/test/issues' \
              -e 'regex/test/de_fuzz' \
