@@ -22,7 +22,7 @@ fi
 BOOST_LIBS=(atomic chrono context date_time fiber filesystem iostreams program_options \
             regex stacktrace system thread wave)
 
-BOOST_BUILD_SPAM="-d2 -d+4"             # -d0 is quiet, "-d2 -d+4" allows compilation to be examined
+BOOST_BUILD_SPAM=""             # -d0 is quiet, "-d2 -d+4" allows compilation to be examined
 
 top="$(pwd)"
 cd "$BOOST_SOURCE_DIR"
