@@ -452,7 +452,7 @@ case "$AUTOBUILD_PLATFORM" in
              -e 'atomic/' \
              -e 'chrono/' \
              -e 'date_time/' \
-             -e 'filesystem/test/issues' \
+             -e 'filesystem/' \
              -e 'regex/test/de_fuzz' \
             | \
         run_tests variant=debug -a -q \
@@ -485,7 +485,7 @@ case "$AUTOBUILD_PLATFORM" in
              -e 'atomic/' \
              -e 'chrono/' \
              -e 'date_time/' \
-             -e 'filesystem/test/issues' \
+             -e 'filesystem/' \
              -e 'regex/test/de_fuzz' \
             | \
         run_tests variant=release -a -q \
