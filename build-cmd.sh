@@ -453,6 +453,7 @@ case "$AUTOBUILD_PLATFORM" in
              -e 'chrono/' \
              -e 'date_time/' \
              -e 'filesystem/' \
+             -e 'iostreams/' \
              -e 'regex/test/de_fuzz' \
             | \
         run_tests variant=debug -a -q \
@@ -486,6 +487,7 @@ case "$AUTOBUILD_PLATFORM" in
              -e 'chrono/' \
              -e 'date_time/' \
              -e 'filesystem/' \
+             -e 'iostreams/' \
              -e 'regex/test/de_fuzz' \
             | \
         run_tests variant=release -a -q \
