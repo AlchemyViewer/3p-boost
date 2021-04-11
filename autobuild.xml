@@ -103,7 +103,7 @@
     <key>package_description</key>
     <map>
       <key>canonical_repo</key>
-      <string>https://bitbucket.org/lindenlab/3p-boost</string>
+      <string>https://git.alchemyviewer.org/alchemy/thirdparty/3p-boost</string>
       <key>copyright</key>
       <string>(see individual source files)</string>
       <key>description</key>
@@ -142,7 +142,6 @@
           <array>
             <string>LICENSES/boost.txt</string>
             <string>include/boost/*</string>
-            <string>docs/boost/README.Linden</string>
           </array>
           <key>name</key>
           <string>common</string>
@@ -164,6 +163,7 @@
           </map>
           <key>manifest</key>
           <array>
+            <string>lib/debug/*.a</string>
             <string>lib/release/*.a</string>
           </array>
           <key>name</key>
