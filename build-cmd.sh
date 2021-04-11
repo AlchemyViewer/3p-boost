@@ -235,7 +235,6 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
              exit 1
         fi
 
-        # Windows build of viewer expects /Zc:wchar_t-, etc., from LL_BUILD_RELEASE.
         # Without --abbreviate-paths, some compilations fail with:
         # failed to write output file 'some\long\path\something.rsp'!
         # Without /FS, some compilations fail with:
@@ -245,19 +244,15 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # https://www.boost.org/doc/libs/release/doc/html/stacktrace/configuration_and_build.html
         # This helps avoid macro collisions in consuming source files:
         # https://github.com/boostorg/stacktrace/issues/76#issuecomment-489347839
-        WINDOWS_BJAM_OPTIONS=(link=shared runtime-link=shared \
+        WINDOWS_BJAM_OPTIONS=(link=static runtime-link=shared \
+        cxxstd=17 \
         debug-symbols=on \
-        debug-store=database \
-        pch=off \
         --toolset=$bjamtoolset \
         -j$NUMBER_OF_PROCESSORS \
         --hash \
         include=$INCLUDE_PATH \
         cxxflags=/std:c++17 \
         cxxflags=/permissive- \
-        cxxflags=/FS \
-        define=BOOST_STACKTRACE_LINK \
-        define=ZLIB_DLL \
         "${BOOST_BJAM_OPTIONS[@]}")
 
         DEBUG_BJAM_OPTIONS=("${WINDOWS_BJAM_OPTIONS[@]}" variant=debug)
@@ -271,7 +266,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
 
         sep "debugbuild"
         "${bjam}" --prefix="$(cygpath -m  ${stage})" --libdir="$(cygpath -m  ${stage_debug})" \
-            "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM define=BOOST_ALL_DYN_LINK --user-config="$USER_CONFIG" -a -q stage
+            "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q stage
 
         # Constraining Windows unit tests to link=static produces unit-test
         # link errors. While it may be possible to edit the test/Jamfile.v2
@@ -301,14 +296,12 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
                   "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q
 
         # Move the libs
-        mv "${stage_lib}"/*.dll "${stage_debug}"
         mv "${stage_lib}"/*.lib "${stage_debug}"
-        mv "${stage_lib}"/*.pdb "${stage_debug}"
 
         sep "clean"
         "${bjam}" --clean-all
 
-        RELEASE_BJAM_OPTIONS=("${WINDOWS_BJAM_OPTIONS[@]}" variant=release optimization=speed lto=on lto-mode=full)
+        RELEASE_BJAM_OPTIONS=("${WINDOWS_BJAM_OPTIONS[@]}" variant=release optimization=speed)
 
         cp "$top/user-config.jam" user-config.jam
         sed -i -e "s#ZLIB_LIB_PATH#${ZLIB_RELEASE_PATH}#g" user-config.jam
@@ -319,7 +312,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
 
         sep "releasebuild"
         "${bjam}" --prefix="$(cygpath -m  ${stage})" --libdir="$(cygpath -m  ${stage_release})" \
-            "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM define=BOOST_ALL_DYN_LINK --user-config="$USER_CONFIG" -a -q stage
+            "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q stage
 
         # Constraining Windows unit tests to link=static produces unit-test
         # link errors. While it may be possible to edit the test/Jamfile.v2
@@ -349,9 +342,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
                   $RELEASE_BJAM_OPTIONS $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q
 
         # Move the libs
-        mv "${stage_lib}"/*.dll "${stage_release}"
         mv "${stage_lib}"/*.lib "${stage_release}"
-        mv "${stage_lib}"/*.pdb "${stage_release}"
 
         sep "version"
         # bjam doesn't need vsvars, but our hand compilation does
