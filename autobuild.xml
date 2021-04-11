@@ -3,66 +3,46 @@
 <map>
     <key>installables</key>
     <map>
-      <key>zlib</key>
+      <key>zlib-ng</key>
       <map>
+        <key>canonical_repo</key>
+        <string>https://git.alchemyviewer.org/alchemy/thirdparty/3p-zlib-ng</string>
         <key>copyright</key>
         <string>Copyright (C) 1995-2017 Jean-loup Gailly and Mark Adler</string>
         <key>description</key>
-        <string>Zlib Data Compression Library</string>
+        <string>zlib replacement with optimizations for next generation systems.</string>
         <key>license</key>
         <string>zlib</string>
         <key>license_file</key>
-        <string>LICENSES/zlib.txt</string>
+        <string>LICENSES/zlib-ng.txt</string>
         <key>name</key>
-        <string>zlib</string>
+        <string>zlib-ng</string>
         <key>platforms</key>
         <map>
-          <key>darwin</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>1a79eeac199c2d94e4ae4e5d0194e25f</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/zlib_3p-update-zlib/rev/296881/arch/Darwin/installer/zlib-1.2.8.296881-darwin-296881.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>darwin</string>
-          </map>
           <key>darwin64</key>
           <map>
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>9785bda5b4d3b41bf391b33d0da78c9e</string>
+              <string>46f2b2cca79ea9f60b15efba3a5a844538739d212b306a1e835ea089cbb780643f76f24b0edda1ef83093fe166f21cd4</string>
+              <key>hash_algorithm</key>
+              <string>sha3_384</string>
               <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/ct2/54858/510190/zlib-1.2.8.538988-darwin64-538988.tar.bz2</string>
+              <string>https://git.alchemyviewer.org/api/v4/projects/148/packages/generic/zlib-ng-777/2.0.2/zlib_ng-2.0.2-darwin64-777.tar.xz</string>
             </map>
             <key>name</key>
             <string>darwin64</string>
-          </map>
-          <key>linux</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>98a8c775c581ca80bb559e8b4e8eaae7</string>
-              <key>url</key>
-              <string>http://automated-builds-secondlife-com.s3.amazonaws.com/hg/repo/p64_3p-zlib/rev/314131/arch/Linux/installer/zlib-1.2.8.314131-linux-314131.tar.bz2</string>
-            </map>
-            <key>name</key>
-            <string>linux</string>
           </map>
           <key>linux64</key>
           <map>
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>5d7866be22eaca6d38cfd0bb4e411fb0</string>
+              <string>24525c88896f643ccf48bc143058b84df684c79238218939ddf2823ae53e86538b1f9cefb44ef5c1cc285fc7e493726e</string>
               <key>hash_algorithm</key>
-              <string>md5</string>
+              <string>sha3_384</string>
               <key>url</key>
-              <string>https://pkg.alchemyviewer.org/repository/autobuild-external/zlib/linux64/debian10/zlib-1.2.11.202200500-linux64-202200500.tar.bz2</string>
+              <string>https://git.alchemyviewer.org/api/v4/projects/148/packages/generic/zlib-ng-777/2.0.2/zlib_ng-2.0.2-linux64-777.tar.xz</string>
             </map>
             <key>name</key>
             <string>linux64</string>
@@ -72,11 +52,11 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>23ba44e15affc13b15717f02d98ed61e</string>
+              <string>008e3d0697cc605482bbaa592c301277de695199a1ac6cf089aae60cd8acf39087a448e4da033bfc68beb02815d56858</string>
               <key>hash_algorithm</key>
-              <string>md5</string>
+              <string>sha3_384</string>
               <key>url</key>
-              <string>https://pkg.alchemyviewer.org/repository/autobuild-external/zlib/windows/zlib-1.2.11.308-windows-308.tar.bz2</string>
+              <string>https://git.alchemyviewer.org/api/v4/projects/148/packages/generic/zlib-ng-777/2.0.2/zlib_ng-2.0.2-windows-777.tar.xz</string>
             </map>
             <key>name</key>
             <string>windows</string>
@@ -86,18 +66,18 @@
             <key>archive</key>
             <map>
               <key>hash</key>
-              <string>b231c0fd98a151a66c890a4bb29cfea3</string>
+              <string>4a938312def98bfdc9f0cde05e1ff20800b7c2df3c59a55fb858e5087859121882fcfc1cf14e7d422584c1595d110840</string>
               <key>hash_algorithm</key>
-              <string>md5</string>
+              <string>sha3_384</string>
               <key>url</key>
-              <string>https://pkg.alchemyviewer.org/repository/autobuild-external/zlib/windows64/zlib-1.2.11.308-windows64-308.tar.bz2</string>
+              <string>https://git.alchemyviewer.org/api/v4/projects/148/packages/generic/zlib-ng-777/2.0.2/zlib_ng-2.0.2-windows64-777.tar.xz</string>
             </map>
             <key>name</key>
             <string>windows64</string>
           </map>
         </map>
         <key>version</key>
-        <string>1.2.11.308</string>
+        <string>2.0.2</string>
       </map>
     </map>
     <key>package_description</key>
@@ -209,8 +189,8 @@
           </map>
           <key>manifest</key>
           <array>
-            <string>lib/debug/*.*</string>
-            <string>lib/release/*.*</string>
+            <string>lib/debug/*.lib</string>
+            <string>lib/release/*.lib</string>
           </array>
           <key>name</key>
           <string>windows</string>
