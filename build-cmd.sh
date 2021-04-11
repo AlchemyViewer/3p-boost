@@ -355,7 +355,8 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
            /Fe"$(native "$stage/version.exe")" \
            "$(native "$top/version.c")"
         # Boost's VERSION_MACRO emits (e.g.) "1_55"
-        "$stage/version.exe" | tr '_' '.' > "$stage/version.txt"
+        localver=`$stage/version.exe | tr '_' '.' | tr -d '\15\32'`
+        echo "${localver}.0" > "$stage/version.txt"
         rm "$stage"/version.{obj,exe}
         ;;
 
