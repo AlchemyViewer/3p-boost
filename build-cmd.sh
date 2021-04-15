@@ -400,8 +400,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
             --disable-icu \
             --user-config="$PWD/project-config.jam")
 
-        DEBUG_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" \
-            variant=debug optimization=off)
+        DEBUG_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" variant=debug optimization=off)
 
         sep "Debug Build"
         "${bjam}" toolset=darwin "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
@@ -440,8 +439,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         sep "Debug Clean"
         "${bjam}" --clean
 
-        RELEASE_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" \
-            variant=release optimization=speed)
+        RELEASE_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" variant=release optimization=speed)
 
         sep "Release Build"
         "${bjam}" toolset=darwin "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
@@ -486,7 +484,8 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
            -DVERSION_MACRO="$VERSION_MACRO" \
            -o "$stage/version" "$top/version.c"
         # Boost's VERSION_MACRO emits (e.g.) "1_55"
-        "$stage/version" | tr '_' '.' > "$stage/version.txt"
+        localver=`$stage/version | tr '_' '.' | tr -d '\15\32'`
+        echo "${localver}.0" > "$stage/version.txt"
         rm "$stage/version"
         ;;
 
