@@ -19,7 +19,7 @@ if [ -z "$AUTOBUILD" ] ; then
 fi
 
 # Libraries on which we depend - please keep alphabetized for maintenance
-BOOST_LIBS=(atomic chrono context date_time fiber filesystem iostreams program_options \
+BOOST_LIBS=(atomic chrono context date_time fiber filesystem iostreams nowide program_options \
             regex stacktrace system thread wave)
 
 BOOST_BUILD_SPAM=""             # -d0 is quiet, "-d2 -d+4" allows compilation to be examined
@@ -423,11 +423,12 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         find_test_dirs "${BOOST_LIBS[@]}" | \
         grep -v \
              -e 'date_time/' \
-             -e 'filesystem/test/issues' \
+             -e 'filesystem/' \
              -e 'iostreams/' \
              -e 'program_options/' \
-             -e 'regex/test/de_fuzz' \
+             -e 'regex/' \
              -e 'stacktrace/' \
+             -e 'thread/' \
             | \
         run_tests toolset=darwin -a -q \
                   "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
@@ -462,11 +463,12 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         find_test_dirs "${BOOST_LIBS[@]}" | \
         grep -v \
              -e 'date_time/' \
-             -e 'filesystem/test/issues' \
+             -e 'filesystem/' \
              -e 'iostreams/' \
              -e 'program_options/' \
-             -e 'regex/test/de_fuzz' \
+             -e 'regex/' \
              -e 'stacktrace/' \
+             -e 'thread/' \
             | \
         run_tests toolset=darwin -a -q \
                   "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
