@@ -57,7 +57,7 @@ source_environment_tempfile="$stage/source_environment.sh"
 
 # Explicitly request each of the libraries named in BOOST_LIBS.
 # Use magic bash syntax to prefix each entry in BOOST_LIBS with "--with-".
-BOOST_BJAM_OPTIONS="address-model=$AUTOBUILD_ADDRSIZE architecture=x86 --layout=tagged -sNO_BZIP2=1 \
+BOOST_BJAM_OPTIONS="address-model=$AUTOBUILD_ADDRSIZE architecture=x86 --layout=tagged -sNO_BZIP2=1 -sNO_LZMA=1 -sNO_ZSTD=1 \
                     ${BOOST_LIBS[*]/#/--with-}"
 
 # Turn these into a bash array: it's important that all of cxxflags (which
@@ -165,17 +165,6 @@ print('((((( %s )))))' % since(last, now), file=sys.stderr)
 print(since(start, now), ' $* '.center(72, '='), file=sys.stderr)
 "
 }
-
-# bjam doesn't support a -sICU_LIBPATH to point to the location
-# of the icu libraries like it does for zlib. Instead, it expects
-# the library files to be immediately in the ./lib directory
-# and the headers to be in the ./include directory and doesn't
-# provide a way to work around this. Because of this, we break
-# the standard packaging layout, with the debug library files
-# in ./lib/debug and the release in ./lib/release and instead
-# only package the release build of icu4c in the ./lib directory.
-# If a way to work around this is found, uncomment the
-# corresponding blocks in the icu4c build and fix it here.
 
 case "$AUTOBUILD_PLATFORM" in
 
@@ -361,6 +350,11 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         ;;
 
     darwin*)
+        # Setup osx sdk platform
+        SDKNAME="macosx"
+        export SDKROOT=$(xcodebuild -version -sdk ${SDKNAME} Path)
+        export MACOSX_DEPLOYMENT_TARGET=10.13
+
         # Force zlib static linkage by moving .dylibs out of the way
         trap restore_dylibs EXIT
         for dylib in "${stage}"/packages/lib/{debug,release}/*.dylib; do
@@ -369,9 +363,18 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
             fi
         done
 
-        sep "bootstrap"
+        INCLUDE_PATH="${stage}/packages/include"
+        ZLIB_DEBUG_PATH="${stage}/packages/lib/debug"
+        ZLIB_RELEASE_PATH="${stage}/packages/lib/release"
+
+        cp "$top/user-config.jam" project-config.jam
+        sed -e "s#ZLIB_LIB_PATH#${ZLIB_DEBUG_PATH}#g" -i back project-config.jam
+        sed -e "s#ZLIB_LIB_NAME#z#g" -i back project-config.jam
+        sed -e "s#ZLIB_INCLUDE_PATH#${INCLUDE_PATH}/zlib#g" -i back project-config.jam
+
+        sep "Bootstrap"
         stage_lib="${stage}"/lib
-        ./bootstrap.sh --prefix=$(pwd) --with-icu="${stage}"/packages
+        ./bootstrap.sh --prefix=$(pwd)
 
         # Boost.Context and Boost.Coroutine2 now require C++14 support.
         # Without the -Wno-etc switches, clang spams the build output with
@@ -380,20 +383,28 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # fail for lack of an ICU library.
         DARWIN_BJAM_OPTIONS=("${BOOST_BJAM_OPTIONS[@]}" \
             link=static \
+            cxxstd=17 \
+            debug-symbols=on \
+            cxxflags=-std=c++17 \
+            "cxxflags=-isysroot ${SDKROOT}" \
+            cxxflags=-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET} \
+            cxxflags=-msse4.2
+            cxxflags=-fPIC
+           "cflags=-isysroot ${SDKROOT}" \
+            cflags=-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET} \
+            cflags=-msse4.2
+            cflags=-fPIC
             "include=${stage}/packages/include" \
             "include=${stage}/packages/include/zlib/" \
             "-sZLIB_INCLUDE=${stage}/packages/include/zlib/" \
-            cxxflags=-std=c++14 \
-            cxxflags=-Wno-c99-extensions cxxflags=-Wno-variadic-macros \
-            cxxflags=-Wno-unused-function cxxflags=-Wno-unused-const-variable \
-            cxxflags=-Wno-unused-local-typedef \
-            --disable-icu)
+            --disable-icu \
+            --user-config="$PWD/project-config.jam")
 
-        RELEASE_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" \
-            "-sZLIB_LIBPATH=${stage}/packages/lib/release")
+        DEBUG_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" \
+            variant=debug optimization=off)
 
-        sep "build"
-        "${bjam}" toolset=darwin variant=release "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
+        sep "Debug Build"
+        "${bjam}" toolset=darwin "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
 
         # conditionally run unit tests
         # date_time Posix test failures: https://svn.boost.org/trac/boost/ticket/10570
@@ -408,22 +419,67 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # seem ready for prime time on Mac.
         # Bump the timeout for Boost.Thread tests because our TeamCity Mac
         # build hosts are getting a bit long in the tooth.
+        sep "Debug Tests"
         find_test_dirs "${BOOST_LIBS[@]}" | \
         grep -v \
              -e 'date_time/' \
              -e 'filesystem/test/issues' \
+             -e 'iostreams/' \
+             -e 'program_options/' \
              -e 'regex/test/de_fuzz' \
              -e 'stacktrace/' \
             | \
-        run_tests toolset=darwin variant=release -a -q \
+        run_tests toolset=darwin -a -q \
+                  "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
+                  cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
+                  cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
+
+        mv "${stage_lib}"/*.a "${stage_debug}"
+
+        sep "Debug Clean"
+        "${bjam}" --clean
+
+        RELEASE_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" \
+            variant=release optimization=speed)
+
+        sep "Release Build"
+        "${bjam}" toolset=darwin "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
+
+        # conditionally run unit tests
+        # date_time Posix test failures: https://svn.boost.org/trac/boost/ticket/10570
+        # With Boost 1.64, skip filesystem/tests/issues -- we get:
+        # error: Unable to find file or target named
+        # error:     '6638-convert_aux-fails-init-global.cpp'
+        # error: referred to from project at
+        # error:     'libs/filesystem/test/issues'
+        # regex/tests/de_fuzz depends on an external Fuzzer library:
+        # ld: library not found for -lFuzzer
+        # Sadly, as of Boost 1.65.1, the Stacktrace self-tests just do not
+        # seem ready for prime time on Mac.
+        # Bump the timeout for Boost.Thread tests because our TeamCity Mac
+        # build hosts are getting a bit long in the tooth.
+        sep "Release Tests"
+        find_test_dirs "${BOOST_LIBS[@]}" | \
+        grep -v \
+             -e 'date_time/' \
+             -e 'filesystem/test/issues' \
+             -e 'iostreams/' \
+             -e 'program_options/' \
+             -e 'regex/test/de_fuzz' \
+             -e 'stacktrace/' \
+            | \
+        run_tests toolset=darwin -a -q \
                   "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
                   cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
                   cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
 
         mv "${stage_lib}"/*.a "${stage_release}"
 
+        sep "Release Clean"
+        "${bjam}" --clean
+
         # populate version_file
-        sep "version"
+        sep "Version"
         cc -DVERSION_HEADER_FILE="\"$VERSION_HEADER_FILE\"" \
            -DVERSION_MACRO="$VERSION_MACRO" \
            -o "$stage/version" "$top/version.c"
@@ -444,13 +500,15 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         sep "bootstrap"
         ./bootstrap.sh --prefix=$(pwd) --without-icu
 
-        DEBUG_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc link=static debug-symbols=on "include=$stage/packages/include/zlib/" \
+        DEBUG_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc link=static debug-symbols=on \
+            "include=${stage}/packages/include" \
+            "include=${stage}/packages/include/zlib/" \
             "-sZLIB_LIBPATH=$stage/packages/lib/debug" \
             "-sZLIB_INCLUDE=${stage}\/packages/include/zlib/" \
             "${BOOST_BJAM_OPTIONS[@]}" \
             "cflags=-Og" "cflags=-fPIC" "cflags=-DPIC" "cflags=-g" \
             "cxxflags=-std=c++17" "cxxflags=-Og" "cxxflags=-fPIC" "cxxflags=-DPIC" "cxxflags=-g")
-        sep "build"
+        sep "Debug Build"
         "${bjam}" variant=debug --reconfigure \
             --prefix="${stage}" --libdir="${stage}"/lib/debug \
             "${DEBUG_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
@@ -460,6 +518,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # libs/regex/test/de_fuzz produces:
         # error: "clang" is not a known value of feature <toolset>
         # error: legal values: "gcc"
+        sep "Debug Tests"
         find_test_dirs "${BOOST_LIBS[@]}" | \
         grep -v \
              -e 'atomic/' \
@@ -475,7 +534,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
 
         mv "${stage_lib}"/libboost* "${stage_debug}"
 
-        sep "clean"
+        sep "Debug Clean"
         "${bjam}" --clean
 
         RELEASE_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc link=static debug-symbols=on "include=$stage/packages/include/zlib/" \
@@ -484,7 +543,8 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
             "${BOOST_BJAM_OPTIONS[@]}" \
             "cflags=-O3" "cflags=-fstack-protector-strong" "cflags=-fPIC" "cflags=-D_FORTIFY_SOURCE=2" "cflags=-DPIC" "cflags=-g" \
             "cxxflags=-std=c++17" "cxxflags=-O3" "cxxflags=-fstack-protector-strong" "cxxflags=-fPIC" "cxxflags=-D_FORTIFY_SOURCE=2" "cxxflags=-DPIC" "cxxflags=-g")
-        sep "build"
+
+        sep "Release Build"
         "${bjam}" variant=release --reconfigure \
             --prefix="${stage}" --libdir="${stage}"/lib/release \
             "${RELEASE_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
@@ -494,6 +554,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # libs/regex/test/de_fuzz produces:
         # error: "clang" is not a known value of feature <toolset>
         # error: legal values: "gcc"
+        sep "Release Tests"
         find_test_dirs "${BOOST_LIBS[@]}" | \
         grep -v \
              -e 'atomic/' \
@@ -509,11 +570,11 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
 
         mv "${stage_lib}"/libboost* "${stage_release}"
 
-        sep "clean"
+        sep "Release Clean"
         "${bjam}" --clean
 
         # populate version_file
-        sep "version"
+        sep "Version"
         cc -DVERSION_HEADER_FILE="\"$VERSION_HEADER_FILE\"" \
            -DVERSION_MACRO="$VERSION_MACRO" \
            -o "$stage/version" "$top/version.c"
