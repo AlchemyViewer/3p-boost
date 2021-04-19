@@ -383,9 +383,11 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # fail for lack of an ICU library.
         DARWIN_BJAM_OPTIONS=("${BOOST_BJAM_OPTIONS[@]}" \
             link=static \
+            visibility=global \
             cxxstd=17 \
             debug-symbols=on \
             cxxflags=-std=c++17 \
+            cxxflags=-stdlib=libc++ \
             "cxxflags=-isysroot ${SDKROOT}" \
             cxxflags=-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET} \
             cxxflags=-msse4.2
@@ -403,7 +405,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         DEBUG_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" variant=debug optimization=off)
 
         sep "Debug Build"
-        "${bjam}" toolset=darwin "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
+        "${bjam}" toolset=clang "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
 
         # conditionally run unit tests
         # date_time Posix test failures: https://svn.boost.org/trac/boost/ticket/10570
@@ -429,7 +431,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
              -e 'stacktrace/' \
              -e 'thread/' \
             | \
-        run_tests toolset=darwin -a -q \
+        run_tests toolset=clang -a -q \
                   "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
                   cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
                   cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
@@ -442,7 +444,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         RELEASE_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" variant=release optimization=speed)
 
         sep "Release Build"
-        "${bjam}" toolset=darwin "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
+        "${bjam}" toolset=clang "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
 
         # conditionally run unit tests
         # date_time Posix test failures: https://svn.boost.org/trac/boost/ticket/10570
@@ -468,7 +470,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
              -e 'stacktrace/' \
              -e 'thread/' \
             | \
-        run_tests toolset=darwin -a -q \
+        run_tests toolset=clang -a -q \
                   "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
                   cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
                   cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
