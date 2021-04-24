@@ -43,6 +43,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a> &#124;
@@ -55,6 +56,12 @@ $(function() {
 <p>This namespace includes implementations of the standard library functions and classes such that they accept UTF-8 strings on Windows. On other platforms (i.e. not on Windows) those functions and classes are just aliases of the corresponding ones from the std namespace or behave like them.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespaceboost_1_1nowide_1_1utf"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide_1_1utf.html">utf</a></td></tr>
+<tr class="memdesc:namespaceboost_1_1nowide_1_1utf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace that holds basic operations on UTF encoded sequences. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost_1_1nowide_1_1args.html">args</a></td></tr>
@@ -125,18 +132,24 @@ Functions</h2></td></tr>
 <tr class="separator:ac19f38bffa0370b15ac63c0480b85351"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd7ec301ec2235d04e758c7d324ebb62"><td class="memItemLeft" align="right" valign="top">wchar_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#abd7ec301ec2235d04e758c7d324ebb62">widen</a> (wchar_t *output, size_t output_size, const char *source)</td></tr>
 <tr class="separator:abd7ec301ec2235d04e758c7d324ebb62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d5fcecd9a169cf6a2bf310a087597e1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#a6d5fcecd9a169cf6a2bf310a087597e1">narrow</a> (const wchar_t *s, size_t count)</td></tr>
-<tr class="separator:a6d5fcecd9a169cf6a2bf310a087597e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a3be6e40309b9751b526b6f54f93acb"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#a5a3be6e40309b9751b526b6f54f93acb">narrow</a> (const wchar_t *s)</td></tr>
-<tr class="separator:a5a3be6e40309b9751b526b6f54f93acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ca03897760b021784f591e6d9f1fa64"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#a3ca03897760b021784f591e6d9f1fa64">narrow</a> (const std::wstring &amp;s)</td></tr>
-<tr class="separator:a3ca03897760b021784f591e6d9f1fa64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c30a1c81099f79ca3d5889301f077df"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#a4c30a1c81099f79ca3d5889301f077df">widen</a> (const char *s, size_t count)</td></tr>
-<tr class="separator:a4c30a1c81099f79ca3d5889301f077df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2bd4a469d8348498c6a1b8b6f26a5e1"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#ab2bd4a469d8348498c6a1b8b6f26a5e1">widen</a> (const char *s)</td></tr>
-<tr class="separator:ab2bd4a469d8348498c6a1b8b6f26a5e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acac9e6384c97c1b30cbe7d320e709821"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#acac9e6384c97c1b30cbe7d320e709821">widen</a> (const std::string &amp;s)</td></tr>
-<tr class="separator:acac9e6384c97c1b30cbe7d320e709821"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a130791c437ed5488bd84df26f3df43bb"><td class="memTemplParams" colspan="2">template&lt;typename T_Char , typename  = detail::requires_wide_char&lt;T_Char&gt;&gt; </td></tr>
+<tr class="memitem:a130791c437ed5488bd84df26f3df43bb"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#a130791c437ed5488bd84df26f3df43bb">narrow</a> (const T_Char *s, size_t count)</td></tr>
+<tr class="separator:a130791c437ed5488bd84df26f3df43bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e32bb1b9c43f31a2d43f53245ffaed3"><td class="memTemplParams" colspan="2">template&lt;typename T_Char , typename  = detail::requires_wide_char&lt;T_Char&gt;&gt; </td></tr>
+<tr class="memitem:a0e32bb1b9c43f31a2d43f53245ffaed3"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#a0e32bb1b9c43f31a2d43f53245ffaed3">narrow</a> (const T_Char *s)</td></tr>
+<tr class="separator:a0e32bb1b9c43f31a2d43f53245ffaed3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44e8032162501afa54694bbb6c14be35"><td class="memTemplParams" colspan="2">template&lt;typename StringOrStringView , typename  = detail::requires_wide_string_container&lt;StringOrStringView&gt;&gt; </td></tr>
+<tr class="memitem:a44e8032162501afa54694bbb6c14be35"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#a44e8032162501afa54694bbb6c14be35">narrow</a> (const StringOrStringView &amp;s)</td></tr>
+<tr class="separator:a44e8032162501afa54694bbb6c14be35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1d4f99d38bc01adaac1b83c20ab36bf"><td class="memTemplParams" colspan="2">template&lt;typename T_Char , typename  = detail::requires_narrow_char&lt;T_Char&gt;&gt; </td></tr>
+<tr class="memitem:af1d4f99d38bc01adaac1b83c20ab36bf"><td class="memTemplItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#af1d4f99d38bc01adaac1b83c20ab36bf">widen</a> (const T_Char *s, size_t count)</td></tr>
+<tr class="separator:af1d4f99d38bc01adaac1b83c20ab36bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2547e4b3e9f0dfa34ce114bbc0392c53"><td class="memTemplParams" colspan="2">template&lt;typename T_Char , typename  = detail::requires_narrow_char&lt;T_Char&gt;&gt; </td></tr>
+<tr class="memitem:a2547e4b3e9f0dfa34ce114bbc0392c53"><td class="memTemplItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#a2547e4b3e9f0dfa34ce114bbc0392c53">widen</a> (const T_Char *s)</td></tr>
+<tr class="separator:a2547e4b3e9f0dfa34ce114bbc0392c53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd45140e35eefe41074ae55457959eb6"><td class="memTemplParams" colspan="2">template&lt;typename StringOrStringView , typename  = detail::requires_narrow_string_container&lt;StringOrStringView&gt;&gt; </td></tr>
+<tr class="memitem:acd45140e35eefe41074ae55457959eb6"><td class="memTemplItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#acd45140e35eefe41074ae55457959eb6">widen</a> (const StringOrStringView &amp;s)</td></tr>
+<tr class="separator:acd45140e35eefe41074ae55457959eb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18119857bb88e0dd4834809d5f34432e"><td class="memItemLeft" align="right" valign="top"><a id="a18119857bb88e0dd4834809d5f34432e"></a>
 FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost_1_1nowide.html#a18119857bb88e0dd4834809d5f34432e">freopen</a> (const char *file_name, const char *mode, FILE *stream)</td></tr>
 <tr class="memdesc:a18119857bb88e0dd4834809d5f34432e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as freopen but file_name and mode are UTF-8 strings. <br /></td></tr>
@@ -468,11 +481,13 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a6d5fcecd9a169cf6a2bf310a087597e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d5fcecd9a169cf6a2bf310a087597e1">&#9670;&nbsp;</a></span>narrow() <span class="overload">[3/5]</span></h2>
+<a id="a130791c437ed5488bd84df26f3df43bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a130791c437ed5488bd84df26f3df43bb">&#9670;&nbsp;</a></span>narrow() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T_Char , typename  = detail::requires_wide_char&lt;T_Char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -480,7 +495,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">std::string boost::nowide::narrow </td>
           <td>(</td>
-          <td class="paramtype">const wchar_t *&#160;</td>
+          <td class="paramtype">const T_Char *&#160;</td>
           <td class="paramname"><em>s</em>, </td>
         </tr>
         <tr>
@@ -512,11 +527,13 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a5a3be6e40309b9751b526b6f54f93acb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a3be6e40309b9751b526b6f54f93acb">&#9670;&nbsp;</a></span>narrow() <span class="overload">[4/5]</span></h2>
+<a id="a0e32bb1b9c43f31a2d43f53245ffaed3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e32bb1b9c43f31a2d43f53245ffaed3">&#9670;&nbsp;</a></span>narrow() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T_Char , typename  = detail::requires_wide_char&lt;T_Char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -524,7 +541,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">std::string boost::nowide::narrow </td>
           <td>(</td>
-          <td class="paramtype">const wchar_t *&#160;</td>
+          <td class="paramtype">const T_Char *&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>
@@ -545,11 +562,13 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a3ca03897760b021784f591e6d9f1fa64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ca03897760b021784f591e6d9f1fa64">&#9670;&nbsp;</a></span>narrow() <span class="overload">[5/5]</span></h2>
+<a id="a44e8032162501afa54694bbb6c14be35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44e8032162501afa54694bbb6c14be35">&#9670;&nbsp;</a></span>narrow() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringOrStringView , typename  = detail::requires_wide_string_container&lt;StringOrStringView&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -557,7 +576,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">std::string boost::nowide::narrow </td>
           <td>(</td>
-          <td class="paramtype">const std::wstring &amp;&#160;</td>
+          <td class="paramtype">const StringOrStringView &amp;&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>
@@ -867,11 +886,13 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a4c30a1c81099f79ca3d5889301f077df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c30a1c81099f79ca3d5889301f077df">&#9670;&nbsp;</a></span>widen() <span class="overload">[3/5]</span></h2>
+<a id="af1d4f99d38bc01adaac1b83c20ab36bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1d4f99d38bc01adaac1b83c20ab36bf">&#9670;&nbsp;</a></span>widen() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T_Char , typename  = detail::requires_narrow_char&lt;T_Char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -879,7 +900,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">std::wstring boost::nowide::widen </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const T_Char *&#160;</td>
           <td class="paramname"><em>s</em>, </td>
         </tr>
         <tr>
@@ -911,11 +932,13 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ab2bd4a469d8348498c6a1b8b6f26a5e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2bd4a469d8348498c6a1b8b6f26a5e1">&#9670;&nbsp;</a></span>widen() <span class="overload">[4/5]</span></h2>
+<a id="a2547e4b3e9f0dfa34ce114bbc0392c53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2547e4b3e9f0dfa34ce114bbc0392c53">&#9670;&nbsp;</a></span>widen() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T_Char , typename  = detail::requires_narrow_char&lt;T_Char&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -923,7 +946,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">std::wstring boost::nowide::widen </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
+          <td class="paramtype">const T_Char *&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>
@@ -944,11 +967,13 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="acac9e6384c97c1b30cbe7d320e709821"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acac9e6384c97c1b30cbe7d320e709821">&#9670;&nbsp;</a></span>widen() <span class="overload">[5/5]</span></h2>
+<a id="acd45140e35eefe41074ae55457959eb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd45140e35eefe41074ae55457959eb6">&#9670;&nbsp;</a></span>widen() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringOrStringView , typename  = detail::requires_narrow_string_container&lt;StringOrStringView&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -956,7 +981,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">std::wstring boost::nowide::widen </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramtype">const StringOrStringView &amp;&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>

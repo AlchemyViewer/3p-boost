@@ -407,6 +407,13 @@ Typedef
 <p>
         <span class="emphasis"><em>Shared</em></span> <span class="emphasis"><em>objects:</em></span> Unsafe.
       </p>
+<p>
+        Synchronous <code class="computeroutput">read_some</code> and <code class="computeroutput">write_some</code> operations
+        are thread safe with respect to each other, if the underlying operating system
+        calls are also thread safe. This means that it is permitted to perform concurrent
+        calls to these synchronous operations on a single descriptor object. Other
+        synchronous operations, such as <code class="computeroutput">close</code>, are not thread safe.
+      </p>
 <h5>
 <a name="boost_asio.reference.posix__stream_descriptor.h3"></a>
         <span class="phrase"><a name="boost_asio.reference.posix__stream_descriptor.requirements"></a></span><a class="link" href="posix__stream_descriptor.html#boost_asio.reference.posix__stream_descriptor.requirements">Requirements</a>
@@ -420,8 +427,8 @@ Typedef
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2020 Christopher M.
-      Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
+      M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -473,7 +473,8 @@
 </tr>
 <tr><td align="left" valign="top"><p>
         Worker-threads are stored in a static variable, dynamically adding/removing
-        worker threads is not supported.
+        worker threads is not supported, neither having different worker thread realms
+        at the same time.
       </p></td></tr>
 </table></div>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">fiber</span><span class="special">/</span><span class="identifier">algo</span><span class="special">/</span><span class="identifier">work_stealing</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
@@ -585,7 +586,7 @@
           </p></dd>
 <dt><span class="term">Note:</span></dt>
 <dd><p>
-            Placing ready fibers onto the tail of the sahred queue, and returning
+            Placing ready fibers onto the tail of the shared queue, and returning
             them from the head of that queue, shares the thread between ready fibers
             in round-robin fashion.
           </p></dd>
@@ -701,7 +702,8 @@
 </tr>
 <tr><td align="left" valign="top"><p>
         Worker-threads are stored in a static variable, dynamically adding/removing
-        worker threads is not supported.
+        worker threads is not supported, neither having different worker thread realms
+        at the same time.
       </p></td></tr>
 </table></div>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">fiber</span><span class="special">/</span><span class="identifier">algo</span><span class="special">/</span><span class="identifier">shared_work</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>

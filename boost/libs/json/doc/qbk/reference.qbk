@@ -14,382 +14,274 @@ class array
   [
     [[*[link json.ref.boost__json__array.allocator_type allocator_type]]
     ]
-    [
-
-The type of ['Allocator] returned by [link json.ref.boost__json__array.get_allocator `get_allocator`]. 
+    [The type of ['Allocator] returned by [link json.ref.boost__json__array.get_allocator `get_allocator`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.const_iterator const_iterator]]
     ]
-    [
-
-A random access const iterator to an element. 
+    [A random access const iterator to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.const_pointer const_pointer]]
     ]
-    [
-
-A const pointer to an element. 
+    [A const pointer to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.const_reference const_reference]]
     ]
-    [
-
-A const reference to an element. 
+    [A const reference to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.const_reverse_iterator const_reverse_iterator]]
     ]
-    [
-
-A reverse random access const iterator to an element. 
+    [A reverse random access const iterator to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.difference_type difference_type]]
     ]
-    [
-
-The type used to represent signed integers. 
+    [The type used to represent signed integers. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.iterator iterator]]
     ]
-    [
-
-A random access iterator to an element. 
+    [A random access iterator to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.pointer pointer]]
     ]
-    [
-
-A pointer to an element. 
+    [A pointer to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.reference reference]]
     ]
-    [
-
-A reference to an element. 
+    [A reference to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.reverse_iterator reverse_iterator]]
     ]
-    [
-
-A reverse random access iterator to an element. 
+    [A reverse random access iterator to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.size_type size_type]]
     ]
-    [
-
-The type used to represent unsigned integers. 
+    [The type used to represent unsigned integers. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.value_type value_type]]
     ]
-    [
-
-The type of each element. 
+    [The type of each element. 
     ]
   ]
 ]
 [heading Member Functions]
 [table [[Name][Description]]
   [
-    [[*[link json.ref.boost__json__array.array array]]
+    [[*[link json.ref.boost__json__array.array array] [role silver \[constructor\]]]
     ]
-    [
-
-Constructor. 
-
-Copy constructor. 
-
-Pilfer constructor. 
-
-Move constructor. 
+    [Constructor. [br][role silver —][br]Copy constructor. [br][role silver —][br]Pilfer constructor. [br][role silver —][br]Move constructor. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.at at]]
     ]
-    [
-
-Access an element, with bounds checking. 
+    [Access an element, with bounds checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.back back]]
     ]
-    [
-
-Access the last element. 
+    [Access the last element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.begin begin]]
     ]
-    [
-
-Return an iterator to the first element. 
-
-Return a const iterator to the first element. 
+    [Return an iterator to the first element. [br][role silver —][br]Return a const iterator to the first element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.capacity capacity]]
     ]
-    [
-
-Return the number of elements that can be held in currently allocated memory. 
+    [Return the number of elements that can be held in currently allocated memory. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.cbegin cbegin]]
     ]
-    [
-
-Return a const iterator to the first element. 
+    [Return a const iterator to the first element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.cend cend]]
     ]
-    [
-
-Return a const iterator to the element following the last element. 
+    [Return a const iterator to the element following the last element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.clear clear]]
     ]
-    [
-
-Clear the contents. 
+    [Clear the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.crbegin crbegin]]
     ]
-    [
-
-Return a const reverse iterator to the first element of the reversed container. 
+    [Return a const reverse iterator to the first element of the reversed container. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.crend crend]]
     ]
-    [
-
-Return a const reverse iterator to the element following the last element of the reversed container. 
+    [Return a const reverse iterator to the element following the last element of the reversed container. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.data data]]
     ]
-    [
-
-Access the underlying array directly. 
+    [Access the underlying array directly. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.emplace emplace]]
     ]
-    [
-
-Insert a constructed element in-place. 
+    [Insert a constructed element in-place. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.emplace_back emplace_back]]
     ]
-    [
-
-Append a constructed element in-place. 
+    [Append a constructed element in-place. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.empty empty]]
     ]
-    [
-
-Check if the array has no elements. 
+    [Check if the array has no elements. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.end end]]
     ]
-    [
-
-Return an iterator to the element following the last element. 
-
-Return a const iterator to the element following the last element. 
+    [Return an iterator to the element following the last element. [br][role silver —][br]Return a const iterator to the element following the last element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.erase erase]]
     ]
-    [
-
-Erase elements from the container. 
+    [Erase elements from the container. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.front front]]
     ]
-    [
-
-Access the first element. 
+    [Access the first element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.get_allocator get_allocator]]
     ]
-    [
-
-Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
+    [Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.if_contains if_contains]]
     ]
-    [
-
-Return a pointer to an element, or nullptr if the index is invalid. 
+    [Return a pointer to an element, or nullptr if the index is invalid. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.insert insert]]
     ]
-    [
-
-Insert elements before the specified location. 
+    [Insert elements before the specified location. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.operator_eq_ operator=]]
     ]
-    [
-
-Copy assignment. 
-
-Move assignment. 
-
-Assignment. 
+    [Copy assignment. [br][role silver —][br]Move assignment. [br][role silver —][br]Assignment. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.operator_lb__rb_ operator\[\]]]
     ]
-    [
-
-Access an element. 
+    [Access an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.pop_back pop_back]]
     ]
-    [
-
-Remove the last element. 
+    [Remove the last element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.push_back push_back]]
     ]
-    [
-
-Add an element to the end. 
+    [Add an element to the end. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.rbegin rbegin]]
     ]
-    [
-
-Return a reverse iterator to the first element of the reversed container. 
-
-Return a const reverse iterator to the first element of the reversed container. 
+    [Return a reverse iterator to the first element of the reversed container. [br][role silver —][br]Return a const reverse iterator to the first element of the reversed container. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.rend rend]]
     ]
-    [
-
-Return a reverse iterator to the element following the last element of the reversed container. 
-
-Return a const reverse iterator to the element following the last element of the reversed container. 
+    [Return a reverse iterator to the element following the last element of the reversed container. [br][role silver —][br]Return a const reverse iterator to the element following the last element of the reversed container. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.reserve reserve]]
     ]
-    [
-
-Increase the capacity to at least a certain amount. 
+    [Increase the capacity to at least a certain amount. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.resize resize]]
     ]
-    [
-
-Change the number of elements stored. 
+    [Change the number of elements stored. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.shrink_to_fit shrink_to_fit]]
     ]
-    [
-
-Request the removal of unused capacity. 
+    [Request the removal of unused capacity. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.size size]]
     ]
-    [
-
-Return the number of elements in the array. 
+    [Return the number of elements in the array. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.storage storage]]
     ]
-    [
-
-Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
+    [Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.swap swap]]
     ]
-    [
-
-Swap the contents. 
+    [Swap the contents. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__array._array ~array]]
+    [[*[link json.ref.boost__json__array._array ~array] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -398,9 +290,7 @@ Destructor.
   [
     [[*[link json.ref.boost__json__array.max_size max_size]]
     ]
-    [
-
-Return the maximum number of elements any array can hold. 
+    [Return the maximum number of elements any array can hold. 
     ]
   ]
 ]
@@ -409,25 +299,19 @@ Return the maximum number of elements any array can hold.
   [
     [[*[link json.ref.boost__json__array.operator_not__eq_ operator!=]]
     ]
-    [
-
-Return `true` if two arrays are not equal. 
+    [Return `true` if two arrays are not equal. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.operator_eq__eq_ operator==]]
     ]
-    [
-
-Return `true` if two arrays are equal. 
+    [Return `true` if two arrays are equal. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__array.swap swap]]
     ]
-    [
-
-Exchange the given values. 
+    [Exchange the given values. 
     ]
   ]
 ]
@@ -508,9 +392,7 @@ using value_type = value;
   [
     [[*[link json.ref.boost__json__value.allocator_type allocator_type]]
     ]
-    [
-
-The type of ['Allocator] returned by [link json.ref.boost__json__value.get_allocator `get_allocator`]. 
+    [The type of ['Allocator] returned by [link json.ref.boost__json__value.get_allocator `get_allocator`]. 
     ]
   ]
 ]
@@ -519,439 +401,295 @@ The type of ['Allocator] returned by [link json.ref.boost__json__value.get_alloc
   [
     [[*[link json.ref.boost__json__value.as_array as_array]]
     ]
-    [
-
-Return a reference to the underlying [link json.ref.boost__json__array `array`], or throw an exception. 
+    [Return a reference to the underlying [link json.ref.boost__json__array `array`], or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_bool as_bool]]
     ]
-    [
-
-Return a reference to the underlying `bool`, or throw an exception. 
-
-Return the underlying `bool`, or throw an exception. 
+    [Return a reference to the underlying `bool`, or throw an exception. [br][role silver —][br]Return the underlying `bool`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_double as_double]]
     ]
-    [
-
-Return a reference to the underlying `double`, or throw an exception. 
-
-Return the underlying `double`, or throw an exception. 
+    [Return a reference to the underlying `double`, or throw an exception. [br][role silver —][br]Return the underlying `double`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_int64 as_int64]]
     ]
-    [
-
-Return a reference to the underlying `std::int64_t`, or throw an exception. 
-
-Return the underlying `std::int64_t`, or throw an exception. 
+    [Return a reference to the underlying `std::int64_t`, or throw an exception. [br][role silver —][br]Return the underlying `std::int64_t`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_object as_object]]
     ]
-    [
-
-Return a reference to the underlying `object`, or throw an exception. 
+    [Return a reference to the underlying `object`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_string as_string]]
     ]
-    [
-
-Return a reference to the underlying `string`, or throw an exception. 
+    [Return a reference to the underlying `string`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_uint64 as_uint64]]
     ]
-    [
-
-Return a reference to the underlying `std::uint64_t`, or throw an exception. 
-
-Return the underlying `std::uint64_t`, or throw an exception. 
+    [Return a reference to the underlying `std::uint64_t`, or throw an exception. [br][role silver —][br]Return the underlying `std::uint64_t`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.at at]]
     ]
-    [
-
-Access an element, with bounds checking. 
+    [Access an element, with bounds checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_array emplace_array]]
     ]
-    [
-
-Return a reference to an [link json.ref.boost__json__array `array`], changing the kind and replacing the contents. 
+    [Return a reference to an [link json.ref.boost__json__array `array`], changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_bool emplace_bool]]
     ]
-    [
-
-Return a reference to a `bool`, changing the kind and replacing the contents. 
+    [Return a reference to a `bool`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_double emplace_double]]
     ]
-    [
-
-Return a reference to a `double`, changing the kind and replacing the contents. 
+    [Return a reference to a `double`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_int64 emplace_int64]]
     ]
-    [
-
-Return a reference to a `std::int64_t`, changing the kind and replacing the contents. 
+    [Return a reference to a `std::int64_t`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_null emplace_null]]
     ]
-    [
-
-Change the kind to null, discarding the previous contents. 
+    [Change the kind to null, discarding the previous contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_object emplace_object]]
     ]
-    [
-
-Return a reference to an [link json.ref.boost__json__object `object`], changing the kind and replacing the contents. 
+    [Return a reference to an [link json.ref.boost__json__object `object`], changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_string emplace_string]]
     ]
-    [
-
-Return a reference to a [link json.ref.boost__json__string `string`], changing the kind and replacing the contents. 
+    [Return a reference to a [link json.ref.boost__json__string `string`], changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_uint64 emplace_uint64]]
     ]
-    [
-
-Return a reference to a `std::uint64_t`, changing the kind and replacing the contents. 
+    [Return a reference to a `std::uint64_t`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_allocator get_allocator]]
     ]
-    [
-
-Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
+    [Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_array get_array]]
     ]
-    [
-
-Return a reference to the underlying `array`, without checking. 
+    [Return a reference to the underlying `array`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_bool get_bool]]
     ]
-    [
-
-Return a reference to the underlying `bool`, without checking. 
-
-Return the underlying `bool`, without checking. 
+    [Return a reference to the underlying `bool`, without checking. [br][role silver —][br]Return the underlying `bool`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_double get_double]]
     ]
-    [
-
-Return a reference to the underlying `double`, without checking. 
-
-Return the underlying `double`, without checking. 
+    [Return a reference to the underlying `double`, without checking. [br][role silver —][br]Return the underlying `double`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_int64 get_int64]]
     ]
-    [
-
-Return a reference to the underlying `std::int64_t`, without checking. 
-
-Return the underlying `std::int64_t`, without checking. 
+    [Return a reference to the underlying `std::int64_t`, without checking. [br][role silver —][br]Return the underlying `std::int64_t`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_object get_object]]
     ]
-    [
-
-Return a reference to the underlying `object`, without checking. 
+    [Return a reference to the underlying `object`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_string get_string]]
     ]
-    [
-
-Return a reference to the underlying `string`, without checking. 
+    [Return a reference to the underlying `string`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_uint64 get_uint64]]
     ]
-    [
-
-Return a reference to the underlying `std::uint64_t`, without checking. 
-
-Return the underlying `std::uint64_t`, without checking. 
+    [Return a reference to the underlying `std::uint64_t`, without checking. [br][role silver —][br]Return the underlying `std::uint64_t`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_array if_array]]
     ]
-    [
-
-Return an [link json.ref.boost__json__array `array`] pointer if this is an array, else return `nullptr`
+    [Return an [link json.ref.boost__json__array `array`] pointer if this is an array, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_bool if_bool]]
     ]
-    [
-
-Return a `bool` pointer if this is a boolean, else return `nullptr`
+    [Return a `bool` pointer if this is a boolean, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_double if_double]]
     ]
-    [
-
-Return a `double` pointer if this is a double, else return `nullptr`
+    [Return a `double` pointer if this is a double, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_int64 if_int64]]
     ]
-    [
-
-Return an `int64_t` pointer if this is a signed integer, else return `nullptr`
+    [Return an `int64_t` pointer if this is a signed integer, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_object if_object]]
     ]
-    [
-
-Return an [link json.ref.boost__json__object `object`] pointer if this is an object, else return `nullptr`
+    [Return an [link json.ref.boost__json__object `object`] pointer if this is an object, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_string if_string]]
     ]
-    [
-
-Return a [link json.ref.boost__json__string `string`] pointer if this is a string, else return `nullptr`
+    [Return a [link json.ref.boost__json__string `string`] pointer if this is a string, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_uint64 if_uint64]]
     ]
-    [
-
-Return a `uint64_t` pointer if this is an unsigned integer, else return `nullptr`
+    [Return a `uint64_t` pointer if this is an unsigned integer, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_array is_array]]
     ]
-    [
-
-Return `true` if this is an array. 
+    [Return `true` if this is an array. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_bool is_bool]]
     ]
-    [
-
-Return `true` if this is a bool. 
+    [Return `true` if this is a bool. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_double is_double]]
     ]
-    [
-
-Return `true` if this is a double. 
+    [Return `true` if this is a double. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_int64 is_int64]]
     ]
-    [
-
-Return `true` if this is a signed integer. 
+    [Return `true` if this is a signed integer. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_null is_null]]
     ]
-    [
-
-Returns true if this is a null. 
+    [Returns true if this is a null. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_number is_number]]
     ]
-    [
-
-Returns true if this is a number. 
+    [Returns true if this is a number. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_object is_object]]
     ]
-    [
-
-Return `true` if this is an object. 
+    [Return `true` if this is an object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_primitive is_primitive]]
     ]
-    [
-
-Returns true if this is not an array or object. 
+    [Returns true if this is not an array or object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_string is_string]]
     ]
-    [
-
-Return `true` if this is a string. 
+    [Return `true` if this is a string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_structured is_structured]]
     ]
-    [
-
-Returns true if this is an array or object. 
+    [Returns true if this is an array or object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_uint64 is_uint64]]
     ]
-    [
-
-Return `true` if this is a unsigned integer. 
+    [Return `true` if this is a unsigned integer. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.kind kind]]
     ]
-    [
-
-Returns the kind of this JSON value. 
+    [Returns the kind of this JSON value. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.operator_eq_ operator=]]
     ]
-    [
-
-Assignment. 
-
-Copy assignment. 
-
-Move assignment. 
+    [Assignment. [br][role silver —][br]Copy assignment. [br][role silver —][br]Move assignment. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.storage storage]]
     ]
-    [
-
-Return the memory resource associated with the value. 
+    [Return the memory resource associated with the value. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.swap swap]]
     ]
-    [
-
-Swap the given values. 
+    [Swap the given values. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.to_number to_number]]
     ]
-    [
-
-Return the stored number cast to an arithmetic type. 
+    [Return the stored number cast to an arithmetic type. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.value value]]
     ]
-    [
-
-Default constructor. 
-
-Constructor. 
-
-Pilfer constructor. 
-
-Copy constructor. 
-
-Move constructor. 
-
-Construct a null. 
-
-Construct a bool. 
-
-Construct a `std::int64_t`. 
-
-Construct a `std::uint64_t`. 
-
-Construct a `double`. 
-
-Construct a [link json.ref.boost__json__string `string`]. 
-
-Construct an [link json.ref.boost__json__array `array`]. 
-
-Construct an [link json.ref.boost__json__object `object`]. 
-
-Construct from an initializer-list. 
+    [Default constructor. [br][role silver —][br]Constructor. [br][role silver —][br]Pilfer constructor. [br][role silver —][br]Copy constructor. [br][role silver —][br]Move constructor. [br][role silver —][br]Construct a null. [br][role silver —][br]Construct a bool. [br][role silver —][br]Construct a `std::int64_t`. [br][role silver —][br]Construct a `std::uint64_t`. [br][role silver —][br]Construct a `double`. [br][role silver —][br]Construct a [link json.ref.boost__json__string `string`]. [br][role silver —][br]Construct an [link json.ref.boost__json__array `array`]. [br][role silver —][br]Construct an [link json.ref.boost__json__object `object`]. [br][role silver —][br]Construct from an initializer-list. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__value._value ~value]]
+    [[*[link json.ref.boost__json__value._value ~value] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -960,25 +698,19 @@ Destructor.
   [
     [[*[link json.ref.boost__json__value.operator_not__eq_ operator!=]]
     ]
-    [
-
-Return `true` if two values are not equal. 
+    [Return `true` if two values are not equal. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.operator_eq__eq_ operator==]]
     ]
-    [
-
-Return `true` if two values are equal. 
+    [Return `true` if two values are equal. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.swap swap]]
     ]
-    [
-
-Swap the given values. 
+    [Swap the given values. 
     ]
   ]
 ]
@@ -1020,9 +752,7 @@ using reference = value&;
   [
     [[*[link json.ref.boost__json__value.allocator_type allocator_type]]
     ]
-    [
-
-The type of ['Allocator] returned by [link json.ref.boost__json__value.get_allocator `get_allocator`]. 
+    [The type of ['Allocator] returned by [link json.ref.boost__json__value.get_allocator `get_allocator`]. 
     ]
   ]
 ]
@@ -1031,439 +761,295 @@ The type of ['Allocator] returned by [link json.ref.boost__json__value.get_alloc
   [
     [[*[link json.ref.boost__json__value.as_array as_array]]
     ]
-    [
-
-Return a reference to the underlying [link json.ref.boost__json__array `array`], or throw an exception. 
+    [Return a reference to the underlying [link json.ref.boost__json__array `array`], or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_bool as_bool]]
     ]
-    [
-
-Return a reference to the underlying `bool`, or throw an exception. 
-
-Return the underlying `bool`, or throw an exception. 
+    [Return a reference to the underlying `bool`, or throw an exception. [br][role silver —][br]Return the underlying `bool`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_double as_double]]
     ]
-    [
-
-Return a reference to the underlying `double`, or throw an exception. 
-
-Return the underlying `double`, or throw an exception. 
+    [Return a reference to the underlying `double`, or throw an exception. [br][role silver —][br]Return the underlying `double`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_int64 as_int64]]
     ]
-    [
-
-Return a reference to the underlying `std::int64_t`, or throw an exception. 
-
-Return the underlying `std::int64_t`, or throw an exception. 
+    [Return a reference to the underlying `std::int64_t`, or throw an exception. [br][role silver —][br]Return the underlying `std::int64_t`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_object as_object]]
     ]
-    [
-
-Return a reference to the underlying `object`, or throw an exception. 
+    [Return a reference to the underlying `object`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_string as_string]]
     ]
-    [
-
-Return a reference to the underlying `string`, or throw an exception. 
+    [Return a reference to the underlying `string`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_uint64 as_uint64]]
     ]
-    [
-
-Return a reference to the underlying `std::uint64_t`, or throw an exception. 
-
-Return the underlying `std::uint64_t`, or throw an exception. 
+    [Return a reference to the underlying `std::uint64_t`, or throw an exception. [br][role silver —][br]Return the underlying `std::uint64_t`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.at at]]
     ]
-    [
-
-Access an element, with bounds checking. 
+    [Access an element, with bounds checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_array emplace_array]]
     ]
-    [
-
-Return a reference to an [link json.ref.boost__json__array `array`], changing the kind and replacing the contents. 
+    [Return a reference to an [link json.ref.boost__json__array `array`], changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_bool emplace_bool]]
     ]
-    [
-
-Return a reference to a `bool`, changing the kind and replacing the contents. 
+    [Return a reference to a `bool`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_double emplace_double]]
     ]
-    [
-
-Return a reference to a `double`, changing the kind and replacing the contents. 
+    [Return a reference to a `double`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_int64 emplace_int64]]
     ]
-    [
-
-Return a reference to a `std::int64_t`, changing the kind and replacing the contents. 
+    [Return a reference to a `std::int64_t`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_null emplace_null]]
     ]
-    [
-
-Change the kind to null, discarding the previous contents. 
+    [Change the kind to null, discarding the previous contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_object emplace_object]]
     ]
-    [
-
-Return a reference to an [link json.ref.boost__json__object `object`], changing the kind and replacing the contents. 
+    [Return a reference to an [link json.ref.boost__json__object `object`], changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_string emplace_string]]
     ]
-    [
-
-Return a reference to a [link json.ref.boost__json__string `string`], changing the kind and replacing the contents. 
+    [Return a reference to a [link json.ref.boost__json__string `string`], changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_uint64 emplace_uint64]]
     ]
-    [
-
-Return a reference to a `std::uint64_t`, changing the kind and replacing the contents. 
+    [Return a reference to a `std::uint64_t`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_allocator get_allocator]]
     ]
-    [
-
-Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
+    [Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_array get_array]]
     ]
-    [
-
-Return a reference to the underlying `array`, without checking. 
+    [Return a reference to the underlying `array`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_bool get_bool]]
     ]
-    [
-
-Return a reference to the underlying `bool`, without checking. 
-
-Return the underlying `bool`, without checking. 
+    [Return a reference to the underlying `bool`, without checking. [br][role silver —][br]Return the underlying `bool`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_double get_double]]
     ]
-    [
-
-Return a reference to the underlying `double`, without checking. 
-
-Return the underlying `double`, without checking. 
+    [Return a reference to the underlying `double`, without checking. [br][role silver —][br]Return the underlying `double`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_int64 get_int64]]
     ]
-    [
-
-Return a reference to the underlying `std::int64_t`, without checking. 
-
-Return the underlying `std::int64_t`, without checking. 
+    [Return a reference to the underlying `std::int64_t`, without checking. [br][role silver —][br]Return the underlying `std::int64_t`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_object get_object]]
     ]
-    [
-
-Return a reference to the underlying `object`, without checking. 
+    [Return a reference to the underlying `object`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_string get_string]]
     ]
-    [
-
-Return a reference to the underlying `string`, without checking. 
+    [Return a reference to the underlying `string`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_uint64 get_uint64]]
     ]
-    [
-
-Return a reference to the underlying `std::uint64_t`, without checking. 
-
-Return the underlying `std::uint64_t`, without checking. 
+    [Return a reference to the underlying `std::uint64_t`, without checking. [br][role silver —][br]Return the underlying `std::uint64_t`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_array if_array]]
     ]
-    [
-
-Return an [link json.ref.boost__json__array `array`] pointer if this is an array, else return `nullptr`
+    [Return an [link json.ref.boost__json__array `array`] pointer if this is an array, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_bool if_bool]]
     ]
-    [
-
-Return a `bool` pointer if this is a boolean, else return `nullptr`
+    [Return a `bool` pointer if this is a boolean, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_double if_double]]
     ]
-    [
-
-Return a `double` pointer if this is a double, else return `nullptr`
+    [Return a `double` pointer if this is a double, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_int64 if_int64]]
     ]
-    [
-
-Return an `int64_t` pointer if this is a signed integer, else return `nullptr`
+    [Return an `int64_t` pointer if this is a signed integer, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_object if_object]]
     ]
-    [
-
-Return an [link json.ref.boost__json__object `object`] pointer if this is an object, else return `nullptr`
+    [Return an [link json.ref.boost__json__object `object`] pointer if this is an object, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_string if_string]]
     ]
-    [
-
-Return a [link json.ref.boost__json__string `string`] pointer if this is a string, else return `nullptr`
+    [Return a [link json.ref.boost__json__string `string`] pointer if this is a string, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_uint64 if_uint64]]
     ]
-    [
-
-Return a `uint64_t` pointer if this is an unsigned integer, else return `nullptr`
+    [Return a `uint64_t` pointer if this is an unsigned integer, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_array is_array]]
     ]
-    [
-
-Return `true` if this is an array. 
+    [Return `true` if this is an array. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_bool is_bool]]
     ]
-    [
-
-Return `true` if this is a bool. 
+    [Return `true` if this is a bool. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_double is_double]]
     ]
-    [
-
-Return `true` if this is a double. 
+    [Return `true` if this is a double. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_int64 is_int64]]
     ]
-    [
-
-Return `true` if this is a signed integer. 
+    [Return `true` if this is a signed integer. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_null is_null]]
     ]
-    [
-
-Returns true if this is a null. 
+    [Returns true if this is a null. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_number is_number]]
     ]
-    [
-
-Returns true if this is a number. 
+    [Returns true if this is a number. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_object is_object]]
     ]
-    [
-
-Return `true` if this is an object. 
+    [Return `true` if this is an object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_primitive is_primitive]]
     ]
-    [
-
-Returns true if this is not an array or object. 
+    [Returns true if this is not an array or object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_string is_string]]
     ]
-    [
-
-Return `true` if this is a string. 
+    [Return `true` if this is a string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_structured is_structured]]
     ]
-    [
-
-Returns true if this is an array or object. 
+    [Returns true if this is an array or object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_uint64 is_uint64]]
     ]
-    [
-
-Return `true` if this is a unsigned integer. 
+    [Return `true` if this is a unsigned integer. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.kind kind]]
     ]
-    [
-
-Returns the kind of this JSON value. 
+    [Returns the kind of this JSON value. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.operator_eq_ operator=]]
     ]
-    [
-
-Assignment. 
-
-Copy assignment. 
-
-Move assignment. 
+    [Assignment. [br][role silver —][br]Copy assignment. [br][role silver —][br]Move assignment. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.storage storage]]
     ]
-    [
-
-Return the memory resource associated with the value. 
+    [Return the memory resource associated with the value. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.swap swap]]
     ]
-    [
-
-Swap the given values. 
+    [Swap the given values. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.to_number to_number]]
     ]
-    [
-
-Return the stored number cast to an arithmetic type. 
+    [Return the stored number cast to an arithmetic type. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.value value]]
     ]
-    [
-
-Default constructor. 
-
-Constructor. 
-
-Pilfer constructor. 
-
-Copy constructor. 
-
-Move constructor. 
-
-Construct a null. 
-
-Construct a bool. 
-
-Construct a `std::int64_t`. 
-
-Construct a `std::uint64_t`. 
-
-Construct a `double`. 
-
-Construct a [link json.ref.boost__json__string `string`]. 
-
-Construct an [link json.ref.boost__json__array `array`]. 
-
-Construct an [link json.ref.boost__json__object `object`]. 
-
-Construct from an initializer-list. 
+    [Default constructor. [br][role silver —][br]Constructor. [br][role silver —][br]Pilfer constructor. [br][role silver —][br]Copy constructor. [br][role silver —][br]Move constructor. [br][role silver —][br]Construct a null. [br][role silver —][br]Construct a bool. [br][role silver —][br]Construct a `std::int64_t`. [br][role silver —][br]Construct a `std::uint64_t`. [br][role silver —][br]Construct a `double`. [br][role silver —][br]Construct a [link json.ref.boost__json__string `string`]. [br][role silver —][br]Construct an [link json.ref.boost__json__array `array`]. [br][role silver —][br]Construct an [link json.ref.boost__json__object `object`]. [br][role silver —][br]Construct from an initializer-list. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__value._value ~value]]
+    [[*[link json.ref.boost__json__value._value ~value] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -1472,25 +1058,19 @@ Destructor.
   [
     [[*[link json.ref.boost__json__value.operator_not__eq_ operator!=]]
     ]
-    [
-
-Return `true` if two values are not equal. 
+    [Return `true` if two values are not equal. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.operator_eq__eq_ operator==]]
     ]
-    [
-
-Return `true` if two values are equal. 
+    [Return `true` if two values are equal. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.swap swap]]
     ]
-    [
-
-Swap the given values. 
+    [Swap the given values. 
     ]
   ]
 ]
@@ -1518,9 +1098,7 @@ using const_reference = value const&;
   [
     [[*[link json.ref.boost__json__value.allocator_type allocator_type]]
     ]
-    [
-
-The type of ['Allocator] returned by [link json.ref.boost__json__value.get_allocator `get_allocator`]. 
+    [The type of ['Allocator] returned by [link json.ref.boost__json__value.get_allocator `get_allocator`]. 
     ]
   ]
 ]
@@ -1529,439 +1107,295 @@ The type of ['Allocator] returned by [link json.ref.boost__json__value.get_alloc
   [
     [[*[link json.ref.boost__json__value.as_array as_array]]
     ]
-    [
-
-Return a reference to the underlying [link json.ref.boost__json__array `array`], or throw an exception. 
+    [Return a reference to the underlying [link json.ref.boost__json__array `array`], or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_bool as_bool]]
     ]
-    [
-
-Return a reference to the underlying `bool`, or throw an exception. 
-
-Return the underlying `bool`, or throw an exception. 
+    [Return a reference to the underlying `bool`, or throw an exception. [br][role silver —][br]Return the underlying `bool`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_double as_double]]
     ]
-    [
-
-Return a reference to the underlying `double`, or throw an exception. 
-
-Return the underlying `double`, or throw an exception. 
+    [Return a reference to the underlying `double`, or throw an exception. [br][role silver —][br]Return the underlying `double`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_int64 as_int64]]
     ]
-    [
-
-Return a reference to the underlying `std::int64_t`, or throw an exception. 
-
-Return the underlying `std::int64_t`, or throw an exception. 
+    [Return a reference to the underlying `std::int64_t`, or throw an exception. [br][role silver —][br]Return the underlying `std::int64_t`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_object as_object]]
     ]
-    [
-
-Return a reference to the underlying `object`, or throw an exception. 
+    [Return a reference to the underlying `object`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_string as_string]]
     ]
-    [
-
-Return a reference to the underlying `string`, or throw an exception. 
+    [Return a reference to the underlying `string`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_uint64 as_uint64]]
     ]
-    [
-
-Return a reference to the underlying `std::uint64_t`, or throw an exception. 
-
-Return the underlying `std::uint64_t`, or throw an exception. 
+    [Return a reference to the underlying `std::uint64_t`, or throw an exception. [br][role silver —][br]Return the underlying `std::uint64_t`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.at at]]
     ]
-    [
-
-Access an element, with bounds checking. 
+    [Access an element, with bounds checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_array emplace_array]]
     ]
-    [
-
-Return a reference to an [link json.ref.boost__json__array `array`], changing the kind and replacing the contents. 
+    [Return a reference to an [link json.ref.boost__json__array `array`], changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_bool emplace_bool]]
     ]
-    [
-
-Return a reference to a `bool`, changing the kind and replacing the contents. 
+    [Return a reference to a `bool`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_double emplace_double]]
     ]
-    [
-
-Return a reference to a `double`, changing the kind and replacing the contents. 
+    [Return a reference to a `double`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_int64 emplace_int64]]
     ]
-    [
-
-Return a reference to a `std::int64_t`, changing the kind and replacing the contents. 
+    [Return a reference to a `std::int64_t`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_null emplace_null]]
     ]
-    [
-
-Change the kind to null, discarding the previous contents. 
+    [Change the kind to null, discarding the previous contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_object emplace_object]]
     ]
-    [
-
-Return a reference to an [link json.ref.boost__json__object `object`], changing the kind and replacing the contents. 
+    [Return a reference to an [link json.ref.boost__json__object `object`], changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_string emplace_string]]
     ]
-    [
-
-Return a reference to a [link json.ref.boost__json__string `string`], changing the kind and replacing the contents. 
+    [Return a reference to a [link json.ref.boost__json__string `string`], changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_uint64 emplace_uint64]]
     ]
-    [
-
-Return a reference to a `std::uint64_t`, changing the kind and replacing the contents. 
+    [Return a reference to a `std::uint64_t`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_allocator get_allocator]]
     ]
-    [
-
-Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
+    [Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_array get_array]]
     ]
-    [
-
-Return a reference to the underlying `array`, without checking. 
+    [Return a reference to the underlying `array`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_bool get_bool]]
     ]
-    [
-
-Return a reference to the underlying `bool`, without checking. 
-
-Return the underlying `bool`, without checking. 
+    [Return a reference to the underlying `bool`, without checking. [br][role silver —][br]Return the underlying `bool`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_double get_double]]
     ]
-    [
-
-Return a reference to the underlying `double`, without checking. 
-
-Return the underlying `double`, without checking. 
+    [Return a reference to the underlying `double`, without checking. [br][role silver —][br]Return the underlying `double`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_int64 get_int64]]
     ]
-    [
-
-Return a reference to the underlying `std::int64_t`, without checking. 
-
-Return the underlying `std::int64_t`, without checking. 
+    [Return a reference to the underlying `std::int64_t`, without checking. [br][role silver —][br]Return the underlying `std::int64_t`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_object get_object]]
     ]
-    [
-
-Return a reference to the underlying `object`, without checking. 
+    [Return a reference to the underlying `object`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_string get_string]]
     ]
-    [
-
-Return a reference to the underlying `string`, without checking. 
+    [Return a reference to the underlying `string`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_uint64 get_uint64]]
     ]
-    [
-
-Return a reference to the underlying `std::uint64_t`, without checking. 
-
-Return the underlying `std::uint64_t`, without checking. 
+    [Return a reference to the underlying `std::uint64_t`, without checking. [br][role silver —][br]Return the underlying `std::uint64_t`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_array if_array]]
     ]
-    [
-
-Return an [link json.ref.boost__json__array `array`] pointer if this is an array, else return `nullptr`
+    [Return an [link json.ref.boost__json__array `array`] pointer if this is an array, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_bool if_bool]]
     ]
-    [
-
-Return a `bool` pointer if this is a boolean, else return `nullptr`
+    [Return a `bool` pointer if this is a boolean, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_double if_double]]
     ]
-    [
-
-Return a `double` pointer if this is a double, else return `nullptr`
+    [Return a `double` pointer if this is a double, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_int64 if_int64]]
     ]
-    [
-
-Return an `int64_t` pointer if this is a signed integer, else return `nullptr`
+    [Return an `int64_t` pointer if this is a signed integer, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_object if_object]]
     ]
-    [
-
-Return an [link json.ref.boost__json__object `object`] pointer if this is an object, else return `nullptr`
+    [Return an [link json.ref.boost__json__object `object`] pointer if this is an object, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_string if_string]]
     ]
-    [
-
-Return a [link json.ref.boost__json__string `string`] pointer if this is a string, else return `nullptr`
+    [Return a [link json.ref.boost__json__string `string`] pointer if this is a string, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_uint64 if_uint64]]
     ]
-    [
-
-Return a `uint64_t` pointer if this is an unsigned integer, else return `nullptr`
+    [Return a `uint64_t` pointer if this is an unsigned integer, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_array is_array]]
     ]
-    [
-
-Return `true` if this is an array. 
+    [Return `true` if this is an array. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_bool is_bool]]
     ]
-    [
-
-Return `true` if this is a bool. 
+    [Return `true` if this is a bool. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_double is_double]]
     ]
-    [
-
-Return `true` if this is a double. 
+    [Return `true` if this is a double. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_int64 is_int64]]
     ]
-    [
-
-Return `true` if this is a signed integer. 
+    [Return `true` if this is a signed integer. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_null is_null]]
     ]
-    [
-
-Returns true if this is a null. 
+    [Returns true if this is a null. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_number is_number]]
     ]
-    [
-
-Returns true if this is a number. 
+    [Returns true if this is a number. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_object is_object]]
     ]
-    [
-
-Return `true` if this is an object. 
+    [Return `true` if this is an object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_primitive is_primitive]]
     ]
-    [
-
-Returns true if this is not an array or object. 
+    [Returns true if this is not an array or object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_string is_string]]
     ]
-    [
-
-Return `true` if this is a string. 
+    [Return `true` if this is a string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_structured is_structured]]
     ]
-    [
-
-Returns true if this is an array or object. 
+    [Returns true if this is an array or object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_uint64 is_uint64]]
     ]
-    [
-
-Return `true` if this is a unsigned integer. 
+    [Return `true` if this is a unsigned integer. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.kind kind]]
     ]
-    [
-
-Returns the kind of this JSON value. 
+    [Returns the kind of this JSON value. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.operator_eq_ operator=]]
     ]
-    [
-
-Assignment. 
-
-Copy assignment. 
-
-Move assignment. 
+    [Assignment. [br][role silver —][br]Copy assignment. [br][role silver —][br]Move assignment. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.storage storage]]
     ]
-    [
-
-Return the memory resource associated with the value. 
+    [Return the memory resource associated with the value. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.swap swap]]
     ]
-    [
-
-Swap the given values. 
+    [Swap the given values. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.to_number to_number]]
     ]
-    [
-
-Return the stored number cast to an arithmetic type. 
+    [Return the stored number cast to an arithmetic type. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.value value]]
     ]
-    [
-
-Default constructor. 
-
-Constructor. 
-
-Pilfer constructor. 
-
-Copy constructor. 
-
-Move constructor. 
-
-Construct a null. 
-
-Construct a bool. 
-
-Construct a `std::int64_t`. 
-
-Construct a `std::uint64_t`. 
-
-Construct a `double`. 
-
-Construct a [link json.ref.boost__json__string `string`]. 
-
-Construct an [link json.ref.boost__json__array `array`]. 
-
-Construct an [link json.ref.boost__json__object `object`]. 
-
-Construct from an initializer-list. 
+    [Default constructor. [br][role silver —][br]Constructor. [br][role silver —][br]Pilfer constructor. [br][role silver —][br]Copy constructor. [br][role silver —][br]Move constructor. [br][role silver —][br]Construct a null. [br][role silver —][br]Construct a bool. [br][role silver —][br]Construct a `std::int64_t`. [br][role silver —][br]Construct a `std::uint64_t`. [br][role silver —][br]Construct a `double`. [br][role silver —][br]Construct a [link json.ref.boost__json__string `string`]. [br][role silver —][br]Construct an [link json.ref.boost__json__array `array`]. [br][role silver —][br]Construct an [link json.ref.boost__json__object `object`]. [br][role silver —][br]Construct from an initializer-list. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__value._value ~value]]
+    [[*[link json.ref.boost__json__value._value ~value] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -1970,25 +1404,19 @@ Destructor.
   [
     [[*[link json.ref.boost__json__value.operator_not__eq_ operator!=]]
     ]
-    [
-
-Return `true` if two values are not equal. 
+    [Return `true` if two values are not equal. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.operator_eq__eq_ operator==]]
     ]
-    [
-
-Return `true` if two values are equal. 
+    [Return `true` if two values are equal. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.swap swap]]
     ]
-    [
-
-Swap the given values. 
+    [Swap the given values. 
     ]
   ]
 ]
@@ -3044,7 +2472,7 @@ Access an element.
 [heading Synopsis]
 ```
 value&
-operator[](
+operator\[\](
     std::size_t pos);
 ```
 
@@ -3074,7 +2502,7 @@ Access an element.
 [heading Synopsis]
 ```
 value const&
-operator[](
+operator\[\](
     std::size_t pos) const;
 ```
 
@@ -4562,77 +3990,57 @@ class basic_parser
 [heading Member Functions]
 [table [[Name][Description]]
   [
-    [[*[link json.ref.boost__json__basic_parser.basic_parser basic_parser]]
+    [[*[link json.ref.boost__json__basic_parser.basic_parser basic_parser] [role silver \[constructor\]]]
     ]
-    [
-
-Copy constructor (deleted) 
-
-Constructor. 
+    [Copy constructor (deleted) [br][role silver —][br]Constructor. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__basic_parser.done done]]
     ]
-    [
-
-Return true if a complete JSON has been parsed. 
+    [Return true if a complete JSON has been parsed. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__basic_parser.fail fail]]
     ]
-    [
-
-Indicate a parsing failure. 
+    [Indicate a parsing failure. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__basic_parser.handler handler]]
     ]
-    [
-
-Return a reference to the handler. 
+    [Return a reference to the handler. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__basic_parser.last_error last_error]]
     ]
-    [
-
-Return the last error. 
+    [Return the last error. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__basic_parser.operator_eq_ operator=]]
     ]
-    [
-
-Copy assignment (deleted) 
+    [Copy assignment (deleted) 
     ]
   ]
   [
     [[*[link json.ref.boost__json__basic_parser.reset reset]]
     ]
-    [
-
-Reset the state, to parse a new document. 
+    [Reset the state, to parse a new document. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__basic_parser.write_some write_some]]
     ]
-    [
-
-Parse some of an input string as JSON, incrementally. 
+    [Parse some of an input string as JSON, incrementally. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__basic_parser._basic_parser ~basic_parser]]
+    [[*[link json.ref.boost__json__basic_parser._basic_parser ~basic_parser] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -5210,9 +4618,7 @@ struct is_deallocate_trivial
   [
     [[*[link json.ref.boost__json__is_deallocate_trivial.value value]]
     ]
-    [
-
-A bool equal to true if calls to `T::do_deallocate` have no effect. 
+    [A bool equal to true if calls to `T::do_deallocate` have no effect. 
     ]
   ]
 ]
@@ -5285,7 +4691,6 @@ struct is_deallocate_trivial< monotonic_resource >
     [[*[link json.ref.boost__json__is_deallocate_trivial_lt__monotonic_resource__gt_.value value]]
     ]
     [
-
     ]
   ]
 ]
@@ -5326,7 +4731,6 @@ struct is_deallocate_trivial< static_resource >
     [[*[link json.ref.boost__json__is_deallocate_trivial_lt__static_resource__gt_.value value]]
     ]
     [
-
     ]
   ]
 ]
@@ -5389,63 +4793,43 @@ class key_value_pair
   [
     [[*[link json.ref.boost__json__key_value_pair.key key]]
     ]
-    [
-
-Return the key of this element. 
+    [Return the key of this element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__key_value_pair.key_c_str key_c_str]]
     ]
-    [
-
-Return the key of this element as a null-terminated string. 
+    [Return the key of this element as a null-terminated string. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__key_value_pair.key_value_pair key_value_pair]]
+    [[*[link json.ref.boost__json__key_value_pair.key_value_pair key_value_pair] [role silver \[constructor\]]]
     ]
-    [
-
-Copy constructor. 
-
-Move constructor. 
-
-Pilfer constructor. 
-
-Constructor. 
+    [Copy constructor. [br][role silver —][br]Move constructor. [br][role silver —][br]Pilfer constructor. [br][role silver —][br]Constructor. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__key_value_pair.operator_eq_ operator=]]
     ]
-    [
-
-Copy assignment (deleted). 
+    [Copy assignment (deleted). 
     ]
   ]
   [
     [[*[link json.ref.boost__json__key_value_pair.storage storage]]
     ]
-    [
-
-Return the associated memory resource. 
+    [Return the associated memory resource. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__key_value_pair.value value]]
     ]
-    [
-
-Return the value of this element. 
+    [Return the value of this element. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__key_value_pair._key_value_pair ~key_value_pair]]
+    [[*[link json.ref.boost__json__key_value_pair._key_value_pair ~key_value_pair] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -5939,37 +5323,27 @@ class monotonic_resource :
 [heading Member Functions]
 [table [[Name][Description]]
   [
-    [[*[link json.ref.boost__json__monotonic_resource.monotonic_resource monotonic_resource]]
+    [[*[link json.ref.boost__json__monotonic_resource.monotonic_resource monotonic_resource] [role silver \[constructor\]]]
     ]
-    [
-
-Constructor. 
-
-Copy constructor (deleted) 
+    [Constructor. [br][role silver —][br]Copy constructor (deleted) 
     ]
   ]
   [
     [[*[link json.ref.boost__json__monotonic_resource.operator_eq_ operator=]]
     ]
-    [
-
-Copy assignment (deleted) 
+    [Copy assignment (deleted) 
     ]
   ]
   [
     [[*[link json.ref.boost__json__monotonic_resource.release release]]
     ]
-    [
-
-Release all allocated memory. 
+    [Release all allocated memory. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__monotonic_resource._monotonic_resource ~monotonic_resource]]
+    [[*[link json.ref.boost__json__monotonic_resource._monotonic_resource ~monotonic_resource] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -5988,11 +5362,11 @@ The purpose of this resource is to optimize the use case for performing many all
 This parses a JSON into a value which uses a local stack buffer, then prints the result.
 
 ```
-unsigned char buf[ 4000 ];
+unsigned char buf\[ 4000 \];
 monotonic_resource mr( buf );
 
 // Parse the string, using our memory resource
-auto const jv = parse( "[1,2,3]", &mr );
+auto const jv = parse( "\[1,2,3\]", &mr );
 
 // Print the JSON
 std::cout << jv;
@@ -6030,7 +5404,7 @@ template<
     std::size_t N>
 explicit
 ``[link json.ref.boost__json__monotonic_resource.monotonic_resource.overload3 monotonic_resource]``(
-    unsigned char(&) buffer[N],
+    unsigned char(&) buffer \[N\],
     storage_ptr upstream = {});
   ``[''''&raquo;''' [link json.ref.boost__json__monotonic_resource.monotonic_resource.overload3 `more...`]]``
 
@@ -6038,7 +5412,7 @@ template<
     std::size_t N>
 explicit
 ``[link json.ref.boost__json__monotonic_resource.monotonic_resource.overload4 monotonic_resource]``(
-    std::byte(&) buffer[N],
+    std::byte(&) buffer \[N\],
     storage_ptr upstream = {});
   ``[''''&raquo;''' [link json.ref.boost__json__monotonic_resource.monotonic_resource.overload4 `more...`]]``
 
@@ -6163,7 +5537,7 @@ Constructor.
 template<
     std::size_t N>
 monotonic_resource(
-    unsigned char(&) buffer[N],
+    unsigned char(&) buffer \[N\],
     storage_ptr upstream = {});
 ```
 
@@ -6206,7 +5580,7 @@ Constructor.
 template<
     std::size_t N>
 monotonic_resource(
-    std::byte(&) buffer[N],
+    std::byte(&) buffer \[N\],
     storage_ptr upstream = {});
 ```
 
@@ -6379,113 +5753,85 @@ class object
   [
     [[*[link json.ref.boost__json__object.allocator_type allocator_type]]
     ]
-    [
-
-The type of ['Allocator] returned by [link json.ref.boost__json__object.get_allocator `get_allocator`]. 
+    [The type of ['Allocator] returned by [link json.ref.boost__json__object.get_allocator `get_allocator`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.const_iterator const_iterator]]
     ]
-    [
-
-A const random access iterator to an element. 
+    [A const random access iterator to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.const_pointer const_pointer]]
     ]
-    [
-
-A const pointer to an element. 
+    [A const pointer to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.const_reference const_reference]]
     ]
-    [
-
-A const reference to an element. 
+    [A const reference to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.const_reverse_iterator const_reverse_iterator]]
     ]
-    [
-
-A const reverse random access iterator to an element. 
+    [A const reverse random access iterator to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.difference_type difference_type]]
     ]
-    [
-
-The type used to represent signed integers. 
+    [The type used to represent signed integers. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.iterator iterator]]
     ]
-    [
-
-A random access iterator to an element. 
+    [A random access iterator to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.key_type key_type]]
     ]
-    [
-
-The type of keys. 
+    [The type of keys. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.mapped_type mapped_type]]
     ]
-    [
-
-The type of mapped values. 
+    [The type of mapped values. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.pointer pointer]]
     ]
-    [
-
-A pointer to an element. 
+    [A pointer to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.reference reference]]
     ]
-    [
-
-A reference to an element. 
+    [A reference to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.reverse_iterator reverse_iterator]]
     ]
-    [
-
-A reverse random access iterator to an element. 
+    [A reverse random access iterator to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.size_type size_type]]
     ]
-    [
-
-The type used to represent unsigned integers. 
+    [The type used to represent unsigned integers. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.value_type value_type]]
     ]
-    [
-
-The element type. 
+    [The element type. 
     ]
   ]
 ]
@@ -6494,255 +5840,175 @@ The element type.
   [
     [[*[link json.ref.boost__json__object.at at]]
     ]
-    [
-
-Access the specified element, with bounds checking. 
+    [Access the specified element, with bounds checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.begin begin]]
     ]
-    [
-
-Return an iterator to the first element. 
-
-Return a const iterator to the first element. 
+    [Return an iterator to the first element. [br][role silver —][br]Return a const iterator to the first element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.capacity capacity]]
     ]
-    [
-
-Return the number of elements that can be held in currently allocated memory. 
+    [Return the number of elements that can be held in currently allocated memory. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.cbegin cbegin]]
     ]
-    [
-
-Return a const iterator to the first element. 
+    [Return a const iterator to the first element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.cend cend]]
     ]
-    [
-
-Return a const iterator to the element following the last element. 
+    [Return a const iterator to the element following the last element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.clear clear]]
     ]
-    [
-
-Erase all elements. 
+    [Erase all elements. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.contains contains]]
     ]
-    [
-
-Return `true` if the key is found. 
+    [Return `true` if the key is found. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.count count]]
     ]
-    [
-
-Count the number of elements with a specific key. 
+    [Count the number of elements with a specific key. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.crbegin crbegin]]
     ]
-    [
-
-Return a const reverse iterator to the first element of the reversed container. 
+    [Return a const reverse iterator to the first element of the reversed container. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.crend crend]]
     ]
-    [
-
-Return a const reverse iterator to the element following the last element of the reversed container. 
+    [Return a const reverse iterator to the element following the last element of the reversed container. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.emplace emplace]]
     ]
-    [
-
-Construct an element in-place. 
+    [Construct an element in-place. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.empty empty]]
     ]
-    [
-
-Return whether there are no elements. 
+    [Return whether there are no elements. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.end end]]
     ]
-    [
-
-Return an iterator to the element following the last element. 
-
-Return a const iterator to the element following the last element. 
+    [Return an iterator to the element following the last element. [br][role silver —][br]Return a const iterator to the element following the last element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.erase erase]]
     ]
-    [
-
-Erase an element. 
+    [Erase an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.find find]]
     ]
-    [
-
-Find an element with a specific key. 
+    [Find an element with a specific key. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.get_allocator get_allocator]]
     ]
-    [
-
-Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
+    [Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.if_contains if_contains]]
     ]
-    [
-
-Return a pointer to the value if the key is found, or null. 
+    [Return a pointer to the value if the key is found, or null. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.insert insert]]
     ]
-    [
-
-Insert elements. 
+    [Insert elements. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.insert_or_assign insert_or_assign]]
     ]
-    [
-
-Insert an element or assign to the current element if the key already exists. 
+    [Insert an element or assign to the current element if the key already exists. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__object.object object]]
+    [[*[link json.ref.boost__json__object.object object] [role silver \[constructor\]]]
     ]
-    [
-
-Default constructor. 
-
-Constructor. 
-
-Move constructor. 
-
-Pilfer constructor. 
-
-Copy constructor. 
-
-Construct from initializer-list. 
+    [Default constructor. [br][role silver —][br]Constructor. [br][role silver —][br]Move constructor. [br][role silver —][br]Pilfer constructor. [br][role silver —][br]Copy constructor. [br][role silver —][br]Construct from initializer-list. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.operator_eq_ operator=]]
     ]
-    [
-
-Copy assignment. 
-
-Move assignment. 
-
-Assignment. 
+    [Copy assignment. [br][role silver —][br]Move assignment. [br][role silver —][br]Assignment. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.operator_lb__rb_ operator\[\]]]
     ]
-    [
-
-Access or insert the specified element. 
+    [Access or insert the specified element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.rbegin rbegin]]
     ]
-    [
-
-Return a reverse iterator to the first element of the reversed container. 
-
-Return a const reverse iterator to the first element of the reversed container. 
+    [Return a reverse iterator to the first element of the reversed container. [br][role silver —][br]Return a const reverse iterator to the first element of the reversed container. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.rend rend]]
     ]
-    [
-
-Return a reverse iterator to the element following the last element of the reversed container. 
-
-Return a const reverse iterator to the element following the last element of the reversed container. 
+    [Return a reverse iterator to the element following the last element of the reversed container. [br][role silver —][br]Return a const reverse iterator to the element following the last element of the reversed container. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.reserve reserve]]
     ]
-    [
-
-Increase the capacity to at least a certain amount. 
+    [Increase the capacity to at least a certain amount. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.size size]]
     ]
-    [
-
-Return the number of elements. 
+    [Return the number of elements. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.storage storage]]
     ]
-    [
-
-Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
+    [Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.swap swap]]
     ]
-    [
-
-Swap two objects. 
+    [Swap two objects. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__object._object ~object]]
+    [[*[link json.ref.boost__json__object._object ~object] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -6751,9 +6017,7 @@ Destructor.
   [
     [[*[link json.ref.boost__json__object.max_size max_size]]
     ]
-    [
-
-Return the maximum number of elements any object can hold. 
+    [Return the maximum number of elements any object can hold. 
     ]
   ]
 ]
@@ -6762,25 +6026,19 @@ Return the maximum number of elements any object can hold.
   [
     [[*[link json.ref.boost__json__object.operator_not__eq_ operator!=]]
     ]
-    [
-
-Return `true` if two objects are not equal. 
+    [Return `true` if two objects are not equal. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.operator_eq__eq_ operator==]]
     ]
-    [
-
-Return `true` if two objects are equal. 
+    [Return `true` if two objects are equal. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__object.swap swap]]
     ]
-    [
-
-Swap two objects. 
+    [Swap two objects. 
     ]
   ]
 ]
@@ -6852,9 +6110,7 @@ using mapped_type = value;
   [
     [[*[link json.ref.boost__json__value.allocator_type allocator_type]]
     ]
-    [
-
-The type of ['Allocator] returned by [link json.ref.boost__json__value.get_allocator `get_allocator`]. 
+    [The type of ['Allocator] returned by [link json.ref.boost__json__value.get_allocator `get_allocator`]. 
     ]
   ]
 ]
@@ -6863,439 +6119,295 @@ The type of ['Allocator] returned by [link json.ref.boost__json__value.get_alloc
   [
     [[*[link json.ref.boost__json__value.as_array as_array]]
     ]
-    [
-
-Return a reference to the underlying [link json.ref.boost__json__array `array`], or throw an exception. 
+    [Return a reference to the underlying [link json.ref.boost__json__array `array`], or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_bool as_bool]]
     ]
-    [
-
-Return a reference to the underlying `bool`, or throw an exception. 
-
-Return the underlying `bool`, or throw an exception. 
+    [Return a reference to the underlying `bool`, or throw an exception. [br][role silver —][br]Return the underlying `bool`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_double as_double]]
     ]
-    [
-
-Return a reference to the underlying `double`, or throw an exception. 
-
-Return the underlying `double`, or throw an exception. 
+    [Return a reference to the underlying `double`, or throw an exception. [br][role silver —][br]Return the underlying `double`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_int64 as_int64]]
     ]
-    [
-
-Return a reference to the underlying `std::int64_t`, or throw an exception. 
-
-Return the underlying `std::int64_t`, or throw an exception. 
+    [Return a reference to the underlying `std::int64_t`, or throw an exception. [br][role silver —][br]Return the underlying `std::int64_t`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_object as_object]]
     ]
-    [
-
-Return a reference to the underlying `object`, or throw an exception. 
+    [Return a reference to the underlying `object`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_string as_string]]
     ]
-    [
-
-Return a reference to the underlying `string`, or throw an exception. 
+    [Return a reference to the underlying `string`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_uint64 as_uint64]]
     ]
-    [
-
-Return a reference to the underlying `std::uint64_t`, or throw an exception. 
-
-Return the underlying `std::uint64_t`, or throw an exception. 
+    [Return a reference to the underlying `std::uint64_t`, or throw an exception. [br][role silver —][br]Return the underlying `std::uint64_t`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.at at]]
     ]
-    [
-
-Access an element, with bounds checking. 
+    [Access an element, with bounds checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_array emplace_array]]
     ]
-    [
-
-Return a reference to an [link json.ref.boost__json__array `array`], changing the kind and replacing the contents. 
+    [Return a reference to an [link json.ref.boost__json__array `array`], changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_bool emplace_bool]]
     ]
-    [
-
-Return a reference to a `bool`, changing the kind and replacing the contents. 
+    [Return a reference to a `bool`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_double emplace_double]]
     ]
-    [
-
-Return a reference to a `double`, changing the kind and replacing the contents. 
+    [Return a reference to a `double`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_int64 emplace_int64]]
     ]
-    [
-
-Return a reference to a `std::int64_t`, changing the kind and replacing the contents. 
+    [Return a reference to a `std::int64_t`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_null emplace_null]]
     ]
-    [
-
-Change the kind to null, discarding the previous contents. 
+    [Change the kind to null, discarding the previous contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_object emplace_object]]
     ]
-    [
-
-Return a reference to an [link json.ref.boost__json__object `object`], changing the kind and replacing the contents. 
+    [Return a reference to an [link json.ref.boost__json__object `object`], changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_string emplace_string]]
     ]
-    [
-
-Return a reference to a [link json.ref.boost__json__string `string`], changing the kind and replacing the contents. 
+    [Return a reference to a [link json.ref.boost__json__string `string`], changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_uint64 emplace_uint64]]
     ]
-    [
-
-Return a reference to a `std::uint64_t`, changing the kind and replacing the contents. 
+    [Return a reference to a `std::uint64_t`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_allocator get_allocator]]
     ]
-    [
-
-Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
+    [Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_array get_array]]
     ]
-    [
-
-Return a reference to the underlying `array`, without checking. 
+    [Return a reference to the underlying `array`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_bool get_bool]]
     ]
-    [
-
-Return a reference to the underlying `bool`, without checking. 
-
-Return the underlying `bool`, without checking. 
+    [Return a reference to the underlying `bool`, without checking. [br][role silver —][br]Return the underlying `bool`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_double get_double]]
     ]
-    [
-
-Return a reference to the underlying `double`, without checking. 
-
-Return the underlying `double`, without checking. 
+    [Return a reference to the underlying `double`, without checking. [br][role silver —][br]Return the underlying `double`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_int64 get_int64]]
     ]
-    [
-
-Return a reference to the underlying `std::int64_t`, without checking. 
-
-Return the underlying `std::int64_t`, without checking. 
+    [Return a reference to the underlying `std::int64_t`, without checking. [br][role silver —][br]Return the underlying `std::int64_t`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_object get_object]]
     ]
-    [
-
-Return a reference to the underlying `object`, without checking. 
+    [Return a reference to the underlying `object`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_string get_string]]
     ]
-    [
-
-Return a reference to the underlying `string`, without checking. 
+    [Return a reference to the underlying `string`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_uint64 get_uint64]]
     ]
-    [
-
-Return a reference to the underlying `std::uint64_t`, without checking. 
-
-Return the underlying `std::uint64_t`, without checking. 
+    [Return a reference to the underlying `std::uint64_t`, without checking. [br][role silver —][br]Return the underlying `std::uint64_t`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_array if_array]]
     ]
-    [
-
-Return an [link json.ref.boost__json__array `array`] pointer if this is an array, else return `nullptr`
+    [Return an [link json.ref.boost__json__array `array`] pointer if this is an array, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_bool if_bool]]
     ]
-    [
-
-Return a `bool` pointer if this is a boolean, else return `nullptr`
+    [Return a `bool` pointer if this is a boolean, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_double if_double]]
     ]
-    [
-
-Return a `double` pointer if this is a double, else return `nullptr`
+    [Return a `double` pointer if this is a double, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_int64 if_int64]]
     ]
-    [
-
-Return an `int64_t` pointer if this is a signed integer, else return `nullptr`
+    [Return an `int64_t` pointer if this is a signed integer, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_object if_object]]
     ]
-    [
-
-Return an [link json.ref.boost__json__object `object`] pointer if this is an object, else return `nullptr`
+    [Return an [link json.ref.boost__json__object `object`] pointer if this is an object, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_string if_string]]
     ]
-    [
-
-Return a [link json.ref.boost__json__string `string`] pointer if this is a string, else return `nullptr`
+    [Return a [link json.ref.boost__json__string `string`] pointer if this is a string, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_uint64 if_uint64]]
     ]
-    [
-
-Return a `uint64_t` pointer if this is an unsigned integer, else return `nullptr`
+    [Return a `uint64_t` pointer if this is an unsigned integer, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_array is_array]]
     ]
-    [
-
-Return `true` if this is an array. 
+    [Return `true` if this is an array. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_bool is_bool]]
     ]
-    [
-
-Return `true` if this is a bool. 
+    [Return `true` if this is a bool. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_double is_double]]
     ]
-    [
-
-Return `true` if this is a double. 
+    [Return `true` if this is a double. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_int64 is_int64]]
     ]
-    [
-
-Return `true` if this is a signed integer. 
+    [Return `true` if this is a signed integer. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_null is_null]]
     ]
-    [
-
-Returns true if this is a null. 
+    [Returns true if this is a null. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_number is_number]]
     ]
-    [
-
-Returns true if this is a number. 
+    [Returns true if this is a number. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_object is_object]]
     ]
-    [
-
-Return `true` if this is an object. 
+    [Return `true` if this is an object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_primitive is_primitive]]
     ]
-    [
-
-Returns true if this is not an array or object. 
+    [Returns true if this is not an array or object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_string is_string]]
     ]
-    [
-
-Return `true` if this is a string. 
+    [Return `true` if this is a string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_structured is_structured]]
     ]
-    [
-
-Returns true if this is an array or object. 
+    [Returns true if this is an array or object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_uint64 is_uint64]]
     ]
-    [
-
-Return `true` if this is a unsigned integer. 
+    [Return `true` if this is a unsigned integer. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.kind kind]]
     ]
-    [
-
-Returns the kind of this JSON value. 
+    [Returns the kind of this JSON value. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.operator_eq_ operator=]]
     ]
-    [
-
-Assignment. 
-
-Copy assignment. 
-
-Move assignment. 
+    [Assignment. [br][role silver —][br]Copy assignment. [br][role silver —][br]Move assignment. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.storage storage]]
     ]
-    [
-
-Return the memory resource associated with the value. 
+    [Return the memory resource associated with the value. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.swap swap]]
     ]
-    [
-
-Swap the given values. 
+    [Swap the given values. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.to_number to_number]]
     ]
-    [
-
-Return the stored number cast to an arithmetic type. 
+    [Return the stored number cast to an arithmetic type. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.value value]]
     ]
-    [
-
-Default constructor. 
-
-Constructor. 
-
-Pilfer constructor. 
-
-Copy constructor. 
-
-Move constructor. 
-
-Construct a null. 
-
-Construct a bool. 
-
-Construct a `std::int64_t`. 
-
-Construct a `std::uint64_t`. 
-
-Construct a `double`. 
-
-Construct a [link json.ref.boost__json__string `string`]. 
-
-Construct an [link json.ref.boost__json__array `array`]. 
-
-Construct an [link json.ref.boost__json__object `object`]. 
-
-Construct from an initializer-list. 
+    [Default constructor. [br][role silver —][br]Constructor. [br][role silver —][br]Pilfer constructor. [br][role silver —][br]Copy constructor. [br][role silver —][br]Move constructor. [br][role silver —][br]Construct a null. [br][role silver —][br]Construct a bool. [br][role silver —][br]Construct a `std::int64_t`. [br][role silver —][br]Construct a `std::uint64_t`. [br][role silver —][br]Construct a `double`. [br][role silver —][br]Construct a [link json.ref.boost__json__string `string`]. [br][role silver —][br]Construct an [link json.ref.boost__json__array `array`]. [br][role silver —][br]Construct an [link json.ref.boost__json__object `object`]. [br][role silver —][br]Construct from an initializer-list. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__value._value ~value]]
+    [[*[link json.ref.boost__json__value._value ~value] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -7304,25 +6416,19 @@ Destructor.
   [
     [[*[link json.ref.boost__json__value.operator_not__eq_ operator!=]]
     ]
-    [
-
-Return `true` if two values are not equal. 
+    [Return `true` if two values are not equal. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.operator_eq__eq_ operator==]]
     ]
-    [
-
-Return `true` if two values are equal. 
+    [Return `true` if two values are equal. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.swap swap]]
     ]
-    [
-
-Swap the given values. 
+    [Swap the given values. 
     ]
   ]
 ]
@@ -7350,63 +6456,43 @@ using value_type = key_value_pair;
   [
     [[*[link json.ref.boost__json__key_value_pair.key key]]
     ]
-    [
-
-Return the key of this element. 
+    [Return the key of this element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__key_value_pair.key_c_str key_c_str]]
     ]
-    [
-
-Return the key of this element as a null-terminated string. 
+    [Return the key of this element as a null-terminated string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__key_value_pair.key_value_pair key_value_pair]]
     ]
-    [
-
-Copy constructor. 
-
-Move constructor. 
-
-Pilfer constructor. 
-
-Constructor. 
+    [Copy constructor. [br][role silver —][br]Move constructor. [br][role silver —][br]Pilfer constructor. [br][role silver —][br]Constructor. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__key_value_pair.operator_eq_ operator=]]
     ]
-    [
-
-Copy assignment (deleted). 
+    [Copy assignment (deleted). 
     ]
   ]
   [
     [[*[link json.ref.boost__json__key_value_pair.storage storage]]
     ]
-    [
-
-Return the associated memory resource. 
+    [Return the associated memory resource. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__key_value_pair.value value]]
     ]
-    [
-
-Return the value of this element. 
+    [Return the value of this element. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__key_value_pair._key_value_pair ~key_value_pair]]
+    [[*[link json.ref.boost__json__key_value_pair._key_value_pair ~key_value_pair] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -9344,7 +8430,7 @@ Access or insert the specified element.
 [heading Synopsis]
 ```
 value&
-operator[](
+operator\[\](
     string_view key);
 ```
 
@@ -9685,33 +8771,25 @@ struct parse_options
   [
     [[*[link json.ref.boost__json__parse_options.allow_comments allow_comments]]
     ]
-    [
-
-Non-standard extension option. 
+    [Non-standard extension option. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__parse_options.allow_invalid_utf8 allow_invalid_utf8]]
     ]
-    [
-
-Non-standard extension option. 
+    [Non-standard extension option. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__parse_options.allow_trailing_commas allow_trailing_commas]]
     ]
-    [
-
-Non-standard extension option. 
+    [Non-standard extension option. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__parse_options.max_depth max_depth]]
     ]
-    [
-
-Maximum nesting level of arrays and objects. 
+    [Maximum nesting level of arrays and objects. 
     ]
   ]
 ]
@@ -9815,59 +8893,43 @@ class parser
   [
     [[*[link json.ref.boost__json__parser.operator_eq_ operator=]]
     ]
-    [
-
-Copy assignment (deleted) 
+    [Copy assignment (deleted) 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__parser.parser parser]]
+    [[*[link json.ref.boost__json__parser.parser parser] [role silver \[constructor\]]]
     ]
-    [
-
-Copy constructor (deleted) 
-
-Constructor. 
+    [Copy constructor (deleted) [br][role silver —][br]Constructor. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__parser.release release]]
     ]
-    [
-
-Return the parsed JSON as a [link json.ref.boost__json__value `value`]. 
+    [Return the parsed JSON as a [link json.ref.boost__json__value `value`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__parser.reset reset]]
     ]
-    [
-
-Reset the parser for a new JSON. 
+    [Reset the parser for a new JSON. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__parser.write write]]
     ]
-    [
-
-Parse a buffer containing a complete JSON. 
+    [Parse a buffer containing a complete JSON. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__parser.write_some write_some]]
     ]
-    [
-
-Parse a buffer containing a complete JSON. 
+    [Parse a buffer containing a complete JSON. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__parser._parser ~parser]]
+    [[*[link json.ref.boost__json__parser._parser ~parser] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -9879,7 +8941,7 @@ This class is used to parse a JSON contained in a single character buffer, into 
 To use the parser first construct it, then optionally call [link json.ref.boost__json__parser.reset `reset`] to specify a [link json.ref.boost__json__storage_ptr `storage_ptr`] to use for the resulting [link json.ref.boost__json__value `value`]. Then call [link json.ref.boost__json__parser.write `write`] to parse a character buffer containing a complete JSON. If the parse is successful, call [link json.ref.boost__json__parser.release `release`] to take ownership of the value: 
 ```
 parser p;                                       // construct a parser
-size_t n = p.write( "[1,2,3]" );                // parse a complete JSON
+size_t n = p.write( "\[1,2,3\]" );                // parse a complete JSON
 assert( n == 7 );                               // all characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -9890,7 +8952,7 @@ value jv = p.release();                         // take ownership of the value
 When the character buffer provided as input contains additional data that is not part of the complete JSON, an error is returned. The [link json.ref.boost__json__parser.write_some `write_some`] function is an alternative which allows the parse to finish early, without consuming all the characters in the buffer. This allows parsing of a buffer containing multiple individual JSONs or containing different protocol data: 
 ```
 parser p;                                       // construct a parser
-size_t n = p.write_some( "[1,2,3] null" );      // parse a complete JSON
+size_t n = p.write_some( "\[1,2,3\] null" );      // parse a complete JSON
 assert( n == 8 );                               // only some characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -9959,7 +9021,7 @@ template<
 ``[link json.ref.boost__json__parser.parser.overload6 parser]``(
     storage_ptr sp,
     parse_options const& opt,
-    unsigned char(&) buffer[N]);
+    unsigned char(&) buffer \[N\]);
   ``[''''&raquo;''' [link json.ref.boost__json__parser.parser.overload6 `more...`]]``
 
 ``[link json.ref.boost__json__parser.parser.overload7 parser]``(
@@ -9974,7 +9036,7 @@ template<
 ``[link json.ref.boost__json__parser.parser.overload8 parser]``(
     storage_ptr sp,
     parse_options const& opt,
-    std::byte(&) buffer[N]);
+    std::byte(&) buffer \[N\]);
   ``[''''&raquo;''' [link json.ref.boost__json__parser.parser.overload8 `more...`]]``
 ```
  
@@ -10154,7 +9216,7 @@ template<
 parser(
     storage_ptr sp,
     parse_options const& opt,
-    unsigned char(&) buffer[N]);
+    unsigned char(&) buffer \[N\]);
 ```
 
 [heading Description]
@@ -10262,7 +9324,7 @@ template<
 parser(
     storage_ptr sp,
     parse_options const& opt,
-    std::byte(&) buffer[N]);
+    std::byte(&) buffer \[N\]);
 ```
 
 [heading Description]
@@ -10424,7 +9486,7 @@ This function parses a complete JSON contained in the specified character buffer
 
 ```
 parser p;                                       // construct a parser
-size_t n = p.write_some( "[1,2,3] null" );      // parse a complete JSON
+size_t n = p.write_some( "\[1,2,3\] null" );      // parse a complete JSON
 assert( n == 8 );                               // only some characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -10480,7 +9542,7 @@ This function parses a complete JSON contained in the specified character buffer
 
 ```
 parser p;                                       // construct a parser
-size_t n = p.write_some( "[1,2,3] null" );      // parse a complete JSON
+size_t n = p.write_some( "\[1,2,3\] null" );      // parse a complete JSON
 assert( n == 8 );                               // only some characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -10539,7 +9601,7 @@ This function parses a complete JSON contained in the specified character buffer
 
 ```
 parser p;                                       // construct a parser
-size_t n = p.write_some( "[1,2,3] null" );      // parse a complete JSON
+size_t n = p.write_some( "\[1,2,3\] null" );      // parse a complete JSON
 assert( n == 8 );                               // only some characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -10587,7 +9649,7 @@ This function parses a complete JSON contained in the specified character buffer
 
 ```
 parser p;                                       // construct a parser
-size_t n = p.write_some( "[1,2,3] null" );      // parse a complete JSON
+size_t n = p.write_some( "\[1,2,3\] null" );      // parse a complete JSON
 assert( n == 8 );                               // only some characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -10674,7 +9736,7 @@ This function parses a complete JSON contained in the specified character buffer
 
 ```
 parser p;                                       // construct a parser
-size_t n = p.write( "[1,2,3]" );                // parse a complete JSON
+size_t n = p.write( "\[1,2,3\]" );                // parse a complete JSON
 assert( n == 7 );                               // all characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -10730,7 +9792,7 @@ This function parses a complete JSON contained in the specified character buffer
 
 ```
 parser p;                                       // construct a parser
-size_t n = p.write( "[1,2,3]" );                // parse a complete JSON
+size_t n = p.write( "\[1,2,3\]" );                // parse a complete JSON
 assert( n == 7 );                               // all characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -10789,7 +9851,7 @@ This function parses a complete JSON contained in the specified character buffer
 
 ```
 parser p;                                       // construct a parser
-size_t n = p.write( "[1,2,3]" );                // parse a complete JSON
+size_t n = p.write( "\[1,2,3\]" );                // parse a complete JSON
 assert( n == 7 );                               // all characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -10837,7 +9899,7 @@ This function parses a complete JSON contained in the specified character buffer
 
 ```
 parser p;                                       // construct a parser
-size_t n = p.write( "[1,2,3]" );                // parse a complete JSON
+size_t n = p.write( "\[1,2,3\]" );                // parse a complete JSON
 assert( n == 7 );                               // all characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -10925,25 +9987,19 @@ class pilfered
   [
     [[*[link json.ref.boost__json__pilfered.get get]]
     ]
-    [
-
-Return a reference to the pilferable object. 
+    [Return a reference to the pilferable object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__pilfered.operator_arrow_ operator->]]
     ]
-    [
-
-Return a pointer to the pilferable object. 
+    [Return a pointer to the pilferable object. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__pilfered.pilfered pilfered]]
+    [[*[link json.ref.boost__json__pilfered.pilfered pilfered] [role silver \[constructor\]]]
     ]
-    [
-
-Constructor. 
+    [Constructor. 
     ]
   ]
 ]
@@ -11080,45 +10136,31 @@ class serializer
   [
     [[*[link json.ref.boost__json__serializer.done done]]
     ]
-    [
-
-Returns `true` if the serialization is complete. 
+    [Returns `true` if the serialization is complete. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__serializer.read read]]
     ]
-    [
-
-Read the next buffer of serialized JSON. 
+    [Read the next buffer of serialized JSON. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__serializer.reset reset]]
     ]
-    [
-
-Reset the serializer for a new element. 
-
-Reset the serializer for a new string. 
+    [Reset the serializer for a new element. [br][role silver —][br]Reset the serializer for a new string. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__serializer.serializer serializer]]
+    [[*[link json.ref.boost__json__serializer.serializer serializer] [role silver \[constructor\]]]
     ]
-    [
-
-Move constructor (deleted) 
-
-Default constructor. 
+    [Move constructor (deleted) [br][role silver —][br]Default constructor. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__serializer._serializer ~serializer]]
+    [[*[link json.ref.boost__json__serializer._serializer ~serializer] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -11136,7 +10178,7 @@ void print( std::ostream& os, value const& jv)
     sr.reset( &jv );
     while( ! sr.done() )
     {
-        char buf[ 4000 ];
+        char buf\[ 4000 \];
         os << sr.read( buf );
     }
 }
@@ -11427,7 +10469,7 @@ template<
     std::size_t N>
 string_view
 ``[link json.ref.boost__json__serializer.read.overload2 read]``(
-    char(&) dest[N]);
+    char(&) dest \[N\]);
   ``[''''&raquo;''' [link json.ref.boost__json__serializer.read.overload2 `more...`]]``
 ```
  
@@ -11486,7 +10528,7 @@ template<
     std::size_t N>
 string_view
 read(
-    char(&) dest[N]);
+    char(&) dest \[N\]);
 ```
 
 [heading Description]
@@ -11541,35 +10583,25 @@ class static_resource :
   [
     [[*[link json.ref.boost__json__static_resource.operator_eq_ operator=]]
     ]
-    [
-
-Copy assignment (deleted) 
+    [Copy assignment (deleted) 
     ]
   ]
   [
     [[*[link json.ref.boost__json__static_resource.release release]]
     ]
-    [
-
-Release all allocated memory. 
+    [Release all allocated memory. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__static_resource.static_resource static_resource]]
+    [[*[link json.ref.boost__json__static_resource.static_resource static_resource] [role silver \[constructor\]]]
     ]
-    [
-
-Constructor. 
-
-Copy constructor (deleted) 
+    [Constructor. [br][role silver —][br]Copy constructor (deleted) 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__static_resource._static_resource ~static_resource]]
+    [[*[link json.ref.boost__json__static_resource._static_resource ~static_resource] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -11586,11 +10618,11 @@ The resource is constructed from a caller-owned buffer from which subsequent cal
 This parses a JSON into a value which uses a local stack buffer, then prints the result.
 
 ```
-unsigned char buf[ 4000 ];
+unsigned char buf\[ 4000 \];
 static_resource mr( buf );
 
 // Parse the string, using our memory resource
-value const jv = parse( "[1,2,3]", &mr );
+value const jv = parse( "\[1,2,3\]", &mr );
 
 // Print the JSON
 std::cout << jv;
@@ -11624,14 +10656,14 @@ template<
     std::size_t N>
 explicit
 ``[link json.ref.boost__json__static_resource.static_resource.overload3 static_resource]``(
-    unsigned char(&) buffer[N]);
+    unsigned char(&) buffer \[N\]);
   ``[''''&raquo;''' [link json.ref.boost__json__static_resource.static_resource.overload3 `more...`]]``
 
 template<
     std::size_t N>
 explicit
 ``[link json.ref.boost__json__static_resource.static_resource.overload4 static_resource]``(
-    std::byte(&) buffer[N]);
+    std::byte(&) buffer \[N\]);
   ``[''''&raquo;''' [link json.ref.boost__json__static_resource.static_resource.overload4 `more...`]]``
 ```
 
@@ -11725,7 +10757,7 @@ Constructor.
 template<
     std::size_t N>
 static_resource(
-    unsigned char(&) buffer[N]);
+    unsigned char(&) buffer \[N\]);
 ```
 
 [heading Description]
@@ -11756,7 +10788,7 @@ Constructor.
 template<
     std::size_t N>
 static_resource(
-    std::byte(&) buffer[N]);
+    std::byte(&) buffer \[N\]);
 ```
 
 [heading Description]
@@ -11869,79 +10901,55 @@ class storage_ptr
   [
     [[*[link json.ref.boost__json__storage_ptr.get get]]
     ]
-    [
-
-Return a pointer to the memory resource. 
+    [Return a pointer to the memory resource. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__storage_ptr.is_deallocate_trivial is_deallocate_trivial]]
     ]
-    [
-
-Return `true` if calling `deallocate` on the memory resource has no effect. 
+    [Return `true` if calling `deallocate` on the memory resource has no effect. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__storage_ptr.is_not_shared_and_deallocate_is_trivial is_not_shared_and_deallocate_is_trivial]]
     ]
-    [
-
-Return `true` if ownership of the memory resource is not shared and deallocate is trivial. 
+    [Return `true` if ownership of the memory resource is not shared and deallocate is trivial. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__storage_ptr.is_shared is_shared]]
     ]
-    [
-
-Return `true` if ownership of the memory resource is shared. 
+    [Return `true` if ownership of the memory resource is shared. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__storage_ptr.operator__star_ operator *]]
     ]
-    [
-
-Return a reference to the memory resource. 
+    [Return a reference to the memory resource. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__storage_ptr.operator_arrow_ operator->]]
     ]
-    [
-
-Return a pointer to the memory resource. 
+    [Return a pointer to the memory resource. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__storage_ptr.operator_eq_ operator=]]
     ]
-    [
-
-Move assignment. 
-
-Copy assignment. 
+    [Move assignment. [br][role silver —][br]Copy assignment. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__storage_ptr.storage_ptr storage_ptr]]
+    [[*[link json.ref.boost__json__storage_ptr.storage_ptr storage_ptr] [role silver \[constructor\]]]
     ]
-    [
-
-Constructor. 
-
-Move constructor. 
-
-Copy constructor. 
+    [Constructor. [br][role silver —][br]Move constructor. [br][role silver —][br]Copy constructor. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__storage_ptr._storage_ptr ~storage_ptr]]
+    [[*[link json.ref.boost__json__storage_ptr._storage_ptr ~storage_ptr] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -11950,9 +10958,7 @@ Destructor.
   [
     [[*[link json.ref.boost__json__storage_ptr.make_shared_resource make_shared_resource]]
     ]
-    [
-
-Return shared ownership of a new, dynamically allocated memory resource. 
+    [Return shared ownership of a new, dynamically allocated memory resource. 
     ]
   ]
 ]
@@ -12501,75 +11507,55 @@ class stream_parser
   [
     [[*[link json.ref.boost__json__stream_parser.done done]]
     ]
-    [
-
-Return true if a complete JSON has been parsed. 
+    [Return true if a complete JSON has been parsed. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__stream_parser.finish finish]]
     ]
-    [
-
-Indicate the end of JSON input. 
+    [Indicate the end of JSON input. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__stream_parser.operator_eq_ operator=]]
     ]
-    [
-
-Copy assignment (deleted) 
+    [Copy assignment (deleted) 
     ]
   ]
   [
     [[*[link json.ref.boost__json__stream_parser.release release]]
     ]
-    [
-
-Return the parsed JSON as a [link json.ref.boost__json__value `value`]. 
+    [Return the parsed JSON as a [link json.ref.boost__json__value `value`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__stream_parser.reset reset]]
     ]
-    [
-
-Reset the parser for a new JSON. 
+    [Reset the parser for a new JSON. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__stream_parser.stream_parser stream_parser]]
+    [[*[link json.ref.boost__json__stream_parser.stream_parser stream_parser] [role silver \[constructor\]]]
     ]
-    [
-
-Copy constructor (deleted) 
-
-Constructor. 
+    [Copy constructor (deleted) [br][role silver —][br]Constructor. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__stream_parser.write write]]
     ]
-    [
-
-Parse a buffer containing all or part of a complete JSON. 
+    [Parse a buffer containing all or part of a complete JSON. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__stream_parser.write_some write_some]]
     ]
-    [
-
-Parse a buffer containing all or part of a complete JSON. 
+    [Parse a buffer containing all or part of a complete JSON. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__stream_parser._stream_parser ~stream_parser]]
+    [[*[link json.ref.boost__json__stream_parser._stream_parser ~stream_parser] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -12588,8 +11574,8 @@ To use the parser first construct it, then optionally call [link json.ref.boost_
 
 ```
 stream_parser p;                                // construct a parser
-p.write( "[1,2" );                              // parse some of a JSON
-p.write( ",3,4]" );                             // parse the rest of the JSON
+p.write( "\[1,2" );                              // parse some of a JSON
+p.write( ",3,4\]" );                             // parse the rest of the JSON
 assert( p.done() );                             // we have a complete JSON
 value jv = p.release();                         // take ownership of the value
 ```
@@ -12601,9 +11587,9 @@ When the character buffer provided as input contains additional data that is not
 ```
 stream_parser p;                                // construct a parser
 std::size_t n;                                  // number of characters used
-n = p.write_some( "[1,2" );                     // parse some of a JSON
+n = p.write_some( "\[1,2" );                     // parse some of a JSON
 assert( n == 4 );                               // all characters consumed
-n = p.write_some( ",3,4] null" );               // parse the remainder of the JSON
+n = p.write_some( ",3,4\] null" );               // parse the remainder of the JSON
 assert( n == 6 );                               // only some characters consumed
 assert( p.done() );                             // we have a complete JSON
 value jv = p.release();                         // take ownership of the value
@@ -12673,7 +11659,7 @@ template<
 ``[link json.ref.boost__json__stream_parser.stream_parser.overload6 stream_parser]``(
     storage_ptr sp,
     parse_options const& opt,
-    unsigned char(&) buffer[N]);
+    unsigned char(&) buffer \[N\]);
   ``[''''&raquo;''' [link json.ref.boost__json__stream_parser.stream_parser.overload6 `more...`]]``
 
 ``[link json.ref.boost__json__stream_parser.stream_parser.overload7 stream_parser]``(
@@ -12688,7 +11674,7 @@ template<
 ``[link json.ref.boost__json__stream_parser.stream_parser.overload8 stream_parser]``(
     storage_ptr sp,
     parse_options const& opt,
-    std::byte(&) buffer[N]);
+    std::byte(&) buffer \[N\]);
   ``[''''&raquo;''' [link json.ref.boost__json__stream_parser.stream_parser.overload8 `more...`]]``
 ```
  
@@ -12868,7 +11854,7 @@ template<
 stream_parser(
     storage_ptr sp,
     parse_options const& opt,
-    unsigned char(&) buffer[N]);
+    unsigned char(&) buffer \[N\]);
 ```
 
 [heading Description]
@@ -12976,7 +11962,7 @@ template<
 stream_parser(
     storage_ptr sp,
     parse_options const& opt,
-    std::byte(&) buffer[N]);
+    std::byte(&) buffer \[N\]);
 ```
 
 [heading Description]
@@ -13164,9 +12150,9 @@ This function parses JSON contained in the specified character buffer. If parsin
 ```
 stream_parser p;                                // construct a parser
 std::size_t n;                                  // number of characters used
-n = p.write_some( "[1,2" );                     // parse the first part of the JSON
+n = p.write_some( "\[1,2" );                     // parse the first part of the JSON
 assert( n == 4 );                               // all characters consumed
-n = p.write_some( "3,4] null" );                // parse the rest of the JSON
+n = p.write_some( "3,4\] null" );                // parse the rest of the JSON
 assert( n == 5 );                               // only some characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -13227,9 +12213,9 @@ This function parses JSON contained in the specified character buffer. If parsin
 ```
 stream_parser p;                                // construct a parser
 std::size_t n;                                  // number of characters used
-n = p.write_some( "[1,2" );                     // parse the first part of the JSON
+n = p.write_some( "\[1,2" );                     // parse the first part of the JSON
 assert( n == 4 );                               // all characters consumed
-n = p.write_some( "3,4] null" );                // parse the rest of the JSON
+n = p.write_some( "3,4\] null" );                // parse the rest of the JSON
 assert( n == 5 );                               // only some characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -13293,9 +12279,9 @@ This function parses JSON contained in the specified character buffer. If parsin
 ```
 stream_parser p;                                // construct a parser
 std::size_t n;                                  // number of characters used
-n = p.write_some( "[1,2" );                     // parse the first part of the JSON
+n = p.write_some( "\[1,2" );                     // parse the first part of the JSON
 assert( n == 4 );                               // all characters consumed
-n = p.write_some( "3,4] null" );                // parse the rest of the JSON
+n = p.write_some( "3,4\] null" );                // parse the rest of the JSON
 assert( n == 5 );                               // only some characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -13348,9 +12334,9 @@ This function parses JSON contained in the specified character buffer. If parsin
 ```
 stream_parser p;                                // construct a parser
 std::size_t n;                                  // number of characters used
-n = p.write_some( "[1,2" );                     // parse the first part of the JSON
+n = p.write_some( "\[1,2" );                     // parse the first part of the JSON
 assert( n == 4 );                               // all characters consumed
-n = p.write_some( "3,4] null" );                // parse the rest of the JSON
+n = p.write_some( "3,4\] null" );                // parse the rest of the JSON
 assert( n == 5 );                               // only some characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -13442,9 +12428,9 @@ This function parses a all or part of a JSON contained in the specified characte
 ```
 stream_parser p;                                // construct a parser
 std::size_t n;                                  // number of characters used
-n = p.write( "[1,2" );                          // parse some of the JSON
+n = p.write( "\[1,2" );                          // parse some of the JSON
 assert( n == 4 );                               // all characters consumed
-n = p.write( "3,4]" );                          // parse the rest of the JSON
+n = p.write( "3,4\]" );                          // parse the rest of the JSON
 assert( n == 4 );                               // all characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -13505,9 +12491,9 @@ This function parses a all or part of a JSON contained in the specified characte
 ```
 stream_parser p;                                // construct a parser
 std::size_t n;                                  // number of characters used
-n = p.write( "[1,2" );                          // parse some of the JSON
+n = p.write( "\[1,2" );                          // parse some of the JSON
 assert( n == 4 );                               // all characters consumed
-n = p.write( "3,4]" );                          // parse the rest of the JSON
+n = p.write( "3,4\]" );                          // parse the rest of the JSON
 assert( n == 4 );                               // all characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -13571,9 +12557,9 @@ This function parses a all or part of a JSON contained in the specified characte
 ```
 stream_parser p;                                // construct a parser
 std::size_t n;                                  // number of characters used
-n = p.write( "[1,2" );                          // parse some of the JSON
+n = p.write( "\[1,2" );                          // parse some of the JSON
 assert( n == 4 );                               // all characters consumed
-n = p.write( "3,4]" );                          // parse the rest of the JSON
+n = p.write( "3,4\]" );                          // parse the rest of the JSON
 assert( n == 4 );                               // all characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -13626,9 +12612,9 @@ This function parses a all or part of a JSON contained in the specified characte
 ```
 stream_parser p;                                // construct a parser
 std::size_t n;                                  // number of characters used
-n = p.write( "[1,2" );                          // parse some of the JSON
+n = p.write( "\[1,2" );                          // parse some of the JSON
 assert( n == 4 );                               // all characters consumed
-n = p.write( "3,4]" );                          // parse the rest of the JSON
+n = p.write( "3,4\]" );                          // parse the rest of the JSON
 assert( n == 4 );                               // all characters consumed
 value jv = p.release();                         // take ownership of the value
 ```
@@ -13831,97 +12817,73 @@ class string
   [
     [[*[link json.ref.boost__json__string.allocator_type allocator_type]]
     ]
-    [
-
-The type of ['Allocator] returned by [link json.ref.boost__json__string.get_allocator `get_allocator`]. 
+    [The type of ['Allocator] returned by [link json.ref.boost__json__string.get_allocator `get_allocator`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.const_iterator const_iterator]]
     ]
-    [
-
-A random access const iterator to an element. 
+    [A random access const iterator to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.const_pointer const_pointer]]
     ]
-    [
-
-A const pointer to an element. 
+    [A const pointer to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.const_reference const_reference]]
     ]
-    [
-
-A const reference to an element. 
+    [A const reference to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.const_reverse_iterator const_reverse_iterator]]
     ]
-    [
-
-A reverse random access const iterator to an element. 
+    [A reverse random access const iterator to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.difference_type difference_type]]
     ]
-    [
-
-The type used to represent signed integers. 
+    [The type used to represent signed integers. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.iterator iterator]]
     ]
-    [
-
-A random access iterator to an element. 
+    [A random access iterator to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.pointer pointer]]
     ]
-    [
-
-A pointer to an element. 
+    [A pointer to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.reference reference]]
     ]
-    [
-
-A reference to an element. 
+    [A reference to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.reverse_iterator reverse_iterator]]
     ]
-    [
-
-A reverse random access iterator to an element. 
+    [A reverse random access iterator to an element. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.size_type size_type]]
     ]
-    [
-
-The type used to represent unsigned integers. 
+    [The type used to represent unsigned integers. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.value_type value_type]]
     ]
-    [
-
-The type of a character. 
+    [The type of a character. 
     ]
   ]
 ]
@@ -13930,431 +12892,289 @@ The type of a character.
   [
     [[*[link json.ref.boost__json__string.append append]]
     ]
-    [
-
-Append characters to the string. 
-
-Append a string to the string. 
-
-Append a range of characters. 
+    [Append characters to the string. [br][role silver —][br]Append a string to the string. [br][role silver —][br]Append a range of characters. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.assign assign]]
     ]
-    [
-
-Assign characters to a string. 
+    [Assign characters to a string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.at at]]
     ]
-    [
-
-Return a character with bounds checking. 
+    [Return a character with bounds checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.back back]]
     ]
-    [
-
-Return the last character. 
+    [Return the last character. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.begin begin]]
     ]
-    [
-
-Return an iterator to the beginning. 
+    [Return an iterator to the beginning. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.c_str c_str]]
     ]
-    [
-
-Return the underlying character array directly. 
+    [Return the underlying character array directly. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.capacity capacity]]
     ]
-    [
-
-Return the number of characters that can be held without a reallocation. 
+    [Return the number of characters that can be held without a reallocation. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.cbegin cbegin]]
     ]
-    [
-
-Return an iterator to the beginning. 
+    [Return an iterator to the beginning. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.cend cend]]
     ]
-    [
-
-Return an iterator to the end. 
+    [Return an iterator to the end. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.clear clear]]
     ]
-    [
-
-Clear the contents. 
+    [Clear the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.compare compare]]
     ]
-    [
-
-Compare a string with the string. 
+    [Compare a string with the string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.copy copy]]
     ]
-    [
-
-Copy a substring to another string. 
+    [Copy a substring to another string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.crbegin crbegin]]
     ]
-    [
-
-Return a reverse iterator to the first character of the reversed container. 
+    [Return a reverse iterator to the first character of the reversed container. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.crend crend]]
     ]
-    [
-
-Return a reverse iterator to the character following the last character of the reversed container. 
+    [Return a reverse iterator to the character following the last character of the reversed container. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.data data]]
     ]
-    [
-
-Return the underlying character array directly. 
+    [Return the underlying character array directly. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.empty empty]]
     ]
-    [
-
-Check if the string has no characters. 
+    [Check if the string has no characters. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.end end]]
     ]
-    [
-
-Return an iterator to the end. 
+    [Return an iterator to the end. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.ends_with ends_with]]
     ]
-    [
-
-Return whether the string end with a string. 
-
-Return whether the string ends with a character. 
+    [Return whether the string end with a string. [br][role silver —][br]Return whether the string ends with a character. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.erase erase]]
     ]
-    [
-
-Erase characters from the string. 
-
-Erase a character from the string. 
-
-Erase a range from the string. 
+    [Erase characters from the string. [br][role silver —][br]Erase a character from the string. [br][role silver —][br]Erase a range from the string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.find find]]
     ]
-    [
-
-Find the first occurrence of a string within the string. 
-
-Find the first occurrence of a character within the string. 
+    [Find the first occurrence of a string within the string. [br][role silver —][br]Find the first occurrence of a character within the string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.find_first_not_of find_first_not_of]]
     ]
-    [
-
-Find the first occurrence of any of the characters not within the string. 
-
-Find the first occurrence of a character not equal to `ch`. 
+    [Find the first occurrence of any of the characters not within the string. [br][role silver —][br]Find the first occurrence of a character not equal to `ch`. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.find_first_of find_first_of]]
     ]
-    [
-
-Find the first occurrence of any of the characters within the string. 
+    [Find the first occurrence of any of the characters within the string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.find_last_not_of find_last_not_of]]
     ]
-    [
-
-Find the last occurrence of a character not within the string. 
-
-Find the last occurrence of a character not equal to `ch`. 
+    [Find the last occurrence of a character not within the string. [br][role silver —][br]Find the last occurrence of a character not equal to `ch`. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.find_last_of find_last_of]]
     ]
-    [
-
-Find the last occurrence of any of the characters within the string. 
+    [Find the last occurrence of any of the characters within the string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.front front]]
     ]
-    [
-
-Return the first character. 
+    [Return the first character. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.get_allocator get_allocator]]
     ]
-    [
-
-Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
+    [Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.grow grow]]
     ]
-    [
-
-Increase size without changing capacity. 
+    [Increase size without changing capacity. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.insert insert]]
     ]
-    [
-
-Insert a string. 
-
-Insert a character. 
-
-Insert a range of characters. 
+    [Insert a string. [br][role silver —][br]Insert a character. [br][role silver —][br]Insert a range of characters. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.operator_string_view operator string_view]]
     ]
-    [
-
-Convert to a `string_view` referring to the string. 
+    [Convert to a `string_view` referring to the string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.operator_plus__eq_ operator+=]]
     ]
-    [
-
-Append characters from a string. 
-
-Append a character. 
+    [Append characters from a string. [br][role silver —][br]Append a character. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.operator_eq_ operator=]]
     ]
-    [
-
-Copy assignment. 
-
-Move assignment. 
-
-Assign a value to the string. 
+    [Copy assignment. [br][role silver —][br]Move assignment. [br][role silver —][br]Assign a value to the string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.operator_lb__rb_ operator\[\]]]
     ]
-    [
-
-Return a character without bounds checking. 
+    [Return a character without bounds checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.pop_back pop_back]]
     ]
-    [
-
-Remove the last character. 
+    [Remove the last character. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.push_back push_back]]
     ]
-    [
-
-Append a character. 
+    [Append a character. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.rbegin rbegin]]
     ]
-    [
-
-Return a reverse iterator to the first character of the reversed container. 
+    [Return a reverse iterator to the first character of the reversed container. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.rend rend]]
     ]
-    [
-
-Return a reverse iterator to the character following the last character of the reversed container. 
+    [Return a reverse iterator to the character following the last character of the reversed container. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.replace replace]]
     ]
-    [
-
-Replace a substring with a string. 
-
-Replace a range with a string. 
-
-Replace a range with a range. 
-
-Replace a substring with copies of a character. 
-
-Replace a range with copies of a character. 
+    [Replace a substring with a string. [br][role silver —][br]Replace a range with a string. [br][role silver —][br]Replace a range with a range. [br][role silver —][br]Replace a substring with copies of a character. [br][role silver —][br]Replace a range with copies of a character. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.reserve reserve]]
     ]
-    [
-
-Increase the capacity to at least a certain amount. 
+    [Increase the capacity to at least a certain amount. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.resize resize]]
     ]
-    [
-
-Change the size of the string. 
+    [Change the size of the string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.rfind rfind]]
     ]
-    [
-
-Find the last occurrence of a string within the string. 
-
-Find the last occurrence of a character within the string. 
+    [Find the last occurrence of a string within the string. [br][role silver —][br]Find the last occurrence of a character within the string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.shrink_to_fit shrink_to_fit]]
     ]
-    [
-
-Request the removal of unused capacity. 
+    [Request the removal of unused capacity. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.size size]]
     ]
-    [
-
-Return the number of characters in the string. 
+    [Return the number of characters in the string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.starts_with starts_with]]
     ]
-    [
-
-Return whether the string begins with a string. 
-
-Return whether the string begins with a character. 
+    [Return whether the string begins with a string. [br][role silver —][br]Return whether the string begins with a character. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.storage storage]]
     ]
-    [
-
-Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
+    [Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__string.string string]]
+    [[*[link json.ref.boost__json__string.string string] [role silver \[constructor\]]]
     ]
-    [
-
-Default constructor. 
-
-Pilfer constructor. 
-
-Constructor. 
-
-Copy constructor. 
-
-Move constructor. 
+    [Default constructor. [br][role silver —][br]Pilfer constructor. [br][role silver —][br]Constructor. [br][role silver —][br]Copy constructor. [br][role silver —][br]Move constructor. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.subview subview]]
     ]
-    [
-
-Return a substring. 
+    [Return a substring. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__string.swap swap]]
     ]
-    [
-
-Swap the contents. 
+    [Swap the contents. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__string._string ~string]]
+    [[*[link json.ref.boost__json__string._string ~string] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -14363,9 +13183,7 @@ Destructor.
   [
     [[*[link json.ref.boost__json__string.max_size max_size]]
     ]
-    [
-
-Return the maximum number of characters any string can hold. 
+    [Return the maximum number of characters any string can hold. 
     ]
   ]
 ]
@@ -14374,9 +13192,7 @@ Return the maximum number of characters any string can hold.
   [
     [[*[link json.ref.boost__json__string.npos npos]]
     ]
-    [
-
-A special index. 
+    [A special index. 
     ]
   ]
 ]
@@ -14385,9 +13201,7 @@ A special index.
   [
     [[*[link json.ref.boost__json__string.swap swap]]
     ]
-    [
-
-Exchange the given values. 
+    [Exchange the given values. 
     ]
   ]
 ]
@@ -16132,7 +14946,7 @@ Return a character without bounds checking.
 [heading Synopsis]
 ```
 char&
-operator[](
+operator\[\](
     std::size_t pos);
 ```
 
@@ -16169,7 +14983,7 @@ Return a character without bounds checking.
 [heading Synopsis]
 ```
 const char&
-operator[](
+operator\[\](
     std::size_t pos) const;
 ```
 
@@ -19219,9 +18033,7 @@ class value
   [
     [[*[link json.ref.boost__json__value.allocator_type allocator_type]]
     ]
-    [
-
-The type of ['Allocator] returned by [link json.ref.boost__json__value.get_allocator `get_allocator`]. 
+    [The type of ['Allocator] returned by [link json.ref.boost__json__value.get_allocator `get_allocator`]. 
     ]
   ]
 ]
@@ -19230,439 +18042,295 @@ The type of ['Allocator] returned by [link json.ref.boost__json__value.get_alloc
   [
     [[*[link json.ref.boost__json__value.as_array as_array]]
     ]
-    [
-
-Return a reference to the underlying [link json.ref.boost__json__array `array`], or throw an exception. 
+    [Return a reference to the underlying [link json.ref.boost__json__array `array`], or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_bool as_bool]]
     ]
-    [
-
-Return a reference to the underlying `bool`, or throw an exception. 
-
-Return the underlying `bool`, or throw an exception. 
+    [Return a reference to the underlying `bool`, or throw an exception. [br][role silver —][br]Return the underlying `bool`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_double as_double]]
     ]
-    [
-
-Return a reference to the underlying `double`, or throw an exception. 
-
-Return the underlying `double`, or throw an exception. 
+    [Return a reference to the underlying `double`, or throw an exception. [br][role silver —][br]Return the underlying `double`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_int64 as_int64]]
     ]
-    [
-
-Return a reference to the underlying `std::int64_t`, or throw an exception. 
-
-Return the underlying `std::int64_t`, or throw an exception. 
+    [Return a reference to the underlying `std::int64_t`, or throw an exception. [br][role silver —][br]Return the underlying `std::int64_t`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_object as_object]]
     ]
-    [
-
-Return a reference to the underlying `object`, or throw an exception. 
+    [Return a reference to the underlying `object`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_string as_string]]
     ]
-    [
-
-Return a reference to the underlying `string`, or throw an exception. 
+    [Return a reference to the underlying `string`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.as_uint64 as_uint64]]
     ]
-    [
-
-Return a reference to the underlying `std::uint64_t`, or throw an exception. 
-
-Return the underlying `std::uint64_t`, or throw an exception. 
+    [Return a reference to the underlying `std::uint64_t`, or throw an exception. [br][role silver —][br]Return the underlying `std::uint64_t`, or throw an exception. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.at at]]
     ]
-    [
-
-Access an element, with bounds checking. 
+    [Access an element, with bounds checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_array emplace_array]]
     ]
-    [
-
-Return a reference to an [link json.ref.boost__json__array `array`], changing the kind and replacing the contents. 
+    [Return a reference to an [link json.ref.boost__json__array `array`], changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_bool emplace_bool]]
     ]
-    [
-
-Return a reference to a `bool`, changing the kind and replacing the contents. 
+    [Return a reference to a `bool`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_double emplace_double]]
     ]
-    [
-
-Return a reference to a `double`, changing the kind and replacing the contents. 
+    [Return a reference to a `double`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_int64 emplace_int64]]
     ]
-    [
-
-Return a reference to a `std::int64_t`, changing the kind and replacing the contents. 
+    [Return a reference to a `std::int64_t`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_null emplace_null]]
     ]
-    [
-
-Change the kind to null, discarding the previous contents. 
+    [Change the kind to null, discarding the previous contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_object emplace_object]]
     ]
-    [
-
-Return a reference to an [link json.ref.boost__json__object `object`], changing the kind and replacing the contents. 
+    [Return a reference to an [link json.ref.boost__json__object `object`], changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_string emplace_string]]
     ]
-    [
-
-Return a reference to a [link json.ref.boost__json__string `string`], changing the kind and replacing the contents. 
+    [Return a reference to a [link json.ref.boost__json__string `string`], changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.emplace_uint64 emplace_uint64]]
     ]
-    [
-
-Return a reference to a `std::uint64_t`, changing the kind and replacing the contents. 
+    [Return a reference to a `std::uint64_t`, changing the kind and replacing the contents. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_allocator get_allocator]]
     ]
-    [
-
-Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
+    [Return the associated [link json.ref.boost__json__memory_resource `memory_resource`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_array get_array]]
     ]
-    [
-
-Return a reference to the underlying `array`, without checking. 
+    [Return a reference to the underlying `array`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_bool get_bool]]
     ]
-    [
-
-Return a reference to the underlying `bool`, without checking. 
-
-Return the underlying `bool`, without checking. 
+    [Return a reference to the underlying `bool`, without checking. [br][role silver —][br]Return the underlying `bool`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_double get_double]]
     ]
-    [
-
-Return a reference to the underlying `double`, without checking. 
-
-Return the underlying `double`, without checking. 
+    [Return a reference to the underlying `double`, without checking. [br][role silver —][br]Return the underlying `double`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_int64 get_int64]]
     ]
-    [
-
-Return a reference to the underlying `std::int64_t`, without checking. 
-
-Return the underlying `std::int64_t`, without checking. 
+    [Return a reference to the underlying `std::int64_t`, without checking. [br][role silver —][br]Return the underlying `std::int64_t`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_object get_object]]
     ]
-    [
-
-Return a reference to the underlying `object`, without checking. 
+    [Return a reference to the underlying `object`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_string get_string]]
     ]
-    [
-
-Return a reference to the underlying `string`, without checking. 
+    [Return a reference to the underlying `string`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.get_uint64 get_uint64]]
     ]
-    [
-
-Return a reference to the underlying `std::uint64_t`, without checking. 
-
-Return the underlying `std::uint64_t`, without checking. 
+    [Return a reference to the underlying `std::uint64_t`, without checking. [br][role silver —][br]Return the underlying `std::uint64_t`, without checking. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_array if_array]]
     ]
-    [
-
-Return an [link json.ref.boost__json__array `array`] pointer if this is an array, else return `nullptr`
+    [Return an [link json.ref.boost__json__array `array`] pointer if this is an array, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_bool if_bool]]
     ]
-    [
-
-Return a `bool` pointer if this is a boolean, else return `nullptr`
+    [Return a `bool` pointer if this is a boolean, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_double if_double]]
     ]
-    [
-
-Return a `double` pointer if this is a double, else return `nullptr`
+    [Return a `double` pointer if this is a double, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_int64 if_int64]]
     ]
-    [
-
-Return an `int64_t` pointer if this is a signed integer, else return `nullptr`
+    [Return an `int64_t` pointer if this is a signed integer, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_object if_object]]
     ]
-    [
-
-Return an [link json.ref.boost__json__object `object`] pointer if this is an object, else return `nullptr`
+    [Return an [link json.ref.boost__json__object `object`] pointer if this is an object, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_string if_string]]
     ]
-    [
-
-Return a [link json.ref.boost__json__string `string`] pointer if this is a string, else return `nullptr`
+    [Return a [link json.ref.boost__json__string `string`] pointer if this is a string, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.if_uint64 if_uint64]]
     ]
-    [
-
-Return a `uint64_t` pointer if this is an unsigned integer, else return `nullptr`
+    [Return a `uint64_t` pointer if this is an unsigned integer, else return `nullptr`
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_array is_array]]
     ]
-    [
-
-Return `true` if this is an array. 
+    [Return `true` if this is an array. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_bool is_bool]]
     ]
-    [
-
-Return `true` if this is a bool. 
+    [Return `true` if this is a bool. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_double is_double]]
     ]
-    [
-
-Return `true` if this is a double. 
+    [Return `true` if this is a double. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_int64 is_int64]]
     ]
-    [
-
-Return `true` if this is a signed integer. 
+    [Return `true` if this is a signed integer. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_null is_null]]
     ]
-    [
-
-Returns true if this is a null. 
+    [Returns true if this is a null. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_number is_number]]
     ]
-    [
-
-Returns true if this is a number. 
+    [Returns true if this is a number. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_object is_object]]
     ]
-    [
-
-Return `true` if this is an object. 
+    [Return `true` if this is an object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_primitive is_primitive]]
     ]
-    [
-
-Returns true if this is not an array or object. 
+    [Returns true if this is not an array or object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_string is_string]]
     ]
-    [
-
-Return `true` if this is a string. 
+    [Return `true` if this is a string. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_structured is_structured]]
     ]
-    [
-
-Returns true if this is an array or object. 
+    [Returns true if this is an array or object. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.is_uint64 is_uint64]]
     ]
-    [
-
-Return `true` if this is a unsigned integer. 
+    [Return `true` if this is a unsigned integer. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.kind kind]]
     ]
-    [
-
-Returns the kind of this JSON value. 
+    [Returns the kind of this JSON value. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.operator_eq_ operator=]]
     ]
-    [
-
-Assignment. 
-
-Copy assignment. 
-
-Move assignment. 
+    [Assignment. [br][role silver —][br]Copy assignment. [br][role silver —][br]Move assignment. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.storage storage]]
     ]
-    [
-
-Return the memory resource associated with the value. 
+    [Return the memory resource associated with the value. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.swap swap]]
     ]
-    [
-
-Swap the given values. 
+    [Swap the given values. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.to_number to_number]]
     ]
-    [
-
-Return the stored number cast to an arithmetic type. 
+    [Return the stored number cast to an arithmetic type. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__value.value value]]
+    [[*[link json.ref.boost__json__value.value value] [role silver \[constructor\]]]
     ]
-    [
-
-Default constructor. 
-
-Constructor. 
-
-Pilfer constructor. 
-
-Copy constructor. 
-
-Move constructor. 
-
-Construct a null. 
-
-Construct a bool. 
-
-Construct a `std::int64_t`. 
-
-Construct a `std::uint64_t`. 
-
-Construct a `double`. 
-
-Construct a [link json.ref.boost__json__string `string`]. 
-
-Construct an [link json.ref.boost__json__array `array`]. 
-
-Construct an [link json.ref.boost__json__object `object`]. 
-
-Construct from an initializer-list. 
+    [Default constructor. [br][role silver —][br]Constructor. [br][role silver —][br]Pilfer constructor. [br][role silver —][br]Copy constructor. [br][role silver —][br]Move constructor. [br][role silver —][br]Construct a null. [br][role silver —][br]Construct a bool. [br][role silver —][br]Construct a `std::int64_t`. [br][role silver —][br]Construct a `std::uint64_t`. [br][role silver —][br]Construct a `double`. [br][role silver —][br]Construct a [link json.ref.boost__json__string `string`]. [br][role silver —][br]Construct an [link json.ref.boost__json__array `array`]. [br][role silver —][br]Construct an [link json.ref.boost__json__object `object`]. [br][role silver —][br]Construct from an initializer-list. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__value._value ~value]]
+    [[*[link json.ref.boost__json__value._value ~value] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -19671,25 +18339,19 @@ Destructor.
   [
     [[*[link json.ref.boost__json__value.operator_not__eq_ operator!=]]
     ]
-    [
-
-Return `true` if two values are not equal. 
+    [Return `true` if two values are not equal. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.operator_eq__eq_ operator==]]
     ]
-    [
-
-Return `true` if two values are equal. 
+    [Return `true` if two values are equal. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value.swap swap]]
     ]
-    [
-
-Swap the given values. 
+    [Swap the given values. 
     ]
   ]
 ]
@@ -21523,10 +20185,8 @@ The string is constructed with a copy of the string view `s`, using the specifie
 
 [heading Complexity]
 Linear in `s.size()`.
-[heading Exception Safety ]
-
+[heading Exception Safety]
 Strong guarantee. Calls to `memory_resource::allocate` may throw.
-
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -21562,10 +20222,8 @@ The string is constructed with a copy of the null-terminated string `s`, using t
 
 [heading Complexity]
 Linear in `std::strlen(s)`.
-[heading Exception Safety ]
-
+[heading Exception Safety]
 Strong guarantee. Calls to `memory_resource::allocate` may throw.
-
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -24564,11 +23222,9 @@ class value_ref
 [heading Member Functions]
 [table [[Name][Description]]
   [
-    [[*[link json.ref.boost__json__value_ref.value_ref value_ref]]
+    [[*[link json.ref.boost__json__value_ref.value_ref value_ref] [role silver \[constructor\]]]
     ]
-    [
-
-Constructor. 
+    [Constructor. 
     ]
   ]
 ]
@@ -24965,123 +23621,91 @@ class value_stack
   [
     [[*[link json.ref.boost__json__value_stack.operator_eq_ operator=]]
     ]
-    [
-
-Copy assignment (deleted) 
+    [Copy assignment (deleted) 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value_stack.push_array push_array]]
     ]
-    [
-
-Push an array formed by popping `n` values from the stack. 
+    [Push an array formed by popping `n` values from the stack. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value_stack.push_bool push_bool]]
     ]
-    [
-
-Push a `bool` onto the stack. 
+    [Push a `bool` onto the stack. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value_stack.push_chars push_chars]]
     ]
-    [
-
-Push part of a key or string onto the stack. 
+    [Push part of a key or string onto the stack. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value_stack.push_double push_double]]
     ]
-    [
-
-Push a number onto the stack. 
+    [Push a number onto the stack. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value_stack.push_int64 push_int64]]
     ]
-    [
-
-Push a number onto the stack. 
+    [Push a number onto the stack. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value_stack.push_key push_key]]
     ]
-    [
-
-Push a key onto the stack. 
+    [Push a key onto the stack. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value_stack.push_null push_null]]
     ]
-    [
-
-Push a null onto the stack. 
+    [Push a null onto the stack. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value_stack.push_object push_object]]
     ]
-    [
-
-Push an object formed by popping `n` key/value pairs from the stack. 
+    [Push an object formed by popping `n` key/value pairs from the stack. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value_stack.push_string push_string]]
     ]
-    [
-
-Place a string value onto the stack. 
+    [Place a string value onto the stack. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value_stack.push_uint64 push_uint64]]
     ]
-    [
-
-Push a number onto the stack. 
+    [Push a number onto the stack. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value_stack.release release]]
     ]
-    [
-
-Return the top-level [link json.ref.boost__json__value `value`]. 
+    [Return the top-level [link json.ref.boost__json__value `value`]. 
     ]
   ]
   [
     [[*[link json.ref.boost__json__value_stack.reset reset]]
     ]
-    [
-
-Prepare to build a new document. 
+    [Prepare to build a new document. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__value_stack.value_stack value_stack]]
+    [[*[link json.ref.boost__json__value_stack.value_stack value_stack] [role silver \[constructor\]]]
     ]
-    [
-
-Copy constructor (deleted) 
-
-Constructor. 
+    [Copy constructor (deleted) [br][role silver —][br]Constructor. 
     ]
   ]
   [
-    [[*[link json.ref.boost__json__value_stack._value_stack ~value_stack]]
+    [[*[link json.ref.boost__json__value_stack._value_stack ~value_stack] [role silver \[destructor\]]]
     ]
-    [
-
-Destructor. 
+    [Destructor. 
     ]
   ]
 ]
@@ -25105,11 +23729,11 @@ The following code constructs a [link json.ref.boost__json__value `value`] which
 // This example builds a json::value without any dynamic memory allocations:
 
 // Construct the value stack using a local buffer
-unsigned char temp[4096];
+unsigned char temp\[4096\];
 value_stack st( storage_ptr(), temp, sizeof(temp) );
 
 // Create a static resource with a local initial buffer
-unsigned char buf[4096];
+unsigned char buf\[4096\];
 static_resource mr( buf, sizeof(buf) );
 
 // All values on the stack will use `mr`
@@ -25351,7 +23975,7 @@ st.push_array( 3 );
 // Pop the object from the stack and take ownership.
 value jv = st.release();
 
-assert( serialize(jv) == "[1,2,3]" );
+assert( serialize(jv) == "\[1,2,3\]" );
 
 // At this point, reset must be called again to use the stack
 ```
@@ -27536,7 +26160,7 @@ When using C++17 or greater, objects of type [link json.ref.boost__json__key_val
 ```
 key_value_pair kvp("num", 42);
 
-auto& [key, value] = kvp;
+auto& \[key, value\] = kvp;
 ```
 
 Depending on the value of `I`, the return type will be:

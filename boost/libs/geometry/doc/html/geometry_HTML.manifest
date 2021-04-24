@@ -86,6 +86,9 @@ geometry/reference/algorithms/assign/assign_values_4_3_coordinate_values.html
 geometry/reference/algorithms/assign/assign_values_5_4_coordinate_values.html
 geometry/reference/algorithms/assign/assign_zero.html
 geometry/reference/algorithms/append.html
+geometry/reference/algorithms/azimuth.html
+geometry/reference/algorithms/azimuth/azimuth_2.html
+geometry/reference/algorithms/azimuth/azimuth_3_with_strategy.html
 geometry/reference/algorithms/buffer.html
 geometry/reference/algorithms/buffer/buffer_4.html
 geometry/reference/algorithms/buffer/buffer_7_with_strategies.html
@@ -98,6 +101,8 @@ geometry/reference/algorithms/centroid/return_centroid_2_with_strategy.html
 geometry/reference/algorithms/clear.html
 geometry/reference/algorithms/convert.html
 geometry/reference/algorithms/convex_hull.html
+geometry/reference/algorithms/convex_hull/convex_hull_3_with_strategy.html
+geometry/reference/algorithms/convex_hull/convex_hull_2.html
 geometry/reference/algorithms/correct.html
 geometry/reference/algorithms/correct/correct_1.html
 geometry/reference/algorithms/correct/correct_2_with_strategy.html
@@ -272,7 +277,9 @@ geometry/reference/io.html
 geometry/reference/io/dsv.html
 geometry/reference/io/dsv/dsv.html
 geometry/reference/io/wkt.html
+geometry/reference/io/wkt/from_wkt.html
 geometry/reference/io/wkt/read_wkt.html
+geometry/reference/io/wkt/to_wkt.html
 geometry/reference/io/wkt/wkt.html
 geometry/reference/io/svg.html
 geometry/reference/io/svg/svg.html
@@ -377,6 +384,9 @@ geometry/reference/spatial_indexes/group__predicates/nearest_geometry_const____u
 geometry/reference/srs.html
 geometry/reference/srs/srs_spheroid.html
 geometry/reference/strategies.html
+geometry/reference/strategies/strategy_area_cartesian.html
+geometry/reference/strategies/strategy_area_spherical.html
+geometry/reference/strategies/strategy_area_geographic.html
 geometry/reference/strategies/strategy_buffer_join_round.html
 geometry/reference/strategies/strategy_buffer_join_miter.html
 geometry/reference/strategies/strategy_buffer_end_round.html
@@ -389,7 +399,6 @@ geometry/reference/strategies/strategy_buffer_geographic_point_circle.html
 geometry/reference/strategies/strategy_buffer_side_straight.html
 geometry/reference/strategies/strategy_centroid_average.html
 geometry/reference/strategies/strategy_centroid_bashein_detmer.html
-geometry/reference/strategies/strategy_convex_hull_graham_andrew.html
 geometry/reference/strategies/strategy_densify_cartesian.html
 geometry/reference/strategies/strategy_densify_geographic.html
 geometry/reference/strategies/strategy_densify_spherical.html

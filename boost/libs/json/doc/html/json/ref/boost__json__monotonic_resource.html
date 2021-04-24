@@ -65,15 +65,13 @@
 <tr>
 <td>
                 <p>
-                  <span class="bold"><strong><a class="link" href="boost__json__monotonic_resource/monotonic_resource.html" title="monotonic_resource::monotonic_resource">monotonic_resource</a></strong></span>
+                  <span class="bold"><strong><a class="link" href="boost__json__monotonic_resource/monotonic_resource.html" title="monotonic_resource::monotonic_resource">monotonic_resource</a> <span class="silver">[constructor]</span></strong></span>
                 </p>
               </td>
 <td>
                 <p>
-                  Constructor.
-                </p>
-                <p>
-                  Copy constructor (deleted)
+                  Constructor. <br> <span class="silver">—</span><br> Copy
+                  constructor (deleted)
                 </p>
               </td>
 </tr>
@@ -104,7 +102,7 @@
 <tr>
 <td>
                 <p>
-                  <span class="bold"><strong><a class="link" href="boost__json__monotonic_resource/_monotonic_resource.html" title="monotonic_resource::~monotonic_resource">~monotonic_resource</a></strong></span>
+                  <span class="bold"><strong><a class="link" href="boost__json__monotonic_resource/_monotonic_resource.html" title="monotonic_resource::~monotonic_resource">~monotonic_resource</a> <span class="silver">[destructor]</span></strong></span>
                 </p>
               </td>
 <td>
@@ -147,11 +145,11 @@
         This parses a JSON into a value which uses a local stack buffer, then prints
         the result.
       </p>
-<pre class="programlisting"><span class="keyword">unsigned</span> <span class="keyword">char</span> <span class="identifier">buf</span><span class="special">[</span> <span class="number">4000</span> <span class="special">];</span>
+<pre class="programlisting"><span class="keyword">unsigned</span> <span class="keyword">char</span> <span class="identifier">buf</span><span class="special">\[</span> <span class="number">4000</span> <span class="special">\];</span>
 <span class="identifier">monotonic_resource</span> <span class="identifier">mr</span><span class="special">(</span> <span class="identifier">buf</span> <span class="special">);</span>
 
 <span class="comment">// Parse the string, using our memory resource</span>
-<span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">jv</span> <span class="special">=</span> <span class="identifier">parse</span><span class="special">(</span> <span class="string">"[1,2,3]"</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">mr</span> <span class="special">);</span>
+<span class="keyword">auto</span> <span class="keyword">const</span> <span class="identifier">jv</span> <span class="special">=</span> <span class="identifier">parse</span><span class="special">(</span> <span class="string">"\[1,2,3\]"</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">mr</span> <span class="special">);</span>
 
 <span class="comment">// Print the JSON</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">jv</span><span class="special">;</span>

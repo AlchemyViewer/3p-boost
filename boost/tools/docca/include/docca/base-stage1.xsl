@@ -365,6 +365,7 @@
               <td>
                 <bold>
                   <ref d:refid="{@d:page-refid}">{current-grouping-key()}</ref>
+                  <xsl:apply-templates mode="member-annotation" select="."/>
                 </bold>
               </td>
               <td>
@@ -373,6 +374,22 @@
             </tr>
           </xsl:template>
 
+                  <xsl:template mode="member-annotation" match="*">
+                    <xsl:variable name="member-name" select="current-grouping-key()"/>
+                    <xsl:variable name="is-destructor" select="starts-with($member-name, '~')"/>
+                    <xsl:variable name="is-constructor" select="$member-name = d:strip-ns(/doxygen/compounddef/compoundname)"/>
+                    <xsl:if test="$is-destructor or $is-constructor">
+                      <xsl:text>&#160;</xsl:text>
+                      <role class="silver">
+                        <xsl:choose>
+                          <xsl:when test="$is-destructor">[destructor]</xsl:when>
+                          <xsl:otherwise                 >[constructor]</xsl:otherwise>
+                        </xsl:choose>
+                      </role>
+                    </xsl:if>
+                  </xsl:template>
+
+
                   <xsl:template mode="member-description" match="innerclass">
                     <xsl:apply-templates select="d:referenced-inner-class/compounddef/briefdescription"/>
                   </xsl:template>
@@ -380,7 +397,13 @@
                     <xsl:variable name="descriptions" select="current-group()/briefdescription"/>
                     <!-- Pull in any overload descriptions but only if they vary -->
                     <xsl:for-each select="distinct-values($descriptions)">
-                      <xsl:apply-templates select="$descriptions[. eq current()][1]"/>
+                      <!-- ASSUMPTION: <briefdescription> always contains one <para> -->
+                      <xsl:apply-templates select="$descriptions[. eq current()][1]/para/node()"/>
+                      <xsl:if test="position() ne last()">
+                        <br/>
+                        <role class="silver">—</role>
+                        <br/>
+                      </xsl:if>
                     </xsl:for-each>
                   </xsl:template>
 
@@ -399,7 +422,8 @@
       <xsl:apply-templates mode="normalize-params" select="templateparamlist"/>
       <kind>{@kind}</kind>
       <name>{d:strip-ns(compoundname)}</name>
-      <xsl:for-each select="basecompoundref[not(d:should-ignore-base(.))]">
+      <xsl:for-each select="basecompoundref[not(d:should-ignore-base(.))]
+                                           [not(@prot eq 'private')]">
         <base>
           <prot>{@prot}</prot>
           <name>{d:strip-doc-ns(.)}</name>

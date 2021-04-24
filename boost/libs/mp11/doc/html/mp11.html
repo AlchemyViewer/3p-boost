@@ -4386,6 +4386,11 @@ using R4 = mp_iterate&lt;Y4, value_type, next_type&gt;; // mp_list&lt;int, float
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>In case the elements of the list <code>L</code> are not default-constructible, you can use
+<code>mp_for_each&lt;mp_transform&lt;mp_identity, L&gt;&gt;</code>, which would call <code>f</code> with <code>mp_identity&lt;T&gt;()</code>
+instead of <code>T()</code>.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="mp_with_indexni_f">mp_with_index&lt;N&gt;(i, f)</h4>
@@ -5141,7 +5146,7 @@ into this documentation by Glen Fernandes.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-12-03 05:01:57 UTC
+Last updated 2021-04-13 16:22:27 UTC
 </div>
 </div>
 <style>

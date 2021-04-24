@@ -231,6 +231,10 @@
 
 [template boost_log_utility_unused_variable_hpp[][headerref boost/log/utility/unused_variable.hpp]]
 
+[template boost_log_utility_use_std_allocator_hpp[][headerref boost/log/utility/use_std_allocator.hpp]]
+
+[template class_log_use_std_allocator[][classref boost::log::use_std_allocator use_std_allocator]]
+
 [template boost_log_utility_value_ref_hpp[][headerref boost/log/utility/value_ref.hpp]]
 
 [template boost_log_utility_value_ref_fwd_hpp[][headerref boost/log/utility/value_ref_fwd.hpp]]

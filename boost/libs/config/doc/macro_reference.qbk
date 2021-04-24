@@ -16,6 +16,67 @@
 
 [#config_defects]
 
+[section Broad C++ Standard Level Checks]
+
+These are for the times when you just want to check "does this compiler conform to C++11" or some such.
+
+[h4 C++ Standard Level]
+
+The macro `BOOST_CXX_VERSION` is set to the C++ standard version - it has the same value as `__cplusplus` if `__cplusplus` is set to a 
+sensible value, otherwise the current C++ standard level in effect (for example for MSVC this is set to the value of `_MSVC_LANG`).
+
+Available standard values are:
+
+[table
+[[standard][value]]
+[[2003][199711L]]
+[[2011][201103L]]
+[[2014][201402L]]
+[[2017][201703L]]
+[[2020][202002L]]
+]
+
+You should use this macro as a basic sanity check that the compiler is minimally at the required standard level - there may still be
+bugs, unimplemented features, and\/or missing headers.  The individual feature checks should be used for those.
+
+[h4 Strict Standard Level Checks]
+
+The following macros:
+
+   BOOST_NO_CXX03
+   BOOST_NO_CXX11
+   BOOST_NO_CXX14
+   BOOST_NO_CXX17
+
+Are set if [*any] of our defect macros are set for that standard level, [/plus all older levels].
+
+Note that these are therefore very strict checks and as a result, other than very recent gcc/clang releases, many compilers
+will end up defining /all/ of these macros: even when `BOOST_CXX_VERSION` indicates a much more recent standard is in effect.
+
+[h4 Strict Standard Check Headers]
+
+The following headers:
+
+   #include <boost/config/assert_cxx03.hpp>
+   #include <boost/config/assert_cxx11.hpp>
+   #include <boost/config/assert_cxx14.hpp>
+   #include <boost/config/assert_cxx17.hpp>
+
+Can be used to assert that none of our defect macros are set for that standard (or any older standards).
+
+The headers will provide a slightly more useful error message than just checking on `BOOST_NO_CXX03` for example, as they
+will indicate which defect macro produced the error.
+
+As noted abovem these are very strict checks, and therefore other than recent gcc/clang releases, many compilers will genrate
+a `#error` on including /any/ of these headers.
+
+[h4 SD6 Feature Test Macros]
+
+Note that none of the above checks take into account any standard library SD6 feature test macros, as doing so would require `#include`ing almost the whole
+standard library.
+
+[endsect]
+
 [section Macros that describe C++03 defects]
 
 The following macros all describe features that are required by the C++03 standard,
@@ -367,7 +428,7 @@ The platform has the POSIX API `gettimeofday`.
 ]]
 [[`BOOST_HAS_HASH`][Standard library][
 The C++ implementation provides the (SGI) hash_set and hash_map classes.
-When defined, `BOOST_HASH_SET_HEADER` and `BOOST_HASH_LIST_HEADER` will contain
+When defined, `BOOST_HASH_SET_HEADER` and `BOOST_HASH_MAP_HEADER` will contain
 the names of the header needed to access hash_set and hash_map;
 `BOOST_STD_EXTENSION_NAMESPACE` will provide the namespace in which the two
 class templates reside.
@@ -962,9 +1023,14 @@ that are not yet supported by a particular compiler or library.
 
 [table
 [[Macro ][Description ]]
+[[`BOOST_NO_CXX17_HDR_ANY`][The compiler does not support the header `<any>`.]]
+[[`BOOST_NO_CXX17_HDR_CHARCONV`][The compiler does not support the header `<charconv>`.]]
+[[`BOOST_NO_CXX17_HDR_EXECUTION`][The compiler does not support the header `<execution>`.]]
+[[`BOOST_NO_CXX17_HDR_FILESYSTEM`][The compiler does not support the header `<filesystem>`.]]
+[[`BOOST_NO_CXX17_HDR_MEMORY_RESOURCE`][The compiler does not support the header `<memory_resource>`.]]
 [[`BOOST_NO_CXX17_HDR_OPTIONAL`][The compiler does not support the header `<optional>`.]]
-[[`BOOST_NO_CXX17_HDR_VARIANT`][The compiler does not support the header `<variant>`.]]
 [[`BOOST_NO_CXX17_HDR_STRING_VIEW`][The compiler does not support the header `<string_view>`.]]
+[[`BOOST_NO_CXX17_HDR_VARIANT`][The compiler does not support the header `<variant>`.]]
 [[`BOOST_NO_CXX17_STD_APPLY`][The compiler does not support `std::apply()`.]]
 [[`BOOST_NO_CXX17_STD_INVOKE`][The compiler does not support `std::invoke()`.]]
 [[`BOOST_NO_CXX17_ITERATOR_TRAITS`][The compiler does not support SFINAE-friendly `std::iterator_traits`.]]
