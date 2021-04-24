@@ -4,16 +4,104 @@ weight = 80
 +++
 
 ---
-## v2.1.5 ??? (Boost 1.75) [[release]](https://github.com/ned14/outcome/releases/tag/v2.1.5)
+## v2.2.0 ? (Boost 1.76) [[release]](https://github.com/ned14/outcome/releases/tag/v2.2.0)
 
-{{% notice note %}}
-The v2.1 branch is expected to be retired end of 2020 with the Boost 1.75 release, with the v2.2 branch
-becoming the default for Boost 1.76 onwards. You can use the future v2.2 branch now using
-[`better_optimisation`](https://github.com/ned14/outcome/tree/better_optimisation),
-how to upgrade your code is described in [the v2.1 => v2.2 upgrade guide]({{% relref "/changelog/upgrade_v21_v22" %}}).
+BREAKING CHANGE As announced for a year and three Boost releases, Outcome v2.2 became the default, replacing v2.1.
+: All v2.1 Outcome code will need to be upgraded as described in [the v2.1 => v2.2 upgrade guide]({{% relref "/changelog/upgrade_v21_v22" %}}).
 This branch has a number of major breaking changes to Outcome v2.1, see
 [the list of v2.2 major changes]({{% relref "/changelog/v22" %}}).
-{{% /notice %}}
+
+### Enhancements:
+
+VS2019.8 compatibility
+: VS2019.8 changed how to enable Coroutines, which caused Outcome to not compile on that compiler.
+
+[#237](https://github.com/ned14/outcome/issues/237)
+: If on C++ 20, we now use C++ 20 `[[likely]]` instead of compiler-specific markup to indicate
+when TRY has likely success or failure.
+
+BREAKING CHANGE [#247](https://github.com/ned14/outcome/issues/247)
+: Previously the value of {{% api "spare_storage(const basic_result|basic_outcome *) noexcept" %}} was
+not propagated over `BOOST_OUTCOME_TRY`, which causes things like stack backtraces captured at the point of
+construction of an errored result to get dropped at every `TRY` point. This has been fixed by adding
+an optional `spare_storage` to {{% api "success_type<T>" %}} and {{% api "failure_type<T>" %}}, as well
+as to {{% api "auto success(T &&, ...)" %}} and {{% api "auto failure(T &&, ...)" %}}.
+
+    You should not notice this in your code, except that where before spare storage values did not
+    propagate through TRY, now they do, which is a breaking change.
+
+### Bug fixes:
+
+BREAKING CHANGE [#244](https://github.com/ned14/outcome/issues/244)
+: It came as a shock to learn that `BOOST_OUTCOME_TRY` had been broken since the inception of this
+library for certain corner case code:
+
+    ```c++
+    outcome::result<Foo>    get_foo();
+    outcome::result<Foo>    filter1(outcome::result<Foo> &&);
+    outcome::result<Foo> && filter2(outcome::result<Foo> &&);
+
+    // This works fine, and always has
+    BOOST_OUTCOME_TRY(auto v, filter1(get_foo()))
+
+    // This causes UB due to result<Foo> being destructed before move of value into v
+    BOOST_OUTCOME_TRY(auto v, filter2(get_foo()))
+    ```
+
+    Whilst reference passthrough filter functions are not common, they can turn up in highly generic
+    code, where destruction before copy/move is not helpful.
+
+    The cause is that TRY used to work by binding the result of the expression to an `auto &&unique`,
+    testing if that unique if successful or not, and if successful then moving from `unique.value()`
+    into the user's output variable. If the expression returned is a prvalue, the Result's lifetime is
+    extended by the bound reference to outside of the statement, and all is good. If the expression
+    returned is an xvalue or lvalue, then the lifetime extension does not exceed that of the statement,
+    and the Result is destructed after the semicolon succeeding the assignment to `auto &&unique`.
+
+    This bug has been fixed by TRY deducing the [value category](https://en.cppreference.com/w/cpp/language/value_category)
+    of its input expression as follows:
+
+    - prvalues => `auto unique = (expr)`   (breaking change)
+    - xvalue => `auto unique = (expr)`     (breaking change)
+    - lvalue => `auto unique = (expr)`     (breaking change)
+
+    This ensures that xvalue and lvalue inputs do not cause unhelpfully early lifetime end, though it
+    does silently change the behaviour of existing code which relied on rvalues and lvalues being passed
+    through, as a new construct-move-destruct or construct-copy-destruct cycle is introduced to where
+    there was none before. Also, before C++ 17, there is now an added copy/move for prvalue inputs,
+    which does not affect runtime codegen due to Return Value Optimisation (RVO), but does cause
+    Results containing non-copying non-moving types to fail to compile, which is a breaking change
+    from beforehand.
+
+    If one wishes rvalues or lvalues to be passed through, one can avail of a new TRY syntax based on
+    preprocessor overloading:
+
+    - `BOOST_OUTCOME_TRY((refspec, varname), expr)`
+    - `BOOST_OUTCOME_TRYV2(refspec, expr)`
+
+    Here `refspec` is the storage to be used for **both** the internal temporary unique, AND `varname`.
+    So if you write:
+
+    ```c++
+    Foo &&foo;
+    BOOST_OUTCOME_TRY((auto &&, v), filter2(foo))
+    ```
+    ... then the internal unique is declared as `auto &&unique = (filter2(foo))`, and the output variable
+    is declared as `auto &&v = std::move(unique).assume_value()`. This passes through the rvalue referencing,
+    and completely avoids copies and moves of `Foo`. If you wish to not extract the value but also
+    specify unique storage, there is a new `BOOST_OUTCOME_TRYV2(refspec, expr)`.
+
+    My thanks to KamilCuk from https://stackoverflow.com/questions/66069152/token-detection-within-a-c-preprocessor-macro-argument
+    for all their help in designing the new overloaded TRY syntax. My thanks also to vasama for reporting this
+    issue and working through how best to fix it with me.
+
+[#249](https://github.com/ned14/outcome/issues/249)
+: The preprocessor logic for choosing when to use `bool` with `concept` on GCC was yet again refactored.
+This should fix those choices of GCC configuration which caused failure due to the wrong combination
+being chosen.
+
+---
+## v2.1.5 11th December 2020 (Boost 1.75) [[release]](https://github.com/ned14/outcome/releases/tag/v2.1.5)
 
 ### Enhancements:
 
@@ -92,6 +180,10 @@ the list of changes between Outcome v2.1 and v2.2.
 with the fixes to LLVM clang that fix `noexcept(std::is_constructible<T, void>)`
 failing to compile which I originally submitted years ago. So give up waiting on
 Apple to fix their clang, add a workaround to Outcome.
+
+Use of `void` in `T` or `E` caused `noexcept(false)`
+: Direct traits examination of `void` was causing nothrow detection to return false,
+fixed.
 
 Spare storage could not be used from within no-value policy classes
 : Due to an obvious brain fart when writing the code at the time, the spare storage

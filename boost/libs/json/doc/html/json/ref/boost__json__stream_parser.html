@@ -123,14 +123,12 @@
 <tr>
 <td>
                 <p>
-                  <span class="bold"><strong><a class="link" href="boost__json__stream_parser/stream_parser.html" title="stream_parser::stream_parser">stream_parser</a></strong></span>
+                  <span class="bold"><strong><a class="link" href="boost__json__stream_parser/stream_parser.html" title="stream_parser::stream_parser">stream_parser</a> <span class="silver">[constructor]</span></strong></span>
                 </p>
               </td>
 <td>
                 <p>
-                  Copy constructor (deleted)
-                </p>
-                <p>
+                  Copy constructor (deleted) <br> <span class="silver">—</span><br>
                   Constructor.
                 </p>
               </td>
@@ -162,7 +160,7 @@
 <tr>
 <td>
                 <p>
-                  <span class="bold"><strong><a class="link" href="boost__json__stream_parser/_stream_parser.html" title="stream_parser::~stream_parser">~stream_parser</a></strong></span>
+                  <span class="bold"><strong><a class="link" href="boost__json__stream_parser/_stream_parser.html" title="stream_parser::~stream_parser">~stream_parser</a> <span class="silver">[destructor]</span></strong></span>
                 </p>
               </td>
 <td>
@@ -208,8 +206,8 @@
         value:
       </p>
 <pre class="programlisting"><span class="identifier">stream_parser</span> <span class="identifier">p</span><span class="special">;</span>                                <span class="comment">// construct a parser</span>
-<span class="identifier">p</span><span class="special">.</span><span class="identifier">write</span><span class="special">(</span> <span class="string">"[1,2"</span> <span class="special">);</span>                              <span class="comment">// parse some of a JSON</span>
-<span class="identifier">p</span><span class="special">.</span><span class="identifier">write</span><span class="special">(</span> <span class="string">",3,4]"</span> <span class="special">);</span>                             <span class="comment">// parse the rest of the JSON</span>
+<span class="identifier">p</span><span class="special">.</span><span class="identifier">write</span><span class="special">(</span> <span class="string">"\[1,2"</span> <span class="special">);</span>                              <span class="comment">// parse some of a JSON</span>
+<span class="identifier">p</span><span class="special">.</span><span class="identifier">write</span><span class="special">(</span> <span class="string">",3,4\]"</span> <span class="special">);</span>                             <span class="comment">// parse the rest of the JSON</span>
 <span class="identifier">assert</span><span class="special">(</span> <span class="identifier">p</span><span class="special">.</span><span class="identifier">done</span><span class="special">()</span> <span class="special">);</span>                             <span class="comment">// we have a complete JSON</span>
 <span class="identifier">value</span> <span class="identifier">jv</span> <span class="special">=</span> <span class="identifier">p</span><span class="special">.</span><span class="identifier">release</span><span class="special">();</span>                         <span class="comment">// take ownership of the value</span>
 </pre>
@@ -227,9 +225,9 @@
       </p>
 <pre class="programlisting"><span class="identifier">stream_parser</span> <span class="identifier">p</span><span class="special">;</span>                                <span class="comment">// construct a parser</span>
 <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">n</span><span class="special">;</span>                                  <span class="comment">// number of characters used</span>
-<span class="identifier">n</span> <span class="special">=</span> <span class="identifier">p</span><span class="special">.</span><span class="identifier">write_some</span><span class="special">(</span> <span class="string">"[1,2"</span> <span class="special">);</span>                     <span class="comment">// parse some of a JSON</span>
+<span class="identifier">n</span> <span class="special">=</span> <span class="identifier">p</span><span class="special">.</span><span class="identifier">write_some</span><span class="special">(</span> <span class="string">"\[1,2"</span> <span class="special">);</span>                     <span class="comment">// parse some of a JSON</span>
 <span class="identifier">assert</span><span class="special">(</span> <span class="identifier">n</span> <span class="special">==</span> <span class="number">4</span> <span class="special">);</span>                               <span class="comment">// all characters consumed</span>
-<span class="identifier">n</span> <span class="special">=</span> <span class="identifier">p</span><span class="special">.</span><span class="identifier">write_some</span><span class="special">(</span> <span class="string">",3,4] null"</span> <span class="special">);</span>               <span class="comment">// parse the remainder of the JSON</span>
+<span class="identifier">n</span> <span class="special">=</span> <span class="identifier">p</span><span class="special">.</span><span class="identifier">write_some</span><span class="special">(</span> <span class="string">",3,4\] null"</span> <span class="special">);</span>               <span class="comment">// parse the remainder of the JSON</span>
 <span class="identifier">assert</span><span class="special">(</span> <span class="identifier">n</span> <span class="special">==</span> <span class="number">6</span> <span class="special">);</span>                               <span class="comment">// only some characters consumed</span>
 <span class="identifier">assert</span><span class="special">(</span> <span class="identifier">p</span><span class="special">.</span><span class="identifier">done</span><span class="special">()</span> <span class="special">);</span>                             <span class="comment">// we have a complete JSON</span>
 <span class="identifier">value</span> <span class="identifier">jv</span> <span class="special">=</span> <span class="identifier">p</span><span class="special">.</span><span class="identifier">release</span><span class="special">();</span>                         <span class="comment">// take ownership of the value</span>

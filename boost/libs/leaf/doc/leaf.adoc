@@ -9,16 +9,16 @@ ifdef::backend-pdf[]
 = LEAF
 endif::[]
 ifndef::backend-pdf[]
-= LEAFpass:[<a href="https://ci.appveyor.com/project/zajo/leaf/branch/master"><img style="margin-left:8px; margin-top:21px; float:right; vertical-align: top" src="https://ci.appveyor.com/api/projects/status/u7mq10n8y5ewpre3/branch/master?svg=true"></a> <a href="https://travis-ci.com/boostorg/leaf"><img style="margin-top:21px; float:right; vertical-align: top" src="https://travis-ci.com/boostorg/leaf.svg?branch=master"></a><div style="z-index: 3; bottom:-16px; right:4px; position:fixed"><input width="32" height="32" type="image" alt="Skin" src="./skin.png" onclick="this.blur();switch_style();return false;"/></div>]
+= LEAFpass:[<div style="z-index: 3; bottom:-16px; right:4px; position:fixed"><input width="32" height="32" type="image" alt="Skin" src="./skin.png" onclick="this.blur();switch_style();return false;"/></div>]
 endif::[]
-Lightweight Error Augmentation Framework | Emil Dotchevski
+Lightweight Error Augmentation Framework written in {CPP}11 | Emil Dotchevski
 ifndef::backend-pdf[]
 :toc: left
 :toclevels: 3
 :toc-title:
 
 [.text-right]
-https://github.com/boostorg/leaf[GitHub] | link:./leaf.pdf[PDF]
+https://github.com/boostorg/leaf[GitHub] | https://boostorg.github.io/leaf/leaf.pdf[PDF]
 endif::[]
 
 [abstract]
@@ -57,12 +57,25 @@ LEAF is designed with a strong bias towards the common use case where callers of
 * https://lists.boost.org/mailman/listinfo.cgi/boost[Boost Developers Mailing List]
 * https://github.com/boostorg/leaf/issues[Report an issue] on GitHub
 
+[[portability]]
+== Portability
+
+LEAF requires only {CPP}11, but is tested on many compiler versions and C++ standards.
+
+The library uses thread-local storage, except when multi-threading is disabled (e.g. on some embedded platforms). See <<configuration>>.
+
 [[distribution]]
-== Distribution and Portability
+== Distribution
 
-Distributed under the http://www.boost.org/LICENSE_1_0.txt[Boost Software License, Version 1.0].
+Copyright (C) 2018-2021 Emil Dotchevski. Distributed under the http://www.boost.org/LICENSE_1_0.txt[Boost Software License, Version 1.0].
 
-LEAF requires only {CPP}11 (including support for thread-local storage).
+There are three distribution channels:
+
+* LEAF is included in official https://www.boost.org/[Boost] releases, starting with Boost 1.75.
+* The source code is hosted on https://github.com/boostorg/leaf[GitHub].
+* For maximum portability, the library is also available in single-header format: simply download link:leaf.hpp[leaf.hpp] (direct download link).
+
+NOTE: LEAF does not depend on Boost or other libraries.
 
 [[introduction]]
 == Five Minute Introduction
@@ -1542,12 +1555,9 @@ int main() noexcept
 <2> Handle `do_work` failures.
 <3> Handle all other `lua_pcall` failures.
 
-[NOTE]
---
-Follow this link to see the complete program: https://github.com/boostorg/leaf/blob/master/examples/lua_callback_result.cpp?ts=4[lua_callback_result.cpp].
+NOTE: Follow this link to see the complete program: https://github.com/boostorg/leaf/blob/master/examples/lua_callback_result.cpp?ts=4[lua_callback_result.cpp].
 
-Remarkably, the Lua interpreter is {CPP} exception-safe, even though it is written in C. Here is the same program, this time using a {CPP} exception to report failures from `do_work`: https://github.com/boostorg/leaf/blob/master/examples/lua_callback_eh.cpp?ts=4[lua_callback_eh.cpp].
---
+TIP: When using Lua with {CPP}, we need to protect the Lua interpreter from exceptions that may be thrown from {CPP} functions installed as `lua_CFunction` callbacks. Here is the program from this section rewritten to use a {CPP} exception to safely communicate errors out of the `do_work` function: https://github.com/boostorg/leaf/blob/master/examples/lua_callback_eh.cpp?ts=4[lua_callback_eh.cpp]. 
 
 '''
 
@@ -1984,11 +1994,11 @@ namespace boost { namespace leaf {
   BOOST_LEAF_ASSIGN(auto v, r)
 
 #define BOOST_LEAF_CHECK(r)\
-	{\
 		auto && <<temp>> = r;\
-		if( !<<temp>> )\
-			return <<temp>>.error();\
-	}
+		if( <<temp>> )\
+      ;\
+    else\
+			return <<temp>>.error()
 
 #define BOOST_LEAF_NEW_ERROR <<inject e_source_location voodoo>> ::boost::leaf::new_error
 ----
@@ -2186,6 +2196,14 @@ namespace boost { namespace leaf {
   <<unspecified-exception-type>> exception( E1 &&, E && ... ) noexcept;
 
   <<unspecified-exception-type>> exception() noexcept;
+
+  template <class Ex, class... E> <1>
+  <<unspecified-exception-type>> exception( error_id id, Ex &&, E && ... ) noexcept;
+
+  template <class E1, class... E> <2>
+  <<unspecified-exception-type>> exception( error_id id, E1 &&, E && ... ) noexcept;
+
+  <<unspecified-exception-type>> exception( error_id id ) noexcept;
 
 } }
 
@@ -2598,18 +2616,45 @@ namespace boost { namespace leaf {
   template <class E1, class... E> <2>
   <<unspecified>> exception( E1 && e1, E && ... e ) noexcept;
 
-  <<unspecified>> exception() noexcept;
+  <<unspecified>> exception() noexcept; <3>
+
+  template <class Ex, class... E> <4>
+  <<unspecified>> exception( error_id id, Ex && ex, E && ... e ) noexcept;
+
+  template <class E1, class... E> <5>
+  <<unspecified>> exception( error_id id, E1 && e1, E && ... e ) noexcept;
+
+  <<unspecified>> exception( error_id id ) noexcept; <6>
 
 } }
 ----
-The `exception` function is overloaded: it can be invoked with no arguments, or else there are two alternatives, selected using `std::enable_if` based on the type of the first argument:
+The `exception` function is overloaded: it can be invoked with no arguments, or else there are several alternatives, selected using `std::enable_if` based on the type of the passed arguments:
 
-<1> Selected if the first argument is an exception object, that is, iff `Ex` derives publicly from `std::exception`. In this case the return value is of unspecified type which derives publicly from `Ex` *and* from class <<error_id>>, such that:
+<1> Selected if the first argument is not of type `error_id` and is an exception object, that is, iff `Ex` derives publicly from `std::exception`. In this case the return value is of unspecified type which derives publicly from `Ex` *and* from class <<error_id>>, such that:
 * its `Ex` subobject is initialized by `std::forward<Ex>(ex)`;
 * its `error_id` subobject is initialized by `<<new_error,new_error>>(std::forward<E>(e)...`).
-<2> Selected otherwise. In this case the return value is of unspecified type which derives publicly from `std::exception` *and* from class `error_id`, such that:
+
+<2> Selected if the first argument is not of type `error_id` and is not an exception object. In this case the return value is of unspecified type which derives publicly from `std::exception` *and* from class `error_id`, such that:
 ** its `std::exception` subobject is default-initialized;
 ** its `error_id` subobject is initialized by `<<new_error,new_error>>(std::forward<E1>(e1), std::forward<E>(e)...`).
+
+<3> If the fuction is invoked without arguments, the return value is of unspecified type which derives publicly from `std::exception` *and* from class `error_id`, such that:
+** its `std::exception` subobject is default-initialized;
+** its `error_id` subobject is initialized by `<<new_error,new_error>>()`.
+
+<4> Selected if the first argument is of type `error_id` and the second argument is an exception object, that is, iff `Ex` derives publicly from `std::exception`. In this case the return value is of unspecified type which derives publicly from `Ex` *and* from class <<error_id>>, such that:
+** its `Ex` subobject is initialized by `std::forward<Ex>(ex)`;
+** its `error_id` subobject is initialized by `id.<<error_id::load>>(std::forward<E>(e)...)`.
+
+<5> Selected if the first argument is of type `error_id` and the second argument is not an exception object. In this case the return value is of unspecified type which derives publicly from `std::exception` *and* from class `error_id`, such that:
+** its `std::exception` subobject is default-initialized;
+** its `error_id` subobject is initialized by `id.<<error_id::load>>(std::forward<E1>(e1), std::forward<E>(e)...`).
+
+<6> If `exception` is invoked with just an `error_id` object, the return value is of unspecified type which derives publicly from `std::exception` *and* from class `error_id`, such that:
+** its `std::exception` subobject is default-initialized;
+** its `error_id` subobject is initialized by copying from `id`.
+
+NOTE: The first three overloads return an exception object that is associated with a new `error_id`. The second three overloads return an exception object that is associated with the specified `error_id`.
 
 .Example 1:
 [source,c++]
@@ -4229,6 +4274,8 @@ WARNING: Using `verbose_diagnostic_info` will likely allocate memory dynamically
 [[predicates]]
 == Reference: Predicates
 
+TIP: The contents of each Reference section are organized alphabetically.
+
 A predicate is a special type of error handler argument which enables the <<handler_selection_procedure,handler selection procedure>> to consider the _value_ of available error objects, not only their type; see <<tutorial-predicates>>.
 
 The following predicates are available:
@@ -4720,6 +4767,8 @@ leaf::try_handle_some(
 [[traits]]
 == Reference: Traits
 
+TIP: The contents of each Reference section are organized alphabetically.
+
 [[is_predicate]]
 === `is_predicate`
 
@@ -4772,8 +4821,10 @@ TIP: The contents of each Reference section are organized alphabetically.
 
 '''
 
+=== `BOOST_LEAF_`
+
 [[BOOST_LEAF_ASSIGN]]
-=== `BOOST_LEAF_ASSIGN`
+==== `ASSIGN`
 
 .#include <boost/leaf/error.hpp>
 [source,c++]
@@ -4794,7 +4845,7 @@ NOTE: See also <<BOOST_LEAF_AUTO>>.
 '''
 
 [[BOOST_LEAF_AUTO]]
-=== `BOOST_LEAF_AUTO`
+==== `AUTO`
 
 .#include <boost/leaf/error.hpp>
 [source,c++]
@@ -4844,17 +4895,17 @@ NOTE: See also <<BOOST_LEAF_ASSIGN>>.
 '''
 
 [[BOOST_LEAF_CHECK]]
-=== `BOOST_LEAF_CHECK`
+==== `CHECK`
 
 .#include <boost/leaf/error.hpp>
 [source,c++]
 ----
 #define BOOST_LEAF_CHECK(r)\
-  {\
     auto && <<temp>> = r;\
-    if(!<<temp>>)\
-      return <<temp>>.error();\
-  }
+    if( <<temp>> )\
+      ;\
+    else\
+      return <<temp>>.error()
 ----
 
 `BOOST_LEAF_CHECK` is useful when calling a function that returns `result<void>`, if the desired behavior is to forward any errors to the caller verbatim.
@@ -4891,7 +4942,7 @@ leaf::result<float> add_values()
 '''
 
 [[BOOST_LEAF_EXCEPTION]]
-=== `BOOST_LEAF_EXCEPTION`
+==== `EXCEPTION`
 
 [source,c++]
 .#include <boost/leaf/exception.hpp>
@@ -4904,7 +4955,7 @@ Effects: :: `BOOST_LEAF_EXCEPTION(e...)` is equivalent to `leaf::<<exception,exc
 '''
 
 [[BOOST_LEAF_NEW_ERROR]]
-=== `BOOST_LEAF_NEW_ERROR`
+==== `NEW_ERROR`
 
 .#include <boost/leaf/error.hpp>
 [source,c++]
@@ -4917,7 +4968,7 @@ Effects: :: `BOOST_LEAF_NEW_ERROR(e...)` is equivalent to `leaf::<<new_error,new
 '''
 
 [[BOOST_LEAF_THROW_EXCEPTION]]
-=== `BOOST_LEAF_THROW_EXCEPTION`
+==== `THROW_EXCEPTION`
 
 [source,c++]
 .#include <boost/leaf/exception.hpp>
@@ -5509,6 +5560,7 @@ Assuming the current working directory is `<boostroot>/libs/leaf`:
 ../../b2 test
 ----
 
+[[configuration]]
 == Configuration Macros
 
 The following configuration macros are recognized:
@@ -5517,10 +5569,28 @@ The following configuration macros are recognized:
 * `BOOST_LEAF_NO_EXCEPTIONS`: Disables all exception handling support. If left undefined, LEAF defines it based on the compiler configuration (e.g. `-fno-exceptions`).
 * `BOOST_LEAF_NO_THREADS`: Disable all multi-thread support.
 
+== Limitations
+
+LEAF requires {CPP}11, including `thread_local` support, except when compiled with `BOOST_LEAF_NO_THREADS` (which can be useful on some embedded platforms).
+
+When using dynamic linking, it is required that error types are declared with `default` visibility, e.g.:
+
+[source,c++]
+----
+struct __attribute__ ((visibility ("default"))) my_error_info
+{
+    int value;
+};
+----
+
+This works as expected except on Windows, where thread-local storage is not shared between the individual binary modules. For this reason, to transport error objects across DLL boundaries, it is required that they're captured in a <<polymorphic_context>>, just like when <<tutorial-async>>.
+
+TIP: When using dynamic linking, it is always best to define module interfaces in terms of C (and implement them in {CPP} if appropriate).
+
 == Acknowledgements
 
 Special thanks to Peter Dimov and Sorin Fetche.
 
-Ivo Belchev, Sean Palmer, Jason King, Vinnie Falco, Glen Fernandes, Nir Friedman, Augustín Bergé -- thanks for the valuable feedback.
+Ivo Belchev, Sean Palmer, Jason King, Vinnie Falco, Glen Fernandes, Augustín Bergé -- thanks for the valuable feedback.
 
 Documentation rendered by https://asciidoctor.org/[Asciidoctor] with https://github.com/zajo/asciidoctor_skin[these customizations].

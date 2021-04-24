@@ -5178,7 +5178,7 @@ The header contains implementation of convenience functions for enabling logging
 </listitem>
 <listitem><para><computeroutput>auto_newline_mode</computeroutput> - Specifies automatic trailing newline insertion mode. Must be a value of the <computeroutput>auto_newline_mode</computeroutput> enum. By default, is <computeroutput>auto_newline_mode::insert_if_missing</computeroutput>. </para>
 </listitem>
-<listitem><para><computeroutput>target</computeroutput> The target directory to store rotated files in. See <computeroutput>sinks::file::make_collector</computeroutput>. </para>
+<listitem><para><computeroutput>target</computeroutput> The target directory to store rotated files in. Enables file collector and, if specified, limits associated with the target directory. See <computeroutput>sinks::file::make_collector</computeroutput>. </para>
 </listitem>
 <listitem><para><computeroutput>max_size</computeroutput> The maximum total size of rotated files in the target directory. See <computeroutput>sinks::file::make_collector</computeroutput>. </para>
 </listitem>
@@ -5190,12 +5190,14 @@ The header contains implementation of convenience functions for enabling logging
 </listitem>
 <listitem><para><computeroutput>filter</computeroutput> Specifies a filter to install into the sink. May be a string that represents a filter, or a filter lambda expression. </para>
 </listitem>
-<listitem><para><computeroutput>format</computeroutput> Specifies a formatter to install into the sink. May be a string that represents a formatter, or a formatter lambda expression (either streaming or Boost.Format-like notation). </para>
+<listitem><para><computeroutput>format</computeroutput> Specifies a formatter to install into the sink. May be a string that represents a formatter, or a formatter lambda expression (either streaming or Boost.Format-like notation).</para>
 </listitem>
 </itemizedlist>
 </para></description></parameter><description><para>The function initializes the logging library to write logs to a file stream.</para><para>
 
-</para></description><returns><para>Pointer to the constructed sink. </para>
+<note><para>The <computeroutput>target</computeroutput> named argument is required to enable the file collector and the limits associated with the target directory. If the parameter is not specified, the file collector will not be created and the limits will not be maintained. </para>
+</note>
+</para></description><returns><para>Pointer to the constructed sink.</para>
 </returns></function>
 
 
@@ -7663,6 +7665,129 @@ The header contains definition of a macro to suppress compiler warnings about un
 </namespace>
 </namespace>
 <macro name="BOOST_LOG_UNUSED_VARIABLE" kind="functionlike"><macro-parameter name="type"/><macro-parameter name="var"/><macro-parameter name="initializer"/><purpose>The macro suppresses compiler warnings for <computeroutput>var</computeroutput> being unused. </purpose></macro>
+</header>
+<header name="boost/log/utility/use_std_allocator.hpp">
+<para><para>Andrey Semashev </para>
+
+<para>04.03.2021</para>
+
+The header defines <computeroutput>use_std_allocator</computeroutput> tag type. </para><namespace name="boost">
+<namespace name="log">
+<struct name="use_std_allocator"><purpose>Tag type that indicates that a specialization of <computeroutput>std::allocator</computeroutput> should be used for allocating memory. </purpose><description><para>This tag type can be used in template parameters in various components of Boost.Log. The type itself is not an allocator type. </para></description></struct>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</namespace>
+</namespace>
 </header>
 <header name="boost/log/utility/value_ref.hpp">
 <para><para>Andrey Semashev </para>

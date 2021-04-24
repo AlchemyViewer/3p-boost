@@ -38,6 +38,13 @@
     </td>
 </table>
 
+<h2>1.76.0</h2>
+<ul>
+  <li>Updated compatibility with <a href="https://wasi.dev/">WASI</a> platform. (<a href="https://github.com/boostorg/filesystem/pull/169">PR#169</a>)</li>
+  <li>Fixed an exception being thrown by <code>path::remove_filename</code> if the path is "////". (<a href="https://github.com/boostorg/filesystem/issues/176">#176</a>)</li>
+  <li>Fixed <code>create_directories</code> disregarding errors from file status query operations issued internally. This could result in incorrect error codes returned by <code>create_directories</code>. (<a href="https://github.com/boostorg/filesystem/issues/182">#182</a>)</li>
+</ul>
+
 <h2>1.75.0</h2>
 <ul>
   <li><b>New:</b> Added <code>creation_time</code> operation, which allows to obtain file creation time. (Inspired by <a href="https://github.com/boostorg/filesystem/pull/134">PR#134</a>)</li>

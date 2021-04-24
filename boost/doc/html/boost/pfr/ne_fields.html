@@ -33,7 +33,8 @@
 <div xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../../reference_section.html#header.boost.pfr.ops_fields_hpp" title="Header &lt;boost/pfr/ops_fields.hpp&gt;">boost/pfr/ops_fields.hpp</a>&gt;
 
 </span>
-<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">,</span> <span class="keyword">typename</span> U<span class="special">&gt;</span> <span class="keyword">bool</span> <span class="identifier">ne_fields</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">T</span> <span class="special">&amp;</span> lhs<span class="special">,</span> <span class="keyword">const</span> <span class="identifier">U</span> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre></div>
+<span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">,</span> <span class="keyword">typename</span> U<span class="special">&gt;</span> 
+  <span class="keyword">constexpr</span> <span class="keyword">bool</span> <span class="identifier">ne_fields</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">T</span> <span class="special">&amp;</span> lhs<span class="special">,</span> <span class="keyword">const</span> <span class="identifier">U</span> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre></div>
 <div class="refsect1">
 <a name="id-1.3.29.9.9.8.4"></a><h2>Description</h2>
 <p>Does a field-by-field inequality comparison.</p>
@@ -53,7 +54,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2016-2020 Antony Polukhin<p>
+<td align="right"><div class="copyright-footer">Copyright © 2016-2021 Antony Polukhin<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

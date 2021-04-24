@@ -484,37 +484,37 @@ comparable_struct s2 {0, 2};
 assert(boost::pfr::lt_fields(s1, s2));
 </programlisting></para><para><emphasis role="bold">See</emphasis> <emphasis role="bold">Also</emphasis> : <link linkend="boost_pfr.tutorial.three_ways_of_getting_operators"> 'Three ways of getting operators' </link> for other ways to define operators and more details.</para><para><emphasis role="bold">Synopsis:</emphasis> </para><namespace name="boost">
 <namespace name="pfr">
-<function name="eq_fields"><type>bool</type><template>
+<function name="eq_fields"><type>constexpr bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
         </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><description><para>Does a field-by-field equality comparison.</para><para>
 </para></description><returns><para><computeroutput>L == R &amp;&amp; tuple_size_v&lt;T&gt; == tuple_size_v&lt;U&gt;</computeroutput>, where <computeroutput>L</computeroutput> and <computeroutput>R</computeroutput> are the results of calling <computeroutput>std::tie</computeroutput> on first <computeroutput>N</computeroutput> fields of <computeroutput>lhs</computeroutput> and </para>
 </returns></function>
-<function name="ne_fields"><type>bool</type><template>
+<function name="ne_fields"><type>constexpr bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
         </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><description><para>Does a field-by-field inequality comparison.</para><para>
 </para></description><returns><para><computeroutput>L != R || tuple_size_v&lt;T&gt; != tuple_size_v&lt;U&gt;</computeroutput>, where <computeroutput>L</computeroutput> and <computeroutput>R</computeroutput> are the results of calling <computeroutput>std::tie</computeroutput> on first <computeroutput>N</computeroutput> fields of <computeroutput>lhs</computeroutput> and </para>
 </returns></function>
-<function name="gt_fields"><type>bool</type><template>
+<function name="gt_fields"><type>constexpr bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
         </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><description><para>Does a field-by-field greter comparison.</para><para>
 </para></description><returns><para><computeroutput>L &gt; R || (L == R &amp;&amp; tuple_size_v&lt;T&gt; &gt; tuple_size_v&lt;U&gt;)</computeroutput>, where <computeroutput>L</computeroutput> and <computeroutput>R</computeroutput> are the results of calling <computeroutput>std::tie</computeroutput> on first <computeroutput>N</computeroutput> fields of <computeroutput>lhs</computeroutput> and </para>
 </returns></function>
-<function name="lt_fields"><type>bool</type><template>
+<function name="lt_fields"><type>constexpr bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
         </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><description><para>Does a field-by-field less comparison.</para><para>
 </para></description><returns><para><computeroutput>L &lt; R || (L == R &amp;&amp; tuple_size_v&lt;T&gt; &lt; tuple_size_v&lt;U&gt;)</computeroutput>, where <computeroutput>L</computeroutput> and <computeroutput>R</computeroutput> are the results of calling <computeroutput>std::tie</computeroutput> on first <computeroutput>N</computeroutput> fields of <computeroutput>lhs</computeroutput> and </para>
 </returns></function>
-<function name="ge_fields"><type>bool</type><template>
+<function name="ge_fields"><type>constexpr bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
         </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><description><para>Does a field-by-field greater equal comparison.</para><para>
 </para></description><returns><para><computeroutput>L &gt; R || (L == R &amp;&amp; tuple_size_v&lt;T&gt; &gt;= tuple_size_v&lt;U&gt;)</computeroutput>, where <computeroutput>L</computeroutput> and <computeroutput>R</computeroutput> are the results of calling <computeroutput>std::tie</computeroutput> on first <computeroutput>N</computeroutput> fields of <computeroutput>lhs</computeroutput> and </para>
 </returns></function>
-<function name="le_fields"><type>bool</type><template>
+<function name="le_fields"><type>constexpr bool</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
         </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><description><para>Does a field-by-field less equal comparison.</para><para>

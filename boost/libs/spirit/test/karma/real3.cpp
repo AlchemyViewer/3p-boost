@@ -1,4 +1,4 @@
-//  Copyright (c) 2001-2011 Hartmut Kaiser
+//  Copyright (c) 2001-2020 Hartmut Kaiser
 //  Copyright (c) 2011      Bryce Lelbach
 // 
 //  Distributed under the Boost Software License, Version 1.0. (See accompanying 
@@ -11,8 +11,7 @@
 #include "real.hpp"
 
 ///////////////////////////////////////////////////////////////////////////////
-// the customization points below have been added only recently
-#if SPIRIT_VERSION >= 0x2050
+#ifndef BOOST_SPIRIT_NO_MATH_REAL_CONCEPT
 // does not provide proper std::numeric_limits, we need to roll our own
 namespace boost { namespace spirit { namespace traits
 {
@@ -78,10 +77,7 @@ int main()
         BOOST_TEST(test("-123420000000000000000.0", fixed, -1.23420e20));
     }
 
-// support for using real_concept with a Karma generator has been implemented 
-// in Boost versions > 1.36 only, additionally real_concept is available only
-// if BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS  is not defined
-#if BOOST_VERSION > 103600 && !defined(BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS)
+#ifndef BOOST_SPIRIT_NO_MATH_REAL_CONCEPT
     {
         using boost::math::concepts::real_concept;
         typedef karma::real_generator<real_concept> custom_type;
@@ -180,6 +176,17 @@ int main()
     {
         BOOST_TEST(test("4.941e-324", double_, std::numeric_limits<double>::denorm_min()));
     }
+
+    // test for #628: spirit::karma::generate generates 10.0e-04, but expecting 1.0e-03
+    {
+        BOOST_TEST(test("1.0", double_, 0.99999999999999829));
+        BOOST_TEST(test("0.1", double_, 0.099999999999999829));
+        BOOST_TEST(test("0.01", double_, 0.0099999999999999829));
+        BOOST_TEST(test("1.0e-03", double_, 0.00099999999999999829));
+        BOOST_TEST(test("1.0e-04", double_, 0.00009999999999999982));
+        BOOST_TEST(test("1.0e-05", double_, 0.00000999999999999998));
+    }
+
     return boost::report_errors();
 }
 

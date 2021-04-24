@@ -39,20 +39,20 @@
       </p></td></tr>
 </table></div>
 <p>
-      Boost.PFR library works with types that satisfy the requirements of <code class="computeroutput"><span class="identifier">SimpleAggregare</span></code>: aggregate types without
+      Boost.PFR library works with types that satisfy the requirements of <code class="computeroutput"><span class="identifier">SimpleAggregate</span></code>: aggregate types without
       base classes, <code class="computeroutput"><span class="keyword">const</span></code> fields, references,
       or C arrays:
     </p>
-<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">simple_aggregate</span> <span class="special">{</span>  <span class="comment">// SimpleAggregare</span>
+<pre class="programlisting"><span class="keyword">struct</span> <span class="identifier">simple_aggregate</span> <span class="special">{</span>  <span class="comment">// SimpleAggregate</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">name</span><span class="special">;</span>
     <span class="keyword">int</span> <span class="identifier">age</span><span class="special">;</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">uuids</span><span class="special">::</span><span class="identifier">uuid</span> <span class="identifier">uuid</span><span class="special">;</span>
 <span class="special">};</span>
 
-<span class="keyword">struct</span> <span class="identifier">empty</span> <span class="special">{</span>             <span class="comment">// SimpleAggregare</span>
+<span class="keyword">struct</span> <span class="identifier">empty</span> <span class="special">{</span>             <span class="comment">// SimpleAggregate</span>
 <span class="special">};</span>
 
-<span class="keyword">struct</span> <span class="identifier">aggregate</span> <span class="special">:</span> <span class="identifier">empty</span> <span class="special">{</span> <span class="comment">// not a SimpleAggregare</span>
+<span class="keyword">struct</span> <span class="identifier">aggregate</span> <span class="special">:</span> <span class="identifier">empty</span> <span class="special">{</span> <span class="comment">// not a SimpleAggregate</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">name</span><span class="special">;</span>
     <span class="keyword">int</span> <span class="identifier">age</span><span class="special">;</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">uuids</span><span class="special">::</span><span class="identifier">uuid</span> <span class="identifier">uuid</span><span class="special">;</span>
@@ -60,7 +60,7 @@
 </pre>
 <p>
       The library may work with aggregates that don't satisfy the requirements of
-      <code class="computeroutput"><span class="identifier">SimpleAggregare</span></code>, but the behavior
+      <code class="computeroutput"><span class="identifier">SimpleAggregate</span></code>, but the behavior
       tends to be non-portable.
     </p>
 <h3>
@@ -193,7 +193,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2016-2020 Antony Polukhin<p>
+<td align="right"><div class="copyright-footer">Copyright © 2016-2021 Antony Polukhin<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

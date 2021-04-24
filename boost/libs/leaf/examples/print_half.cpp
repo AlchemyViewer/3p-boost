@@ -1,4 +1,4 @@
-// Copyright (c) 2018-2020 Emil Dotchevski and Reverge Studios, Inc.
+// Copyright (c) 2018-2021 Emil Dotchevski and Reverge Studios, Inc.
 
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -6,9 +6,7 @@
 // This program is an adaptation of the following Boost Outcome example:
 // https://github.com/ned14/outcome/blob/master/doc/src/snippets/using_result.cpp
 
-#include <boost/leaf/handle_errors.hpp>
-#include <boost/leaf/pred.hpp>
-#include <boost/leaf/result.hpp>
+#include <boost/leaf.hpp>
 #include <algorithm>
 #include <ctype.h>
 #include <string>
@@ -46,7 +44,8 @@ struct BigInt
     friend std::ostream& operator<<(std::ostream& o, const BigInt&) { return o << "big int half"; }
 };
 
-// This function handles ConversionErrc::TooLong errors, forwards any other error to the caller.
+// This function handles ConversionErrc::TooLong errors, forwards any other
+// error to the caller.
 leaf::result<void> print_half(const std::string& text)
 {
     return leaf::try_handle_some(
@@ -88,8 +87,9 @@ int main( int argc, char const * argv[] )
 
         []( leaf::error_info const & unmatched )
         {
-            // This will never execute in this program, but it would detect logic errors where an unknown error reaches main.
-            // In this case, we print diagnostic information.
+            // This will never execute in this program, but it would detect
+            // logic errors where an unknown error reaches main. In this case,
+            // we print diagnostic information.
             std::cerr <<
                 "Unknown failure detected" << std::endl <<
                 "Cryptic diagnostic information follows" << std::endl <<

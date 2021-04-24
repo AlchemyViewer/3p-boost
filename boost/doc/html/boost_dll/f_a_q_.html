@@ -167,6 +167,28 @@
     </p>
 <pre class="programlisting"></pre>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+          <span class="bold"><strong>Question:</strong></span> Can I use function pointer type
+          (like <code class="computeroutput"><span class="keyword">void</span><span class="special">(*)()</span></code>)
+          instead of function type (like <code class="computeroutput"><span class="keyword">void</span><span class="special">()</span></code>) to import function?
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem">
+                <span class="bold"><strong>Answer:</strong></span> No you can't because the
+                meaning of importing a function pointer is different:
+                <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: square; ">
+<li class="listitem">
+                      <code class="computeroutput"><span class="identifier">lib</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="keyword">void</span><span class="special">()&gt;(</span><span class="string">"func"</span><span class="special">)</span></code>
+                      imports a function <code class="computeroutput"><span class="keyword">void</span>
+                      <span class="identifier">func</span><span class="special">()</span></code>
+                    </li>
+<li class="listitem">
+                      <code class="computeroutput"><span class="identifier">lib</span><span class="special">.</span><span class="identifier">get</span><span class="special">&lt;</span><span class="keyword">void</span><span class="special">(*)()&gt;(</span><span class="string">"func_var"</span><span class="special">)</span></code>
+                      imports a variable that stores a pointer to the function <code class="computeroutput"><span class="keyword">auto</span> <span class="identifier">func_var</span>
+                      <span class="special">=</span> <span class="special">&amp;</span><span class="identifier">func</span></code>
+                    </li>
+</ul></div>
+              </li></ul></div>
+        </li></ul></div>
+<pre class="programlisting"></pre>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
           <span class="bold"><strong>Question:</strong></span> I have found a bug, how do I
           notify?
           <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem">
@@ -177,7 +199,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2014 Renato Tegon Forti, Antony Polukhin<br>Copyright © 2015 Antony Polukhin<br>Copyright © 2016 Antony Polukhin, Klemens Morgenstern<br>Copyright © 2017-2019 Antony Polukhin<p>
+<td align="right"><div class="copyright-footer">Copyright © 2014 Renato Tegon Forti, Antony Polukhin<br>Copyright © 2015 Antony Polukhin<br>Copyright © 2016 Antony Polukhin, Klemens Morgenstern<br>Copyright © 2017-2021 Antony Polukhin<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
       </p>

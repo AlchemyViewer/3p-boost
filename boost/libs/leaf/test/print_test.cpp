@@ -1,9 +1,14 @@
-// Copyright (c) 2018-2020 Emil Dotchevski and Reverge Studios, Inc.
+// Copyright (c) 2018-2021 Emil Dotchevski and Reverge Studios, Inc.
 
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#include <boost/leaf/detail/print.hpp>
+#ifdef BOOST_LEAF_TEST_SINGLE_HEADER
+#   include "leaf.hpp"
+#else
+#   include <boost/leaf/detail/print.hpp>
+#endif
+
 #include "lightweight_test.hpp"
 #include <sstream>
 
@@ -58,6 +63,11 @@ bool check( T const & x, char const * sub )
     return q.find(sub)!=q.npos;
 }
 
+struct my_exception: std::exception
+{
+    char const * what() const noexcept override { return "my_exception_what"; }
+};
+
 int main()
 {
     BOOST_TEST(check(c0{ },"c0"));
@@ -95,5 +105,6 @@ int main()
         BOOST_TEST(check(y,"c4"));
         BOOST_TEST(check(y,"{Non-Printable}"));
     }
+    BOOST_TEST(check(my_exception{}, "std::exception::what(): my_exception_what"));
     return boost::report_errors();
 }

@@ -1,19 +1,17 @@
-// Copyright (c) 2018-2020 Emil Dotchevski and Reverge Studios, Inc.
+// Copyright (c) 2018-2021 Emil Dotchevski and Reverge Studios, Inc.
 
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-// This is the program presented in https://boostorg.github.io/leaf/#introduction-result,
-// converted to use outcome::result instead of leaf::result.
+// This is the program presented in
+// https://boostorg.github.io/leaf/#introduction-result, converted to use
+// outcome::result instead of leaf::result.
 
-// It reads a text file in a buffer and prints it to std::cout, using LEAF to handle errors.
-// This version does not use exception handling.
+// It reads a text file in a buffer and prints it to std::cout, using LEAF to
+// handle errors. This version does not use exception handling.
 
 #include <boost/outcome/std_result.hpp>
-#include <boost/leaf/handle_errors.hpp>
-#include <boost/leaf/pred.hpp>
-#include <boost/leaf/on_error.hpp>
-#include <boost/leaf/common.hpp>
+#include <boost/leaf.hpp>
 #include <iostream>
 #include <memory>
 #include <stdio.h>
@@ -37,14 +35,16 @@ enum error_code
 template <class T>
 using result = outcome::std_result<T>;
 
-// To enable LEAF to work with outcome::result, we need to specialize the is_result_type template:
+// To enable LEAF to work with outcome::result, we need to specialize the
+// is_result_type template:
 namespace boost { namespace leaf {
     template <class T> struct is_result_type<outcome::std_result<T>>: std::true_type { };
 } }
 
 
-// We will handle all failures in our main function, but first, here are the declarations of the functions it calls, each
-// communicating failures using result<T>:
+// We will handle all failures in our main function, but first, here are the
+// declarations of the functions it calls, each communicating failures using
+// result<T>:
 
 // Parse the command line, return the file name.
 result<char const *> parse_command_line( int argc, char const * argv[] );
@@ -85,12 +85,14 @@ int main( int argc, char const * argv[] )
             return 0;
         },
 
-        // Each of the lambdas below is an error handler. LEAF will consider them, in order, and call the first one that matches
-        // the available error objects.
+        // Each of the lambdas below is an error handler. LEAF will consider
+        // them, in order, and call the first one that matches the available
+        // error objects.
 
         // This handler will be called if the error includes:
         // - an object of type error_code equal to open_error, and
-        // - an object of type leaf::e_errno that has .value equal to ENOENT, and
+        // - an object of type leaf::e_errno that has .value equal to ENOENT,
+        //   and
         // - an object of type leaf::e_file_name.
         []( leaf::match<error_code, open_error>, leaf::match_value<leaf::e_errno, ENOENT>, leaf::e_file_name const & fn )
         {
@@ -109,8 +111,10 @@ int main( int argc, char const * argv[] )
         },
 
         // This handler will be called if the error includes:
-        // - an object of type error_code equal to any of size_error, read_error, eof_error, and
-        // - an optional object of type leaf::e_errno (regardless of its .value), and
+        // - an object of type error_code equal to any of size_error,
+        //   read_error, eof_error, and
+        // - an optional object of type leaf::e_errno (regardless of its
+        //   .value), and
         // - an object of type leaf::e_file_name.
         []( leaf::match<error_code, size_error, read_error, eof_error>, leaf::e_errno const * errn, leaf::e_file_name const & fn )
         {
@@ -137,9 +141,10 @@ int main( int argc, char const * argv[] )
             return 5;
         },
 
-        // This last handler matches any error: it prints diagnostic information to help debug logic errors in the program, since it
-        // failed to match  an appropriate error handler to the error condition it encountered. In this program this handler will
-        // never be called.
+        // This last handler matches any error: it prints diagnostic information
+        // to help debug logic errors in the program, since it failed to match
+        // an appropriate error handler to the error condition it encountered.
+        // In this program this handler will never be called.
         []( leaf::error_info const & unmatched )
         {
             std::cerr <<

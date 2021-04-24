@@ -8,10 +8,14 @@ import testing ;
 variant leaf_debug_diag0 : debug : <define>BOOST_LEAF_DIAGNOSTICS=0 ;
 variant leaf_release_diag0 : release : <define>BOOST_LEAF_DIAGNOSTICS=0 ;
 
+variant leaf_debug_leaf_hpp : debug : <define>BOOST_LEAF_TEST_SINGLE_HEADER ;
+variant leaf_release_leaf_hpp : release : <define>BOOST_LEAF_TEST_SINGLE_HEADER ;
+
 project
     : default-build
         <cxxstd>11
     : requirements
+        <define>BOOST_LEAF_BOOST_AVAILABLE
         <threading>single:<define>BOOST_LEAF_NO_THREADS
         <toolset>gcc:<cxxflags>"-Wno-delete-non-virtual-dtor -Wno-parentheses"
         <toolset>clang:<cxxflags>"-Wno-dangling-else"
@@ -60,6 +64,8 @@ run defer_nested_new_error_result_test.cpp ;
 run defer_nested_success_exception_test.cpp ;
 run defer_nested_success_result_test.cpp ;
 run diagnostic_info_test.cpp ;
+run e_errno_test.cpp ;
+run e_LastError_test.cpp ;
 run error_code_test.cpp ;
 run error_id_test.cpp ;
 run exception_test.cpp ;
@@ -93,6 +99,10 @@ run try_catch_error_id_test.cpp ;
 run try_catch_test.cpp ;
 run try_exception_and_result_test.cpp ;
 
+lib visibility_test_lib : visibility_test_lib.cpp : <visibility>hidden ;
+run visibility_test.cpp visibility_test_lib/<link>shared ;
+run visibility_test.cpp visibility_test_lib/<link>static : : : <target-os>windows ; # This can't work on Windows, so use static link for the test.
+
 compile-fail _compile-fail-arg_boost_error_info_1.cpp ;
 compile-fail _compile-fail-arg_boost_error_info_2.cpp ;
 compile-fail _compile-fail-arg_catch_1.cpp ;
@@ -100,6 +110,8 @@ compile-fail _compile-fail-arg_catch_2.cpp ;
 compile-fail _compile-fail-arg_match_1.cpp ;
 compile-fail _compile-fail-arg_match_2.cpp ;
 compile-fail _compile-fail-arg_rvalue_ref.cpp ;
+compile-fail _compile-fail-BOOST_LEAF_ASSIGN.cpp ;
+compile-fail _compile-fail-BOOST_LEAF_AUTO.cpp ;
 compile-fail _compile-fail-diagnostic_info.cpp ;
 compile-fail _compile-fail-error_info.cpp ;
 compile-fail _compile-fail-new_error.cpp ;

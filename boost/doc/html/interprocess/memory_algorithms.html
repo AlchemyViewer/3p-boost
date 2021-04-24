@@ -93,9 +93,9 @@
         of allocations is high, the user should use a more performance-friendly algorithm.
       </p>
 <p>
-        In most 32 systems, with 8 byte alignment, "basic_size" is 8 bytes.
-        This means that an allocation request of 1 byte leads to the creation of
-        a 16 byte block, where 8 bytes are available to the user. The allocation
+        In most 32 bit systems, with 8 byte alignment, "basic_size" is
+        8 bytes. This means that an allocation request of 1 byte leads to the creation
+        of a 16 byte block, where 8 bytes are available to the user. The allocation
         of 8 bytes leads also to the same 16 byte block.
       </p>
 </div>
@@ -134,9 +134,10 @@
         restrictive alignment value.
       </p>
 <p>
-        In most 32 systems with 8 byte alignment the minimum size of a block is 24
-        byte. When a block is allocated the control data related to the red black
-        tree is overwritten by the user (because it's only needed for free blocks).
+        In most 32 bit systems with 8 byte alignment the minimum size of a block
+        is 24 byte. When a block is allocated the control data related to the red
+        black tree is overwritten by the user (because it's only needed for free
+        blocks).
       </p>
 <p>
         In those systems a 1 byte allocation request means that:

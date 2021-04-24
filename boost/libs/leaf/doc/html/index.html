@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.8">
-<meta name="author" content="Lightweight Error Augmentation Framework | Emil Dotchevski">
+<meta name="author" content="Lightweight Error Augmentation Framework written in C&#43;&#43;11 | Emil Dotchevski">
 <title>LEAF</title>
 <link rel="stylesheet" href="./zajo-dark.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -24,16 +24,17 @@ function switch_style()
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>LEAF<a href="https://ci.appveyor.com/project/zajo/leaf/branch/master"><img style="margin-left:8px; margin-top:21px; float:right; vertical-align: top" src="https://ci.appveyor.com/api/projects/status/u7mq10n8y5ewpre3/branch/master?svg=true"></a> <a href="https://travis-ci.com/boostorg/leaf"><img style="margin-top:21px; float:right; vertical-align: top" src="https://travis-ci.com/boostorg/leaf.svg?branch=master"></a><div style="z-index: 3; bottom:-16px; right:4px; position:fixed"><input width="32" height="32" type="image" alt="Skin" src="./skin.png" onclick="this.blur();switch_style();return false;"/></div></h1>
+<h1>LEAF<div style="z-index: 3; bottom:-16px; right:4px; position:fixed"><input width="32" height="32" type="image" alt="Skin" src="./skin.png" onclick="this.blur();switch_style();return false;"/></div></h1>
 <div class="details">
-<span id="author" class="author">Lightweight Error Augmentation Framework | Emil Dotchevski</span><br>
+<span id="author" class="author">Lightweight Error Augmentation Framework written in C&#43;&#43;11 | Emil Dotchevski</span><br>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle"></div>
 <ul class="sectlevel1">
 <li><a href="#_abstract">Abstract</a></li>
 <li><a href="#support">Support</a></li>
-<li><a href="#distribution">Distribution and Portability</a></li>
+<li><a href="#portability">Portability</a></li>
+<li><a href="#distribution">Distribution</a></li>
 <li><a href="#introduction">Five Minute Introduction</a>
 <ul class="sectlevel2">
 <li><a href="#introduction-result"><code>noexcept</code> API</a></li>
@@ -177,12 +178,16 @@ function switch_style()
 </li>
 <li><a href="#macros">Reference: Macros</a>
 <ul class="sectlevel2">
-<li><a href="#BOOST_LEAF_ASSIGN"><code>BOOST_LEAF_ASSIGN</code></a></li>
-<li><a href="#BOOST_LEAF_AUTO"><code>BOOST_LEAF_AUTO</code></a></li>
-<li><a href="#BOOST_LEAF_CHECK"><code>BOOST_LEAF_CHECK</code></a></li>
-<li><a href="#BOOST_LEAF_EXCEPTION"><code>BOOST_LEAF_EXCEPTION</code></a></li>
-<li><a href="#BOOST_LEAF_NEW_ERROR"><code>BOOST_LEAF_NEW_ERROR</code></a></li>
-<li><a href="#BOOST_LEAF_THROW_EXCEPTION"><code>BOOST_LEAF_THROW_EXCEPTION</code></a></li>
+<li><a href="#_boost_leaf"><code>BOOST_LEAF_</code></a>
+<ul class="sectlevel3">
+<li><a href="#BOOST_LEAF_ASSIGN"><code>ASSIGN</code></a></li>
+<li><a href="#BOOST_LEAF_AUTO"><code>AUTO</code></a></li>
+<li><a href="#BOOST_LEAF_CHECK"><code>CHECK</code></a></li>
+<li><a href="#BOOST_LEAF_EXCEPTION"><code>EXCEPTION</code></a></li>
+<li><a href="#BOOST_LEAF_NEW_ERROR"><code>NEW_ERROR</code></a></li>
+<li><a href="#BOOST_LEAF_THROW_EXCEPTION"><code>THROW_EXCEPTION</code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#rationale">Design</a>
@@ -211,7 +216,8 @@ function switch_style()
 <li><a href="#_boost_build">Boost Build</a></li>
 </ul>
 </li>
-<li><a href="#_configuration_macros">Configuration Macros</a></li>
+<li><a href="#configuration">Configuration Macros</a></li>
+<li><a href="#_limitations">Limitations</a></li>
 <li><a href="#_acknowledgements">Acknowledgements</a></li>
 </ul>
 </div>
@@ -220,7 +226,7 @@ function switch_style()
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph text-right">
-<p><a href="https://github.com/boostorg/leaf">GitHub</a> | <a href="./leaf.pdf">PDF</a></p>
+<p><a href="https://github.com/boostorg/leaf">GitHub</a> | <a href="https://boostorg.github.io/leaf/leaf.pdf">PDF</a></p>
 </div>
 </div>
 </div>
@@ -295,13 +301,49 @@ function switch_style()
 </div>
 </div>
 <div class="sect1">
-<h2 id="distribution">Distribution and Portability</h2>
+<h2 id="portability">Portability</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Distributed under the <a href="http://www.boost.org/LICENSE_1_0.txt">Boost Software License, Version 1.0</a>.</p>
+<p>LEAF requires only C&#43;&#43;11, but is tested on many compiler versions and C++ standards.</p>
 </div>
 <div class="paragraph">
-<p>LEAF requires only C&#43;&#43;11 (including support for thread-local storage).</p>
+<p>The library uses thread-local storage, except when multi-threading is disabled (e.g. on some embedded platforms). See <a href="#configuration">Configuration Macros</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="distribution">Distribution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Copyright &#169; 2018-2021 Emil Dotchevski. Distributed under the <a href="http://www.boost.org/LICENSE_1_0.txt">Boost Software License, Version 1.0</a>.</p>
+</div>
+<div class="paragraph">
+<p>There are three distribution channels:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>LEAF is included in official <a href="https://www.boost.org/">Boost</a> releases, starting with Boost 1.75.</p>
+</li>
+<li>
+<p>The source code is hosted on <a href="https://github.com/boostorg/leaf">GitHub</a>.</p>
+</li>
+<li>
+<p>For maximum portability, the library is also available in single-header format: simply download <a href="leaf.hpp">leaf.hpp</a> (direct download link).</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+LEAF does not depend on Boost or other libraries.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -1003,7 +1045,7 @@ The complete program from this tutorial is available <a href="https://github.com
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-To avoid ambiguities, whenever possible, use the <a href="#exception"><code>exception</code></a> function template when throwing exceptions to ensure that the exception object transports a unique <code>error_id</code>; better yet, use the <a href="#BOOST_LEAF_THROW_EXCEPTION"><code>BOOST_LEAF_THROW_EXCEPTION</code></a> macro, which in addition will capture <code>__FILE__</code> and <code>__LINE__</code>.
+To avoid ambiguities, whenever possible, use the <a href="#exception"><code>exception</code></a> function template when throwing exceptions to ensure that the exception object transports a unique <code>error_id</code>; better yet, use the <a href="#BOOST_LEAF_THROW_EXCEPTION"><code>THROW_EXCEPTION</code></a> macro, which in addition will capture <code>__FILE__</code> and <code>__LINE__</code>.
 </td>
 </tr>
 </table>
@@ -1679,7 +1721,7 @@ return leaf::try_handle_some(
 </div>
 </div>
 <div class="paragraph text-right">
-<p><a href="#try_handle_some"><code>try_handle_some</code></a> | <a href="#result"><code>result</code></a> | <a href="#BOOST_LEAF_AUTO"><code>BOOST_LEAF_AUTO</code></a></p>
+<p><a href="#try_handle_some"><code>try_handle_some</code></a> | <a href="#result"><code>result</code></a> | <a href="#BOOST_LEAF_AUTO"><code>AUTO</code></a></p>
 </div>
 <div class="paragraph">
 <p>The reason this works is that in case it communicates a failure, <code>leaf::result&lt;T&gt;</code> is able to hold a <code>shared_ptr&lt;polymorphic_context&gt;</code> object. That is why earlier instead of calling <code>task()</code> directly, we called <code>leaf::capture</code>: it calls the passed function and, in case that fails, it stores the <code>shared_ptr&lt;polymorphic_context&gt;</code> we created in the returned <code>result&lt;T&gt;</code>, which now doesn&#8217;t just communicate the fact that an error has occurred, but also holds the <code>context</code> object that <code>try_handle_some</code> needs in order to supply a suitable handler with arguments.</p>
@@ -2092,7 +2134,7 @@ int compute_answer_throws()
 </div>
 </div>
 <div class="paragraph text-right">
-<p><a href="#result"><code>result</code></a> | <a href="#BOOST_LEAF_AUTO"><code>BOOST_LEAF_AUTO</code></a></p>
+<p><a href="#result"><code>result</code></a> | <a href="#BOOST_LEAF_AUTO"><code>AUTO</code></a></p>
 </div>
 <div class="paragraph">
 <p>Finally, here is a scope that handles the errors&#8201;&#8212;&#8201;it will work correctly regardless of whether <code>error_a</code> and <code>error_b</code> objects are thrown as exceptions or not.</p>
@@ -2123,7 +2165,7 @@ int compute_answer_throws()
 </div>
 </div>
 <div class="paragraph text-right">
-<p><a href="#try_handle_all"><code>try_handle_all</code></a> | <a href="#result"><code>result</code></a> | <a href="#BOOST_LEAF_CHECK"><code>BOOST_LEAF_CHECK</code></a></p>
+<p><a href="#try_handle_all"><code>try_handle_all</code></a> | <a href="#result"><code>result</code></a> | <a href="#BOOST_LEAF_CHECK"><code>CHECK</code></a></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2340,7 +2382,7 @@ The complete program illustrating this technique is available <a href="https://g
 </div>
 </div>
 <div class="paragraph text-right">
-<p><a href="#try_handle_all"><code>try_handle_all</code></a> | <a href="#result"><code>result</code></a> | <a href="#BOOST_LEAF_AUTO"><code>BOOST_LEAF_AUTO</code></a> | <a href="#error_info"><code>error_info</code></a></p>
+<p><a href="#try_handle_all"><code>try_handle_all</code></a> | <a href="#result"><code>result</code></a> | <a href="#BOOST_LEAF_AUTO"><code>AUTO</code></a> | <a href="#error_info"><code>error_info</code></a></p>
 </div>
 <div class="colist arabic">
 <table>
@@ -2365,12 +2407,19 @@ The complete program illustrating this technique is available <a href="https://g
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>Follow this link to see the complete program: <a href="https://github.com/boostorg/leaf/blob/master/examples/lua_callback_result.cpp?ts=4">lua_callback_result.cpp</a>.</p>
+Follow this link to see the complete program: <a href="https://github.com/boostorg/leaf/blob/master/examples/lua_callback_result.cpp?ts=4">lua_callback_result.cpp</a>.
+</td>
+</tr>
+</table>
 </div>
-<div class="paragraph">
-<p>Remarkably, the Lua interpreter is C&#43;&#43; exception-safe, even though it is written in C. Here is the same program, this time using a C&#43;&#43; exception to report failures from <code>do_work</code>: <a href="https://github.com/boostorg/leaf/blob/master/examples/lua_callback_eh.cpp?ts=4">lua_callback_eh.cpp</a>.</p>
-</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+When using Lua with C&#43;&#43;, we need to protect the Lua interpreter from exceptions that may be thrown from C&#43;&#43; functions installed as <code>lua_CFunction</code> callbacks. Here is the program from this section rewritten to use a C&#43;&#43; exception to safely communicate errors out of the <code>do_work</code> function: <a href="https://github.com/boostorg/leaf/blob/master/examples/lua_callback_eh.cpp?ts=4">lua_callback_eh.cpp</a>.
 </td>
 </tr>
 </table>
@@ -2901,17 +2950,17 @@ void g()
   BOOST_LEAF_ASSIGN(auto v, r)
 
 #define BOOST_LEAF_CHECK(r)\
-	{\
 		auto &amp;&amp; &lt;&lt;temp&gt;&gt; = r;\
-		if( !&lt;&lt;temp&gt;&gt; )\
-			return &lt;&lt;temp&gt;&gt;.error();\
-	}
+		if( &lt;&lt;temp&gt;&gt; )\
+      ;\
+    else\
+			return &lt;&lt;temp&gt;&gt;.error()
 
 #define BOOST_LEAF_NEW_ERROR &lt;&lt;inject e_source_location voodoo&gt;&gt; ::boost::leaf::new_error</code></pre>
 </div>
 </div>
 <div class="paragraph text-right">
-<p>Reference: <a href="#error_id"><code>error_id</code></a> | <a href="#is_error_id"><code>is_error_id</code></a> | <a href="#new_error"><code>new_error</code></a> | <a href="#current_error"><code>current_error</code></a> | <a href="#polymorphic_context"><code>polymorphic_context</code></a> | <a href="#context_activator"><code>context_activator</code></a> | <a href="#activate_context"><code>activate_context</code></a> | <a href="#is_result_type"><code>is_result_type</code></a> | <a href="#BOOST_LEAF_ASSIGN"><code>BOOST_LEAF_ASSIGN</code></a> | <a href="#BOOST_LEAF_AUTO"><code>BOOST_LEAF_AUTO</code></a> | <a href="#BOOST_LEAF_CHECK"><code>BOOST_LEAF_CHECK</code></a> | <a href="#BOOST_LEAF_NEW_ERROR"><code>BOOST_LEAF_NEW_ERROR</code></a></p>
+<p>Reference: <a href="#error_id"><code>error_id</code></a> | <a href="#is_error_id"><code>is_error_id</code></a> | <a href="#new_error"><code>new_error</code></a> | <a href="#current_error"><code>current_error</code></a> | <a href="#polymorphic_context"><code>polymorphic_context</code></a> | <a href="#context_activator"><code>context_activator</code></a> | <a href="#activate_context"><code>activate_context</code></a> | <a href="#is_result_type"><code>is_result_type</code></a> | <a href="#BOOST_LEAF_ASSIGN"><code>ASSIGN</code></a> | <a href="#BOOST_LEAF_AUTO"><code>AUTO</code></a> | <a href="#BOOST_LEAF_CHECK"><code>CHECK</code></a> | <a href="#BOOST_LEAF_NEW_ERROR"><code>NEW_ERROR</code></a></p>
 </div>
 </div>
 </div>
@@ -3112,6 +3161,14 @@ void g()
 
   &lt;&lt;unspecified-exception-type&gt;&gt; exception() noexcept;
 
+  template &lt;class Ex, class... E&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+  &lt;&lt;unspecified-exception-type&gt;&gt; exception( error_id id, Ex &amp;&amp;, E &amp;&amp; ... ) noexcept;
+
+  template &lt;class E1, class... E&gt; <i class="conum" data-value="2"></i><b>(2)</b>
+  &lt;&lt;unspecified-exception-type&gt;&gt; exception( error_id id, E1 &amp;&amp;, E &amp;&amp; ... ) noexcept;
+
+  &lt;&lt;unspecified-exception-type&gt;&gt; exception( error_id id ) noexcept;
+
 } }
 
 #define BOOST_LEAF_EXCEPTION &lt;&lt;inject e_source_location voodoo&gt;&gt; ::boost::leaf::exception
@@ -3120,7 +3177,7 @@ void g()
 </div>
 </div>
 <div class="paragraph text-right">
-<p>Reference: <a href="#exception"><code>exception</code></a> | <a href="#BOOST_LEAF_EXCEPTION"><code>BOOST_LEAF_EXCEPTION</code></a> | <a href="#BOOST_LEAF_THROW_EXCEPTION"><code>BOOST_LEAF_THROW_EXCEPTION</code></a></p>
+<p>Reference: <a href="#exception"><code>exception</code></a> | <a href="#BOOST_LEAF_EXCEPTION"><code>EXCEPTION</code></a> | <a href="#BOOST_LEAF_THROW_EXCEPTION"><code>THROW_EXCEPTION</code></a></p>
 </div>
 <div class="colist arabic">
 <table>
@@ -3637,19 +3694,27 @@ See also <a href="#on_error"><code>on_error</code></a>.
   template &lt;class E1, class... E&gt; <i class="conum" data-value="2"></i><b>(2)</b>
   &lt;&lt;unspecified&gt;&gt; exception( E1 &amp;&amp; e1, E &amp;&amp; ... e ) noexcept;
 
-  &lt;&lt;unspecified&gt;&gt; exception() noexcept;
+  &lt;&lt;unspecified&gt;&gt; exception() noexcept; <i class="conum" data-value="3"></i><b>(3)</b>
+
+  template &lt;class Ex, class... E&gt; <i class="conum" data-value="4"></i><b>(4)</b>
+  &lt;&lt;unspecified&gt;&gt; exception( error_id id, Ex &amp;&amp; ex, E &amp;&amp; ... e ) noexcept;
+
+  template &lt;class E1, class... E&gt; <i class="conum" data-value="5"></i><b>(5)</b>
+  &lt;&lt;unspecified&gt;&gt; exception( error_id id, E1 &amp;&amp; e1, E &amp;&amp; ... e ) noexcept;
+
+  &lt;&lt;unspecified&gt;&gt; exception( error_id id ) noexcept; <i class="conum" data-value="6"></i><b>(6)</b>
 
 } }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>exception</code> function is overloaded: it can be invoked with no arguments, or else there are two alternatives, selected using <code>std::enable_if</code> based on the type of the first argument:</p>
+<p>The <code>exception</code> function is overloaded: it can be invoked with no arguments, or else there are several alternatives, selected using <code>std::enable_if</code> based on the type of the passed arguments:</p>
 </div>
 <div class="colist arabic">
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Selected if the first argument is an exception object, that is, iff <code>Ex</code> derives publicly from <code>std::exception</code>. In this case the return value is of unspecified type which derives publicly from <code>Ex</code> <strong>and</strong> from class <a href="#error_id"><code>error_id</code></a>, such that:
+<td>Selected if the first argument is not of type <code>error_id</code> and is an exception object, that is, iff <code>Ex</code> derives publicly from <code>std::exception</code>. In this case the return value is of unspecified type which derives publicly from <code>Ex</code> <strong>and</strong> from class <a href="#error_id"><code>error_id</code></a>, such that:
 <div class="ulist">
 <ul>
 <li>
@@ -3663,7 +3728,7 @@ See also <a href="#on_error"><code>on_error</code></a>.
 </tr>
 <tr>
 <td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Selected otherwise. In this case the return value is of unspecified type which derives publicly from <code>std::exception</code> <strong>and</strong> from class <code>error_id</code>, such that:
+<td>Selected if the first argument is not of type <code>error_id</code> and is not an exception object. In this case the return value is of unspecified type which derives publicly from <code>std::exception</code> <strong>and</strong> from class <code>error_id</code>, such that:
 <div class="ulist">
 <ul>
 <li>
@@ -3674,6 +3739,74 @@ See also <a href="#on_error"><code>on_error</code></a>.
 </li>
 </ul>
 </div></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>If the fuction is invoked without arguments, the return value is of unspecified type which derives publicly from <code>std::exception</code> <strong>and</strong> from class <code>error_id</code>, such that:
+<div class="ulist">
+<ul>
+<li>
+<p>its <code>std::exception</code> subobject is default-initialized;</p>
+</li>
+<li>
+<p>its <code>error_id</code> subobject is initialized by <code><a href="#new_error">new_error</a>()</code>.</p>
+</li>
+</ul>
+</div></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Selected if the first argument is of type <code>error_id</code> and the second argument is an exception object, that is, iff <code>Ex</code> derives publicly from <code>std::exception</code>. In this case the return value is of unspecified type which derives publicly from <code>Ex</code> <strong>and</strong> from class <a href="#error_id"><code>error_id</code></a>, such that:
+<div class="ulist">
+<ul>
+<li>
+<p>its <code>Ex</code> subobject is initialized by <code>std::forward&lt;Ex&gt;(ex)</code>;</p>
+</li>
+<li>
+<p>its <code>error_id</code> subobject is initialized by <code>id.<a href="#error_id::load"><code>load</code></a>(std::forward&lt;E&gt;(e)&#8230;&#8203;)</code>.</p>
+</li>
+</ul>
+</div></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Selected if the first argument is of type <code>error_id</code> and the second argument is not an exception object. In this case the return value is of unspecified type which derives publicly from <code>std::exception</code> <strong>and</strong> from class <code>error_id</code>, such that:
+<div class="ulist">
+<ul>
+<li>
+<p>its <code>std::exception</code> subobject is default-initialized;</p>
+</li>
+<li>
+<p>its <code>error_id</code> subobject is initialized by <code>id.<a href="#error_id::load"><code>load</code></a>(std::forward&lt;E1&gt;(e1), std::forward&lt;E&gt;(e)&#8230;&#8203;</code>).</p>
+</li>
+</ul>
+</div></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>If <code>exception</code> is invoked with just an <code>error_id</code> object, the return value is of unspecified type which derives publicly from <code>std::exception</code> <strong>and</strong> from class <code>error_id</code>, such that:
+<div class="ulist">
+<ul>
+<li>
+<p>its <code>std::exception</code> subobject is default-initialized;</p>
+</li>
+<li>
+<p>its <code>error_id</code> subobject is initialized by copying from <code>id</code>.</p>
+</li>
+</ul>
+</div></td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The first three overloads return an exception object that is associated with a new <code>error_id</code>. The second three overloads return an exception object that is associated with the specified <code>error_id</code>.
+</td>
 </tr>
 </table>
 </div>
@@ -3716,7 +3849,7 @@ throw leaf::exception(my_error::e1);</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-To automatically capture <code>__FILE__</code>, <code>__LINE__</code> and <code>__FUNCTION__</code> with the returned object, use <a href="#BOOST_LEAF_EXCEPTION"><code>BOOST_LEAF_EXCEPTION</code></a> instead of <code>leaf::exception</code>.
+To automatically capture <code>__FILE__</code>, <code>__LINE__</code> and <code>__FUNCTION__</code> with the returned object, use <a href="#BOOST_LEAF_EXCEPTION"><code>EXCEPTION</code></a> instead of <code>leaf::exception</code>.
 </td>
 </tr>
 </table>
@@ -3822,7 +3955,7 @@ leaf::result&lt;int&gt; compute_answer()
 </div>
 </div>
 <div class="paragraph text-right">
-<p><a href="#try_handle_some"><code>try_handle_some</code></a> | <a href="#result"><code>result</code></a> | <a href="#BOOST_LEAF_AUTO"><code>BOOST_LEAF_AUTO</code></a></p>
+<p><a href="#try_handle_some"><code>try_handle_some</code></a> | <a href="#result"><code>result</code></a> | <a href="#BOOST_LEAF_AUTO"><code>AUTO</code></a></p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -5517,7 +5650,7 @@ It is probably better to define your own file name wrappers to avoid clashes if 
 </div>
 </div>
 <div class="paragraph">
-<p>The <a href="#BOOST_LEAF_NEW_ERROR"><code>BOOST_LEAF_NEW_ERROR</code></a>, <a href="#BOOST_LEAF_EXCEPTION"><code>BOOST_LEAF_EXCEPTION</code></a> and <a href="#BOOST_LEAF_THROW_EXCEPTION"><code>BOOST_LEAF_THROW_EXCEPTION</code></a> macros capture <code>__FILE__</code>, <code>__LINE__</code> and <code>__FUNCTION__</code> into a <code>e_source_location</code> object.</p>
+<p>The <a href="#BOOST_LEAF_NEW_ERROR"><code>NEW_ERROR</code></a>, <a href="#BOOST_LEAF_EXCEPTION"><code>EXCEPTION</code></a> and <a href="#BOOST_LEAF_THROW_EXCEPTION"><code>THROW_EXCEPTION</code></a> macros capture <code>__FILE__</code>, <code>__LINE__</code> and <code>__FUNCTION__</code> into a <code>e_source_location</code> object.</p>
 </div>
 <hr>
 </div>
@@ -6177,6 +6310,18 @@ Using <code>verbose_diagnostic_info</code> will likely allocate memory dynamical
 <div class="sect1">
 <h2 id="predicates">Reference: Predicates</h2>
 <div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The contents of each Reference section are organized alphabetically.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>A predicate is a special type of error handler argument which enables the <a href="#handler_selection_procedure">handler selection procedure</a> to consider the <em>value</em> of available error objects, not only their type; see <a href="#tutorial-predicates">Using Predicates to Handle Errors</a>.</p>
 </div>
@@ -6857,6 +7002,18 @@ leaf::try_handle_some(
 <div class="sect1">
 <h2 id="traits">Reference: Traits</h2>
 <div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The contents of each Reference section are organized alphabetically.
+</td>
+</tr>
+</table>
+</div>
 <div class="sect2">
 <h3 id="is_predicate"><code>is_predicate</code></h3>
 <div class="listingblock">
@@ -6931,7 +7088,9 @@ The contents of each Reference section are organized alphabetically.
 </div>
 <hr>
 <div class="sect2">
-<h3 id="BOOST_LEAF_ASSIGN"><code>BOOST_LEAF_ASSIGN</code></h3>
+<h3 id="_boost_leaf"><code>BOOST_LEAF_</code></h3>
+<div class="sect3">
+<h4 id="BOOST_LEAF_ASSIGN"><code>ASSIGN</code></h4>
 <div class="listingblock">
 <div class="title">#include &lt;boost/leaf/error.hpp&gt;</div>
 <div class="content">
@@ -6955,15 +7114,15 @@ The contents of each Reference section are organized alphabetically.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-See also <a href="#BOOST_LEAF_AUTO"><code>BOOST_LEAF_AUTO</code></a>.
+See also <a href="#BOOST_LEAF_AUTO"><code>AUTO</code></a>.
 </td>
 </tr>
 </table>
 </div>
 <hr>
 </div>
-<div class="sect2">
-<h3 id="BOOST_LEAF_AUTO"><code>BOOST_LEAF_AUTO</code></h3>
+<div class="sect3">
+<h4 id="BOOST_LEAF_AUTO"><code>AUTO</code></h4>
 <div class="listingblock">
 <div class="title">#include &lt;boost/leaf/error.hpp&gt;</div>
 <div class="content">
@@ -6972,7 +7131,7 @@ See also <a href="#BOOST_LEAF_AUTO"><code>BOOST_LEAF_AUTO</code></a>.
 </div>
 </div>
 <div class="paragraph text-right">
-<p><a href="#BOOST_LEAF_ASSIGN"><code>BOOST_LEAF_ASSIGN</code></a></p>
+<p><a href="#BOOST_LEAF_ASSIGN"><code>ASSIGN</code></a></p>
 </div>
 <div class="paragraph">
 <p><code>BOOST_LEAF_AUTO</code> is useful when calling a function that returns <code>result&lt;T&gt;</code> (other than <code>result&lt;void&gt;</code>), if the desired behavior is to forward any errors to the caller verbatim.</p>
@@ -7028,24 +7187,24 @@ leaf::result&lt;float&gt; add_values()
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-See also <a href="#BOOST_LEAF_ASSIGN"><code>BOOST_LEAF_ASSIGN</code></a>.
+See also <a href="#BOOST_LEAF_ASSIGN"><code>ASSIGN</code></a>.
 </td>
 </tr>
 </table>
 </div>
 <hr>
 </div>
-<div class="sect2">
-<h3 id="BOOST_LEAF_CHECK"><code>BOOST_LEAF_CHECK</code></h3>
+<div class="sect3">
+<h4 id="BOOST_LEAF_CHECK"><code>CHECK</code></h4>
 <div class="listingblock">
 <div class="title">#include &lt;boost/leaf/error.hpp&gt;</div>
 <div class="content">
 <pre class="highlight nowrap"><code class="language-c++" data-lang="c++">#define BOOST_LEAF_CHECK(r)\
-  {\
     auto &amp;&amp; &lt;&lt;temp&gt;&gt; = r;\
-    if(!&lt;&lt;temp&gt;&gt;)\
-      return &lt;&lt;temp&gt;&gt;.error();\
-  }</code></pre>
+    if( &lt;&lt;temp&gt;&gt; )\
+      ;\
+    else\
+      return &lt;&lt;temp&gt;&gt;.error()</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -7090,8 +7249,8 @@ leaf::result&lt;int&gt; say_hello_and_compute_value()
 </div>
 <hr>
 </div>
-<div class="sect2">
-<h3 id="BOOST_LEAF_EXCEPTION"><code>BOOST_LEAF_EXCEPTION</code></h3>
+<div class="sect3">
+<h4 id="BOOST_LEAF_EXCEPTION"><code>EXCEPTION</code></h4>
 <div class="listingblock">
 <div class="title">#include &lt;boost/leaf/exception.hpp&gt;</div>
 <div class="content">
@@ -7108,8 +7267,8 @@ leaf::result&lt;int&gt; say_hello_and_compute_value()
 </div>
 <hr>
 </div>
-<div class="sect2">
-<h3 id="BOOST_LEAF_NEW_ERROR"><code>BOOST_LEAF_NEW_ERROR</code></h3>
+<div class="sect3">
+<h4 id="BOOST_LEAF_NEW_ERROR"><code>NEW_ERROR</code></h4>
 <div class="listingblock">
 <div class="title">#include &lt;boost/leaf/error.hpp&gt;</div>
 <div class="content">
@@ -7126,8 +7285,8 @@ leaf::result&lt;int&gt; say_hello_and_compute_value()
 </div>
 <hr>
 </div>
-<div class="sect2">
-<h3 id="BOOST_LEAF_THROW_EXCEPTION"><code>BOOST_LEAF_THROW_EXCEPTION</code></h3>
+<div class="sect3">
+<h4 id="BOOST_LEAF_THROW_EXCEPTION"><code>THROW_EXCEPTION</code></h4>
 <div class="listingblock">
 <div class="title">#include &lt;boost/leaf/exception.hpp&gt;</div>
 <div class="content">
@@ -7138,9 +7297,10 @@ leaf::result&lt;int&gt; say_hello_and_compute_value()
 <dl>
 <dt class="hdlist1">Effects: </dt>
 <dd>
-<p>Throws the exception object returned by <a href="#BOOST_LEAF_EXCEPTION"><code>BOOST_LEAF_EXCEPTION</code></a>.</p>
+<p>Throws the exception object returned by <a href="#BOOST_LEAF_EXCEPTION"><code>EXCEPTION</code></a>.</p>
 </dd>
 </dl>
+</div>
 </div>
 </div>
 </div>
@@ -7581,7 +7741,7 @@ leaf::result&lt;parsed_line&gt; read_and_parse_line( reader &amp; r )
 </div>
 </div>
 <div class="paragraph text-right">
-<p><a href="#result"><code>result</code></a> | <a href="#BOOST_LEAF_AUTO"><code>BOOST_LEAF_AUTO</code></a></p>
+<p><a href="#result"><code>result</code></a> | <a href="#BOOST_LEAF_AUTO"><code>AUTO</code></a></p>
 </div>
 <div class="colist arabic">
 <table>
@@ -8127,7 +8287,7 @@ meson test</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_configuration_macros">Configuration Macros</h2>
+<h2 id="configuration">Configuration Macros</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following configuration macros are recognized:</p>
@@ -8148,13 +8308,47 @@ meson test</code></pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="_limitations">Limitations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>LEAF requires C&#43;&#43;11, including <code>thread_local</code> support, except when compiled with <code>BOOST_LEAF_NO_THREADS</code> (which can be useful on some embedded platforms).</p>
+</div>
+<div class="paragraph">
+<p>When using dynamic linking, it is required that error types are declared with <code>default</code> visibility, e.g.:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-c++" data-lang="c++">struct __attribute__ ((visibility ("default"))) my_error_info
+{
+    int value;
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This works as expected except on Windows, where thread-local storage is not shared between the individual binary modules. For this reason, to transport error objects across DLL boundaries, it is required that they&#8217;re captured in a <a href="#polymorphic_context"><code>polymorphic_context</code></a>, just like when <a href="#tutorial-async">Transporting Error Objects Between Threads</a>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+When using dynamic linking, it is always best to define module interfaces in terms of C (and implement them in C&#43;&#43; if appropriate).
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_acknowledgements">Acknowledgements</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Special thanks to Peter Dimov and Sorin Fetche.</p>
 </div>
 <div class="paragraph">
-<p>Ivo Belchev, Sean Palmer, Jason King, Vinnie Falco, Glen Fernandes, Nir Friedman, Augustín Bergé&#8201;&#8212;&#8201;thanks for the valuable feedback.</p>
+<p>Ivo Belchev, Sean Palmer, Jason King, Vinnie Falco, Glen Fernandes, Augustín Bergé&#8201;&#8212;&#8201;thanks for the valuable feedback.</p>
 </div>
 <div class="paragraph">
 <p>Documentation rendered by <a href="https://asciidoctor.org/">Asciidoctor</a> with <a href="https://github.com/zajo/asciidoctor_skin">these customizations</a>.</p>
