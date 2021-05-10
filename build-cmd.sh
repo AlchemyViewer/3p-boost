@@ -503,7 +503,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         sep "bootstrap"
         ./bootstrap.sh --prefix=$(pwd) --without-icu
 
-        DEBUG_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc link=static debug-symbols=on \
+        DEBUG_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc link=static debug-symbols=on cxxstd=17 \
             "include=${stage}/packages/include" \
             "include=${stage}/packages/include/zlib/" \
             "-sZLIB_LIBPATH=$stage/packages/lib/debug" \
@@ -529,18 +529,19 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
              -e 'date_time/' \
              -e 'filesystem/' \
              -e 'iostreams/' \
-             -e 'regex/test/de_fuzz' \
+             -e 'regex/' \
+             -e 'thread/' \
             | \
         run_tests variant=debug -a -q \
                   --prefix="${stage}" --libdir="${stage}"/lib/debug \
                   "${DEBUG_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM
 
-        mv "${stage_lib}"/libboost* "${stage_debug}"
+        mv "${stage_lib}"/libboost*-d-*.a "${stage_debug}"
 
         sep "Debug Clean"
         "${bjam}" --clean
 
-        RELEASE_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc link=static debug-symbols=on "include=$stage/packages/include/zlib/" \
+        RELEASE_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc link=static debug-symbols=on cxxstd=17 "include=$stage/packages/include/zlib/" \
             "-sZLIB_LIBPATH=$stage/packages/lib/release" \
             "-sZLIB_INCLUDE=${stage}\/packages/include/zlib/" \
             "${BOOST_BJAM_OPTIONS[@]}" \
@@ -565,13 +566,14 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
              -e 'date_time/' \
              -e 'filesystem/' \
              -e 'iostreams/' \
-             -e 'regex/test/de_fuzz' \
+             -e 'regex/' \
+             -e 'thread/' \
             | \
         run_tests variant=release -a -q \
                   --prefix="${stage}" --libdir="${stage}"/lib/release \
                   "${RELEASE_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM
 
-        mv "${stage_lib}"/libboost* "${stage_release}"
+        mv "${stage_lib}"/libboost*.a "${stage_release}"
 
         sep "Release Clean"
         "${bjam}" --clean
