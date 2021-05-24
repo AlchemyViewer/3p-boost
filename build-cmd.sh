@@ -19,7 +19,7 @@ if [ -z "$AUTOBUILD" ] ; then
 fi
 
 # Libraries on which we depend - please keep alphabetized for maintenance
-BOOST_LIBS=(atomic chrono context date_time fiber filesystem iostreams program_options \
+BOOST_LIBS=(atomic chrono context date_time fiber filesystem iostreams nowide program_options \
             regex stacktrace system thread wave)
 
 BOOST_BUILD_SPAM=""             # -d0 is quiet, "-d2 -d+4" allows compilation to be examined
@@ -57,7 +57,7 @@ source_environment_tempfile="$stage/source_environment.sh"
 
 # Explicitly request each of the libraries named in BOOST_LIBS.
 # Use magic bash syntax to prefix each entry in BOOST_LIBS with "--with-".
-BOOST_BJAM_OPTIONS="address-model=$AUTOBUILD_ADDRSIZE architecture=x86 --layout=tagged -sNO_BZIP2=1 \
+BOOST_BJAM_OPTIONS="address-model=$AUTOBUILD_ADDRSIZE architecture=x86 --layout=tagged -sNO_BZIP2=1 -sNO_LZMA=1 -sNO_ZSTD=1 \
                     ${BOOST_LIBS[*]/#/--with-}"
 
 # Turn these into a bash array: it's important that all of cxxflags (which
@@ -166,20 +166,30 @@ print(since(start, now), ' $* '.center(72, '='), file=sys.stderr)
 "
 }
 
-# bjam doesn't support a -sICU_LIBPATH to point to the location
-# of the icu libraries like it does for zlib. Instead, it expects
-# the library files to be immediately in the ./lib directory
-# and the headers to be in the ./include directory and doesn't
-# provide a way to work around this. Because of this, we break
-# the standard packaging layout, with the debug library files
-# in ./lib/debug and the release in ./lib/release and instead
-# only package the release build of icu4c in the ./lib directory.
-# If a way to work around this is found, uncomment the
-# corresponding blocks in the icu4c build and fix it here.
-
 case "$AUTOBUILD_PLATFORM" in
 
     windows*)
+        # We've observed some weird failures in which the PATH is too big
+        # to be passed to a child process! When that gets munged, we start
+        # seeing errors like 'nmake' failing to find the 'cl.exe' command.
+        # Thing is, by this point in the script we've acquired a shocking
+        # number of duplicate entries. Dedup the PATH using Python's
+        # OrderedDict, which preserves the order in which you insert keys.
+        # We find that some of the Visual Studio PATH entries appear both
+        # with and without a trailing slash, which is pointless. Strip
+        # those off and dedup what's left.
+        # Pass the existing PATH as an explicit argument rather than
+        # reading it from the environment, to bypass the fact that cygwin
+        # implicitly converts PATH to Windows form when running a native
+        # executable. Since we're setting bash's PATH, leave everything in
+        # cygwin form. That means splitting and rejoining on ':' rather
+        # than on os.pathsep, which on Windows is ';'.
+        # Use python -u, else the resulting PATH will end with a spurious
+        # '\r'.
+        export PATH="$(python -u -c "import sys
+from collections import OrderedDict
+print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'))))" "$PATH")"
+    
         INCLUDE_PATH="$(cygpath -m "${stage}"/packages/include)"
         ZLIB_DEBUG_PATH="$(cygpath -m "${stage}"/packages/lib/debug)"
         ZLIB_RELEASE_PATH="$(cygpath -m "${stage}"/packages/lib/release)"
@@ -214,7 +224,6 @@ case "$AUTOBUILD_PLATFORM" in
              exit 1
         fi
 
-        # Windows build of viewer expects /Zc:wchar_t-, etc., from LL_BUILD_RELEASE.
         # Without --abbreviate-paths, some compilations fail with:
         # failed to write output file 'some\long\path\something.rsp'!
         # Without /FS, some compilations fail with:
@@ -224,19 +233,15 @@ case "$AUTOBUILD_PLATFORM" in
         # https://www.boost.org/doc/libs/release/doc/html/stacktrace/configuration_and_build.html
         # This helps avoid macro collisions in consuming source files:
         # https://github.com/boostorg/stacktrace/issues/76#issuecomment-489347839
-        WINDOWS_BJAM_OPTIONS=(link=shared runtime-link=shared \
+        WINDOWS_BJAM_OPTIONS=(link=static runtime-link=shared \
+        cxxstd=17 \
         debug-symbols=on \
-        debug-store=database \
-        pch=off \
         --toolset=$bjamtoolset \
         -j$NUMBER_OF_PROCESSORS \
         --hash \
         include=$INCLUDE_PATH \
         cxxflags=/std:c++17 \
         cxxflags=/permissive- \
-        cxxflags=/FS \
-        define=BOOST_STACKTRACE_LINK \
-        define=ZLIB_DLL \
         "${BOOST_BJAM_OPTIONS[@]}")
 
         DEBUG_BJAM_OPTIONS=("${WINDOWS_BJAM_OPTIONS[@]}" variant=debug)
@@ -250,7 +255,7 @@ case "$AUTOBUILD_PLATFORM" in
 
         sep "debugbuild"
         "${bjam}" --prefix="$(cygpath -m  ${stage})" --libdir="$(cygpath -m  ${stage_debug})" \
-            "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM define=BOOST_ALL_DYN_LINK --user-config="$USER_CONFIG" -a -q stage
+            "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q stage
 
         # Constraining Windows unit tests to link=static produces unit-test
         # link errors. While it may be possible to edit the test/Jamfile.v2
@@ -280,14 +285,12 @@ case "$AUTOBUILD_PLATFORM" in
                   "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q
 
         # Move the libs
-        mv "${stage_lib}"/*.dll "${stage_debug}"
         mv "${stage_lib}"/*.lib "${stage_debug}"
-        mv "${stage_lib}"/*.pdb "${stage_debug}"
 
         sep "clean"
         "${bjam}" --clean-all
 
-        RELEASE_BJAM_OPTIONS=("${WINDOWS_BJAM_OPTIONS[@]}" variant=release optimization=speed lto=on lto-mode=full)
+        RELEASE_BJAM_OPTIONS=("${WINDOWS_BJAM_OPTIONS[@]}" variant=release optimization=speed)
 
         cp "$top/user-config.jam" user-config.jam
         sed -i -e "s#ZLIB_LIB_PATH#${ZLIB_RELEASE_PATH}#g" user-config.jam
@@ -298,7 +301,7 @@ case "$AUTOBUILD_PLATFORM" in
 
         sep "releasebuild"
         "${bjam}" --prefix="$(cygpath -m  ${stage})" --libdir="$(cygpath -m  ${stage_release})" \
-            "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM define=BOOST_ALL_DYN_LINK --user-config="$USER_CONFIG" -a -q stage
+            "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q stage
 
         # Constraining Windows unit tests to link=static produces unit-test
         # link errors. While it may be possible to edit the test/Jamfile.v2
@@ -328,9 +331,7 @@ case "$AUTOBUILD_PLATFORM" in
                   $RELEASE_BJAM_OPTIONS $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q
 
         # Move the libs
-        mv "${stage_lib}"/*.dll "${stage_release}"
         mv "${stage_lib}"/*.lib "${stage_release}"
-        mv "${stage_lib}"/*.pdb "${stage_release}"
 
         sep "version"
         # bjam doesn't need vsvars, but our hand compilation does
@@ -343,11 +344,17 @@ case "$AUTOBUILD_PLATFORM" in
            /Fe"$(native "$stage/version.exe")" \
            "$(native "$top/version.c")"
         # Boost's VERSION_MACRO emits (e.g.) "1_55"
-        "$stage/version.exe" | tr '_' '.' > "$stage/version.txt"
+        localver=`$stage/version.exe | tr '_' '.' | tr -d '\15\32'`
+        echo "${localver}.0" > "$stage/version.txt"
         rm "$stage"/version.{obj,exe}
         ;;
 
     darwin*)
+        # Setup osx sdk platform
+        SDKNAME="macosx"
+        export SDKROOT=$(xcodebuild -version -sdk ${SDKNAME} Path)
+        export MACOSX_DEPLOYMENT_TARGET=10.13
+
         # Force zlib static linkage by moving .dylibs out of the way
         trap restore_dylibs EXIT
         for dylib in "${stage}"/packages/lib/{debug,release}/*.dylib; do
@@ -356,9 +363,18 @@ case "$AUTOBUILD_PLATFORM" in
             fi
         done
 
-        sep "bootstrap"
+        INCLUDE_PATH="${stage}/packages/include"
+        ZLIB_DEBUG_PATH="${stage}/packages/lib/debug"
+        ZLIB_RELEASE_PATH="${stage}/packages/lib/release"
+
+        cp "$top/user-config.jam" project-config.jam
+        sed -e "s#ZLIB_LIB_PATH#${ZLIB_DEBUG_PATH}#g" -i back project-config.jam
+        sed -e "s#ZLIB_LIB_NAME#z#g" -i back project-config.jam
+        sed -e "s#ZLIB_INCLUDE_PATH#${INCLUDE_PATH}/zlib#g" -i back project-config.jam
+
+        sep "Bootstrap"
         stage_lib="${stage}"/lib
-        ./bootstrap.sh --prefix=$(pwd) --with-icu="${stage}"/packages
+        ./bootstrap.sh --prefix=$(pwd)
 
         # Boost.Context and Boost.Coroutine2 now require C++14 support.
         # Without the -Wno-etc switches, clang spams the build output with
@@ -367,20 +383,29 @@ case "$AUTOBUILD_PLATFORM" in
         # fail for lack of an ICU library.
         DARWIN_BJAM_OPTIONS=("${BOOST_BJAM_OPTIONS[@]}" \
             link=static \
+            visibility=global \
+            cxxstd=17 \
+            debug-symbols=on \
+            cxxflags=-std=c++17 \
+            cxxflags=-stdlib=libc++ \
+            "cxxflags=-isysroot ${SDKROOT}" \
+            cxxflags=-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET} \
+            cxxflags=-msse4.2
+            cxxflags=-fPIC
+           "cflags=-isysroot ${SDKROOT}" \
+            cflags=-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET} \
+            cflags=-msse4.2
+            cflags=-fPIC
             "include=${stage}/packages/include" \
             "include=${stage}/packages/include/zlib/" \
             "-sZLIB_INCLUDE=${stage}/packages/include/zlib/" \
-            cxxflags=-std=c++14 \
-            cxxflags=-Wno-c99-extensions cxxflags=-Wno-variadic-macros \
-            cxxflags=-Wno-unused-function cxxflags=-Wno-unused-const-variable \
-            cxxflags=-Wno-unused-local-typedef \
-            --disable-icu)
+            --disable-icu \
+            --user-config="$PWD/project-config.jam")
 
-        RELEASE_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" \
-            "-sZLIB_LIBPATH=${stage}/packages/lib/release")
+        DEBUG_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" variant=debug optimization=off)
 
-        sep "build"
-        "${bjam}" toolset=darwin variant=release "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
+        sep "Debug Build"
+        "${bjam}" toolset=clang "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
 
         # conditionally run unit tests
         # date_time Posix test failures: https://svn.boost.org/trac/boost/ticket/10570
@@ -395,27 +420,74 @@ case "$AUTOBUILD_PLATFORM" in
         # seem ready for prime time on Mac.
         # Bump the timeout for Boost.Thread tests because our TeamCity Mac
         # build hosts are getting a bit long in the tooth.
+        sep "Debug Tests"
         find_test_dirs "${BOOST_LIBS[@]}" | \
         grep -v \
              -e 'date_time/' \
-             -e 'filesystem/test/issues' \
-             -e 'regex/test/de_fuzz' \
+             -e 'filesystem/' \
+             -e 'iostreams/' \
+             -e 'program_options/' \
+             -e 'regex/' \
              -e 'stacktrace/' \
+             -e 'thread/' \
             | \
-        run_tests toolset=darwin variant=release -a -q \
+        run_tests toolset=clang -a -q \
+                  "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
+                  cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
+                  cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
+
+        mv "${stage_lib}"/*.a "${stage_debug}"
+
+        sep "Debug Clean"
+        "${bjam}" --clean
+
+        RELEASE_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" variant=release optimization=speed)
+
+        sep "Release Build"
+        "${bjam}" toolset=clang "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
+
+        # conditionally run unit tests
+        # date_time Posix test failures: https://svn.boost.org/trac/boost/ticket/10570
+        # With Boost 1.64, skip filesystem/tests/issues -- we get:
+        # error: Unable to find file or target named
+        # error:     '6638-convert_aux-fails-init-global.cpp'
+        # error: referred to from project at
+        # error:     'libs/filesystem/test/issues'
+        # regex/tests/de_fuzz depends on an external Fuzzer library:
+        # ld: library not found for -lFuzzer
+        # Sadly, as of Boost 1.65.1, the Stacktrace self-tests just do not
+        # seem ready for prime time on Mac.
+        # Bump the timeout for Boost.Thread tests because our TeamCity Mac
+        # build hosts are getting a bit long in the tooth.
+        sep "Release Tests"
+        find_test_dirs "${BOOST_LIBS[@]}" | \
+        grep -v \
+             -e 'date_time/' \
+             -e 'filesystem/' \
+             -e 'iostreams/' \
+             -e 'program_options/' \
+             -e 'regex/' \
+             -e 'stacktrace/' \
+             -e 'thread/' \
+            | \
+        run_tests toolset=clang -a -q \
                   "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
                   cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
                   cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
 
         mv "${stage_lib}"/*.a "${stage_release}"
 
+        sep "Release Clean"
+        "${bjam}" --clean
+
         # populate version_file
-        sep "version"
+        sep "Version"
         cc -DVERSION_HEADER_FILE="\"$VERSION_HEADER_FILE\"" \
            -DVERSION_MACRO="$VERSION_MACRO" \
            -o "$stage/version" "$top/version.c"
         # Boost's VERSION_MACRO emits (e.g.) "1_55"
-        "$stage/version" | tr '_' '.' > "$stage/version.txt"
+        localver=`$stage/version | tr '_' '.' | tr -d '\15\32'`
+        echo "${localver}.0" > "$stage/version.txt"
         rm "$stage/version"
         ;;
 
@@ -431,13 +503,15 @@ case "$AUTOBUILD_PLATFORM" in
         sep "bootstrap"
         ./bootstrap.sh --prefix=$(pwd) --without-icu
 
-        DEBUG_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc link=static debug-symbols=on "include=$stage/packages/include/zlib/" \
+        DEBUG_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc link=static debug-symbols=on cxxstd=17 \
+            "include=${stage}/packages/include" \
+            "include=${stage}/packages/include/zlib/" \
             "-sZLIB_LIBPATH=$stage/packages/lib/debug" \
             "-sZLIB_INCLUDE=${stage}\/packages/include/zlib/" \
             "${BOOST_BJAM_OPTIONS[@]}" \
             "cflags=-Og" "cflags=-fPIC" "cflags=-DPIC" "cflags=-g" \
             "cxxflags=-std=c++17" "cxxflags=-Og" "cxxflags=-fPIC" "cxxflags=-DPIC" "cxxflags=-g")
-        sep "build"
+        sep "Debug Build"
         "${bjam}" variant=debug --reconfigure \
             --prefix="${stage}" --libdir="${stage}"/lib/debug \
             "${DEBUG_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
@@ -447,6 +521,7 @@ case "$AUTOBUILD_PLATFORM" in
         # libs/regex/test/de_fuzz produces:
         # error: "clang" is not a known value of feature <toolset>
         # error: legal values: "gcc"
+        sep "Debug Tests"
         find_test_dirs "${BOOST_LIBS[@]}" | \
         grep -v \
              -e 'atomic/' \
@@ -454,24 +529,26 @@ case "$AUTOBUILD_PLATFORM" in
              -e 'date_time/' \
              -e 'filesystem/' \
              -e 'iostreams/' \
-             -e 'regex/test/de_fuzz' \
+             -e 'regex/' \
+             -e 'thread/' \
             | \
         run_tests variant=debug -a -q \
                   --prefix="${stage}" --libdir="${stage}"/lib/debug \
                   "${DEBUG_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM
 
-        mv "${stage_lib}"/libboost* "${stage_debug}"
+        mv "${stage_lib}"/libboost*-d-*.a "${stage_debug}"
 
-        sep "clean"
+        sep "Debug Clean"
         "${bjam}" --clean
 
-        RELEASE_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc link=static debug-symbols=on "include=$stage/packages/include/zlib/" \
+        RELEASE_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc link=static debug-symbols=on cxxstd=17 "include=$stage/packages/include/zlib/" \
             "-sZLIB_LIBPATH=$stage/packages/lib/release" \
             "-sZLIB_INCLUDE=${stage}\/packages/include/zlib/" \
             "${BOOST_BJAM_OPTIONS[@]}" \
             "cflags=-O3" "cflags=-fstack-protector-strong" "cflags=-fPIC" "cflags=-D_FORTIFY_SOURCE=2" "cflags=-DPIC" "cflags=-g" \
             "cxxflags=-std=c++17" "cxxflags=-O3" "cxxflags=-fstack-protector-strong" "cxxflags=-fPIC" "cxxflags=-D_FORTIFY_SOURCE=2" "cxxflags=-DPIC" "cxxflags=-g")
-        sep "build"
+
+        sep "Release Build"
         "${bjam}" variant=release --reconfigure \
             --prefix="${stage}" --libdir="${stage}"/lib/release \
             "${RELEASE_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
@@ -481,6 +558,7 @@ case "$AUTOBUILD_PLATFORM" in
         # libs/regex/test/de_fuzz produces:
         # error: "clang" is not a known value of feature <toolset>
         # error: legal values: "gcc"
+        sep "Release Tests"
         find_test_dirs "${BOOST_LIBS[@]}" | \
         grep -v \
              -e 'atomic/' \
@@ -488,19 +566,20 @@ case "$AUTOBUILD_PLATFORM" in
              -e 'date_time/' \
              -e 'filesystem/' \
              -e 'iostreams/' \
-             -e 'regex/test/de_fuzz' \
+             -e 'regex/' \
+             -e 'thread/' \
             | \
         run_tests variant=release -a -q \
                   --prefix="${stage}" --libdir="${stage}"/lib/release \
                   "${RELEASE_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM
 
-        mv "${stage_lib}"/libboost* "${stage_release}"
+        mv "${stage_lib}"/libboost*.a "${stage_release}"
 
-        sep "clean"
+        sep "Release Clean"
         "${bjam}" --clean
 
         # populate version_file
-        sep "version"
+        sep "Version"
         cc -DVERSION_HEADER_FILE="\"$VERSION_HEADER_FILE\"" \
            -DVERSION_MACRO="$VERSION_MACRO" \
            -o "$stage/version" "$top/version.c"
@@ -515,7 +594,5 @@ mkdir -p "${stage}"/include
 cp -a boost "${stage}"/include/
 mkdir -p "${stage}"/LICENSES
 cp -a LICENSE_1_0.txt "${stage}"/LICENSES/boost.txt
-mkdir -p "${stage}"/docs/boost/
-cp -a "$top"/README.Linden "${stage}"/docs/boost/
 
 cd "$top"

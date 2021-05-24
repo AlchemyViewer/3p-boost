@@ -3,8 +3,8 @@
 // Copyright (c) 2007-2014 Barend Gehrels, Amsterdam, the Netherlands.
 // Copyright (c) 2013-2017 Adam Wulkiewicz, Lodz, Poland.
 
-// This file was modified by Oracle on 2014, 2016, 2017, 2018, 2019.
-// Modifications copyright (c) 2014-2019, Oracle and/or its affiliates.
+// This file was modified by Oracle on 2014-2020.
+// Modifications copyright (c) 2014-2020, Oracle and/or its affiliates.
 
 // Contributed and/or modified by Menelaos Karavelas, on behalf of Oracle
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
@@ -22,6 +22,7 @@
 
 #include <boost/geometry/geometries/concepts/point_concept.hpp>
 #include <boost/geometry/geometries/concepts/segment_concept.hpp>
+#include <boost/geometry/geometries/segment.hpp>
 
 #include <boost/geometry/arithmetic/determinant.hpp>
 #include <boost/geometry/algorithms/detail/assign_values.hpp>
@@ -33,13 +34,14 @@
 #include <boost/geometry/util/promote_integral.hpp>
 #include <boost/geometry/util/select_calculation_type.hpp>
 
-#include <boost/geometry/strategies/cartesian/area.hpp>
+#include <boost/geometry/strategy/cartesian/area.hpp>
+#include <boost/geometry/strategy/cartesian/envelope.hpp>
+#include <boost/geometry/strategy/cartesian/expand_box.hpp>
+#include <boost/geometry/strategy/cartesian/expand_segment.hpp>
+
 #include <boost/geometry/strategies/cartesian/disjoint_box_box.hpp>
 #include <boost/geometry/strategies/cartesian/disjoint_segment_box.hpp>
 #include <boost/geometry/strategies/cartesian/distance_pythagoras.hpp>
-#include <boost/geometry/strategies/cartesian/envelope.hpp>
-#include <boost/geometry/strategies/cartesian/expand_box.hpp>
-#include <boost/geometry/strategies/cartesian/expand_segment.hpp>
 #include <boost/geometry/strategies/cartesian/point_in_point.hpp>
 #include <boost/geometry/strategies/cartesian/point_in_poly_winding.hpp>
 #include <boost/geometry/strategies/cartesian/side_by_triangle.hpp>
@@ -52,6 +54,7 @@
 
 #include <boost/geometry/policies/robustness/rescale_policy_tags.hpp>
 #include <boost/geometry/policies/robustness/robust_point_type.hpp>
+
 
 #if defined(BOOST_GEOMETRY_DEBUG_ROBUSTNESS)
 #  include <boost/geometry/io/wkt/write.hpp>
@@ -433,13 +436,12 @@ struct cartesian_segments
         point2_type const& q1 = range_q.at(0);
         point2_type const& q2 = range_q.at(1);
 
-        using geometry::detail::equals::equals_point_point;
-        bool const p_is_point = equals_point_point(p1, p2, point_in_point_strategy_type());
-        bool const q_is_point = equals_point_point(q1, q2, point_in_point_strategy_type());
+        bool const p_is_point = equals_point_point(p1, p2);
+        bool const q_is_point = equals_point_point(q1, q2);
 
         if (p_is_point && q_is_point)
         {
-            return equals_point_point(p1, q2, point_in_point_strategy_type())
+            return equals_point_point(p1, q2)
                 ? Policy::degenerate(p, true)
                 : Policy::disjoint()
                 ;
@@ -768,6 +770,12 @@ private:
               : ( ca1 > cb1 ? 0
                 : ca1 < cb2 ? 4
                 : 2 );
+    }
+
+    template <typename Point1, typename Point2>
+    static inline bool equals_point_point(Point1 const& point1, Point2 const& point2)
+    {
+        return strategy::within::cartesian_point_point::apply(point1, point2);
     }
 };
 

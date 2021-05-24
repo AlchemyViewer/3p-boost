@@ -103,6 +103,44 @@ int map_test_copyable(boost::container::dtl::true_type)
    }
    if(!CheckEqualContainers(boostmap, stdmap)) return 1;
    if(!CheckEqualContainers(boostmultimap, stdmultimap)) return 1;
+
+   boostmap.clear();
+   boostmap.clear();
+   boostmultimap.clear();
+   stdmultimap.clear();
+   //Now try from convertible pair
+   for(i = 0; i < MaxElem; ++i){
+      {
+      boostmap.insert(std::pair<unsigned, unsigned>(i, i));
+      stdmap.insert(StdPairType(i, i));
+      }
+      {
+      boostmultimap.insert(std::pair<unsigned, unsigned>(i, i));
+      stdmultimap.insert(StdPairType(i, i));
+      }
+   }
+   if(!CheckEqualContainers(boostmap, stdmap)) return 1;
+   if(!CheckEqualContainers(boostmultimap, stdmultimap)) return 1;
+
+   #if !defined BOOST_NO_CXX11_HDR_INITIALIZER_LIST
+   boostmap.clear();
+   boostmap.clear();
+   boostmultimap.clear();
+   stdmultimap.clear();
+   //Now try from convertible pair
+   for(i = 0; i < MaxElem; ++i){
+      {
+      boostmap.insert({IntType(i), IntType(i)});
+      stdmap.insert(StdPairType(i, i));
+      }
+      {
+      boostmultimap.insert({IntType(i), IntType(i)});
+      stdmultimap.insert(StdPairType(i, i));
+      }
+   }
+   if(!CheckEqualContainers(boostmap, stdmap)) return 1;
+   if(!CheckEqualContainers(boostmultimap, stdmultimap)) return 1;
+   #endif   //BOOST_NO_CXX11_HDR_INITIALIZER_LIST
    {
       //Now, test copy constructor
       MyBoostMap boostmapcopy(boostmap);
@@ -401,21 +439,48 @@ int map_test_insert(MyBoostMap &boostmap, MyStdMap &stdmap, MyBoostMultiMap &boo
       if(!CheckEqualPairContainers(boostmap, stdmap)) return 1;
       if(!CheckEqualPairContainers(boostmultimap, stdmultimap)) return 1;
 
-      //Swapping test
-      MyBoostMap tmpboostemap2;
-      MyStdMap tmpstdmap2;
-      MyBoostMultiMap tmpboostemultimap2;
-      MyStdMultiMap tmpstdmultimap2;
-      boostmap.swap(tmpboostemap2);
-      stdmap.swap(tmpstdmap2);
-      boostmultimap.swap(tmpboostemultimap2);
-      stdmultimap.swap(tmpstdmultimap2);
-      boostmap.swap(tmpboostemap2);
-      stdmap.swap(tmpstdmap2);
-      boostmultimap.swap(tmpboostemultimap2);
-      stdmultimap.swap(tmpstdmultimap2);
-      if(!CheckEqualPairContainers(boostmap, stdmap)) return 1;
-      if(!CheckEqualPairContainers(boostmultimap, stdmultimap)) return 1;
+      {
+         //Swapping test
+         MyBoostMap tmpboostemap2;
+         MyStdMap tmpstdmap2;
+         MyBoostMultiMap tmpboostemultimap2;
+         MyStdMultiMap tmpstdmultimap2;
+         boostmap.swap(tmpboostemap2);
+         stdmap.swap(tmpstdmap2);
+         boostmultimap.swap(tmpboostemultimap2);
+         stdmultimap.swap(tmpstdmultimap2);
+         boostmap.swap(tmpboostemap2);
+         stdmap.swap(tmpstdmap2);
+         boostmultimap.swap(tmpboostemultimap2);
+         stdmultimap.swap(tmpstdmultimap2);
+         if(!CheckEqualPairContainers(boostmap, stdmap)) return 1;
+         if(!CheckEqualPairContainers(boostmultimap, stdmultimap)) return 1;
+      }
+
+   //move constructor/assignment
+   {
+      MyBoostMap tmpboostemap2(boost::move(boostmap));
+      if(!CheckEqualContainers(tmpboostemap2, stdmap)){
+         std::cout << "Error in boostmap move constructor" << std::endl;
+         return 1;
+      }
+      MyBoostMultiMap tmpboostemultimap2(boost::move(boostmultimap));
+      if(!CheckEqualContainers(tmpboostemultimap2, stdmultimap)){
+         std::cout << "Error in boostmultimap move constructor" << std::endl;
+         return 1;
+      }
+
+      boostmap = boost::move(tmpboostemap2);
+      if(!CheckEqualContainers(boostmap, stdmap)){
+         std::cout << "Error in boostmap move assignment" << std::endl;
+         return 1;
+      }
+      boostmultimap = boost::move(tmpboostemultimap2);
+      if(!CheckEqualContainers(boostmultimap, stdmultimap)){
+         std::cout << "Error in boostmultimap move assignment" << std::endl;
+         return 1;
+      }
+   }
    }
    return 0;
 }

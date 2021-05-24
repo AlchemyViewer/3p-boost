@@ -2,8 +2,8 @@
 
 // Copyright (c) 2007-2012 Barend Gehrels, Amsterdam, the Netherlands.
 
-// This file was modified by Oracle on 2017, 2018.
-// Modifications copyright (c) 2017-2018 Oracle and/or its affiliates.
+// This file was modified by Oracle on 2017-2020.
+// Modifications copyright (c) 2017-2020 Oracle and/or its affiliates.
 
 // Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
 
@@ -17,7 +17,9 @@
 #include <cstddef>
 #include <set>
 
-#include <boost/range.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
+#include <boost/range/value_type.hpp>
 
 #include <boost/geometry/algorithms/detail/overlay/cluster_info.hpp>
 #include <boost/geometry/algorithms/detail/overlay/cluster_exits.hpp>
@@ -746,7 +748,8 @@ public :
 
             for (int i = 0; i < 2; i++)
             {
-                sbs.add(cluster_turn.operations[i],
+                sbs.add(cluster_turn,
+                        cluster_turn.operations[i],
                         cluster_turn_index, i, previous_seg_id,
                         m_geometry1, m_geometry2,
                         departure_turn);
@@ -821,7 +824,8 @@ public :
         // Add this turn to the sort-by-side sorter
         for (int i = 0; i < 2; i++)
         {
-            sbs.add(current_turn.operations[i],
+            sbs.add(current_turn,
+                    current_turn.operations[i],
                     turn_index, i, previous_seg_id,
                     m_geometry1, m_geometry2,
                     true);

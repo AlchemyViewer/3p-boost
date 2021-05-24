@@ -126,18 +126,14 @@
 <tr>
 <td>
                 <p>
-                  <span class="bold"><strong><a class="link" href="boost__beast__basic_multi_buffer/basic_multi_buffer.html" title="basic_multi_buffer::basic_multi_buffer">basic_multi_buffer</a></strong></span>
+                  <span class="bold"><strong><a class="link" href="boost__beast__basic_multi_buffer/basic_multi_buffer.html" title="basic_multi_buffer::basic_multi_buffer">basic_multi_buffer</a> <span class="silver">[constructor]</span></strong></span>
                 </p>
               </td>
 <td>
                 <p>
+                  Constructor. <br> <span class="silver">—</span><br> Move
+                  Constructor. <br> <span class="silver">—</span><br> Copy
                   Constructor.
-                </p>
-                <p>
-                  Move Constructor.
-                </p>
-                <p>
-                  Copy Constructor.
                 </p>
               </td>
 </tr>
@@ -211,9 +207,8 @@
 <td>
                 <p>
                   Returns a constant buffer sequence representing the readable bytes.
-                </p>
-                <p>
-                  Returns a mutable buffer sequence representing the readable bytes.
+                  <br> <span class="silver">—</span><br> Returns a mutable
+                  buffer sequence representing the readable bytes.
                 </p>
               </td>
 </tr>
@@ -237,9 +232,7 @@
               </td>
 <td>
                 <p>
-                  Set the maximum allowed capacity.
-                </p>
-                <p>
+                  Set the maximum allowed capacity. <br> <span class="silver">—</span><br>
                   Return the maximum number of bytes, both readable and writable,
                   that can ever be held.
                 </p>
@@ -253,9 +246,7 @@
               </td>
 <td>
                 <p>
-                  Move Assignment.
-                </p>
-                <p>
+                  Move Assignment. <br> <span class="silver">—</span><br>
                   Copy Assignment.
                 </p>
               </td>
@@ -311,7 +302,7 @@
 <tr>
 <td>
                 <p>
-                  <span class="bold"><strong><a class="link" href="boost__beast__basic_multi_buffer/_basic_multi_buffer.html" title="basic_multi_buffer::~basic_multi_buffer">~basic_multi_buffer</a></strong></span>
+                  <span class="bold"><strong><a class="link" href="boost__beast__basic_multi_buffer/_basic_multi_buffer.html" title="basic_multi_buffer::~basic_multi_buffer">~basic_multi_buffer</a> <span class="silver">[destructor]</span></strong></span>
                 </p>
               </td>
 <td>
@@ -376,12 +367,12 @@
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
             A mutable buffer sequence representing the readable bytes is returned
-            by <a class="link" href="boost__beast__basic_multi_buffer/data/overload1.html" title="basic_multi_buffer::data (1 of 2 overloads)"><code class="computeroutput"><span class="identifier">data</span></code></a> when <code class="computeroutput"><span class="keyword">this</span></code>
+            by <a class="link" href="boost__beast__basic_multi_buffer/data.html" title="basic_multi_buffer::data"><code class="computeroutput"><span class="identifier">data</span></code></a> when <code class="computeroutput"><span class="keyword">this</span></code>
             is non-const.
           </li>
 <li class="listitem">
             Buffer sequences representing the readable and writable bytes, returned
-            by <a class="link" href="boost__beast__basic_multi_buffer/data/overload1.html" title="basic_multi_buffer::data (1 of 2 overloads)"><code class="computeroutput"><span class="identifier">data</span></code></a> and <a class="link" href="boost__beast__basic_multi_buffer/prepare.html" title="basic_multi_buffer::prepare"><code class="computeroutput"><span class="identifier">prepare</span></code></a>, may have length greater
+            by <a class="link" href="boost__beast__basic_multi_buffer/data.html" title="basic_multi_buffer::data"><code class="computeroutput"><span class="identifier">data</span></code></a> and <a class="link" href="boost__beast__basic_multi_buffer/prepare.html" title="basic_multi_buffer::prepare"><code class="computeroutput"><span class="identifier">prepare</span></code></a>, may have length greater
             than one.
           </li>
 <li class="listitem">
@@ -390,7 +381,7 @@
             size will throw <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">length_error</span></code>.
           </li>
 <li class="listitem">
-            Sequences previously obtained using <a class="link" href="boost__beast__basic_multi_buffer/data/overload1.html" title="basic_multi_buffer::data (1 of 2 overloads)"><code class="computeroutput"><span class="identifier">data</span></code></a> remain valid after calls
+            Sequences previously obtained using <a class="link" href="boost__beast__basic_multi_buffer/data.html" title="basic_multi_buffer::data"><code class="computeroutput"><span class="identifier">data</span></code></a> remain valid after calls
             to <a class="link" href="boost__beast__basic_multi_buffer/prepare.html" title="basic_multi_buffer::prepare"><code class="computeroutput"><span class="identifier">prepare</span></code></a> or <a class="link" href="boost__beast__basic_multi_buffer/commit.html" title="basic_multi_buffer::commit"><code class="computeroutput"><span class="identifier">commit</span></code></a>.
           </li>
 </ul></div>

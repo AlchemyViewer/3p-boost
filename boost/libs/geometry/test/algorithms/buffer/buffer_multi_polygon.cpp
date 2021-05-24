@@ -13,7 +13,6 @@
 
 #include "test_buffer.hpp"
 
-
 static std::string const simplex
     = "MULTIPOLYGON(((0 1,2 5,5 3,0 1)),((1 1,5 2,5 0,1 1)))";
 
@@ -293,6 +292,90 @@ static std::string const rt_v3
 static std::string const rt_v4
     = "MULTIPOLYGON(((5 4,5 5,6 5,6 4,5 4)),((7 1,6 1,7 2,7 1)),((7 1,8 1,8 0,7 0,7 1)),((6 1,5 1,5 2,6 1)))";
 
+// From 2020 runs of robustness test recursive_polygons_buffer, without rescaling
+// For the same problem there can be multiple cases, but details differ
+
+// Cases missing a turn, or needing a start turn
+static std::string const nores_mt_1
+    = "MULTIPOLYGON(((4 8,4 9,5 9,4 8)),((3 6,3 7,4 6,3 6)))";
+
+static std::string const nores_mt_2
+    = "MULTIPOLYGON(((5 3,6 4,6 3,5 3)),((4 4,3 4,4 5,5 5,4 4)),((4 5,3 5,3 6,4 5)))";
+
+static std::string const nores_mt_3
+    = "MULTIPOLYGON(((7 4,7 5,8 5,8 4,7 4)),((2 6,2 7,3 6,2 6)),((3 10,4 10,4 9,4 8,3 8,3 10)))";
+
+static std::string const nores_mt_4
+    = "MULTIPOLYGON(((6 8,6 9,7 9,6 8)),((1 5,1 6,2 6,1 5)),((7 7,8 8,8 7,7 7)),((0 3,0 4,1 3,0 3)))";
+
+static std::string const nores_mt_5
+    = "MULTIPOLYGON(((4 3,4 4,5 4,5 3,4 3)),((3 1,3 2,4 1,3 1)),((1 6,2 7,2 6,1 6)),((3 6,4 5,3 4,3 6)))";
+
+static std::string const nores_mt_6
+    = "MULTIPOLYGON(((5 7,5 6,4 6,4 5,4 4,3 4,3 6,3 7,5 7)))";
+
+// Cases generating an extra turn, and/or a cluster not yet handled correctly
+static std::string const nores_et_1
+    = "MULTIPOLYGON(((5 7,5 8,6 8,5 7)),((5 4,5 5,6 4,5 4)),((3 6,4 7,4 6,3 6)))";
+
+static std::string const nores_et_2
+    = "MULTIPOLYGON(((4 2,5 3,5 2,4 2)),((6 3,6 4,7 4,7 3,6 3)),((7 2,8 3,8 2,7 2)),((4 4,4 5,5 5,5 4,4 4)))";
+
+static std::string const nores_et_3
+    = "MULTIPOLYGON(((3 1,3 2,4 2,4 1,3 1)),((5 4,5 3,4 3,5 4)),((5 3,6 2,5 2,5 3)),((8 1,7 1,6 1,7 2,7 3,7.5 2.5,8 3,8 1)))";
+
+static std::string const nores_et_4
+    = "MULTIPOLYGON(((4 7,4 8,5 8,5 7,4 7)),((3 5,3 6,4 5,3 5)),((1 6,2 7,2 6,1 6)))";
+
+static std::string const nores_et_5
+    = "MULTIPOLYGON(((3 2,3 3,4 3,4 2,3 2)),((0 3,0 4,1 3,0 3)),((2 2,2 1,1 1,2 2)))";
+
+static std::string const nores_et_6
+    = "MULTIPOLYGON(((0 5,0 6,1 5,0 5)),((3 5,4 6,4 5,3 5)),((2 0,2 1,3 0,2 0)),((5 2,4 1,4 4,5 5,5 2)),((0 9,1 9,1 8,0 8,0 9)),((1 8,1 7,0 7,1 8)),((7 4,7 3,6 3,7 4)),((7 4,7 6,8 6,8 5,7 4)),((7 3,8 3,8 2,7 2,6 2,7 3)),((7 9,8 9,7.5 8.5,8 8,8 7,7 7,7 9)),((8 9,9 9,9 8,8 8,8 9)),((8 3,8 4,9 4,8 3)),((10 3,9 2,9 4,10 4,10 3)),((5 2,6 1,5 1,5 2)),((4 8,4.5 7.5,5 8,5 7,4 7,4 8)),((4 8,3 8,4 9,4 8)),((4 9,3 9,4 10,4 9)),((9 2,9 1,8 1,9 2)))";
+
+static std::string const nores_et_7
+    = "MULTIPOLYGON(((4 0,5 1,5 0,4 0)),((5 4,6 5,6 4,5 4)),((3 6,4 6,4 5,3 5,3 6)),((0 6,1 7,1 6,0 6)),((2 9,2 10,3 10,2 9)),((2 2,3 3,3 2,2 2)),((5 9,4 8,4 9,5 10,6 10,6 9,5 9)),((4 8,3 7,3 8,3 9,4 8)),((6 2,6 3,7 3,7 2,6 2)),((6 2,5 2,5 3,6 2)),((6 7,5 7,5 8,6 8,6 7)),((6 7,6 6,5 6,6 7)),((6 7,7 8,7 7,6 7)),((9 5,9 6,10 6,9.5 5.5,10 5,9 5)),((9 5,9 4,8 4,9 5)),((9 4,10 5,10 4,9 4)),((9 1,8 1,7 1,8 2,8 3,9 3,9 1)),((9 1,10 1,9 0,8 0,9 1)),((7 3,7 4,8 4,8 3,7 3)),((9 10,10 10,10 9,9 9,9 10)),((9 10,8 9,7 9,7 10,9 10)))";
+
+// Cases having wrong next turn information, somehow, taking the "i" (intersection),
+// which is wrong for buffer (it should take the "u" like union)
+static std::string const nores_wn_1
+    = "MULTIPOLYGON(((8 3,8 4,9 4,9 3,8 3)),((9 5,9 6,10 5,9 5)),((8 8,9 9,9 8,8 8)),((8 8,8 7,7 7,8 8)))";
+static std::string const nores_wn_2
+    = "MULTIPOLYGON(((9 5,9 6,10 5,9 5)),((8 8,8 7,7 7,7 8,8 8)),((8 8,9 9,9 8,8 8)))";
+
+// Other cases with wrong turn information
+static std::string const nores_wt_1
+    = "MULTIPOLYGON(((0 4,0 5,1 4,0 4)),((9 3,9 4,10 4,9 3)),((9 7,10 8,10 7,9 7)),((6 7,7 8,7 7,6 7)),((0 7,0 8,1 8,0 7)),((3 6,4 6,4 5,3 4,3 6)),((3 7,2 6,2 7,3 7)),((3 7,3 8,4 8,4 7,3 7)),((3 3,4 4,4 3,3 3)),((3 3,3 2,2 2,2 3,3 3)),((2 6,2 5,1 5,1 6,2 6)),((6 4,6 3,5 3,5 4,6 4)),((6 4,7 5,7 4,6 4)),((5 1,4 0,4 1,5 1)),((5 1,5 2,6 2,6 1,5 1)))";
+static std::string const nores_wt_2
+    = "MULTIPOLYGON(((1 1,2 2,2 1,1 1)),((0 2,0 3,1 3,0 2)),((4 3,5 4,5 3,4 3)),((4 3,3 3,4 4,4 3)))";
+
+static std::string const nores_b8e6
+    = "MULTIPOLYGON(((4 4,5 5,5 4,4 4)),((4 2,5 2,5 1,3 1,4 2)),((3 1,4 0,3 0,3 1)))";
+static std::string const nores_2881
+    = "MULTIPOLYGON(((2 5,2 6,3 5,2 5)),((1 7,0 7,0 8,1 8,1 7)),((1 7,1 6,0 6,1 7)))";
+static std::string const nores_3af0
+    = "MULTIPOLYGON(((1 8,0 8,0 9,1 9,1 8)),((1 8,1 7,0 7,1 8)),((2 4,3 5,3 4,2 4)),((2 6,2 7,3 6,2 6)))";
+static std::string const nores_6061
+    = "MULTIPOLYGON(((2 8,2 9,3 8,2 8)),((4 3,4 4,5 4,4 3)),((7 2,7 3,8 2,7 2)),((5 3,6 4,6 3,5 3)),((2 6,3 7,3 6,2 6)),((2 3,3 2,3 1,2 1,2 3)),((2 3,3 4,3 3,2 3)))";
+
+static std::string const nores_1ea1
+    = "MULTIPOLYGON(((2 0,2 1,3 0,2 0)),((7 5,6 4,5 3,5 4,5 5,7 5)),((2 3,1 3,1 4,2 3)),((2 3,2 4,3 3,2 3)))";
+static std::string const nores_804e
+    = "MULTIPOLYGON(((4 8,4 9,5 8,4 8)),((3 9,3 10,4 10,3 9)),((0 7,0 8,1 7,0 7)),((4 6,3 6,3 7,4 6)),((4 6,4 7,5 7,4 6)))";
+static std::string const nores_37f6
+    = "MULTIPOLYGON(((4 1,5 2,5 1,4 1)),((1 0,1 1,2 1,2 0,1 0)),((0 3,0 4,1 4,1 3,0 3)),((2 2,2 3,3 2,2 2)))";
+
+static std::string const nores_495d
+    = "MULTIPOLYGON(((2 0,2 1,3 0,2 0)),((2 3,3 4,3 3,2 3)),((5 1,5 2,6 2,5 1)),((4 3,4 2,3 2,4 3)))";
+
+// rescaled
+static std::string const res_ebc4
+    = "MULTIPOLYGON(((3 9,3 10,4 9,3 9)),((9 5,9 6,10 6,10 5,9 5)),((8 8,8 9,9 9,8 8)),((4 8,3 7,3 8,4 8)),((4 8,5 9,6 9,6 8,4 8)),((4 5,3 4,3 5,4 5)),((4 5,5 6,5 5,4 5)))";
+static std::string const res_8618
+    = "MULTIPOLYGON(((6 2,7 3,7 2,6 2)),((4 3,5 4,5 3,4 3)),((3 0,3 1,4 0,3 0)),((8 7,8 8,9 8,8 7)),((0 7,0 8,1 8,1 7,0 7)),((2 2,1 2,1 3,1 4,2 4,2 2)),((2 2,2 1,1 1,2 2)))";
+static std::string const res_3b4d
+    = "MULTIPOLYGON(((8 0,9 1,9 0,8 0)),((3 4,2 4,2 5,2 6,3 6,3 4)),((3 4,4 3,3 3,3 4)),((3 8,3 9,4 9,3 8)),((0 5,0 6,1 6,0 5)),((7 3,8 4,8 3,7 3)),((5 5,6 6,6 5,5 5)))";
+
 
 static std::string const neighbouring
     = "MULTIPOLYGON(((0 0,0 10,10 10,10 0,0 0)),((10 10,10 20,20 20,20 10,10 10)))";
@@ -312,6 +395,7 @@ void test_all()
 {
     typedef bg::model::polygon<P, Clockwise> polygon_type;
     typedef bg::model::multi_polygon<polygon_type> multi_polygon_type;
+    typedef typename bg::coordinate_type<P>::type coor_type;
 
     bg::strategy::buffer::join_miter join_miter;
     bg::strategy::buffer::join_round join_round(100);
@@ -337,7 +421,7 @@ void test_all()
 
     test_one<multi_polygon_type, polygon_type>("multi_simplex_01", simplex, join_round, end_flat, 9.7514, -0.1);
     test_one<multi_polygon_type, polygon_type>("multi_simplex_05", simplex, join_round, end_flat, 3.2019, -0.5);
-    test_one<multi_polygon_type, polygon_type>("multi_simplex_10", simplex, join_round, end_flat, 0.2012, -1.0);
+    test_one<multi_polygon_type, polygon_type>("multi_simplex_10", simplex, join_round, end_flat, 0.20116, -1.0);
     test_one<multi_polygon_type, polygon_type>("multi_simplex_12", simplex, join_round, end_flat, 0.0, -1.2);
 
     test_one<multi_polygon_type, polygon_type>("zonethru_05", zonethru, join_round, end_flat, 67.4627, 0.5);
@@ -381,7 +465,7 @@ void test_all()
     test_one<multi_polygon_type, polygon_type>("degenerate1", degenerate1, join_round, end_flat, 5.708, 1.0);
     test_one<multi_polygon_type, polygon_type>("degenerate2", degenerate2, join_round, end_flat, 133.0166, 0.75);
 
-    test_one<multi_polygon_type, polygon_type>("rt_a", rt_a, join_round, end_flat, 34.5381, 1.0);
+    test_one<multi_polygon_type, polygon_type>("rt_a", rt_a, join_round, end_flat, 34.53437, 1.0);
     test_one<multi_polygon_type, polygon_type>("rt_a", rt_a, join_miter, end_flat, 36.0, 1.0);
     test_one<multi_polygon_type, polygon_type>("rt_b", rt_b, join_round, end_flat, 31.4186, 1.0);
     test_one<multi_polygon_type, polygon_type>("rt_b", rt_b, join_miter, end_flat, 34.0, 1.0);
@@ -427,7 +511,6 @@ void test_all()
     test_one<multi_polygon_type, polygon_type>("rt_p3", rt_p3, join_miter, end_flat, 22.3995, 1.0);
     test_one<multi_polygon_type, polygon_type>("rt_p4", rt_p4, join_miter, end_flat, 33.0563, 1.0);
     test_one<multi_polygon_type, polygon_type>("rt_p5", rt_p5, join_miter, end_flat, 17.0, 1.0);
-
     test_one<multi_polygon_type, polygon_type>("rt_p6", rt_p6, join_miter, end_flat, 18.4853, 1.0);
     test_one<multi_polygon_type, polygon_type>("rt_p7", rt_p7, join_miter, end_flat, 26.2279, 1.0);
     test_one<multi_polygon_type, polygon_type>("rt_p8", rt_p8, join_miter, end_flat, 29.0563, 1.0);
@@ -475,12 +558,11 @@ void test_all()
     test_one<multi_polygon_type, polygon_type>("rt_u8", rt_u8, join_miter, end_flat, 70.9142, 1.0);
     test_one<multi_polygon_type, polygon_type>("rt_u9", rt_u9, join_miter, end_flat, 59.3063, 1.0);
     test_one<multi_polygon_type, polygon_type>("rt_u10", rt_u10, join_miter, end_flat, 144.0858, 1.0);
-    test_one<multi_polygon_type, polygon_type>("rt_u10_51", rt_u10, join_miter, end_flat, 0.1674, -0.51);
+    test_one<multi_polygon_type, polygon_type>("rt_u10_51", rt_u10, join_miter, end_flat, 0.16738, -0.51);
     test_one<multi_polygon_type, polygon_type>("rt_u10_c_51", rt_u10_c, join_miter, end_flat, 0.066952, -0.51);
 
-    test_one<multi_polygon_type, polygon_type>("rt_u10_51", rt_u10, join_miter, end_flat, 0.1674, -0.51);
     // TODO: invalid - making a bow-tie
-    test_one<multi_polygon_type, polygon_type>("rt_u10_50", rt_u10, join_miter, end_flat, 0.2145, -0.50, ut_settings::ignore_validity());
+    test_one<multi_polygon_type, polygon_type>("rt_u10_50", rt_u10, join_miter, end_flat, 0.214466, -0.50, ut_settings::ignore_validity());
     test_one<multi_polygon_type, polygon_type>("rt_u10_45", rt_u10, join_miter, end_flat, 1.3000, -0.45);
     test_one<multi_polygon_type, polygon_type>("rt_u10_25", rt_u10, join_miter, end_flat, 9.6682, -0.25);
 
@@ -496,6 +578,47 @@ void test_all()
     test_one<multi_polygon_type, polygon_type>("rt_v3", rt_v3, join_round32, end_flat, 22.9158, 1.0);
     test_one<multi_polygon_type, polygon_type>("rt_v4", rt_v4, join_round32, end_flat, 23.4146, 1.0);
 
+    test_one<multi_polygon_type, polygon_type>("nores_mt_1", nores_mt_1, join_round32, end_flat, 13.4113, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_mt_2", nores_mt_2, join_round32, end_flat, 17.5265, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_mt_3", nores_mt_3, join_round32, end_flat, 25.6091, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_mt_4", nores_mt_4, join_round32, end_flat, 26.0946, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_mt_5", nores_mt_5, join_round32, end_flat, 26.4375, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_mt_6", nores_mt_6, join_round32, end_flat, 16.9018, 1.0);
+
+    test_one<multi_polygon_type, polygon_type>("nores_et_1", nores_et_1, join_round32, end_flat, 18.9866, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_et_2", nores_et_2, join_round32, end_flat, 23.8389, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_et_3", nores_et_3, join_round32, end_flat, 26.9030, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_et_4", nores_et_4, join_round32, end_flat, 19.9626, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_et_5", nores_et_5, join_round32, end_flat, 19.9615, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_et_6", nores_et_6, join_round32, end_flat, 96.1795, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_et_7", nores_et_7, join_round32, end_flat, 105.9577, 1.0);
+
+    test_one<multi_polygon_type, polygon_type>("nores_wn_1", nores_wn_1, join_round32, end_flat, 23.7659, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_wn_2", nores_wn_2, join_round32, end_flat, 18.2669, 1.0);
+
+    test_one<multi_polygon_type, polygon_type>("nores_wt_1", nores_wt_1, join_round32, end_flat, 80.1609, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_wt_2", nores_wt_2, join_round32, end_flat, 22.1102, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_b8e6", nores_b8e6, join_round32, end_flat, 19.8528, 1.0);
+
+    test_one<multi_polygon_type, polygon_type>("nores_2881", nores_2881, join_round32, end_flat, 16.5517, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_6061", nores_6061, join_round32, end_flat, 39.7371, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_37f6", nores_37f6, join_round32, end_flat, 26.5339, 1.0);
+
+#if defined(BOOST_GEOMETRY_USE_RESCALING) || defined(BOOST_GEOMETRY_TEST_FAILURES)
+    // Cases not yet solved without rescaling (out of 241)
+    test_one<multi_polygon_type, polygon_type>("nores_1ea1", nores_1ea1, join_round32, end_flat, 28.9755, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_804e", nores_804e, join_round32, end_flat, 26.4503, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_3af0", nores_3af0, join_round32, end_flat, 22.1008, 1.0);
+    test_one<multi_polygon_type, polygon_type>("nores_495d", nores_495d, join_round32, end_flat, 23.4376, 1.0);
+#endif
+
+#if ! defined(BOOST_GEOMETRY_USE_RESCALING) || defined(BOOST_GEOMETRY_TEST_FAILURES)
+    // Erroneous cases with rescaling (out of 8)
+    test_one<multi_polygon_type, polygon_type>("res_ebc4", res_ebc4, join_round32, end_flat, 43.8877, 1.0);
+    test_one<multi_polygon_type, polygon_type>("res_8618", res_8618, join_round32, end_flat, 48.1085, 1.0);
+    test_one<multi_polygon_type, polygon_type>("res_3b4d", res_3b4d, join_round32, end_flat, 48.4739, 1.0);
+#endif
+
     test_one<multi_polygon_type, polygon_type>("neighbouring_small",
         neighbouring,
         join_round32, end_round32, 128.0, -1.0);
@@ -510,15 +633,18 @@ void test_all()
         join_round32, end_round32, 0.0, -10.0);
 
     // Check cases with extreme coordinates on assertions
-    test_one<multi_polygon_type, polygon_type>("mysql_report_2015_07_05_1",
-        mysql_report_2015_07_05_1,
-        join_round32, end_round32, ut_settings::ignore_area(), 5526.0,
-        ut_settings::assertions_only());
+    if (BOOST_GEOMETRY_CONDITION((boost::is_same<coor_type, double>::value)))
+    {
+        test_one<multi_polygon_type, polygon_type>("mysql_report_2015_07_05_1",
+            mysql_report_2015_07_05_1,
+            join_round32, end_round32, ut_settings::ignore_area(), 5526.0,
+            ut_settings::assertions_only());
 
-    test_one<multi_polygon_type, polygon_type>("mysql_report_2015_07_05_2",
-        mysql_report_2015_07_05_2,
-        join_round32, end_round32, ut_settings::ignore_area(), 948189399.0,
-        ut_settings::assertions_only());
+        test_one<multi_polygon_type, polygon_type>("mysql_report_2015_07_05_2",
+            mysql_report_2015_07_05_2,
+            join_round32, end_round32, ut_settings::ignore_area(), 948189399.0,
+            ut_settings::assertions_only());
+    }
 }
 
 int test_main(int, char* [])
@@ -530,9 +656,13 @@ int test_main(int, char* [])
 #if ! defined(BOOST_GEOMETRY_TEST_ONLY_ONE_ORDER)
     test_all<false, bg::model::point<default_test_type, 2, bg::cs::cartesian> >();
 #endif
-    
+
+#if ! defined(BOOST_GEOMETRY_TEST_ONLY_ONE_TYPE)
+    test_all<true, bg::model::point<mp_test_type, 2, bg::cs::cartesian> >();
+#endif
+
 #if defined(BOOST_GEOMETRY_TEST_FAILURES)
-    BoostGeometryWriteExpectedFailures(1, 1);
+    BoostGeometryWriteExpectedFailures(4, 6, 3, 8);
 #endif
 
     return 0;

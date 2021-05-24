@@ -30,6 +30,18 @@ visualisation file at https://github.com/ned14/outcome/raw/master/include/outcom
 useful to include into your build.
 
 
+## Usage from the vcpkg package manager
+
+This is particularly easy, and works on Mac OS, Linux and Microsoft Windows:
+
+```
+vcpkg install outcome
+```
+
+Outcome appears at `<boost/outcome/outcome.hpp>`. This is a full copy of Outcome, so
+Experimental Outcome and all the usual headers are where you would expect.
+
+
 ## Usage from the Conan package manager
 
 *(thanks to Théo Delrieu for contributing this support)*
@@ -52,8 +64,8 @@ Outcome will be made available by Conan at `<outcome.hpp>`.
 
 ## Usage from the cmake hunter package manager
 
-Outcome has not been submitted to the main cmake hunter package manager repo as
-it changes too frequently. You can however add it as a git submodule:
+Outcome has not been submitted to the main cmake hunter package manager repo yet.
+You can however add it as a git submodule:
 
 ```
 cd yourthirdpartyrepodir
@@ -116,17 +128,20 @@ git submodule update
 
 ## Usage as a stable source tarball
 
-If you would prefer a single source tarball of the stable branch containing
-all the documentation, tests and sources, this can always be retrieved from:
+If you would prefer a single source tarball of the stable and develop branches
+known to have had all unit tests passing on all platforms, containing all the
+documentation, tests and sources, this can always be retrieved from:
 
-https://dedi5.nedprod.com/static/files/outcome-v2.0-source-latest.tar.xz
+https://github.com/ned14/outcome/releases
 
 This tarball is automatically generated when Outcome fully compiles and passes
 all unit tests on all platforms tested by the CIs. This currently includes:
 
-- Linux: GCC 6.5, clang 4.0.1
-- MacOS: XCode 9
-- Windows: VS2017.9
+- Linux: GCC 7.5, clang 9, clang 11
+- MacOS: XCode 12
+- Windows: VS2019.7
+
+All unit tests are executed under the Address and Undefined Behaviour sanitisers.
 
 It should be emphasised that newer compilers are not tested, so there is
 an unlikely chance that the tarball may not work on a newer compiler.

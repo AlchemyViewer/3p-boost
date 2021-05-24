@@ -452,6 +452,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#changelog">Revision History</a>
 <ul class="sectlevel2">
+<li><a href="#changelog_changes_in_1_76_0">Changes in 1.76.0</a></li>
 <li><a href="#changelog_changes_in_1_74_0">Changes in 1.74.0</a></li>
 <li><a href="#changelog_changes_in_1_73_0">Changes in 1.73.0</a></li>
 <li><a href="#changelog_changes_in_1_71_0">Changes in 1.71.0</a></li>
@@ -885,6 +886,16 @@ which is basically a no-op, as <code>monostate</code> is effectively an empty <c
 <div class="sect1">
 <h2 id="changelog">Revision History</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="changelog_changes_in_1_76_0">Changes in 1.76.0</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Improved generated code for the double buffered case.</p>
+</li>
+</ul>
+</div>
+</div>
 <div class="sect2">
 <h3 id="changelog_changes_in_1_74_0">Changes in 1.74.0</h3>
 <div class="ulist">
@@ -1984,8 +1995,8 @@ and <code>U</code> occurs exactly once in <code>T&#8230;&#8203;</code>.</p>
 </dd>
 <dt class="hdlist1">Effects:  </dt>
 <dd>
-<p>Destroys the currently contained value, then initializes a new contained
-value as if using the expression <code>Ti(std::forward&lt;A&gt;(a)&#8230;&#8203;)</code>.</p>
+<p>Initializes a new contained value as if using the expression
+<code>Ti(std::forward&lt;A&gt;(a)&#8230;&#8203;)</code>, then destroys the currently contained value.</p>
 </dd>
 <dt class="hdlist1">Ensures:  </dt>
 <dd>
@@ -2032,8 +2043,8 @@ value as if using the expression <code>Ti(std::forward&lt;A&gt;(a)&#8230;&#8203;
 </dd>
 <dt class="hdlist1">Effects:  </dt>
 <dd>
-<p>Destroys the currently contained value, then initializes a new contained
-value as if using the expression <code>Ti(il, std::forward&lt;A&gt;(a)&#8230;&#8203;)</code>.</p>
+<p>Initializes a new contained value as if using the expression
+<code>Ti(il, std::forward&lt;A&gt;(a)&#8230;&#8203;)</code>, then destroys the currently contained value.</p>
 </dd>
 <dt class="hdlist1">Ensures:  </dt>
 <dd>
@@ -2816,7 +2827,7 @@ the <a href="http://www.boost.org/LICENSE_1_0.txt">Boost Software License, Versi
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-11 14:57:10 UTC
+Last updated 2021-04-13 16:23:13 UTC
 </div>
 </div>
 <style>

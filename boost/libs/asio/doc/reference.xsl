@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
 <!--
-  Copyright (c) 2003-2020 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+  Copyright (c) 2003-2021 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 
   Distributed under the Boost Software License, Version 1.0. (See accompanying
   file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -30,7 +30,7 @@
 -->
 <xsl:template match="/doxygen">
 <xsl:text>[/
- / Copyright (c) 2003-2020 Christopher M. Kohlhoff (chris at kohlhoff dot com)
+ / Copyright (c) 2003-2021 Christopher M. Kohlhoff (chris at kohlhoff dot com)
  /
  / Distributed under the Boost Software License, Version 1.0. (See accompanying
  / file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -818,6 +818,11 @@
       <xsl:with-param name="name" select="compoundname"/>
     </xsl:call-template>
   </xsl:variable>
+  <xsl:variable name="escaped-class-name">
+    <xsl:call-template name="escape-name">
+      <xsl:with-param name="text" select="$class-name"/>
+    </xsl:call-template>
+  </xsl:variable>
   <xsl:variable name="unqualified-class-name">
     <xsl:call-template name="strip-ns">
       <xsl:with-param name="name" select="compoundname"/>
@@ -830,6 +835,8 @@
   </xsl:variable>
   <xsl:variable name="class-file" select="location/@file"/>
 [section:<xsl:value-of select="$class-id"/><xsl:text> </xsl:text><xsl:value-of select="$class-name"/>]
+
+[indexterm1 boost_asio.indexterm.<xsl:value-of select="$class-id"/>..<xsl:value-of select="$escaped-class-name"/>]
 
 <xsl:apply-templates select="briefdescription" mode="markup"/><xsl:text>
 

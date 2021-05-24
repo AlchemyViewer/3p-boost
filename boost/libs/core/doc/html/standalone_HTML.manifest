@@ -2,7 +2,9 @@ index.html
 core/addressof.html
 core/allocator_access.html
 core/alloc_construct.html
+core/bit.html
 core/checked_delete.html
+core/cmath.html
 core/default_allocator.html
 core/demangle.html
 core/empty_value.html
@@ -24,10 +26,10 @@ core/ref.html
 boost/is_reference_wrapper.html
 boost/reference_wrapper.html
 boost/unwrap_reference.html
-boost/ref_idm44990036815056.html
-boost/cref_idm44990036810080.html
-boost/ref_idm44990026046208.html
-boost/cref_idm44990026043440.html
+boost/ref_idm45831606842384.html
+boost/cref_idm45831606837968.html
+boost/ref_idm45831606833552.html
+boost/cref_idm45831606830784.html
 boost/unwrap_ref.html
 core/scoped_enum.html
 core/swap.html

@@ -35,7 +35,10 @@ compile-fail ref_rv_fail4.cpp ;
 compile-fail ref_rv_fail5.cpp ;
 compile-fail ref_implicit_fail.cpp ;
 compile-fail ref_implicit_fail2.cpp ;
+compile-fail ref_implicit_fail3.cpp ;
+compile-fail ref_implicit_fail4.cpp ;
 run ref_cv_test.cpp ;
+run ref_conversion_test.cpp ;
 
 run eif_constructors.cpp ;
 run eif_dummy_arg_disambiguation.cpp ;
@@ -94,6 +97,8 @@ run lightweight_test_test4.cpp
 run lightweight_test_test5.cpp
   : : : $(pedantic-errors)
     <toolset>gcc-4.4.7:<cxxflags>-Wno-sign-compare ;
+run lightweight_test_test6.cpp
+  : : : $(pedantic-errors) ;
 
 run-fail lightweight_test_all_eq_test.cpp ;
 run-fail lightweight_test_all_with_fail.cpp ;
@@ -114,6 +119,7 @@ run-fail lightweight_test_fail11.cpp : ;
 run-fail lightweight_test_fail12.cpp ;
 run-fail lightweight_test_fail13.cpp ;
 run-fail lightweight_test_fail14.cpp ;
+run-fail lightweight_test_fail15.cpp ;
 run-fail lightweight_test_lt_fail.cpp ;
 run-fail lightweight_test_le_fail.cpp ;
 run-fail lightweight_test_gt_fail.cpp ;
@@ -209,6 +215,12 @@ run test_lib_typeid.cpp lib_typeid : : : <link>static : test_lib_typeid_static ;
 run test_lib_typeid.cpp lib_typeid : : : <link>shared <rtti>off : test_lib_typeid_shared_no_rtti ;
 run test_lib_typeid.cpp lib_typeid : : : <link>static <rtti>off : test_lib_typeid_static_no_rtti ;
 
+run test_lib_typeid2.cpp lib_typeid : : : <link>shared : test_lib_typeid2_shared ;
+run test_lib_typeid2.cpp lib_typeid : : : <link>static : test_lib_typeid2_static ;
+
+run test_lib_typeid2.cpp lib_typeid : : : <link>shared <rtti>off : test_lib_typeid2_shared_no_rtti ;
+run test_lib_typeid2.cpp lib_typeid : : : <link>static <rtti>off : test_lib_typeid2_static_no_rtti ;
+
 run uncaught_exceptions.cpp
   : : : <exception-handling>on ;
 run uncaught_exceptions_np.cpp
@@ -216,6 +228,19 @@ run uncaught_exceptions_np.cpp
 
 run no_exceptions_support_test.cpp ;
 run no_exceptions_support_test.cpp : : : <exception-handling>off : no_exceptions_support_test_nx ;
+
+run cmath_test.cpp ;
+
+run bit_cast_test.cpp ;
+run bit_rotate_test.cpp ;
+run bit_countr_test.cpp ;
+run bit_countl_test.cpp ;
+run bit_width_test.cpp ;
+run has_single_bit_test.cpp ;
+run bit_floor_test.cpp ;
+run bit_ceil_test.cpp ;
+run bit_popcount_test.cpp ;
+run bit_endian_test.cpp ;
 
 use-project /boost/core/swap : ./swap ;
 build-project ./swap ;

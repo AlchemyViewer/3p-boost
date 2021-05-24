@@ -2,6 +2,11 @@
 // Unit Test Helper
 
 // Copyright (c) 2010-2015 Barend Gehrels, Amsterdam, the Netherlands.
+
+// This file was modified by Oracle on 2020.
+// Modifications copyright (c) 2020 Oracle and/or its affiliates.
+// Contributed and/or modified by Adam Wulkiewicz, on behalf of Oracle
+
 // Use, modification and distribution is subject to the Boost Software License,
 // Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -207,7 +212,8 @@ private :
             }
 #endif
 
-            bg::model::ring<point_type> const& corner = piece.m_piece_border.get_full_ring();
+            // NOTE: ring is returned by copy here
+            auto const& corner = piece.m_piece_border.get_full_ring();
 
             if (m_zoom && do_pieces)
             {
@@ -311,8 +317,9 @@ public :
         bg::assign_inverse(m_alternate_box);
     }
 
-    template <typename Mapper, typename Visitor, typename Envelope>
-    void prepare(Mapper& mapper, Visitor& visitor, Envelope const& envelope, double box_buffer_distance)
+    template <typename Mapper, typename Visitor, typename Envelope, typename DistanceType>
+    void prepare(Mapper& mapper, Visitor& visitor, Envelope const& envelope,
+                 const DistanceType& box_buffer_distance)
     {
 #ifdef BOOST_GEOMETRY_BUFFER_TEST_SVG_USE_ALTERNATE_BOX
         // Create a zoomed-in view

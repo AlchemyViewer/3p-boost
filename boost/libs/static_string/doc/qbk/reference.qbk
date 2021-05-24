@@ -18,105 +18,79 @@ class basic_static_string
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.const_iterator const_iterator]]
     ]
-    [
-
-The constant iterator type. 
+    [The constant iterator type. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.const_pointer const_pointer]]
     ]
-    [
-
-The constant pointer type. 
+    [The constant pointer type. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.const_reference const_reference]]
     ]
-    [
-
-The constant reference type. 
+    [The constant reference type. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.const_reverse_iterator const_reverse_iterator]]
     ]
-    [
-
-The constant reverse iterator type. 
+    [The constant reverse iterator type. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.difference_type difference_type]]
     ]
-    [
-
-The difference type. 
+    [The difference type. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.iterator iterator]]
     ]
-    [
-
-The iterator type. 
+    [The iterator type. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.pointer pointer]]
     ]
-    [
-
-The pointer type. 
+    [The pointer type. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.reference reference]]
     ]
-    [
-
-The reference type. 
+    [The reference type. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.reverse_iterator reverse_iterator]]
     ]
-    [
-
-The reverse iterator type. 
+    [The reverse iterator type. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.size_type size_type]]
     ]
-    [
-
-The size type. 
+    [The size type. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.string_view_type string_view_type]]
     ]
-    [
-
-The string view type. 
+    [The string view type. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.traits_type traits_type]]
     ]
-    [
-
-The traits type. 
+    [The traits type. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.value_type value_type]]
     ]
-    [
-
-The character type. 
+    [The character type. 
     ]
   ]
 ]
@@ -125,414 +99,298 @@ The character type.
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.append append]]
     ]
-    [
-
-Append to the string. 
+    [Append to the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.assign assign]]
     ]
-    [
-
-Assign to the string. 
+    [Assign to the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.at at]]
     ]
-    [
-
-Access a character with bounds checking. 
+    [Access a character with bounds checking. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.back back]]
     ]
-    [
-
-Return the last character. 
+    [Return the last character. 
     ]
   ]
   [
-    [[*[link static_string.ref.boost__static_strings__basic_static_string.basic_static_string basic_static_string]]
+    [[*[link static_string.ref.boost__static_strings__basic_static_string.basic_static_string basic_static_string] [role silver \[constructor\]]]
     ]
-    [
-
-Constructor. 
+    [Constructor. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.begin begin]]
     ]
-    [
-
-Return an iterator to the beginning. 
+    [Return an iterator to the beginning. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.c_str c_str]]
     ]
-    [
-
-Return a pointer to the string. 
+    [Return a pointer to the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.capacity capacity]]
     ]
-    [
-
-Return the number of characters that can be stored. 
+    [Return the number of characters that can be stored. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.cbegin cbegin]]
     ]
-    [
-
-Return an iterator to the beginning. 
+    [Return an iterator to the beginning. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.cend cend]]
     ]
-    [
-
-Return an iterator to the end. 
+    [Return an iterator to the end. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.clear clear]]
     ]
-    [
-
-Clear the contents. 
+    [Clear the contents. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.compare compare]]
     ]
-    [
-
-Compare a string with the string. 
+    [Compare a string with the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.copy copy]]
     ]
-    [
-
-Copy a substring to another string. 
+    [Copy a substring to another string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.crbegin crbegin]]
     ]
-    [
-
-Return a reverse iterator to the beginning. 
+    [Return a reverse iterator to the beginning. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.crend crend]]
     ]
-    [
-
-Return a reverse iterator to the end. 
+    [Return a reverse iterator to the end. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.data data]]
     ]
-    [
-
-Return a pointer to the string. 
+    [Return a pointer to the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.empty empty]]
     ]
-    [
-
-Return if the string is empty. 
+    [Return if the string is empty. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.end end]]
     ]
-    [
-
-Return an iterator to the end. 
+    [Return an iterator to the end. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.ends_with ends_with]]
     ]
-    [
-
-Return whether the string ends with a string. 
-
-Return whether the string ends with a character. 
+    [Return whether the string ends with a string. [br][role silver —][br]Return whether the string ends with a character. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.erase erase]]
     ]
-    [
-
-Erase from the string. 
+    [Erase from the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.find find]]
     ]
-    [
-
-Find the first occurrence of a string within the string. 
-
-Find the first occurrence of a character within the string. 
+    [Find the first occurrence of a string within the string. [br][role silver —][br]Find the first occurrence of a character within the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.find_first_not_of find_first_not_of]]
     ]
-    [
-
-Find the first occurrence of a character not within the string. 
-
-Find the first occurrence of any of the characters not within the string. 
-
-Find the first occurrence of a character not equal to `c`. 
+    [Find the first occurrence of a character not within the string. [br][role silver —][br]Find the first occurrence of any of the characters not within the string. [br][role silver —][br]Find the first occurrence of a character not equal to `c`. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.find_first_of find_first_of]]
     ]
-    [
-
-Find the first occurrence of any of the characters within the string. 
-
-Find the first occurrence of a character within the string. 
+    [Find the first occurrence of any of the characters within the string. [br][role silver —][br]Find the first occurrence of a character within the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.find_last_not_of find_last_not_of]]
     ]
-    [
-
-Find the last occurrence of a character not within the string. 
-
-Find the last occurrence of a character not equal to `c`. 
+    [Find the last occurrence of a character not within the string. [br][role silver —][br]Find the last occurrence of a character not equal to `c`. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.find_last_of find_last_of]]
     ]
-    [
-
-Find the last occurrence of any of the characters within the string. 
-
-Find the last occurrence of a character within the string. 
+    [Find the last occurrence of any of the characters within the string. [br][role silver —][br]Find the last occurrence of a character within the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.front front]]
     ]
-    [
-
-Return the first character. 
+    [Return the first character. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.insert insert]]
     ]
-    [
-
-Insert into the string. 
+    [Insert into the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.length length]]
     ]
-    [
-
-Return the size of the string. 
+    [Return the size of the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.max_size max_size]]
     ]
-    [
-
-Return the number of characters that can be stored. 
+    [Return the number of characters that can be stored. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.operator_string_view_type operator string_view_type]]
     ]
-    [
-
-Convert to a string view referring to the string. 
+    [Convert to a string view referring to the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.operator_plus__eq_ operator+=]]
     ]
-    [
-
-Append to the string. 
+    [Append to the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.operator_eq_ operator=]]
     ]
-    [
-
-Assign to the string. 
+    [Assign to the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.operator_lb__rb_ operator\[\]]]
     ]
-    [
-
-Access a character. 
+    [Access a character. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.pop_back pop_back]]
     ]
-    [
-
-Remove the last character. 
+    [Remove the last character. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.push_back push_back]]
     ]
-    [
-
-Append a character. 
+    [Append a character. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.rbegin rbegin]]
     ]
-    [
-
-Return a reverse iterator to the beginning. 
+    [Return a reverse iterator to the beginning. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.rend rend]]
     ]
-    [
-
-Return a reverse iterator to the end. 
+    [Return a reverse iterator to the end. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.replace replace]]
     ]
-    [
-
-Replace a part of the string. 
+    [Replace a part of the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.reserve reserve]]
     ]
-    [
-
-Increase the capacity. 
+    [Increase the capacity. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.resize resize]]
     ]
-    [
-
-Change the size of the string. 
+    [Change the size of the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.rfind rfind]]
     ]
-    [
-
-Find the last occurrence of a string within the string. 
-
-Find the last occurrence of a character within the string. 
+    [Find the last occurrence of a string within the string. [br][role silver —][br]Find the last occurrence of a character within the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.shrink_to_fit shrink_to_fit]]
     ]
-    [
-
-Request the removal of unused capacity. 
+    [Request the removal of unused capacity. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.size size]]
     ]
-    [
-
-Return the size of the string. 
+    [Return the size of the string. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.starts_with starts_with]]
     ]
-    [
-
-Return whether the string begins with a string. 
-
-Return whether the string begins with a character. 
+    [Return whether the string begins with a string. [br][role silver —][br]Return whether the string begins with a character. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.substr substr]]
     ]
-    [
-
-Return a substring. 
+    [Return a substring. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.subview subview]]
     ]
-    [
-
-Return a string view of a substring. 
+    [Return a string view of a substring. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.swap swap]]
     ]
-    [
-
-Swap two strings. 
+    [Swap two strings. 
     ]
   ]
 ]
-[heading Data Members]
+[heading Static Members]
 [table [[Name][Description]]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.npos npos]]
     ]
-    [
-
-A special index. 
+    [A special index. 
     ]
   ]
   [
     [[*[link static_string.ref.boost__static_strings__basic_static_string.static_capacity static_capacity]]
     ]
-    [
-
-Maximum size of the string excluding any null terminator. 
+    [Maximum size of the string excluding any null terminator. 
     ]
   ]
 ]
@@ -581,7 +439,7 @@ using static_u8string =
 
 
 [heading See Also]
-[link static_string.ref.boost__static_strings__to_static_string.overload1 `to_static_string`]
+[link static_string.ref.boost__static_strings__to_static_string `to_static_string`]
  
 [section:traits_type basic_static_string::traits_type]
 [indexterm2 traits_type..basic_static_string]
@@ -2156,7 +2014,7 @@ Access a character.
 [heading Synopsis]
 ```
 constexpr reference
-operator[](
+operator\[\](
     size_type pos);
 ```
 
@@ -2190,7 +2048,7 @@ Access a character.
 [heading Synopsis]
 ```
 constexpr const_reference
-operator[](
+operator\[\](
     size_type pos) const;
 ```
 
@@ -2370,7 +2228,7 @@ data();
 ```
 
 [heading Description]
-Returns a pointer to the underlying array serving as storage. The value returned is such that the range {[link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]) is always a valid range, even if the container is empty.
+Returns a pointer to the underlying array serving as storage. The value returned is such that the range  {[link static_string.ref.boost__static_strings__basic_static_string.data `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`])  is always a valid range, even if the container is empty.
 
 [heading Complexity]
 
@@ -2391,7 +2249,7 @@ data() const;
 ```
 
 [heading Description]
-Returns a pointer to the underlying array serving as storage. The value returned is such that the range {[link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]) is always a valid range, even if the container is empty.
+Returns a pointer to the underlying array serving as storage. The value returned is such that the range  {[link static_string.ref.boost__static_strings__basic_static_string.data `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`])  is always a valid range, even if the container is empty.
 
 [heading Complexity]
 
@@ -2417,7 +2275,7 @@ c_str() const;
 ```
 
 [heading Description]
-Returns a pointer to the underlying array serving as storage. The value returned is such that the range {[link static_string.ref.boost__static_strings__basic_static_string.c_str `c_str()`], [link static_string.ref.boost__static_strings__basic_static_string.c_str `c_str()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]) is always a valid range, even if the container is empty.
+Returns a pointer to the underlying array serving as storage. The value returned is such that the range  {[link static_string.ref.boost__static_strings__basic_static_string.c_str `c_str()`], [link static_string.ref.boost__static_strings__basic_static_string.c_str `c_str()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`])  is always a valid range, even if the container is empty.
 
 [heading Complexity]
 
@@ -3323,7 +3181,7 @@ Inserts the character `ch` before the character pointed by `pos`.
 
 [heading Precondition]
 
-`pos`shall be vaild within {[link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]}
+`pos`shall be vaild within  {[link static_string.ref.boost__static_strings__basic_static_string.data `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]}
 
 [heading Exception Safety]
 
@@ -3380,7 +3238,7 @@ Inserts `count` copies of `ch` before the character pointed by `pos`.
 
 [heading Precondition]
 
-`pos`shall be valid within {[link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]}
+`pos`shall be valid within  {[link static_string.ref.boost__static_strings__basic_static_string.data `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]}
 
 [heading Exception Safety]
 
@@ -3446,7 +3304,7 @@ Inserts characters from the range `{first, last)` before the character pointed t
 
 [heading Precondition]
 
-`pos`shall be valid within {[link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]},
+`pos`shall be valid within  {[link static_string.ref.boost__static_strings__basic_static_string.data `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]} ,
 `{first, last)` shall be a valid range
 
 [heading Exception Safety]
@@ -3524,7 +3382,7 @@ Inserts characters from `ilist` before `pos`.
 
 [heading Precondition]
 
-`pos`shall be valid within {[link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]}
+`pos`shall be valid within  {[link static_string.ref.boost__static_strings__basic_static_string.data `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]}
 
 [heading Exception Safety]
 
@@ -3582,7 +3440,7 @@ Constructs a temporary `string_view_type` object `sv` from `t` and inserts `{sv.
 
 [heading Precondition]
 
-`index`shall be valid within {[link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]}
+`index`shall be valid within  {[link static_string.ref.boost__static_strings__basic_static_string.data `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]}
 
 [heading Exception Safety]
 
@@ -3780,7 +3638,7 @@ erase(
 ```
 
 [heading Description]
-Erases `num` characters from the string, starting at `index`. `num` is determined as the smaller of `count` and [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - index.
+Erases `num` characters from the string, starting at `index`. `num` is determined as the smaller of `count` and [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - index .
 
 [heading Exception Safety]
 
@@ -3835,7 +3693,7 @@ Erases the character at `pos`.
 
 [heading Preconditions]
 
-`pos`shall be valid within {[link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]}
+`pos`shall be valid within  {[link static_string.ref.boost__static_strings__basic_static_string.data `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]}
 
 [heading Exception Safety]
 
@@ -3844,7 +3702,7 @@ Strong guarantee.
 [heading Remarks]
 All references, pointers, or iterators referring to contained elements are invalidated. Any past-the-end iterators are also invalidated.
 [heading Return Value]
-An iterator referring to character immediately following the erased character, or [link static_string.ref.boost__static_strings__basic_static_string.end.overload1 `end()`] if one does not exist.
+An iterator referring to character immediately following the erased character, or [link static_string.ref.boost__static_strings__basic_static_string.end `end()`] if one does not exist.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -3874,7 +3732,7 @@ Erases the characters in the range `{first, last)`.
 
 [heading Precondition]
 
-`{first, last}`shall be valid within {[link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]}
+`{first, last}`shall be valid within  {[link static_string.ref.boost__static_strings__basic_static_string.data `data()`], [link static_string.ref.boost__static_strings__basic_static_string.data `data()`] + [link static_string.ref.boost__static_strings__basic_static_string.size `size()`]}
 
 [heading Exception Safety]
 
@@ -3883,7 +3741,7 @@ Strong guarantee.
 [heading Remarks]
 All references, pointers, or iterators referring to contained elements are invalidated. Any past-the-end iterators are also invalidated.
 [heading Return Value]
-An iterator referring to the character `last` previously referred to, or [link static_string.ref.boost__static_strings__basic_static_string.end.overload1 `end()`] if one does not exist.
+An iterator referring to the character `last` previously referred to, or [link static_string.ref.boost__static_strings__basic_static_string.end `end()`] if one does not exist.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -4941,7 +4799,7 @@ compare(
 ```
 
 [heading Description]
-Let `comp` be traits_type::compare([link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`], s.data(), std::min([link static_string.ref.boost__static_strings__basic_static_string.size `size()`], s.size()). If `comp != 0`, then the result is `comp`. Otherwise, the result is `0` if [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] == s.size(), `-1` if [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] < s.size(), and `1` otherwise.
+Let `comp` be  traits_type::compare([link static_string.ref.boost__static_strings__basic_static_string.data `data()`], s.data(), std::min([link static_string.ref.boost__static_strings__basic_static_string.size `size()`], s.size()) . If `comp != 0`, then the result is `comp`. Otherwise, the result is `0` if [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] == s.size() , `-1` if [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] < s.size() , and `1` otherwise.
 
 [heading Complexity]
 Linear.
@@ -5142,7 +5000,7 @@ compare(
 ```
 
 [heading Description]
-Let `len` be `traits_type::length(s)` and `comp` be traits_type::compare([link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`], s, std::min(size(), len). If `comp != 0`, then the result is `comp`. Otherwise, the result is `0` if [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] == len, `-1` if [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] < len, and `1` otherwise.
+Let `len` be `traits_type::length(s)` and `comp` be  traits_type::compare([link static_string.ref.boost__static_strings__basic_static_string.data `data()`], s, std::min(size(), len) . If `comp != 0`, then the result is `comp`. Otherwise, the result is `0` if [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] == len , `-1` if [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] < len , and `1` otherwise.
 
 [heading Complexity]
 
@@ -5308,7 +5166,7 @@ compare(
 ```
 
 [heading Description]
-Let `s` be `string_view_type(t)` and `comp` be traits_type::compare([link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`], s.data(), std::min([link static_string.ref.boost__static_strings__basic_static_string.size `size()`], s.size()). If `comp != 0`, then the result is `comp`. Otherwise, the result is `0` if [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] == s.size(), `-1` if [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] < s.size(), and `1` otherwise.
+Let `s` be `string_view_type(t)` and `comp` be  traits_type::compare([link static_string.ref.boost__static_strings__basic_static_string.data `data()`], s.data(), std::min([link static_string.ref.boost__static_strings__basic_static_string.size `size()`], s.size()) . If `comp != 0`, then the result is `comp`. Otherwise, the result is `0` if [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] == s.size() , `-1` if [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] < s.size() , and `1` otherwise.
 
 [heading Complexity]
 
@@ -5535,7 +5393,7 @@ Returns a substring of the string.
 Strong guarantee.
 
 [heading Return Value]
-A string object containing the characters {[link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`] + pos, std::min(count, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos)).
+A string object containing the characters  {[link static_string.ref.boost__static_strings__basic_static_string.data `data()`] + pos, std::min(count, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos)) .
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -5587,7 +5445,7 @@ Returns a view of a substring.
 Strong guarantee.
 
 [heading Return Value]
-A `string_view_type` object referring to {[link static_string.ref.boost__static_strings__basic_static_string.data.overload1 `data()`] + pos, std::min(count, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos)).
+A `string_view_type` object referring to  {[link static_string.ref.boost__static_strings__basic_static_string.data `data()`] + pos, std::min(count, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos)) .
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -5633,7 +5491,7 @@ copy(
 ```
 
 [heading Description]
-Copies std::min(count, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos) characters starting at index `pos` to the string pointed to by `dest`.
+Copies  std::min(count, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos)  characters starting at index `pos` to the string pointed to by `dest`.
 
 [heading Remarks]
 The resulting string is not null terminated.
@@ -5705,7 +5563,7 @@ resize(
 ```
 
 [heading Description]
-Resizes the string to contain `n` characters. If n > [link static_string.ref.boost__static_strings__basic_static_string.size `size()`], characters with the value `CharT()` are appended. Otherwise, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] is reduced to `n`.
+Resizes the string to contain `n` characters. If  n > [link static_string.ref.boost__static_strings__basic_static_string.size `size()`], characters with the value `CharT()` are appended. Otherwise, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] is reduced to `n`.
 
 [heading Parameters]
 [table [[Name][Description]]
@@ -5742,7 +5600,7 @@ resize(
 ```
 
 [heading Description]
-Resizes the string to contain `n` characters. If n > [link static_string.ref.boost__static_strings__basic_static_string.size `size()`], copies of `c` are appended. Otherwise, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] is reduced to `n`.
+Resizes the string to contain `n` characters. If  n > [link static_string.ref.boost__static_strings__basic_static_string.size `size()`], copies of `c` are appended. Otherwise, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] is reduced to `n`.
 
 [heading Parameters]
 [table [[Name][Description]]
@@ -6032,7 +5890,7 @@ replace(
 ```
 
 [heading Description]
-Replaces `rcount` characters starting at index `pos1` with those of `str`, where `rcount` is std::min(n1, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos1).
+Replaces `rcount` characters starting at index `pos1` with those of `str`, where `rcount` is  std::min(n1, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos1) .
 
 [heading Exception Safety]
 
@@ -6115,7 +5973,7 @@ replace(
 ```
 
 [heading Description]
-Replaces `rcount` characters starting at index `pos1` with those of `str.subview(pos2, n2)`, where `rcount` is std::min(n1, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos1).
+Replaces `rcount` characters starting at index `pos1` with those of `str.subview(pos2, n2)`, where `rcount` is  std::min(n1, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos1) .
 
 [heading Exception Safety]
 
@@ -6207,7 +6065,7 @@ replace(
 ```
 
 [heading Description]
-Constructs a temporary `string_view_type` object `sv` from `t`, and replaces `rcount` characters starting at index `pos1` with those of `sv`, where `rcount` is std::min(n1, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos1).
+Constructs a temporary `string_view_type` object `sv` from `t`, and replaces `rcount` characters starting at index `pos1` with those of `sv`, where `rcount` is  std::min(n1, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos1) .
 
 [heading Exception Safety]
 
@@ -6292,7 +6150,7 @@ replace(
 ```
 
 [heading Description]
-Constructs a temporary `string_view_type` object `sv` from `t`, and replaces `rcount` characters starting at index `pos1` with those of `sv.substr(pos2, n2)`, where `rcount` is std::min(n1, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos).
+Constructs a temporary `string_view_type` object `sv` from `t`, and replaces `rcount` characters starting at index `pos1` with those of `sv.substr(pos2, n2)`, where `rcount` is  std::min(n1, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos) .
 
 [heading Exception Safety]
 
@@ -6395,7 +6253,7 @@ replace(
 ```
 
 [heading Description]
-Replaces `rcount` characters starting at index `pos` with those of `{s, s + n2)`, where `rcount` is std::min(n1, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos).
+Replaces `rcount` characters starting at index `pos` with those of `{s, s + n2)`, where `rcount` is  std::min(n1, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos) .
 
 [heading Exception Safety]
 
@@ -6469,7 +6327,7 @@ replace(
 ```
 
 [heading Description]
-Replaces `rcount` characters starting at index `pos` with those of `{s, s + len)`, where the length of the string `len` is `traits_type::length(s)` and `rcount` is std::min(n1, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos).
+Replaces `rcount` characters starting at index `pos` with those of `{s, s + len)`, where the length of the string `len` is `traits_type::length(s)` and `rcount` is  std::min(n1, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos) .
 
 [heading Exception Safety]
 
@@ -6537,7 +6395,7 @@ replace(
 ```
 
 [heading Description]
-Replaces `rcount` characters starting at index `pos` with `n2` copies of `c`, where `rcount` is std::min(n1, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos).
+Replaces `rcount` characters starting at index `pos` with `n2` copies of `c`, where `rcount` is  std::min(n1, [link static_string.ref.boost__static_strings__basic_static_string.size `size()`] - pos) .
 
 [heading Exception Safety]
 
@@ -7203,7 +7061,7 @@ The type of the object to convert.
 `std::is_convertible<const T&, string_view>::value && !std::is_convertible<const T&, const CharT*>::value`.
 
 [heading Return Value]
-The lowest index `idx` greater than or equal to `pos` where each element of `{sv.begin(), sv.end())` is equal to that of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx + count) if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The lowest index `idx` greater than or equal to `pos` where each element of `{sv.begin(), sv.end())` is equal to that of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx + count)  if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -7245,7 +7103,7 @@ Finds the first occurrence of `str` within the string starting at the index `pos
 Linear.
 
 [heading Return Value]
-The lowest index `idx` greater than or equal to `pos` where each element of `str` is equal to that of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx + str.size()) if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The lowest index `idx` greater than or equal to `pos` where each element of `str` is equal to that of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx + str.size())  if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -7288,7 +7146,7 @@ Linear.
 [heading Remarks]
 An empty string is always found.
 [heading Return Value]
-The lowest index `idx` greater than or equal to `pos` where each element of `{s, s + n)` is equal to that of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx + n) if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The lowest index `idx` greater than or equal to `pos` where each element of `{s, s + n)` is equal to that of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx + n)  if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -7337,7 +7195,7 @@ Linear.
 [heading Remarks]
 An empty string is always found.
 [heading Return Value]
-The lowest index `idx` greater than or equal to `pos` where each element of `{s, s + count)` is equal to that of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx + count) if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The lowest index `idx` greater than or equal to `pos` where each element of `{s, s + count)` is equal to that of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx + count)  if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -7377,7 +7235,7 @@ Finds the first occurrence of `c` within the string starting at the index `pos`.
 Linear.
 
 [heading Return Value]
-The index corrosponding to the first occurrence of `c` within {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end.overload1 `end()`]) if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the first occurrence of `c` within  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end `end()`])  if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -7482,7 +7340,7 @@ The type of the object to convert.
 `std::is_convertible<const T&, string_view>::value && !std::is_convertible<const T&, const CharT*>::value`.
 
 [heading Return Value]
-The highest index `idx` less than or equal to `pos` where each element of `{sv.begin(), sv.end())` is equal to that of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx + count) if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The highest index `idx` less than or equal to `pos` where each element of `{sv.begin(), sv.end())` is equal to that of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx + count)  if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -7524,7 +7382,7 @@ Finds the last occurrence of `str` within the string starting before or at the i
 Linear.
 
 [heading Return Value]
-The highest index `idx` less than or equal to `pos` where each element of `str` is equal to that of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx + str.size()) if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The highest index `idx` less than or equal to `pos` where each element of `str` is equal to that of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx + str.size())  if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -7565,7 +7423,7 @@ Finds the last occurrence of the string pointed to by `s` within the string star
 Linear.
 
 [heading Return Value]
-The highest index `idx` less than or equal to `pos` where each element of `{s, s + n)` is equal to that of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx + n) if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The highest index `idx` less than or equal to `pos` where each element of `{s, s + n)` is equal to that of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx + n)  if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -7612,7 +7470,7 @@ Finds the last occurrence of the string pointed to by `s` of length `count` with
 Linear.
 
 [heading Return Value]
-The highest index `idx` less than or equal to `pos` where each element of `{s, s + count)` is equal to that of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + idx + count) if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The highest index `idx` less than or equal to `pos` where each element of `{s, s + count)` is equal to that of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx, [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + idx + count)  if one exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -7652,7 +7510,7 @@ Finds the last occurrence of `c` within the string starting before or at the ind
 Linear.
 
 [heading Return Value]
-The index corrosponding to the last occurrence of `c` within {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos} if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the last occurrence of `c` within  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos}  if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -7757,7 +7615,7 @@ The type of the object to convert.
 `std::is_convertible<const T&, string_view>::value && !std::is_convertible<const T&, const CharT*>::value`.
 
 [heading Return Value]
-The index corrosponding to the first occurrence of any of the characters in `{sv.begin(), sv.end())` within {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end.overload1 `end()`]) if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the first occurrence of any of the characters in `{sv.begin(), sv.end())` within  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end `end()`])  if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -7799,7 +7657,7 @@ Finds the first occurrence of any of the characters within `str` within the stri
 Linear.
 
 [heading Return Value]
-The index corrosponding to the first occurrence of any of the characters of `str` within {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end.overload1 `end()`]) if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the first occurrence of any of the characters of `str` within  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end `end()`])  if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -7840,7 +7698,7 @@ Finds the first occurrence of any of the characters within the string pointed to
 Linear.
 
 [heading Return Value]
-The index corrosponding to the first occurrence of any of the characters in `{s, s + n)` within {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end.overload1 `end()`]) if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the first occurrence of any of the characters in `{s, s + n)` within  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end `end()`])  if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -7887,7 +7745,7 @@ Finds the first occurrence of the any of the characters within string pointed to
 Linear.
 
 [heading Return Value]
-The index corrosponding to the first occurrence of any of the characters in `{s, s + count)` within {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end.overload1 `end()`]) if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the first occurrence of any of the characters in `{s, s + count)` within  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end `end()`])  if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -7927,7 +7785,7 @@ Finds the first occurrence of `c` within the string starting at the index `pos`.
 Linear.
 
 [heading Return Value]
-The index corrosponding to the first occurrence of `c` within {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end.overload1 `end()`]) if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the first occurrence of `c` within  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end `end()`])  if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8032,7 +7890,7 @@ The type of the object to convert.
 `std::is_convertible<const T&, string_view>::value && !std::is_convertible<const T&, const CharT*>::value`.
 
 [heading Return Value]
-The index corrosponding to the last occurrence of any of the characters in `{sv.begin(), sv.end())` within {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos} if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the last occurrence of any of the characters in `{sv.begin(), sv.end())` within  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos}  if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8074,7 +7932,7 @@ Finds the last occurrence of any of the characters within `str` within the strin
 Linear.
 
 [heading Return Value]
-The index corrosponding to the last occurrence of any of the characters of `str` within {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos} if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the last occurrence of any of the characters of `str` within  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos}  if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8115,7 +7973,7 @@ Finds the last occurrence of any of the characters within the string pointed to 
 Linear.
 
 [heading Return Value]
-The index corrosponding to the last occurrence of any of the characters in `{s, s + n)` within {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos} if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the last occurrence of any of the characters in `{s, s + n)` within  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos}  if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8162,7 +8020,7 @@ Finds the last occurrence of any of the characters within the string pointed to 
 Linear.
 
 [heading Return Value]
-The index corrosponding to the last occurrence of any of the characters in `{s, s + count)` within {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos} if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the last occurrence of any of the characters in `{s, s + count)` within  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos}  if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8202,7 +8060,7 @@ Finds the last occurrence of `c` within the string before or at the index `pos`.
 Linear.
 
 [heading Return Value]
-The index corrosponding to the last occurrence of `c` within {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos} if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the last occurrence of `c` within  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos}  if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8311,7 +8169,7 @@ The type of the object to convert.
 `std::is_convertible<const T&, string_view>::value && !std::is_convertible<const T&, const CharT*>::value`.
 
 [heading Return Value]
-The index corrosponding to the first occurrence of a character that is not in `{sv.begin(), sv.end())` within {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end.overload1 `end()`]) if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the first occurrence of a character that is not in `{sv.begin(), sv.end())` within  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end `end()`])  if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8353,7 +8211,7 @@ Finds the first occurrence of a character that is not within `str` within the st
 Linear.
 
 [heading Return Value]
-The index corrosponding to the first character of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end.overload1 `end()`]) that is not within `str` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the first character of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end `end()`])  that is not within `str` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8394,7 +8252,7 @@ Finds the first occurrence of a character that is not within the string pointed 
 Linear.
 
 [heading Return Value]
-The index corrosponding to the first character of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end.overload1 `end()`]) that is not within `{s, s + n)` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the first character of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end `end()`])  that is not within `{s, s + n)` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8441,7 +8299,7 @@ Finds the first occurrence of a character that is not within the string pointed 
 Linear.
 
 [heading Return Value]
-The index corrosponding to the first character of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end.overload1 `end()`]) that is not within `{s, s + count)` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the first character of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end `end()`])  that is not within `{s, s + count)` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8481,7 +8339,7 @@ Finds the first occurrence of a character that is not equal to `c`.
 Linear.
 
 [heading Return Value]
-The index corrosponding to the first character of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end.overload1 `end()`]) that is not equal to `c` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the first character of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos, [link static_string.ref.boost__static_strings__basic_static_string.end `end()`])  that is not equal to `c` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8586,7 +8444,7 @@ The type of the object to convert.
 `std::is_convertible<const T&, string_view>::value && !std::is_convertible<const T&, const CharT*>::value`.
 
 [heading Return Value]
-The index corrosponding to the last occurrence of a character that is not in `{sv.begin(), sv.end())` within {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos} if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the last occurrence of a character that is not in `{sv.begin(), sv.end())` within  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos}  if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8628,7 +8486,7 @@ Finds the last occurrence of a character that is not within `str` within the str
 Linear.
 
 [heading Return Value]
-The index corrosponding to the last character of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos} that is not within `str` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the last character of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos}  that is not within `str` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8669,7 +8527,7 @@ Finds the last occurrence of a character that is not within the string pointed t
 Linear.
 
 [heading Return Value]
-The index corrosponding to the last character of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos} that is not within `{s, s + n)` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the last character of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos}  that is not within `{s, s + n)` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8716,7 +8574,7 @@ Finds the last occurrence of a character that is not within the string pointed t
 Linear.
 
 [heading Return Value]
-The index corrosponding to the last character of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos} that is not within `{s, s + count)` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the last character of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos}  that is not within `{s, s + count)` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8756,7 +8614,7 @@ Finds the last occurrence of a character that is not equal to `c` before or at t
 Linear.
 
 [heading Return Value]
-The index corrosponding to the last character of {[link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin.overload1 `begin()`] + pos} that is not equal to `c` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
+The index corrosponding to the last character of  {[link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`], [link static_string.ref.boost__static_strings__basic_static_string.begin `begin()`] + pos}  that is not equal to `c` if it exists, and [link static_string.ref.boost__static_strings__basic_static_string.npos `npos`] otherwise.
 [heading Parameters]
 [table [[Name][Description]]
   [
@@ -8790,6 +8648,11 @@ constexpr bool
 ``[link static_string.ref.boost__static_strings__basic_static_string.starts_with.overload1 starts_with]``(
     string_view_type s) const;
   ``[''''&raquo;''' [link static_string.ref.boost__static_strings__basic_static_string.starts_with.overload1 `more...`]]``
+
+constexpr bool
+``[link static_string.ref.boost__static_strings__basic_static_string.starts_with.overload3 starts_with]``(
+    const_pointer s) const;
+  ``[''''&raquo;''' [link static_string.ref.boost__static_strings__basic_static_string.starts_with.overload3 `more...`]]``
 ```
 
 
@@ -8799,11 +8662,6 @@ constexpr bool
 ``[link static_string.ref.boost__static_strings__basic_static_string.starts_with.overload2 starts_with]``(
     value_type c) const;
   ``[''''&raquo;''' [link static_string.ref.boost__static_strings__basic_static_string.starts_with.overload2 `more...`]]``
-
-constexpr bool
-``[link static_string.ref.boost__static_strings__basic_static_string.starts_with.overload3 starts_with]``(
-    const_pointer s) const;
-  ``[''''&raquo;''' [link static_string.ref.boost__static_strings__basic_static_string.starts_with.overload3 `more...`]]``
 ```
  
 [section:overload1 basic_static_string::starts_with (1 of 3 overloads)]
@@ -8909,6 +8767,11 @@ constexpr bool
 ``[link static_string.ref.boost__static_strings__basic_static_string.ends_with.overload1 ends_with]``(
     string_view_type s) const;
   ``[''''&raquo;''' [link static_string.ref.boost__static_strings__basic_static_string.ends_with.overload1 `more...`]]``
+
+constexpr bool
+``[link static_string.ref.boost__static_strings__basic_static_string.ends_with.overload3 ends_with]``(
+    const_pointer s) const;
+  ``[''''&raquo;''' [link static_string.ref.boost__static_strings__basic_static_string.ends_with.overload3 `more...`]]``
 ```
 
 
@@ -8918,11 +8781,6 @@ constexpr bool
 ``[link static_string.ref.boost__static_strings__basic_static_string.ends_with.overload2 ends_with]``(
     value_type c) const;
   ``[''''&raquo;''' [link static_string.ref.boost__static_strings__basic_static_string.ends_with.overload2 `more...`]]``
-
-constexpr bool
-``[link static_string.ref.boost__static_strings__basic_static_string.ends_with.overload3 ends_with]``(
-    const_pointer s) const;
-  ``[''''&raquo;''' [link static_string.ref.boost__static_strings__basic_static_string.ends_with.overload3 `more...`]]``
 ```
  
 [section:overload1 basic_static_string::ends_with (1 of 3 overloads)]
@@ -9040,7 +8898,6 @@ struct hash< basic_static_string >
     [[*[link static_string.ref.std__hash_lt__basic_static_string__gt_.operator_lp__rp_ operator()]]
     ]
     [
-
     ]
   ]
 ]
@@ -9752,7 +9609,7 @@ template<
 constexpr basic_static_string< N+M, CharT, Traits >
 ``[link static_string.ref.boost__static_strings__operator_plus_.overload4 operator+]``(
     const basic_static_string< N, CharT, Traits >& lhs,
-    const CharT(&) rhs[M]);
+    const CharT(&) rhs \[M\]);
   ``[''''&raquo;''' [link static_string.ref.boost__static_strings__operator_plus_.overload4 `more...`]]``
 
 template<
@@ -9762,7 +9619,7 @@ template<
     [role red error.param neither has a declname nor a 'class ' prefix in the type][role red error.param neither has a declname nor a 'class ' prefix in the type][role red error.param neither has a declname nor a 'class ' prefix in the type][role red error.param neither has a declname nor a 'class ' prefix in the type]>
 constexpr basic_static_string< N+M, CharT, Traits >
 ``[link static_string.ref.boost__static_strings__operator_plus_.overload5 operator+]``(
-    const CharT(&) lhs[N],
+    const CharT(&) lhs \[N\],
     const basic_static_string< M, CharT, Traits >& rhs);
   ``[''''&raquo;''' [link static_string.ref.boost__static_strings__operator_plus_.overload5 `more...`]]``
 ```
@@ -9845,7 +9702,7 @@ template<
 constexpr basic_static_string< N+M, CharT, Traits >
 operator+(
     const basic_static_string< N, CharT, Traits >& lhs,
-    const CharT(&) rhs[M]);
+    const CharT(&) rhs \[M\]);
 ```
 
 [heading Description]
@@ -9866,7 +9723,7 @@ template<
     [role red error.param neither has a declname nor a 'class ' prefix in the type][role red error.param neither has a declname nor a 'class ' prefix in the type][role red error.param neither has a declname nor a 'class ' prefix in the type][role red error.param neither has a declname nor a 'class ' prefix in the type]>
 constexpr basic_static_string< N+M, CharT, Traits >
 operator+(
-    const CharT(&) lhs[N],
+    const CharT(&) lhs \[N\],
     const basic_static_string< M, CharT, Traits >& rhs);
 ```
 
@@ -9874,6 +9731,30 @@ operator+(
 
 
 [endsect]
+
+
+[endsect]
+
+[section:boost__static_strings__erase_if erase_if]
+[indexterm1 erase_if]
+
+
+[heading Synopsis]
+Defined in header [include_file boost/static_string/static_string.hpp]
+  
+```
+template<
+    std::size_t N,
+    [role red error.param neither has a declname nor a 'class ' prefix in the type][role red error.param neither has a declname nor a 'class ' prefix in the type][role red error.param neither has a declname nor a 'class ' prefix in the type][role red error.param neither has a declname nor a 'class ' prefix in the type],
+    [role red error.param neither has a declname nor a 'class ' prefix in the type][role red error.param neither has a declname nor a 'class ' prefix in the type][role red error.param neither has a declname nor a 'class ' prefix in the type][role red error.param neither has a declname nor a 'class ' prefix in the type],
+    [role red error.param neither has a declname nor a 'class ' prefix in the type][role red error.param neither has a declname nor a 'class ' prefix in the type][role red error.param neither has a declname nor a 'class ' prefix in the type][role red error.param neither has a declname nor a 'class ' prefix in the type]>
+constexpr basic_static_string< N, CharT, Traits >::size_type
+erase_if(
+    basic_static_string< N, CharT, Traits >& str,
+    UnaryPredicate pred);
+```
+
+[heading Description]
 
 
 [endsect]

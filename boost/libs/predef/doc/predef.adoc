@@ -564,6 +564,8 @@ include::../include/boost/predef/architecture/blackfin.h[tag=reference]
 
 include::../include/boost/predef/architecture/convex.h[tag=reference]
 
+include::../include/boost/predef/architecture/e2k.h[tag=reference]
+
 include::../include/boost/predef/architecture/ia64.h[tag=reference]
 
 include::../include/boost/predef/architecture/m68k.h[tag=reference]
@@ -827,6 +829,8 @@ include::../include/boost/predef/hardware/simd/x86_amd/versions.h[tag=reference]
 :leveloffset: +3
 
 include::../include/boost/predef/other/endian.h[tag=reference]
+
+include::../include/boost/predef/other/wordsize.h[tag=reference]
 
 include::../include/boost/predef/other/workaround.h[tag=reference]
 

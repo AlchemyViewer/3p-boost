@@ -1500,6 +1500,40 @@ public:
         }
     }
 
+    void
+    testUnlimitedBody()
+    {
+        const char data[] =
+            "POST / HTTP/1.1\r\n"
+            "Content-Length: 5\r\n"
+            "\r\n"
+            "*****";
+
+        test::fail_count fc(1000);
+        test_parser<true> p(fc);
+        p.body_limit(none);
+        error_code ec;
+        p.put(net::buffer(data, strlen(data)), ec);
+        BEAST_EXPECTS(!ec, ec.message());
+    }
+
+    void
+    testIssue2201()
+    {
+        const char data[] =
+            "HTTP/1.1 200 OK\r\n"
+            "Content-Length: 5\r\n"
+            "\r\n"
+            "*****";
+
+        test_parser<false> p;
+        p.eager(true);
+        p.body_limit(3);
+        error_code ec;
+        p.put(net::buffer(data, strlen(data)), ec);
+        BEAST_EXPECT(ec == error::body_limit);
+    }
+
     //--------------------------------------------------------------------------
 
     void
@@ -1528,6 +1562,8 @@ public:
         testIssue1267();
         testChunkedOverflow();
         testChunkedBodySize();
+        testUnlimitedBody();
+        testIssue2201();
     }
 };
 

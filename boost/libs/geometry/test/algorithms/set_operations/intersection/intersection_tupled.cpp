@@ -14,12 +14,17 @@
 #include <boost/geometry/algorithms/intersection.hpp>
 #include <boost/geometry/geometries/geometries.hpp>
 #include <boost/geometry/io/wkt/wkt.hpp>
-#include <boost/geometry/strategies/cartesian/area.hpp>
 #include <boost/geometry/strategies/cartesian/intersection.hpp>
 #include <boost/geometry/strategies/cartesian/point_in_poly_winding.hpp>
 #include <boost/geometry/strategies/cartesian/point_in_point.hpp>
 
 #include <boost/tuple/tuple.hpp>
+
+// TEMP
+#include <boost/geometry/strategies/cartesian.hpp>
+#include <boost/geometry/strategies/geographic.hpp>
+#include <boost/geometry/strategies/spherical.hpp>
+
 
 typedef bg::model::point<double, 2, bg::cs::cartesian> Pt;
 typedef bg::model::linestring<Pt> Ls;

@@ -151,6 +151,8 @@
 <p>
         Example is based on the example from the <a href="http://www.packtpub.com/boost-cplusplus-application-development-cookbook/book" target="_top">Boost
         C++ Application Development Cookbook</a> by Antony Polukhin, ISBN 9781849514880.
+        Russian translation: <a href="https://dmkpress.com/catalog/computer/programming/c/978-5-97060-868-5/" target="_top">ISBN:
+        9785970608685</a>.
       </p>
 <p>
         Step 1: Making a functor that converts any type to a string and remembers
@@ -237,8 +239,8 @@
 <span class="keyword">struct</span> <span class="identifier">to_long_double_functor</span><span class="special">:</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">static_visitor</span><span class="special">&lt;</span><span class="keyword">long</span> <span class="keyword">double</span><span class="special">&gt;</span> <span class="special">{</span>
     <span class="keyword">template</span> <span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span>
     <span class="keyword">long</span> <span class="keyword">double</span> <span class="keyword">operator</span><span class="special">()(</span><span class="keyword">const</span> <span class="identifier">T</span><span class="special">&amp;</span> <span class="identifier">v</span><span class="special">)</span> <span class="keyword">const</span> <span class="special">{</span>
-        <span class="comment">// Lexical cast has many optimizations including optimizations for situations that usually </span>
-        <span class="comment">// occur in generic programming, like std::string to std::string or arithmetic type to arithmetic type conversion. </span>
+        <span class="comment">// Lexical cast has many optimizations including optimizations for situations that usually</span>
+        <span class="comment">// occur in generic programming, like std::string to std::string or arithmetic type to arithmetic type conversion.</span>
         <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span><span class="keyword">long</span> <span class="keyword">double</span><span class="special">&gt;(</span><span class="identifier">v</span><span class="special">);</span>
     <span class="special">}</span>
 <span class="special">};</span>
@@ -266,7 +268,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2000-2005 Kevlin Henney<br>Copyright © 2006-2010 Alexander Nasonov<br>Copyright © 2011-2020 Antony Polukhin<p>
+<td align="right"><div class="copyright-footer">Copyright © 2000-2005 Kevlin Henney<br>Copyright © 2006-2010 Alexander Nasonov<br>Copyright © 2011-2021 Antony Polukhin<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
