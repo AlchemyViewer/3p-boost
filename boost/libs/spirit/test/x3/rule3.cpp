@@ -17,6 +17,11 @@
 #include <iostream>
 #include "test.hpp"
 
+#ifdef _MSC_VER
+// bogus https://developercommunity.visualstudio.com/t/buggy-warning-c4709/471956
+# pragma warning(disable: 4709) // comma operator within array index expression
+#endif
+
 using boost::spirit::x3::_val;
 namespace x3 = boost::spirit::x3;
 
@@ -138,7 +143,7 @@ int main()
     }
 
     {
-        auto r = rule<class r, int>{} = eps[([] (auto& ctx) {
+        auto r = rule<class r_id, int>{} = eps[([] (auto& ctx) {
             using boost::spirit::x3::_val;
             static_assert(std::is_same<std::decay_t<decltype(_val(ctx))>, unused_type>::value,
                 "Attribute must not be synthesized");

@@ -4,7 +4,7 @@
 <title>Error Handling</title>
 <link rel="stylesheet" href="../math.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
-<link rel="home" href="../index.html" title="Math Toolkit 3.0.0">
+<link rel="home" href="../index.html" title="Math Toolkit 3.1.0">
 <link rel="up" href="../overview.html" title="Chapter 1. Overview">
 <link rel="prev" href="result_type.html" title="Calculation of the Type of the Result">
 <link rel="next" href="compilers_overview.html" title="Compilers">
@@ -53,6 +53,12 @@
         will not see the message!</span>
       </p></td></tr>
 </table></div>
+<p>
+      The default behavior is for exceptions to be thrown using boost::throw_exception.
+      This facility has special handling for exception free environments. If BOOST_MATH_STANDALONE
+      is defined standard library facilities (e.g. throw) are used for exception
+      handling.
+    </p>
 <p>
       The kinds of errors that can be raised are:
     </p>

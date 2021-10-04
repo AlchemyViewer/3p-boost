@@ -4,7 +4,20 @@ weight = 80
 +++
 
 ---
-## v2.2.0 ? (Boost 1.76) [[release]](https://github.com/ned14/outcome/releases/tag/v2.2.0)
+## v2.2.1 ? (Boost 1.77) [[release]](https://github.com/ned14/outcome/releases/tag/v2.2.1)
+
+### Bug fixes:
+
+[#251](https://github.com/ned14/outcome/issues/251)
+: Fix failure to compile Boost.Outcome when the compiler declares support for C++ modules.
+
+- Don't use `[[likely]]` in GCCs before 9.
+
+[#251](https://github.com/ned14/outcome/issues/253)
+: Make support for C++ modules opt-in.
+
+---
+## v2.2.0 16th April 2021 (Boost 1.76) [[release]](https://github.com/ned14/outcome/releases/tag/v2.2.0)
 
 BREAKING CHANGE As announced for a year and three Boost releases, Outcome v2.2 became the default, replacing v2.1.
 : All v2.1 Outcome code will need to be upgraded as described in [the v2.1 => v2.2 upgrade guide]({{% relref "/changelog/upgrade_v21_v22" %}}).

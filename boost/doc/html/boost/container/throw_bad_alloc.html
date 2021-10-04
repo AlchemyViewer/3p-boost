@@ -39,7 +39,11 @@
 <p>Exception callback called by Boost.Container when fails to allocate the requested storage space. </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-<p>If BOOST_NO_EXCEPTIONS is NOT defined <code class="computeroutput">std::bad_alloc()</code> is thrown.</p>
+<p>If BOOST_NO_EXCEPTIONS is NOT defined and BOOST_CONTAINER_USE_STD_EXCEPTIONS is NOT defined <code class="computeroutput"><code class="computeroutput"><a class="link" href="bad_alloc.html" title="Class bad_alloc">boost::container::bad_alloc(str)</a></code></code> is thrown.</p>
+<p></p>
+</li>
+<li class="listitem">
+<p>If BOOST_NO_EXCEPTIONS is NOT defined and BOOST_CONTAINER_USE_STD_EXCEPTIONS is defined <code class="computeroutput">std::bad_alloc(str)</code> is thrown.</p>
 <p></p>
 </li>
 <li class="listitem">

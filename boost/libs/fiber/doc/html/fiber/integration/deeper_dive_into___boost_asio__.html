@@ -90,7 +90,7 @@
       </p>
 <p>
 </p>
-<pre class="programlisting"><span class="identifier">round_robin</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">shared_ptr</span><span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">io_context</span> <span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">io_ctx_</span><span class="special">)</span> <span class="special">:</span>
+<pre class="programlisting"><span class="identifier">round_robin</span><span class="special">(</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">shared_ptr</span><span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">io_context</span> <span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">io_ctx</span><span class="special">)</span> <span class="special">:</span>
     <span class="identifier">io_ctx_</span><span class="special">(</span> <span class="identifier">io_ctx</span><span class="special">),</span>
     <span class="identifier">suspend_timer_</span><span class="special">(</span> <span class="special">*</span> <span class="identifier">io_ctx_</span><span class="special">)</span> <span class="special">{</span>
     <span class="comment">// We use add_service() very deliberately. This will throw</span>

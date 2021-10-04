@@ -2269,6 +2269,22 @@
         will invoke an atomic operation of storing the new value to the referenced
         object.
       </p>
+<p>
+        For convenience, a factory function <code class="computeroutput"><span class="identifier">make_atomic_ref</span><span class="special">(</span><span class="identifier">T</span><span class="special">&amp;</span>
+        <span class="identifier">object</span><span class="special">)</span></code>
+        is provided, which returns an <code class="computeroutput"><span class="identifier">atomic_ref</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code>
+        referencing <code class="computeroutput"><span class="identifier">object</span></code>. Additionally,
+        for C++17 and later compilers, template deduction guides are provided so
+        that the template parameter <span class="emphasis"><em>T</em></span> can be deduced from the
+        constructor argument:
+      </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">int</span> <span class="identifier">object</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+<span class="identifier">atomic_ref</span> <span class="identifier">ref</span><span class="special">(</span><span class="identifier">object</span><span class="special">);</span> <span class="comment">// C++17: ref is atomic_ref&lt;int&gt;</span>
+</pre>
+<p>
+      </p>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
 <a name="atomic.interface.interface_atomic_ref.caveats"></a><a class="link" href="interface.html#atomic.interface.interface_atomic_ref.caveats" title="Caveats">Caveats</a>
@@ -2483,7 +2499,7 @@
             <code class="computeroutput"><span class="identifier">is_lock_free</span><span class="special">()</span></code>
             returns <code class="computeroutput"><span class="keyword">true</span></code> for this atomic
             object. (Implementation note: The current implementation detects availability
-            of atomic instructions at compile time, and the code that does not fulfull
+            of atomic instructions at compile time, and the code that does not fulfill
             this requirement will fail to compile.)
           </li>
 <li class="listitem">
@@ -3011,8 +3027,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2011 Helge Bahmann<br>Copyright © 2012 Tim Blechmann<br>Copyright © 2013, 2017, 2018, 2020 Andrey
-      Semashev<p>
+<td align="right"><div class="copyright-footer">Copyright © 2011 Helge Bahmann<br>Copyright © 2012 Tim Blechmann<br>Copyright © 2013, 2017, 2018, 2020, 2021 Andrey Semashev<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

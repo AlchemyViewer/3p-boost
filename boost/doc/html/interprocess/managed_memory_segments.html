@@ -380,13 +380,13 @@
 <p>
           Windows users might also want to use native windows shared memory instead
           of the portable <code class="computeroutput"><a class="link" href="../boost/interprocess/shared_memory_object.html" title="Class shared_memory_object">shared_memory_object</a></code>
-          managed memory. This is achieved through the <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_ma_idm45189372627568.html" title="Class template basic_managed_windows_shared_memory">basic_managed_windows_shared_memory</a></code>
+          managed memory. This is achieved through the <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_ma_idm44729263759360.html" title="Class template basic_managed_windows_shared_memory">basic_managed_windows_shared_memory</a></code>
           class. To use it just include:
         </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">managed_windows_shared_memory</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <p>
-          This class has the same interface as <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_ma_idm45189372715616.html" title="Class template basic_managed_shared_memory">basic_managed_shared_memory</a></code>
+          This class has the same interface as <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_ma_idm44729263847408.html" title="Class template basic_managed_shared_memory">basic_managed_shared_memory</a></code>
           but uses native windows shared memory. Note that this managed class has
           the same lifetime issues as the windows shared memory: when the last process
           attached to the windows shared memory is detached from the memory (or ends/crashes)
@@ -407,18 +407,18 @@
 <p>
           Unix users might also want to use XSI (system V) instead of the portable
           <code class="computeroutput"><a class="link" href="../boost/interprocess/shared_memory_object.html" title="Class shared_memory_object">shared_memory_object</a></code>
-          managed memory. This is achieved through the <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_ma_idm45189372561968.html" title="Class template basic_managed_xsi_shared_memory">basic_managed_xsi_shared_memory</a></code>
+          managed memory. This is achieved through the <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_ma_idm44729263693760.html" title="Class template basic_managed_xsi_shared_memory">basic_managed_xsi_shared_memory</a></code>
           class. To use it just include:
         </p>
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">managed_xsi_shared_memory</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <p>
-          This class has nearly the same interface as <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_ma_idm45189372715616.html" title="Class template basic_managed_shared_memory">basic_managed_shared_memory</a></code>
+          This class has nearly the same interface as <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_ma_idm44729263847408.html" title="Class template basic_managed_shared_memory">basic_managed_shared_memory</a></code>
           but uses XSI shared memory as backend.
         </p>
 </div>
 <p>
-        For more information about managed XSI shared memory capabilities, see <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_ma_idm45189372561968.html" title="Class template basic_managed_xsi_shared_memory">basic_managed_xsi_shared_memory</a></code>
+        For more information about managed XSI shared memory capabilities, see <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_ma_idm44729263693760.html" title="Class template basic_managed_xsi_shared_memory">basic_managed_xsi_shared_memory</a></code>
         class reference.
       </p>
 </div>
@@ -815,7 +815,7 @@
           That is, the mutex type used to synchronize named/unique allocations is
           defined by the <code class="computeroutput"><span class="identifier">MemoryAlgorithm</span><span class="special">::</span><span class="identifier">mutex_family</span><span class="special">::</span><span class="identifier">recursive_mutex_type</span></code>
           type. For shared memory, and memory mapped file based managed segments
-          this recursive mutex is defined as <code class="computeroutput"><a class="link" href="../boost/interprocess/interpro_idm45189371318128.html" title="Class interprocess_recursive_mutex">interprocess_recursive_mutex</a></code>.
+          this recursive mutex is defined as <code class="computeroutput"><a class="link" href="../boost/interprocess/interpro_idm44729262445248.html" title="Class interprocess_recursive_mutex">interprocess_recursive_mutex</a></code>.
         </p>
 <p>
           If two processes can call:
@@ -2174,10 +2174,15 @@
           can also be used to place STL compatible containers in the user segment.
         </p>
 <p>
-          <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_ma_idm45189372857664.html" title="Class template basic_managed_external_buffer">basic_managed_external_buffer</a></code>
+          <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_ma_idm44729263990928.html" title="Class template basic_managed_external_buffer">basic_managed_external_buffer</a></code>
           can be also useful to build small databases for embedded systems limiting
           the size of the used memory to a predefined memory chunk, instead of letting
           the database fragment the heap memory.
+        </p>
+<p>
+          <span class="bold"><strong>Note:</strong></span> The external memory supplied by
+          the user shall be aligned to the maximum value between <code class="computeroutput"><span class="keyword">alignof</span><span class="special">(</span><span class="identifier">max_align_t</span><span class="special">)</span></code> and the alignment of the strictest over-aligned
+          type to be built inside that memory.
         </p>
 </div>
 <div class="section">
@@ -2232,7 +2237,7 @@
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">interprocess</span><span class="special">/</span><span class="identifier">managed_heap_memory</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <p>
-          The use is exactly the same as <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_ma_idm45189372857664.html" title="Class template basic_managed_external_buffer">basic_managed_external_buffer</a></code>,
+          The use is exactly the same as <code class="computeroutput"><a class="link" href="../boost/interprocess/basic_ma_idm44729263990928.html" title="Class template basic_managed_external_buffer">basic_managed_external_buffer</a></code>,
           except that memory is created by the managed memory segment itself using
           dynamic (new/delete) memory.
         </p>
@@ -2313,6 +2318,18 @@
 </pre>
 <p>
         </p>
+<p>
+          <span class="bold"><strong>Note:</strong></span> Heap memory is not guaranteed to
+          be compatible with over-aligned types so it is not supported to use memory
+          allocation algorithms or construct objects that need over-aligned memory:
+        </p>
+<pre class="programlisting"><span class="comment">// 64 byte aligned memory might not be supported</span>
+<span class="keyword">typedef</span> <span class="identifier">basic_managed_heap_memory</span><span class="special">&lt;</span>
+    <span class="keyword">char</span><span class="special">,</span>
+    <span class="identifier">rbtree_best_fit</span><span class="special">&lt;</span><span class="identifier">mutex_family</span><span class="special">,</span> <span class="identifier">offset_ptr</span><span class="special">&lt;</span><span class="keyword">void</span><span class="special">,</span> <span class="keyword">long</span><span class="special">,</span> <span class="keyword">unsigned</span> <span class="keyword">long</span><span class="special">,</span> <span class="number">64</span><span class="special">&gt;,</span> <span class="number">64</span><span class="special">&gt;,</span>
+    <span class="identifier">iset_index</span>
+<span class="special">&gt;</span> <span class="identifier">managed_heap_with_overalignment_t</span><span class="special">;</span>
+</pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">

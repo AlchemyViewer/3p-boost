@@ -301,7 +301,7 @@
 <span class="identifier">opt</span><span class="special">.</span><span class="identifier">allow_comments</span> <span class="special">=</span> <span class="keyword">true</span><span class="special">;</span>                          <span class="comment">// Permit C and C++ style comments to appear in whitespace</span>
 <span class="identifier">opt</span><span class="special">.</span><span class="identifier">allow_trailing_commas</span> <span class="special">=</span> <span class="keyword">true</span><span class="special">;</span>                   <span class="comment">// Allow an additional trailing comma in object and array element lists</span>
 <span class="identifier">opt</span><span class="special">.</span><span class="identifier">allow_invalid_utf8</span> <span class="special">=</span> <span class="keyword">true</span><span class="special">;</span>                      <span class="comment">// Skip utf-8 validation of keys and strings</span>
-<span class="identifier">stream_parser</span> <span class="identifier">p</span><span class="special">(</span> <span class="identifier">storage_ptr</span><span class="special">(),</span> <span class="identifier">opt</span> <span class="special">);</span>                     <span class="comment">// The stream_parser will use the options</span>
+<span class="identifier">stream_parser</span> <span class="identifier">p</span><span class="special">(</span> <span class="identifier">storage_ptr</span><span class="special">(),</span> <span class="identifier">opt</span> <span class="special">);</span>              <span class="comment">// The stream_parser will use the options</span>
 </pre>
 <h5>
 <a name="json.input_output.parsing.h2"></a>
@@ -431,7 +431,7 @@
 <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">class</span> <span class="identifier">Handler</span> <span class="special">&gt;</span>
 <span class="keyword">void</span> <span class="identifier">do_rpc</span><span class="special">(</span> <span class="identifier">string_view</span> <span class="identifier">s</span><span class="special">,</span> <span class="identifier">Handler</span><span class="special">&amp;&amp;</span> <span class="identifier">handler</span> <span class="special">)</span>
 <span class="special">{</span>
-    <span class="keyword">unsigned</span> <span class="keyword">char</span> <span class="identifier">temp</span><span class="special">[</span> <span class="number">4096</span> <span class="special">];</span>                 <span class="comment">// The stream_parser will use this storage for its temporary needs</span>
+    <span class="keyword">unsigned</span> <span class="keyword">char</span> <span class="identifier">temp</span><span class="special">[</span> <span class="number">4096</span> <span class="special">];</span>                 <span class="comment">// The parser will use this storage for its temporary needs</span>
     <span class="identifier">parser</span> <span class="identifier">p</span><span class="special">(</span>                                   <span class="comment">// Construct a strict parser using the temp buffer and no dynamic memory</span>
         <span class="identifier">get_null_resource</span><span class="special">(),</span>                    <span class="comment">// The null resource never dynamically allocates memory</span>
         <span class="identifier">parse_options</span><span class="special">(),</span>                        <span class="comment">// Default constructed parse options allow only standard JSON</span>

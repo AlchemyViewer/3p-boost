@@ -27,7 +27,7 @@
 <a name="geometry.reference.iterators.ever_circling_iterator"></a><a class="link" href="ever_circling_iterator.html" title="ever_circling_iterator">ever_circling_iterator</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idm46411467358688"></a>
+          <a class="indexterm" name="idm45246422372608"></a>
 Iterator which ever circles through a range.
         </p>
 <h6>
@@ -112,6 +112,19 @@ Iterator which ever circles through a range.
 <td>
                   <p>
 </p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">ever_circling_iterator</span><span class="special">()</span></pre>
+<p>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+</p>
 <pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="identifier">ever_circling_iterator</span><span class="special">(</span><span class="identifier">Iterator</span> <span class="identifier">begin</span><span class="special">,</span> <span class="identifier">Iterator</span> <span class="identifier">end</span><span class="special">,</span> <span class="keyword">bool</span> <span class="identifier">skip_first</span> <span class="special">=</span> <span class="keyword">false</span><span class="special">)</span></pre>
 <p>
                   </p>
@@ -153,6 +166,24 @@ Iterator which ever circles through a range.
                   </p>
                   <p>
                     <span class="bold"><strong>bool</strong></span>: <span class="emphasis"><em>skip_first</em></span>:
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
+</p>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">OtherIterator</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">enable_if_t</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">is_convertible</span><span class="special">&lt;</span> <span class="identifier">OtherIterator</span><span class="special">,</span> <span class="identifier">Iterator</span> <span class="special">&gt;::</span><span class="identifier">value</span><span class="special">,</span> <span class="keyword">int</span> <span class="special">&gt;&gt;</span>
+<span class="identifier">ever_circling_iterator</span><span class="special">(</span><span class="identifier">ever_circling_iterator</span><span class="special">&lt;</span> <span class="identifier">OtherIterator</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">other</span><span class="special">)</span></pre>
+<p>
+                  </p>
+                </td>
+<td>
+                </td>
+<td>
+                  <p>
+                    <span class="bold"><strong>ever_circling_iterator&lt; OtherIterator
+                    &gt; const &amp;</strong></span>: <span class="emphasis"><em>other</em></span>:
                   </p>
                 </td>
 </tr>

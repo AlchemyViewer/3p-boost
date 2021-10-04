@@ -31,7 +31,7 @@
 The
           real handler type to be used for the asynchronous operation.
         </p>
-<pre class="programlisting">typedef boost::asio::async_result&lt; typename decay&lt; CompletionToken &gt;::type, Signature &gt;::completion_handler_type completion_handler_type;
+<pre class="programlisting">typedef boost::asio::async_result&lt; typename decay&lt; CompletionToken &gt;::type, Signatures... &gt;::completion_handler_type completion_handler_type;
 </pre>
 <h6>
 <a name="boost_asio.reference.async_completion.completion_handler_type.h0"></a>

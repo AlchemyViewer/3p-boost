@@ -7,7 +7,7 @@
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../stl_interfaces.html" title="Chapter 39. Boost.STLInterfaces">
-<link rel="prev" href="this_library_s_relationship_to_boost_iterator.html" title="This Library's Relationship to Boost.Iterator">
+<link rel="prev" href="the__v1__and__v2__namespaces__and_the_use_of_c__20_concepts.html" title="The v1 and v2 Namespaces, and the Use of C++20 Concepts">
 <link rel="next" href="tutorial___view_interface_.html" title="Tutorial: view_interface">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -21,7 +21,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="this_library_s_relationship_to_boost_iterator.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../stl_interfaces.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="tutorial___view_interface_.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="the__v1__and__v2__namespaces__and_the_use_of_c__20_concepts.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../stl_interfaces.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="tutorial___view_interface_.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
@@ -34,10 +34,10 @@
 <th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-        All the member functions provided by <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code> are in your
-        iterator's base class — <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code> —
+        All the member functions provided by <code class="computeroutput">iterator_interface</code> are in your
+        iterator's base class — <code class="computeroutput">iterator_interface</code> —
         and can therefore be hidden if you define a member function with the same
-        name in your derived iterator. If you don't like the semantics of any <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code>-provided
+        name in your derived iterator. If you don't like the semantics of any <code class="computeroutput">iterator_interface</code>-provided
         member function, feel free to replace it.
       </p></td></tr>
 </table></div>
@@ -54,8 +54,8 @@
     </p>
 <p>
       It is possible to define any iterator <code class="computeroutput"><span class="identifier">Iter</span></code>
-      in terms of a subset of user-defined operations. By deriving <code class="computeroutput"><span class="identifier">Iter</span></code> from <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code> using <a href="https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern" target="_top">CRTP</a>,
-      we can generate the full set of operations. Here is the declaration of <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code>:
+      in terms of a subset of user-defined operations. By deriving <code class="computeroutput"><span class="identifier">Iter</span></code> from <code class="computeroutput">iterator_interface</code> using <a href="https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern" target="_top">CRTP</a>,
+      we can generate the full set of operations. Here is the declaration of <code class="computeroutput">iterator_interface</code>:
     </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <span class="identifier">Derived</span><span class="special">,</span>
@@ -71,7 +71,7 @@
     </p>
 <p>
       <code class="computeroutput"><span class="identifier">Derived</span></code> is the type that you're
-      deriving <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code> from.
+      deriving <code class="computeroutput">iterator_interface</code> from.
     </p>
 <p>
       <code class="computeroutput"><span class="identifier">IteratorConcept</span></code> defines the
@@ -131,7 +131,7 @@
     </p>
 <p>
       When defining a proxy iterator, you can use a template alias that provides
-      reasonable defaults for <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code>'s parameters:
+      reasonable defaults for <code class="computeroutput">iterator_interface</code>'s parameters:
     </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <span class="identifier">Derived</span><span class="special">,</span>
@@ -153,7 +153,7 @@
 <th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-        As shown above, <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/proxy_iterator_interface.html" title="Type definition proxy_iterator_interface">proxy_iterator_interface</a></code> uses
+        As shown above, <code class="computeroutput">proxy_iterator_interface</code> uses
         a template called <code class="computeroutput"><span class="identifier">proxy_arrow_result</span></code>
         as its pointer-type. This template makes a copy of whatever value is obtained
         by <code class="computeroutput"><span class="keyword">operator</span><span class="special">*</span></code>,
@@ -171,11 +171,11 @@
     </p>
 <p>
       In the table below, <code class="computeroutput"><span class="identifier">Iter</span></code> is
-      a user-defined type derived from <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code>; <code class="computeroutput"><span class="identifier">i</span></code> and <code class="computeroutput"><span class="identifier">i2</span></code>
+      a user-defined type derived from <code class="computeroutput">iterator_interface</code>; <code class="computeroutput"><span class="identifier">i</span></code> and <code class="computeroutput"><span class="identifier">i2</span></code>
       are objects of type <code class="computeroutput"><span class="identifier">Iter</span></code>;
       <code class="computeroutput"><span class="identifier">reference</span></code> is the type passed
       as the <code class="computeroutput"><span class="identifier">Reference</span></code> template parameter
-      to <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code>; <code class="computeroutput"><span class="identifier">pointer</span></code> is the type passed as the <code class="computeroutput"><span class="identifier">Pointer</span></code> template parameter to <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code>;
+      to <code class="computeroutput">iterator_interface</code>; <code class="computeroutput"><span class="identifier">pointer</span></code> is the type passed as the <code class="computeroutput"><span class="identifier">Pointer</span></code> template parameter to <code class="computeroutput">iterator_interface</code>;
       and <code class="computeroutput"><span class="identifier">n</span></code> is a value of type <code class="computeroutput"><span class="identifier">difference_type</span></code>.
     </p>
 <div class="table">
@@ -500,12 +500,12 @@
 <p>
       There's a wrinkle in this way of doing things. When you define <code class="computeroutput"><span class="keyword">operator</span><span class="special">++()</span></code>
       in your iterator type <code class="computeroutput"><span class="identifier">Derived</span></code>,
-      <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code> defines post-increment,
+      <code class="computeroutput">iterator_interface</code> defines post-increment,
       <code class="computeroutput"><span class="keyword">operator</span><span class="special">++(</span><span class="keyword">int</span><span class="special">)</span></code>. But since
       <code class="computeroutput"><span class="identifier">Derived</span></code> has an <code class="computeroutput"><span class="keyword">operator</span><span class="special">++</span></code> and
-      so does its base class <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code>, the one in
+      so does its base class <code class="computeroutput">iterator_interface</code>, the one in
       <code class="computeroutput"><span class="identifier">Derived</span></code> <span class="bold"><strong>hides</strong></span>
-      the one in <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code>.
+      the one in <code class="computeroutput">iterator_interface</code>.
     </p>
 <p>
       So, you need to add a using declaration that makes the <code class="computeroutput"><span class="keyword">operator</span><span class="special">++</span></code> from the base class visible in the derived
@@ -578,14 +578,14 @@
     </p>
 <p>
       We are deriving <code class="computeroutput"><span class="identifier">node_iterator</span></code>
-      from <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code>, and because
+      from <code class="computeroutput">iterator_interface</code>, and because
       we're using <a href="https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern" target="_top">CRTP</a>,
       we first have to pass <code class="computeroutput"><span class="identifier">node_iterator</span></code>
       for the <code class="computeroutput"><span class="identifier">Derived</span></code> template parameter,
-      so that <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code> knows what
+      so that <code class="computeroutput">iterator_interface</code> knows what
       derived type to cast to in order to get at the user-defined operations. Then,
       we pass <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">forward_iterator_tag</span></code> for <code class="computeroutput"><span class="identifier">IteratorConcept</span></code>,
-      since that's appropriate for a singly-linked list. Finally, we pass <code class="computeroutput"><span class="identifier">T</span></code> to let <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code> know what
+      since that's appropriate for a singly-linked list. Finally, we pass <code class="computeroutput"><span class="identifier">T</span></code> to let <code class="computeroutput">iterator_interface</code> know what
       the <code class="computeroutput"><span class="identifier">value_type</span></code> is for our iterator.
     </p>
 <p>
@@ -611,7 +611,7 @@
       Next, we define two constructors: a default constructor, and one that takes
       a <code class="computeroutput"><span class="identifier">node</span></code> pointer. A default constructor
       is required by the <code class="computeroutput"><span class="identifier">forward_iterator</span></code>
-      concept, but <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code> cannot supply
+      concept, but <code class="computeroutput">iterator_interface</code> cannot supply
       this, since constructors are not visible in derived types without user intervention.
     </p>
 <div class="important"><table border="0" summary="Important">
@@ -640,7 +640,7 @@
 <p>
     </p>
 <p>
-      Next, we define the user-defined operations that <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code> requires to
+      Next, we define the user-defined operations that <code class="computeroutput">iterator_interface</code> requires to
       do its work. As you might expect, the three required operations are very straightforward.
     </p>
 <div class="note"><table border="0" summary="Note">
@@ -663,8 +663,8 @@
 <p>
       </p>
 <p>
-        Either of these forms works, since <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code> is concept-based
-        — the appropriate expressions need to be well-formed for the <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code>
+        Either of these forms works, since <code class="computeroutput">iterator_interface</code> is concept-based
+        — the appropriate expressions need to be well-formed for the <code class="computeroutput">iterator_interface</code>
         tempalte to do its work.
       </p>
 </td></tr>
@@ -777,9 +777,9 @@
 <p>
     </p>
 <p>
-      So, all we had to do was let <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code> know that
+      So, all we had to do was let <code class="computeroutput">iterator_interface</code> know that
       there was an underlying iterator it could use — by implementing <code class="computeroutput"><span class="identifier">base_reference</span><span class="special">()</span></code>
-      — and the operations that we did not define got defined for us by <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code>.
+      — and the operations that we did not define got defined for us by <code class="computeroutput">iterator_interface</code>.
     </p>
 <p>
       Here is the iterator in action:
@@ -812,10 +812,10 @@
       compatible with the concept for the iterator you're writing. It cannot check
       everything. For instance, Boost.STLInterfaces does not know if your derived
       type includes a default constructor, which is required by all the iterators.
-      In particular, <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code> cannot <code class="computeroutput"><span class="keyword">static_assert</span></code> on the wellformedness of <code class="computeroutput"><span class="identifier">Derived</span><span class="special">()</span></code>,
+      In particular, <code class="computeroutput">iterator_interface</code> cannot <code class="computeroutput"><span class="keyword">static_assert</span></code> on the wellformedness of <code class="computeroutput"><span class="identifier">Derived</span><span class="special">()</span></code>,
       since <code class="computeroutput"><span class="identifier">Derived</span></code> is an incomplete
-      type within the body of <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code> —
-      <code class="computeroutput"><a class="link" href="../boost/stl_interfaces/v1/iterator_interface.html" title="Struct template iterator_interface">iterator_interface</a></code> is the base
+      type within the body of <code class="computeroutput">iterator_interface</code> —
+      <code class="computeroutput">iterator_interface</code> is the base
       class for <code class="computeroutput"><span class="identifier">Derived</span></code>, not the
       other way round.
     </p>
@@ -832,7 +832,8 @@
 </p>
 <pre class="programlisting"><span class="comment">// static_assert(std::forward_iterator&lt;node_iterator&gt;, ""), or nothing in</span>
 <span class="comment">// C++17 and earlier.</span>
-<span class="identifier">BOOST_STL_INTERFACES_STATIC_ASSERT_CONCEPT</span><span class="special">(</span><span class="identifier">node_iterator</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward_iterator</span><span class="special">)</span>
+<span class="identifier">BOOST_STL_INTERFACES_STATIC_ASSERT_CONCEPT</span><span class="special">(</span>
+    <span class="identifier">node_iterator</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">forward_iterator</span><span class="special">)</span>
 </pre>
 <p>
     </p>
@@ -843,7 +844,7 @@
     </p>
 <p>
       There's also a macro that can help you check that <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">iterator_traits</span></code>
-      is well-formed and provides the correct types. See <code class="computeroutput"><a class="link" href="../BOOST_STL__1_3_40_11_2_3_3.html" title="Macro BOOST_STL_INTERFACES_STATIC_ASSERT_ITERATOR_TRAITS">BOOST_STL_INTERFACES_STATIC_ASSERT_ITERATOR_TRAITS</a></code>.
+      is well-formed and provides the correct types. See <code class="computeroutput"><a class="link" href="../BOOST_STL__1_3_40_12_2_4_3.html" title="Macro BOOST_STL_INTERFACES_STATIC_ASSERT_ITERATOR_TRAITS">BOOST_STL_INTERFACES_STATIC_ASSERT_ITERATOR_TRAITS</a></code>.
     </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
@@ -856,7 +857,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="this_library_s_relationship_to_boost_iterator.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../stl_interfaces.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="tutorial___view_interface_.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="the__v1__and__v2__namespaces__and_the_use_of_c__20_concepts.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../stl_interfaces.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="tutorial___view_interface_.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

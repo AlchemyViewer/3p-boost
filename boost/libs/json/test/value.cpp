@@ -1647,6 +1647,10 @@ public:
             EQAL(float);
             EQAL(double);
         }
+
+        error_code ec;
+        value(nullptr).to_number<double>(ec);
+        BOOST_TEST(error::not_number == ec);
     }
 
     void
@@ -2026,7 +2030,7 @@ public:
         check_array(value{false,2},             false, 2);
         check_array(value{false,2,"3",nullptr}, false, 2, "3", nullptr);
         check_array(value{2,false,"3"},         2, false, "3");
-        check_array(value{true,2,"3"},          true, 2, "3");    
+        check_array(value{true,2,"3"},          true, 2, "3");
     }
 
     //------------------------------------------------------
@@ -2087,6 +2091,62 @@ public:
             {"a",1}, {"b",2}, {"c",3} }) != value(nullptr));
     }
 
+    void
+    testHash()
+    {
+        BOOST_TEST(check_hash_equal(value(nullptr), value(nullptr)));
+        BOOST_TEST(check_hash_equal(value(nullptr), value()));
+        BOOST_TEST(check_hash_equal(value(nullptr), value{}));
+        BOOST_TEST(expect_hash_not_equal(value(nullptr), value({})));
+        BOOST_TEST(expect_hash_not_equal(value(nullptr), value({{}})));
+        BOOST_TEST(expect_hash_not_equal(value(nullptr), value(true)));
+        BOOST_TEST(expect_hash_not_equal(value(nullptr), value(false)));
+        BOOST_TEST(expect_hash_not_equal(value(nullptr), value(0)));
+        BOOST_TEST(expect_hash_not_equal(value(nullptr), value(0UL)));
+        BOOST_TEST(expect_hash_not_equal(value(nullptr), value(0.0)));
+        BOOST_TEST(expect_hash_not_equal(value(nullptr), value("")));
+
+        BOOST_TEST(check_hash_equal(value(true), value(true)));
+        BOOST_TEST(check_hash_equal(value(false), value(false)));
+        BOOST_TEST(expect_hash_not_equal(value(false), value(true)));
+        BOOST_TEST(expect_hash_not_equal(value(false), value(0)));
+        BOOST_TEST(expect_hash_not_equal(value(false), value(0UL)));
+        BOOST_TEST(expect_hash_not_equal(value(false), value(0.0)));
+        BOOST_TEST(expect_hash_not_equal(value(true), value(1)));
+        BOOST_TEST(expect_hash_not_equal(value(true), value(1UL)));
+        BOOST_TEST(expect_hash_not_equal(value(true), value(1.0)));
+
+        BOOST_TEST(check_hash_equal(value(2021), value(2021UL)));
+        BOOST_TEST(expect_hash_not_equal(value(2021U), value(-2021)));
+        BOOST_TEST(expect_hash_not_equal(value(2021UL), value(2021.0)));
+
+        BOOST_TEST(expect_hash_not_equal(value({}), value({{}})));
+        BOOST_TEST(expect_hash_not_equal(value({}), value("")));
+        BOOST_TEST(expect_hash_not_equal(value({{}}), value("")));
+
+        BOOST_TEST(check_hash_equal(
+            value({{"a",1}, {"b",2}, {"c",3}}),
+            value({{"b",2}, {"c",3}, {"a",1}})));
+        BOOST_TEST(expect_hash_not_equal(
+            value({{"a",1}, {"b",2}, {"c",3}}),
+            object({{"b",2}, {"c",3}, {"a",1}})));
+        BOOST_TEST(expect_hash_not_equal(
+            value({{"a",1}, {"b",2}, {"c",3}}),
+            value({{"b",2}, {"c",3}})));
+        BOOST_TEST(check_hash_equal(
+            value({"a", "b", 17}),
+            value({"a", "b", 17U})));
+        BOOST_TEST(expect_hash_not_equal(
+            value({"a", "b", 17}),
+            array({"a", "b", 17})));
+        BOOST_TEST(expect_hash_not_equal(
+            value({"a", "b", 17}),
+            value({17, "a", "b"})));
+        BOOST_TEST(expect_hash_not_equal(
+            value({"a", "b"}),
+            value({{"a", "b"}})));
+    }
+
     //------------------------------------------------------
 
     void
@@ -2108,6 +2168,7 @@ public:
         testStdConstruction();
         testInitList();
         testEquality();
+        testHash();
     }
 };
 

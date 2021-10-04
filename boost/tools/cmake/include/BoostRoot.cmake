@@ -8,25 +8,27 @@ if(CMAKE_SOURCE_DIR STREQUAL Boost_SOURCE_DIR AND WIN32 AND CMAKE_INSTALL_PREFIX
 
 endif()
 
-if(NOT BOOST_ENABLE_CMAKE)
-
-  message(FATAL_ERROR
-    "CMake support in Boost is experimental and part of an ongoing "
-    "development effort. It's not ready for use yet. Please use b2 "
-    "(Boost.Build) to build and install Boost.")
-
-endif()
-
 include(BoostMessage)
 include(BoostInstall)
 
 # --with-<library>
-set(BOOST_INCLUDE_LIBRARIES "" CACHE STRING "List of libraries to build (default: all but excluded and incompatible)")
+set(BOOST_INCLUDE_LIBRARIES "" CACHE STRING
+  "List of libraries to build (default: all but excluded and incompatible)")
 
 # --without-<library>
-set(BOOST_EXCLUDE_LIBRARIES "" CACHE STRING "List of libraries to exclude from build")
+set(BOOST_EXCLUDE_LIBRARIES "" CACHE STRING
+  "List of libraries to exclude from build")
 
-set(BOOST_INCOMPATIBLE_LIBRARIES beast;callable_traits;compute;gil;hana;hof;safe_numerics;serialization;static_string;stl_interfaces;yap CACHE STRING "List of libraries with incompatible CMakeLists.txt files")
+set(BOOST_INCOMPATIBLE_LIBRARIES
+  "callable_traits;compute;gil;hana;hof;safe_numerics;stl_interfaces;yap"
+  CACHE STRING
+  "List of libraries with incompatible CMakeLists.txt files")
+
+option(BOOST_ENABLE_MPI
+  "Build and enable installation of Boost.MPI and its dependents (requires MPI, CMake 3.9)")
+
+option(BOOST_ENABLE_PYTHON
+  "Build and enable installation of Boost.Python and its dependents (requires Python, CMake 3.14)")
 
 # --layout, --libdir, --cmakedir, --includedir in BoostInstall
 
@@ -74,20 +76,24 @@ endfunction()
 
 function(__boost_scan_dependencies lib var)
 
-  file(STRINGS "${BOOST_SUPERPROJECT_SOURCE_DIR}/libs/${lib}/CMakeLists.txt" data)
-
   set(result "")
 
-  foreach(line IN LISTS data)
+  if(EXISTS "${BOOST_SUPERPROJECT_SOURCE_DIR}/libs/${lib}/CMakeLists.txt")
 
-    if(line MATCHES "^[ ]*Boost::([A-Za-z0-9_]+)[ ]*$")
+    file(STRINGS "${BOOST_SUPERPROJECT_SOURCE_DIR}/libs/${lib}/CMakeLists.txt" data)
 
-      string(REGEX REPLACE "^numeric_" "numeric/" dep ${CMAKE_MATCH_1})
-      list(APPEND result ${dep})
+    foreach(line IN LISTS data)
 
-    endif()
+      if(line MATCHES "^[ ]*Boost::([A-Za-z0-9_]+)[ ]*$")
 
-  endforeach()
+        string(REGEX REPLACE "^numeric_" "numeric/" dep ${CMAKE_MATCH_1})
+        list(APPEND result ${dep})
+
+      endif()
+
+    endforeach()
+
+  endif()
 
   set(${var} ${result} PARENT_SCOPE)
 
@@ -97,6 +103,7 @@ endfunction()
 
 if(CMAKE_SOURCE_DIR STREQUAL Boost_SOURCE_DIR)
 
+  option(BUILD_TESTING "Build the tests." OFF)
   include(CTest)
   add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure -C $<CONFIG>)
 
@@ -116,6 +123,40 @@ if(CMAKE_SOURCE_DIR STREQUAL Boost_SOURCE_DIR)
 
   if(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${BOOST_STAGEDIR}/lib")
+  endif()
+
+  set(_msg "")
+
+  if(NOT CMAKE_CONFIGURATION_TYPES AND CMAKE_BUILD_TYPE)
+    string(APPEND _msg "${CMAKE_BUILD_TYPE} build, ")
+  endif()
+
+  if(BUILD_SHARED_LIBS)
+    string(APPEND _msg "shared libraries, ")
+  else()
+    string(APPEND _msg "static libraries, ")
+  endif()
+
+  if(MSVC)
+    if(CMAKE_MSVC_RUNTIME_LIBRARY STREQUAL "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+      string(APPEND _msg "static runtime, ")
+    elseif(CMAKE_MSVC_RUNTIME_LIBRARY STREQUAL "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+      string(APPEND _msg "shared runtime, ")
+    endif()
+  endif()
+
+  string(APPEND _msg "MPI ${BOOST_ENABLE_MPI}, Python ${BOOST_ENABLE_PYTHON}, testing ${BUILD_TESTING}")
+
+  message(STATUS "Boost: ${_msg}")
+
+  unset(_msg)
+
+  if(BOOST_INCLUDE_LIBRARIES)
+    message(STATUS "Boost: libraries included: ${BOOST_INCLUDE_LIBRARIES}")
+  endif()
+
+  if(BOOST_EXCLUDE_LIBRARIES)
+    message(STATUS "Boost: libraries excluded: ${BOOST_EXCLUDE_LIBRARIES}")
   endif()
 
 endif()
@@ -172,9 +213,12 @@ endwhile()
 # Installing targets created in other directories requires CMake 3.13
 if(CMAKE_VERSION VERSION_LESS 3.13)
 
-  boost_message(VERBOSE "Boost installation support is limited on CMake ${CMAKE_VERSION} (need 3.13)")
+  boost_message(STATUS "Boost installation support requires CMake 3.13 (have ${CMAKE_VERSION})")
 
 endif()
+
+set(__boost_mpi_libs mpi graph_parallel property_map_parallel)
+set(__boost_python_libs python parameter_python)
 
 foreach(__boost_lib_cml IN LISTS __boost_libraries)
 
@@ -188,6 +232,14 @@ foreach(__boost_lib_cml IN LISTS __boost_libraries)
 
     boost_message(DEBUG "Skipping excluded Boost library ${__boost_lib}")
 
+  elseif(NOT BOOST_ENABLE_MPI AND __boost_lib IN_LIST __boost_mpi_libs)
+
+    boost_message(DEBUG "Skipping Boost library ${__boost_lib}, BOOST_ENABLE_MPI is OFF")
+
+  elseif(NOT BOOST_ENABLE_PYTHON AND __boost_lib IN_LIST __boost_python_libs)
+
+    boost_message(DEBUG "Skipping Boost library ${__boost_lib}, BOOST_ENABLE_PYTHON is OFF")
+
   elseif(NOT BOOST_INCLUDE_LIBRARIES OR __boost_lib IN_LIST BOOST_INCLUDE_LIBRARIES)
 
     boost_message(VERBOSE "Adding Boost library ${__boost_lib}")
@@ -199,7 +251,7 @@ foreach(__boost_lib_cml IN LISTS __boost_libraries)
 
     set(BUILD_TESTING OFF) # hide cache variable
 
-    boost_message(VERBOSE "Adding dependent Boost library ${__boost_lib}")
+    boost_message(VERBOSE "Adding dependency Boost library ${__boost_lib}")
     add_subdirectory(libs/${__boost_lib})
 
     __boost_auto_install(${__boost_lib})

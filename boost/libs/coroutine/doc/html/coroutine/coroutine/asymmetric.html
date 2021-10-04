@@ -394,7 +394,7 @@
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">coroutines</span><span class="special">::</span><span class="identifier">asymmetric_coroutine</span><span class="special">&lt;</span><span class="keyword">void</span><span class="special">&gt;::</span><span class="identifier">push_type</span> <span class="identifier">sink</span><span class="special">(</span>
         <span class="special">[&amp;](</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">coroutines</span><span class="special">::</span><span class="identifier">asymmetric_coroutine</span><span class="special">&lt;</span><span class="keyword">void</span><span class="special">&gt;::</span><span class="identifier">pull_type</span><span class="special">&amp;</span> <span class="identifier">source</span><span class="special">){</span>
             <span class="identifier">X</span> <span class="identifier">x</span><span class="special">;</span>
-            <span class="keyword">for</span><span class="special">(</span><span class="keyword">int</span><span class="special">=</span><span class="number">0</span><span class="special">;;++</span><span class="identifier">i</span><span class="special">){</span>
+            <span class="keyword">for</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">i</span><span class="special">=</span><span class="number">0</span><span class="special">;;++</span><span class="identifier">i</span><span class="special">){</span>
                 <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span><span class="special">&lt;&lt;</span><span class="string">"fn(): "</span><span class="special">&lt;&lt;</span><span class="identifier">i</span><span class="special">&lt;&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">endl</span><span class="special">;</span>
                 <span class="comment">// transfer execution control back to main()</span>
                 <span class="identifier">source</span><span class="special">();</span>
@@ -417,7 +417,6 @@
     <span class="identifier">fn</span><span class="special">():</span> <span class="number">2</span>
     <span class="identifier">fn</span><span class="special">():</span> <span class="number">3</span>
     <span class="identifier">fn</span><span class="special">():</span> <span class="number">4</span>
-    <span class="identifier">fn</span><span class="special">():</span> <span class="number">5</span>
     <span class="identifier">sink</span> <span class="identifier">is</span> <span class="identifier">complete</span><span class="special">:</span> <span class="keyword">false</span>
     <span class="special">~</span><span class="identifier">X</span><span class="special">()</span>
 </pre>

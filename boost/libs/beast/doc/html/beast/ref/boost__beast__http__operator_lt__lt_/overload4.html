@@ -28,79 +28,24 @@
         (4 of 5 overloads)</a>
 </h5></div></div></div>
 <p>
-          Serialize an HTTP/1 header to a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span></code>.
+          Outputs the standard reason phrase of a status code to a stream.
         </p>
 <h6>
 <a name="beast.ref.boost__beast__http__operator_lt__lt_.overload4.h0"></a>
           <span class="phrase"><a name="beast.ref.boost__beast__http__operator_lt__lt_.overload4.synopsis"></a></span><a class="link" href="overload4.html#beast.ref.boost__beast__http__operator_lt__lt_.overload4.synopsis">Synopsis</a>
         </h6>
 <p>
-          Defined in header <code class="literal">&lt;<a href="../../../../../../../boost/beast/http/write.hpp" target="_top">boost/beast/http/write.hpp</a>&gt;</code>
+          Defined in header <code class="literal">&lt;<a href="../../../../../../../boost/beast/http/status.hpp" target="_top">boost/beast/http/status.hpp</a>&gt;</code>
         </p>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
-    <span class="keyword">bool</span> <span class="identifier">isRequest</span><span class="special">,</span>
-    <span class="keyword">class</span> <a class="link" href="../../concepts/Fields.html" title="Fields"><span class="emphasis"><em>Fields</em></span></a><span class="special">&gt;</span>
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span><span class="special">&amp;</span>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span><span class="special">&amp;</span>
 <span class="keyword">operator</span><span class="special">&lt;&lt;(</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span><span class="special">&amp;</span> <span class="identifier">os</span><span class="special">,</span>
-    <span class="identifier">header</span><span class="special">&lt;</span> <span class="identifier">isRequest</span><span class="special">,</span> <span class="identifier">Fields</span> <span class="special">&gt;</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">msg</span><span class="special">);</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">ostream</span><span class="special">&amp;,</span>
+    <span class="identifier">status</span><span class="special">);</span>
 </pre>
 <h6>
 <a name="beast.ref.boost__beast__http__operator_lt__lt_.overload4.h1"></a>
           <span class="phrase"><a name="beast.ref.boost__beast__http__operator_lt__lt_.overload4.description"></a></span><a class="link" href="overload4.html#beast.ref.boost__beast__http__operator_lt__lt_.overload4.description">Description</a>
         </h6>
-<p>
-          The function converts the header to its HTTP/1 serialized representation
-          and stores the result in the output stream.
-        </p>
-<h6>
-<a name="beast.ref.boost__beast__http__operator_lt__lt_.overload4.h2"></a>
-          <span class="phrase"><a name="beast.ref.boost__beast__http__operator_lt__lt_.overload4.parameters"></a></span><a class="link" href="overload4.html#beast.ref.boost__beast__http__operator_lt__lt_.overload4.parameters">Parameters</a>
-        </h6>
-<div class="informaltable"><table class="table">
-<colgroup>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th>
-                  <p>
-                    Name
-                  </p>
-                </th>
-<th>
-                  <p>
-                    Description
-                  </p>
-                </th>
-</tr></thead>
-<tbody>
-<tr>
-<td>
-                  <p>
-                    <code class="computeroutput"><span class="identifier">os</span></code>
-                  </p>
-                </td>
-<td>
-                  <p>
-                    The output stream to write to.
-                  </p>
-                </td>
-</tr>
-<tr>
-<td>
-                  <p>
-                    <code class="computeroutput"><span class="identifier">msg</span></code>
-                  </p>
-                </td>
-<td>
-                  <p>
-                    The message fields to write.
-                  </p>
-                </td>
-</tr>
-</tbody>
-</table></div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
