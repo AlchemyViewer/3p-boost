@@ -1,3 +1,38 @@
+Version 318:
+
+* Add a Boost-friendly subproject case to CMakeLists.
+* Remove use of POSIX-only constant.
+
+--------------------------------------------------------------------------------
+
+Version 317:
+
+* Remove travis CI.
+* Fix Drone CI script.
+* Add example of reading large response body.
+
+--------------------------------------------------------------------------------
+
+Version 316:
+
+* Disable GHA CI for clang-9.
+* Update example root certificates.
+
+--------------------------------------------------------------------------------
+
+Version 315:
+
+* Documentation uses docca jam module.
+
+--------------------------------------------------------------------------------
+
+Version 314:
+
+* WebSocket test is deterministic.
+* Add missing compilers to GHA script.
+
+--------------------------------------------------------------------------------
+
 Version 313:
 
 * Fix incorrect websocket test ordering.

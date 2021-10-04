@@ -452,6 +452,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#changelog">Revision History</a>
 <ul class="sectlevel2">
+<li><a href="#changes_in_1_77_0">Changes in 1.77.0</a></li>
 <li><a href="#changes_in_1_75_0">Changes in 1.75.0</a></li>
 <li><a href="#changes_in_1_74_0">Changes in 1.74.0</a></li>
 <li><a href="#changes_in_1_73_0">Changes in 1.73.0</a></li>
@@ -583,6 +584,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#mp_remove_ifl_p">mp_remove_if&lt;L, P&gt;</a></li>
 <li><a href="#mp_remove_if_ql_q">mp_remove_if_q&lt;L, Q&gt;</a></li>
 <li><a href="#mp_flattenl">mp_flatten&lt;L&gt;</a></li>
+<li><a href="#mp_interspersel_s">mp_intersperse&lt;L, S&gt;</a></li>
+<li><a href="#mp_splitl_s">mp_split&lt;L, S&gt;</a></li>
+<li><a href="#mp_joinl_s">mp_join&lt;L, S&gt;</a></li>
 <li><a href="#mp_partitionl_p">mp_partition&lt;L, P&gt;</a></li>
 <li><a href="#mp_partition_ql_q">mp_partition_q&lt;L, Q&gt;</a></li>
 <li><a href="#mp_sortl_p">mp_sort&lt;L, P&gt;</a></li>
@@ -1391,6 +1395,16 @@ int main()
 <div class="sect1">
 <h2 id="changelog">Revision History</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="changes_in_1_77_0">Changes in 1.77.0</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Added <code>mp_intersperse</code>, <code>mp_split</code>, <code>mp_join</code></p>
+</li>
+</ul>
+</div>
+</div>
 <div class="sect2">
 <h3 id="changes_in_1_75_0">Changes in 1.75.0</h3>
 <div class="ulist">
@@ -3829,6 +3843,62 @@ using R3 = mp_flatten&lt;L3&gt;; // mp_list&lt;float, mp_list&lt;void&gt;&gt;</c
 </div>
 </div>
 <div class="sect3">
+<h4 id="mp_interspersel_s">mp_intersperse&lt;L, S&gt;</h4>
+<div class="literalblock">
+<div class="content">
+<pre>template&lt;class L, class S&gt; using mp_intersperse = /*...*/;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Inserts the separator <code>S</code> between the elements of the list <code>L</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>mp_intersperse&lt;L&lt;&gt;, S&gt;</code> is <code>L&lt;&gt;</code>. <code>mp_intersperse&lt;L&lt;T1&gt;, S&gt;</code> is <code>L&lt;T1&gt;</code>.
+<code>mp_intersperse&lt;L&lt;T1, T2, T3, &#8230;&#8203;, Tn-1, Tn&gt;, S&gt;</code> is <code>L&lt;T1, S, T2, S, T3, S, &#8230;&#8203;, Tn-1, S, Tn&gt;</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mp_splitl_s">mp_split&lt;L, S&gt;</h4>
+<div class="literalblock">
+<div class="content">
+<pre>template&lt;class L, class S&gt; using mp_split = /*...*/;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Splits the list <code>L</code> into segments at each separator <code>S</code> and returns a list of
+the segments.</p>
+</div>
+<div class="paragraph">
+<p><code>mp_split&lt;L&lt;&gt;, S&gt;</code> is <code>L&lt;L&lt;&gt;&gt;</code>. <code>mp_split&lt;L&lt;T&#8230;&#8203;&gt;, S&gt;</code>, where <code>S</code> does not occur in <code>T&#8230;&#8203;</code>,
+is <code>L&lt;L&lt;T&#8230;&#8203;&gt;&gt;</code>. <code>mp_split&lt;L&lt;T1&#8230;&#8203;, S, T2&#8230;&#8203;, S, T3&#8230;&#8203;&gt;, S&gt;</code> is <code>L&lt;L&lt;T1&#8230;&#8203;&gt;, L&lt;T2&#8230;&#8203;&gt;, L&lt;T3&#8230;&#8203;&gt;&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>The segments may be empty; <code>mp_split&lt;L&lt;S, X, Y, S, S&gt;, S&gt;</code> is <code>L&lt;L&lt;&gt;, L&lt;X, Y&gt;, L&lt;&gt;, L&lt;&gt;&gt;</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mp_joinl_s">mp_join&lt;L, S&gt;</h4>
+<div class="literalblock">
+<div class="content">
+<pre>template&lt;class L, class S&gt; using mp_join = /*...*/;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>mp_join</code> is the reverse operation of <code>mp_split</code>; it takes a list of segments <code>L</code> and joins
+them into a single list, inserting the separator <code>S</code> between them.</p>
+</div>
+<div class="paragraph">
+<p><code>mp_join&lt;mp_split&lt;L, S&gt;, S&gt;</code> yields back the original list <code>L</code>.</p>
+</div>
+<div class="paragraph">
+<p>For example, <code>mp_split&lt;L&lt;X1, X2, S, X3&gt;, S&gt;</code> gives <code>L&lt;L&lt;X1, X2&gt;, L&lt;X3&gt;&gt;</code>, and
+<code>mp_join&lt;L&lt;L&lt;X1, X2&gt;, L&lt;X3&gt;&gt;, S&gt;</code> results in <code>L&lt;X1, X2, S, X3&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>mp_join&lt;L, S&gt;</code> is equivalent to (and is implemented as) <code>mp_apply&lt;mp_append, mp_intersperse&lt;L, mp_list&lt;S&gt;&gt;&gt;</code>.</p>
+</div>
+</div>
+<div class="sect3">
 <h4 id="mp_partitionl_p">mp_partition&lt;L, P&gt;</h4>
 <div class="literalblock">
 <div class="content">
@@ -5146,7 +5216,7 @@ into this documentation by Glen Fernandes.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-13 16:22:27 UTC
+Last updated 2021-08-05 09:42:12 UTC
 </div>
 </div>
 <style>

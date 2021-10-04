@@ -28,28 +28,26 @@
         (1 of 2 overloads)</a>
 </h5></div></div></div>
 <p>
-          Return true if two storage pointers point to different memory resources.
+          Return true if lhs does not equal rhs.
         </p>
 <h6>
 <a name="json.ref.boost__json__operator_not__eq_.overload1.h0"></a>
           <span class="phrase"><a name="json.ref.boost__json__operator_not__eq_.overload1.synopsis"></a></span><a class="link" href="overload1.html#json.ref.boost__json__operator_not__eq_.overload1.synopsis">Synopsis</a>
         </h6>
 <p>
-          Defined in header <code class="literal">&lt;<a href="https://github.com/cppalliance/json/blob/master/include/boost/json/storage_ptr.hpp" target="_top">boost/json/storage_ptr.hpp</a>&gt;</code>
+          Defined in header <code class="literal">&lt;<a href="https://github.com/cppalliance/json/blob/master/include/boost/json/string.hpp" target="_top">boost/json/string.hpp</a>&gt;</code>
         </p>
 <pre class="programlisting"><span class="keyword">bool</span>
 <span class="keyword">operator</span><span class="special">!=(</span>
-    <span class="identifier">storage_ptr</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">lhs</span><span class="special">,</span>
-    <span class="identifier">storage_ptr</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
+    <span class="identifier">string</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">lhs</span><span class="special">,</span>
+    <span class="identifier">string</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">rhs</span><span class="special">);</span>
 </pre>
 <h6>
 <a name="json.ref.boost__json__operator_not__eq_.overload1.h1"></a>
           <span class="phrase"><a name="json.ref.boost__json__operator_not__eq_.overload1.description"></a></span><a class="link" href="overload1.html#json.ref.boost__json__operator_not__eq_.overload1.description">Description</a>
         </h6>
 <p>
-          This function returns <code class="computeroutput"><span class="keyword">true</span></code>
-          if the <a class="link" href="../boost__json__memory_resource.html" title="memory_resource"><code class="computeroutput"><span class="identifier">memory_resource</span></code></a> objects pointed
-          to by <code class="computeroutput"><span class="identifier">lhs</span></code> and <code class="computeroutput"><span class="identifier">rhs</span></code> have different addresses.
+          A lexicographical comparison is used.
         </p>
 <p>
           Convenience header <code class="literal">&lt;<a href="https://github.com/cppalliance/json/blob/master/include/boost/json.hpp" target="_top">boost/json.hpp</a>&gt;</code>

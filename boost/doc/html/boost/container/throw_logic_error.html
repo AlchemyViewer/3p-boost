@@ -39,7 +39,11 @@
 <p>Exception callback called by Boost.Container to report errors in the internal logical of the program, such as violation of logical preconditions or class invariants. </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-<p>If BOOST_NO_EXCEPTIONS is NOT defined <code class="computeroutput">std::logic_error(str)</code> is thrown.</p>
+<p>If BOOST_NO_EXCEPTIONS is NOT defined and BOOST_CONTAINER_USE_STD_EXCEPTIONS is NOT defined <code class="computeroutput"><code class="computeroutput"><a class="link" href="logic_error.html" title="Class logic_error">boost::container::logic_error(str)</a></code></code> is thrown.</p>
+<p></p>
+</li>
+<li class="listitem">
+<p>If BOOST_NO_EXCEPTIONS is NOT defined and BOOST_CONTAINER_USE_STD_EXCEPTIONS is defined <code class="computeroutput">std::logic_error(str)</code> is thrown.</p>
 <p></p>
 </li>
 <li class="listitem">

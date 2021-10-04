@@ -1,6 +1,6 @@
 # Copyright 2016-2017 Klemens David Morgenstern
 # Copyright 2018 Mateusz Loskot <mateusz@loskot.net>
-# Copyright 2018-2019 Hans Dembinski
+# Copyright 2018-2021 Hans Dembinski
 #
 # Use, modification and distribution is subject to the Boost Software License,
 # Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
@@ -45,7 +45,6 @@ alias cxx14 :
       # make sure sum accumulator works even with -ffast-math and optimizations
       <toolset>gcc:<cxxflags>"-O3 -ffast-math"
       <toolset>clang:<cxxflags>"-O3 -ffast-math" ]
-    [ run accumulators_thread_safe_test.cpp ]
     [ run accumulators_weighted_mean_test.cpp ]
     [ run accumulators_weighted_sum_test.cpp ]
     [ run algorithm_project_test.cpp ]
@@ -83,7 +82,6 @@ alias cxx14 :
     [ run histogram_growing_test.cpp ]
     [ run histogram_mixed_test.cpp ]
     [ run histogram_operators_test.cpp ]
-    [ run histogram_ostream_test.cpp ]
     [ run histogram_test.cpp ]
     [ run indexed_test.cpp ]
     [ run storage_adaptor_test.cpp ]
@@ -123,8 +121,16 @@ alias failure :
 alias threading :
     [ run histogram_threaded_test.cpp ]
     [ run storage_adaptor_threaded_test.cpp ]
+    [ run accumulators_count_thread_safe_test.cpp ]
+    [ run accumulators_thread_safe_test.cpp ]
     :
     <threading>multi
+    ;
+
+# tests do not work on windows, because environment variables cannot be set
+alias not_windows :
+    [ run histogram_ostream_test.cpp : : : <testing.launcher>"LANG=UTF" ]
+    [ run histogram_ostream_ascii_test.cpp : : : <testing.launcher>"LANG=FOO COLUMNS=20" ]
     ;
 
 # warnings are off for these other boost libraries, which tend to be not warning-free
@@ -151,10 +157,10 @@ alias libserial :
 alias minimal : cxx14 cxx17 failure threading ;
 
 # all tests
-alias all : minimal odr accumulators range units serialization ;
+alias all : minimal not_windows odr accumulators range units serialization ;
 
 # all except "failure", because it is distracting during development
-alias develop : cxx14 cxx17 threading odr accumulators range units serialization ;
+alias develop : cxx14 cxx17 threading not_windows odr accumulators range units serialization ;
 
 explicit minimal ;
 explicit all ;
@@ -163,6 +169,7 @@ explicit cxx14 ;
 explicit cxx17 ;
 explicit failure ;
 explicit threading ;
+explicit not_windows ;
 explicit accumulators ;
 explicit range ;
 explicit units ;

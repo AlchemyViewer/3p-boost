@@ -16,6 +16,7 @@
 
 #include "test_suite.hpp"
 
+#include <array>
 #include <string>
 #include <vector>
 #include <tuple>
@@ -204,6 +205,16 @@ public:
             value c = value_from(a);
             BOOST_TEST(c.is_array());
             BOOST_TEST(serialize(c) == serialize(b));
+        }
+        {
+            std::array<int, 1000> a;
+            a.fill(0);
+
+            value b;
+            array& b_arr = b.emplace_array();
+            b_arr.insert(b_arr.end(), a.begin(), a.end());
+
+            BOOST_TEST(value_from(a) == b);
         }
         {
             std::pair<int, string> a{1, string("2")};

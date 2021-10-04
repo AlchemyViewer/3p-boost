@@ -188,9 +188,22 @@ inline T1 const& bg_if_mp(T1 const& value_mp, T2 const& value)
 #define BG_IF_RESCALED(a, b) b
 #endif
 
+//! Macro for turning of a test setting when testing without failures
+#if defined(BOOST_GEOMETRY_TEST_FAILURES)
+#define BG_IF_TEST_FAILURES true
+#else
+#define BG_IF_TEST_FAILURES false
+#endif
+
 inline void BoostGeometryWriteTestConfiguration()
 {
     std::cout << std::endl << "Test configuration:" << std::endl;
+#if defined(BOOST_GEOMETRY_COMPILER_MODE_RELEASE)
+    std::cout << "  - Release mode" << std::endl;
+#endif
+#if defined(BOOST_GEOMETRY_COMPILER_MODE_DEBUG)
+    std::cout << "  - Debug mode" << std::endl;
+#endif
 #if defined(BOOST_GEOMETRY_USE_RESCALING)
     std::cout << "  - Using rescaling" << std::endl;
 #endif

@@ -27,7 +27,7 @@
 <a name="geometry.reference.strategies.strategy_centroid_bashein_detmer"></a><a class="link" href="strategy_centroid_bashein_detmer.html" title="strategy::centroid::bashein_detmer">strategy::centroid::bashein_detmer</a>
 </h4></div></div></div>
 <p>
-          <a class="indexterm" name="idm46411455980112"></a><a class="indexterm" name="idm46411455979424"></a><a class="indexterm" name="idm46411455978736"></a>
+          <a class="indexterm" name="idm45246410946224"></a><a class="indexterm" name="idm45246410945536"></a><a class="indexterm" name="idm45246410944848"></a>
 Centroid calculation using algorithm Bashein / Detmer.
         </p>
 <h6>
@@ -43,7 +43,8 @@ Centroid calculation using algorithm Bashein / Detmer.
         </h6>
 <p>
 </p>
-<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Point</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">PointOfSegment</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">CalculationType</span><span class="special">&gt;</span>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">Ignored1</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">Ignored2</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">CalculationType</span><span class="special">,</span> <span class="special">,</span>
+         <span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">strategy</span><span class="special">::</span><span class="identifier">centroid</span><span class="special">::</span><span class="identifier">bashein_detmer</span>
 <span class="special">{</span>
   <span class="comment">// ...</span>
@@ -83,32 +84,29 @@ Centroid calculation using algorithm Bashein / Detmer.
 <tr>
 <td>
                   <p>
-                    typename Point
+                    typename Ignored1
                   </p>
-                </td>
-<td>
                 </td>
 <td>
                   <p>
-                    point type of centroid to calculate
+                    void
                   </p>
+                </td>
+<td>
                 </td>
 </tr>
 <tr>
 <td>
                   <p>
-                    typename PointOfSegment
+                    typename Ignored2
                   </p>
                 </td>
 <td>
                   <p>
-                    Point
+                    void
                   </p>
                 </td>
 <td>
-                  <p>
-                    point type of segments, defaults to Point
-                  </p>
                 </td>
 </tr>
 <tr>
@@ -127,6 +125,28 @@ Centroid calculation using algorithm Bashein / Detmer.
                     numeric type for calculation (e.g. high precision); if <span class="bold"><strong>void</strong></span> then it is extracted automatically
                     from the coordinate type and (if necessary) promoted to floating
                     point
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                </td>
+<td>
+                </td>
+<td>
+                  <p>
+                    point type of centroid to calculate
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                </td>
+<td>
+                </td>
+<td>
+                  <p>
+                    point type of segments, defaults to Point
                   </p>
                 </td>
 </tr>
@@ -171,7 +191,8 @@ Centroid calculation using algorithm Bashein / Detmer.
 <td>
                   <p>
 </p>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">void</span> <span class="identifier">apply</span><span class="special">(</span><span class="identifier">PointOfSegment</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">p1</span><span class="special">,</span> <span class="identifier">PointOfSegment</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">p2</span><span class="special">,</span> <span class="identifier">sums</span> <span class="special">&amp;</span> <span class="identifier">state</span><span class="special">)</span></pre>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GeometryPoint</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">ResultPoint</span><span class="special">&gt;</span>
+<span class="keyword">void</span> <span class="identifier">apply</span><span class="special">(</span><span class="identifier">GeometryPoint</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">p1</span><span class="special">,</span> <span class="identifier">GeometryPoint</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">p2</span><span class="special">,</span> <span class="identifier">sums</span><span class="special">&lt;</span> <span class="identifier">GeometryPoint</span><span class="special">,</span> <span class="identifier">ResultPoint</span> <span class="special">&gt;</span> <span class="special">&amp;</span> <span class="identifier">state</span><span class="special">)</span></pre>
 <p>
                   </p>
                 </td>
@@ -179,15 +200,16 @@ Centroid calculation using algorithm Bashein / Detmer.
                 </td>
 <td>
                   <p>
-                    <span class="bold"><strong>PointOfSegment const &amp;</strong></span>:
+                    <span class="bold"><strong>GeometryPoint const &amp;</strong></span>:
                     <span class="emphasis"><em>p1</em></span>:
                   </p>
                   <p>
-                    <span class="bold"><strong>PointOfSegment const &amp;</strong></span>:
+                    <span class="bold"><strong>GeometryPoint const &amp;</strong></span>:
                     <span class="emphasis"><em>p2</em></span>:
                   </p>
                   <p>
-                    <span class="bold"><strong>sums &amp;</strong></span>: <span class="emphasis"><em>state</em></span>:
+                    <span class="bold"><strong>sums&lt; GeometryPoint, ResultPoint &gt;
+                    &amp;</strong></span>: <span class="emphasis"><em>state</em></span>:
                   </p>
                 </td>
 <td>
@@ -197,7 +219,8 @@ Centroid calculation using algorithm Bashein / Detmer.
 <td>
                   <p>
 </p>
-<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">bool</span> <span class="identifier">result</span><span class="special">(</span><span class="identifier">sums</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">state</span><span class="special">,</span> <span class="identifier">Point</span> <span class="special">&amp;</span> <span class="identifier">centroid</span><span class="special">)</span></pre>
+<pre xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" class="table-programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> <span class="identifier">GeometryPoint</span><span class="special">,</span> <span class="keyword">typename</span> <span class="identifier">ResultPoint</span><span class="special">&gt;</span>
+<span class="keyword">bool</span> <span class="identifier">result</span><span class="special">(</span><span class="identifier">sums</span><span class="special">&lt;</span> <span class="identifier">GeometryPoint</span><span class="special">,</span> <span class="identifier">ResultPoint</span> <span class="special">&gt;</span> <span class="keyword">const</span> <span class="special">&amp;</span> <span class="identifier">state</span><span class="special">,</span> <span class="identifier">ResultPoint</span> <span class="special">&amp;</span> <span class="identifier">centroid</span><span class="special">)</span></pre>
 <p>
                   </p>
                 </td>
@@ -205,10 +228,11 @@ Centroid calculation using algorithm Bashein / Detmer.
                 </td>
 <td>
                   <p>
-                    <span class="bold"><strong>sums const &amp;</strong></span>: <span class="emphasis"><em>state</em></span>:
+                    <span class="bold"><strong>sums&lt; GeometryPoint, ResultPoint &gt;
+                    const &amp;</strong></span>: <span class="emphasis"><em>state</em></span>:
                   </p>
                   <p>
-                    <span class="bold"><strong>Point &amp;</strong></span>: <span class="emphasis"><em>centroid</em></span>:
+                    <span class="bold"><strong>ResultPoint &amp;</strong></span>: <span class="emphasis"><em>centroid</em></span>:
                   </p>
                 </td>
 <td>

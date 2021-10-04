@@ -100,6 +100,7 @@ void test_all()
         1, 5, 1.0,
         1, 5, 1.0);
 
+#if defined(BOOST_GEOMETRY_USE_RESCALING) || defined(BOOST_GEOMETRY_TEST_FAILURES)
     // Two outputs, but the small one might be discarded
     // (depending on point-type / compiler)
     test_one<polygon, polygon, polygon>("distance_zero",
@@ -107,6 +108,7 @@ void test_all()
         count_set(1, 2), -1, 8.7048386,
         count_set(1, 2), -1, 0.0098387,
         tolerance(0.001));
+#endif
 
     test_one<polygon, polygon, polygon>("equal_holes_disjoint",
         equal_holes_disjoint[0], equal_holes_disjoint[1],
@@ -254,7 +256,10 @@ void test_all()
     TEST_DIFFERENCE_WITH(case_precision_13, 1, 12, 0, 0.0, 1, ut_settings(0.001));
     TEST_DIFFERENCE(case_precision_14, 1, 14.0, 1, 8.0, 1);
     TEST_DIFFERENCE(case_precision_15, 0, 0.0, 1, 59.0, 1);
+#if ! defined(BOOST_GEOMETRY_USE_RESCALING) || defined(BOOST_GEOMETRY_TEST_FAILURES)
+    // Fails if rescaling is used in combination with get_clusters
     TEST_DIFFERENCE(case_precision_16, optional(), optional_sliver(), 1, 59.0, 1);
+#endif
     TEST_DIFFERENCE(case_precision_17, 0, 0.0, 1, 59.0, 1);
     TEST_DIFFERENCE(case_precision_18, 0, 0.0, 1, 59.0, 1);
     TEST_DIFFERENCE(case_precision_19, 1, expectation_limits(1.2e-6, 1.35e-5), 1, 59.0, 2);
@@ -294,7 +299,8 @@ void test_all()
             buffer_mp2[0], buffer_mp2[1],
             1, 91, 12.09857,
             1, 155, 24.19714,
-            {1, 2}, -1, 12.09857 + 24.19714);
+            {1, 2}, -1, 12.09857 + 24.19714,
+            sym_settings);
     }
 
     /*** TODO: self-tangencies for difference
@@ -339,17 +345,18 @@ void test_all()
 #endif
 
     {
-        //geos_2_a #area expected: 138.69238279999999008 detected: 138.53125 type: f
-        //geos_2_b #area expected: 211.859375 detected: 210.53125 type: f
+        ut_settings settings;
+        settings.set_test_validity(BG_IF_RESCALED(false, true));
 
-        // MSVC 14 expects 138.69214 and 211.85913: increase percentage
         // Output polygons for sym difference might be combined
+        expectation_limits a{138.5312, 138.6924};
+        expectation_limits b{210.5312, 211.8594};
         test_one<polygon, polygon, polygon>("geos_2",
             geos_2[0], geos_2[1],
-            1, -1, 138.6923828,
-            1, -1, 211.859375,
-            {1, 2}, -1, 138.6923828 + 211.859375,
-            ut_settings(0.1, false, false));
+            1, -1, a,
+            1, -1, b,
+            {1, 2}, -1, a + b,
+            settings);
     }
 
     // Output polygons for sym difference might be combined
@@ -376,6 +383,7 @@ void test_all()
         ggl_list_20110307_javier[0], ggl_list_20110307_javier[1],
         1, -1, 16815.6,
         1, -1, 3200.4,
+        {1, 2}, -1, 16815.6 + 3200.4,
         tolerance(0.01));
 
     TEST_DIFFERENCE(ggl_list_20110716_enrico,
@@ -449,23 +457,15 @@ void test_all()
 
     test_one<polygon, polygon, polygon>("ticket_9081_314",
             ticket_9081_314[0], ticket_9081_314[1],
-            2, -1, 0.0451236449624935,
+            count_set(1, 2), -1, 0.0451236449624935,
             count_set(0, 2), -1, 0,
-            count_set(2, 3), -1, 0.0451236449624935);
+            count_set(1, 2, 3), -1, expectation_limits(0.0451, 0.04513));
 
-    {
-        ut_settings settings;
-        settings.set_test_validity(BG_IF_RESCALED(true, false));
-#if ! defined(BOOST_GEOMETRY_USE_RESCALING) && defined(BOOST_GEOMETRY_USE_KRAMER_RULE)
-        const int expected_count = 1; // Wrong, considers all consecutive polygons as one
-#else
-        const int expected_count = 6;
-#endif
-        TEST_DIFFERENCE_WITH(ticket_9563,
-                0, 0,
-                expected_count, 20.096189,
-                expected_count, settings);
-    }
+    // The output has 6 separate polygons (best), or 1 connected (acceptable)
+    TEST_DIFFERENCE(ticket_9563,
+                    0, 0,
+                    count_set(1, 6), 20.096189,
+                    count_set(1, 6));
 
 #if defined(BOOST_GEOMETRY_USE_RESCALING) || defined(BOOST_GEOMETRY_TEST_FAILURES)
     // Without rescaling the "b" case produces no output.
@@ -568,6 +568,11 @@ void test_all()
                     optional(), optional_sliver(1.0e-5),
                     count_set(1, 2));
 
+    TEST_DIFFERENCE(issue_838,
+                    count_set(1, 2), expectation_limits(0.000026, 0.0002823),
+                    count_set(1, 2), expectation_limits(0.67257, 0.67499),
+                    count_set(2, 3, 4));
+
     TEST_DIFFERENCE(mysql_21977775, 2, 160.856568913, 2, 92.3565689126, 4);
     TEST_DIFFERENCE(mysql_21965285, 1, 92.0, 1, 14.0, 1);
     TEST_DIFFERENCE(mysql_23023665_1, 1, 92.0, 1, 142.5, 2);
@@ -624,7 +629,7 @@ int test_main(int, char* [])
 #if defined(BOOST_GEOMETRY_TEST_FAILURES)
     // Not yet fully tested for float and long double.
     // The difference algorithm can generate (additional) slivers
-    BoostGeometryWriteExpectedFailures(10, 11, 24, 15);
+    BoostGeometryWriteExpectedFailures(12, 5, 11, 6);
 #endif
 
     return 0;

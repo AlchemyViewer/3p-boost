@@ -28,6 +28,482 @@
 </h2></div></div></div>
 <h4>
 <a name="boost_asio.history.h0"></a>
+      <span class="phrase"><a name="boost_asio.history.asio_1_20_0___boost_1_77"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_20_0___boost_1_77">Asio
+      1.20.0 / Boost 1.77</a>
+    </h4>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+          Added support for cancellation of individual asynchronous operations. Cancellation
+          is implemented by having each completion handler carry an associated <code class="computeroutput">CancellationSlot</code>,
+          a lightweight cancellation channel that is specified through the new <code class="computeroutput">associated_cancellation_slot</code>
+          associator. A concrete <code class="computeroutput">CancellationSlot</code> implementation is
+          provided in the form of the <code class="computeroutput">cancellation_signal</code> and <code class="computeroutput">cancellation_slot</code>
+          classes. In conjunction with the <code class="computeroutput">bind_cancellation_slot</code> helper
+          function, these may be used to hook cancellation into asynchronous operations.
+          However, it should be noted that these classes are the low-level building
+          blocks of cancellation, and most use cases should use a higher level abstraction
+          for cancellation, such as <code class="computeroutput">experimental::parallel_group</code> or
+          the new logical operators for <code class="computeroutput">awaitable</code> (see below). The ability
+          to cancel individual operations, or composed operations, is currently supported
+          by:
+          <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; ">
+<li class="listitem">
+                timers
+              </li>
+<li class="listitem">
+                sockets on POSIX and Windows
+              </li>
+<li class="listitem">
+                POSIX descriptors
+              </li>
+<li class="listitem">
+                Windows HANDLEs
+              </li>
+<li class="listitem">
+                SSL streams
+              </li>
+<li class="listitem">
+                all Asio-provided composed operations such as <code class="computeroutput">async_read</code>
+                and <code class="computeroutput">async_write</code>
+              </li>
+<li class="listitem">
+                compositions based on <code class="computeroutput">async_compose</code>
+              </li>
+<li class="listitem">
+                C++20 coroutines that use <code class="computeroutput">awaitable</code>
+              </li>
+<li class="listitem">
+                C++20 coroutines that use the new <code class="computeroutput">experimental::coro</code>
+                (see below)
+              </li>
+<li class="listitem">
+                the new <code class="computeroutput">experimental::parallel_group</code> operation (see
+                below)
+              </li>
+<li class="listitem">
+                the new <code class="computeroutput">experimental::promise</code> class (see below)
+              </li>
+</ul></div>
+        </li>
+<li class="listitem">
+          Added the <code class="computeroutput">associator</code> trait. The <code class="computeroutput">associator</code> trait
+          is used to generically forward associators, such as <code class="computeroutput">associated_executor</code>
+          and <code class="computeroutput">associated_allocator</code>, through intermediate completion
+          handlers. For example:<br>
+<pre class="programlisting">template &lt;typename Handler&gt;
+struct intermediate_handler
+{
+  Handler handler_;
+
+  template &lt;typename... Args&gt;
+  void operator()(Args&amp;... args)
+  {
+    // ...
+  }
+};
+
+namespace asio {
+  template &lt;
+      template &lt;typename, typename&gt; class Associator,
+      typename Handler,
+      typename DefaultCandidate&gt;
+  struct associator&lt;
+      Associator,
+      intermediate_handler&lt;Handler&gt;,
+      DefaultCandidate&gt;
+  {
+    using type =
+      typename Associator&lt;Handler, DefaultCandidate&gt;::type;
+
+    static type get(
+        const intermediate_handler&lt;Handler&gt;&amp; h,
+        const DefaultCandidate&amp; c = DefaultCandidate()) noexcept
+    {
+      return Associator&lt;Handler, DefaultCandidate&gt;::get(
+          h.handler_, c);
+    }
+  };
+} // namespace asio
+</pre>
+          <br>
+        </li>
+<li class="listitem">
+          Changed all asynchronous operations implemented in Asio to invoke their
+          completion handlers as rvalue references. This allows an rvalue reference
+          qualifier to be added to the function call operator.
+        </li>
+<li class="listitem">
+          Added support for asynchronous operations with multiple completion signatures.
+          Completion signatures may also specify that they are <code class="computeroutput">noexcept</code>,
+          and whether they are lvalue-invocable (and thus do not "consume"
+          the completion handler) or rvalue-invocable (and thus do "consume"
+          the handler, indicating an end to the asynchronous operation). For example:<br>
+<pre class="programlisting">auto my_async_operation(...,
+    asio::completion_token_for&lt;
+      void(intermediate_result_type) &amp; noexcept,
+      void(final_result_type) &amp;&amp;
+    &gt; auto&amp;&amp; token)
+{
+  // ...
+}
+</pre>
+          <br>
+        </li>
+<li class="listitem">
+          Added <code class="computeroutput">operator&amp;&amp;</code> and <code class="computeroutput">operator||</code> for
+          <code class="computeroutput">awaitable&lt;&gt;</code>. The logical operators <code class="computeroutput">||</code> and
+          <code class="computeroutput">&amp;&amp;</code> have been overloaded for <code class="computeroutput">awaitable&lt;&gt;</code>,
+          to allow coroutines to be trivially awaited in parallel.<br> <br> When
+          awaited using <code class="computeroutput">&amp;&amp;</code>, the <code class="computeroutput">co_await</code> expression
+          waits until both operations have completed successfully. As a "short-circuit"
+          evaluation, if one operation fails with an exception, the other is immediately
+          cancelled. For example:<br>
+<pre class="programlisting">std::tuple&lt;std::size_t, std::size_t&gt; results =
+  co_await (
+    async_read(socket, input_buffer, use_awaitable)
+      &amp;&amp; async_write(socket, output_buffer, use_awaitable)
+  );
+</pre>
+          <br> When awaited using <code class="computeroutput">||</code>, the <code class="computeroutput">co_await</code> expression
+          waits until either operation succeeds. As a "short-circuit" evaluation,
+          if one operation succeeds without throwing an exception, the other is immediately
+          cancelled. For example:<br>
+<pre class="programlisting">std::variant&lt;std::size_t, std::monostate&gt; results =
+  co_await (
+    async_read(socket, input_buffer, use_awaitable)
+      || timer.async_wait(use_awaitable)
+  );
+</pre>
+          <br> The operators may be enabled by adding the <code class="computeroutput">#include</code>:<br>
+<pre class="programlisting">#include &lt;boost/asio/experimental/awaitable_operators.hpp&gt;
+</pre>
+          <br> and then bringing the contents of the <code class="computeroutput">experimental::awaitable_operators</code>
+          namespace into scope:<br>
+<pre class="programlisting">using namespace asio::experimental::awaitable_operators;
+</pre>
+          <br>
+        </li>
+<li class="listitem">
+          Added the <code class="computeroutput">experimental::as_tuple</code> completion token adapter.
+          The <code class="computeroutput">as_tuple</code> completion token adapter can be used to specify
+          that the completion handler arguments should be combined into a single
+          tuple argument. The <code class="computeroutput">as_tuple</code> adapter may be used in conjunction
+          with <code class="computeroutput">use_awaitable</code> and structured bindings as follows:<br>
+<pre class="programlisting">auto [e, n] = co_await socket.async_read_some(
+    asio::buffer(data), as_tuple(use_awaitable));
+</pre>
+          <br> Alternatively, it may be used as a default completion token like
+          so:<br>
+<pre class="programlisting">using default_token = as_tuple_t&lt;use_awaitable_t&lt;&gt;&gt;;
+using tcp_socket = default_token::as_default_on_t&lt;tcp::socket&gt;;
+// ...
+awaitable&lt;void&gt; do_read(tcp_socket socket)
+{
+  // ...
+  auto [e, n] = co_await socket.async_read_some(asio::buffer(data));
+  // ...
+}
+</pre>
+          <br>
+        </li>
+<li class="listitem">
+          Added the <code class="computeroutput">experimental::append</code> completion token adapter. The
+          <code class="computeroutput">append</code> completion token adapter can be used to pass additional
+          completion handler arguments at the end of the completion signature. For
+          example:<br>
+<pre class="programlisting">timer.async_wait(
+    asio::experimental::append(
+      [](boost::system::error_code ec, int i)
+      {
+        // ...
+      },
+    42)
+  );
+
+std::future&lt;int&gt; f = timer.async_wait(
+    asio::experimental::append(
+      asio::use_future,
+      42
+    )
+  );
+</pre>
+          <br>
+        </li>
+<li class="listitem">
+          Added the <code class="computeroutput">experimental::prepend</code> completion token adapter.
+          The <code class="computeroutput">prepend</code> completion token adapter can be used to pass additional
+          arguments before the existing completion handler arguments. For example:<br>
+<pre class="programlisting">timer.async_wait(
+    asio::experimental::prepend(
+      [](int i, boost::system::error_code ec)
+      {
+        // ...
+      },
+    42)
+  );
+
+std::future&lt;std::tuple&lt;int, boost::system::error_code&gt;&gt; f = timer.async_wait(
+    asio::experimental::prepend(
+      asio::use_future,
+      42
+    )
+  );
+</pre>
+          <br>
+        </li>
+<li class="listitem">
+          Added the <code class="computeroutput">experimental::deferred</code> completion token. The <code class="computeroutput">deferred</code>
+          completion token takes a call to an asynchronous operation's initiating
+          function and turns it into a function object that accepts a completion
+          token. For example:<br>
+<pre class="programlisting">auto deferred_op =
+  timer.async_wait(
+    asio::experimental::deferred);
+...
+std::move(deferred_op)(
+    [](boost::system::error_code ec){ ... });
+</pre>
+          <br> or:<br>
+<pre class="programlisting">auto deferred_op =
+  timer.async_wait(
+    asio::experimental::deferred);
+...
+std::future&lt;void&gt; =
+  std::move(deferred_op)(
+    asio::use_future);
+</pre>
+          <br> The deferred token also supports chaining, to create simple compositions:<br>
+<pre class="programlisting">auto deferred_op =
+  timer.async_wait(
+    asio::experimental::deferred(
+      [&amp;](boost::system::error_code ec)
+      {
+        timer.expires_after(
+            std::chrono::seconds(1));
+
+        return timer.async_wait(
+            asio::experimental::deferred);
+      });
+...
+std::future&lt;void&gt; = std::move(deferred_op)(asio::use_future);
+</pre>
+          <br>
+        </li>
+<li class="listitem">
+          Added the <code class="computeroutput">experimental::parallel_group</code> class and <code class="computeroutput">experimental::make_parallel_group</code>
+          function. This utility may be used to launch work that is performed in
+          parallel, and wait for one or all of the operations to complete. A <code class="computeroutput">parallel_group</code>
+          implements automatic cancellation of incomplete operations. For example:<br>
+<pre class="programlisting">experimental::make_parallel_group(
+    [&amp;](auto token)
+    {
+      return stream.async_read_some(asio::buffer(data), token);
+    },
+    [&amp;](auto token)
+    {
+      return timer.async_wait(token);
+    }
+  ).async_wait(
+    experimental::wait_for_one(),
+    [](
+        std::array&lt;std::size_t, 2&gt; completion_order,
+        boost::system::error_code ec1, std::size_t n1,
+        boost::system::error_code ec2
+    )
+    {
+      // ...
+    }
+  );
+</pre>
+          <br> The conditions for completion of the group may be specified using
+          one of the four provided function objects <code class="computeroutput">wait_for_all</code>, <code class="computeroutput">wait_for_one</code>,
+          <code class="computeroutput">wait_for_one_success</code>, and <code class="computeroutput">wait_for_one_error</code>,
+          or with a custom function. The <code class="computeroutput">parallel_group</code> class can also
+          be combined with <code class="computeroutput">deferred</code> as follows:<br>
+<pre class="programlisting">experimental::make_parallel_group(
+    stream.async_read_some(asio::buffer(data), experimental::deferred),
+    timer.async_wait(experimental::deferred)
+  ).async_wait(
+    // ...
+  );
+</pre>
+          <br> Note: for maximum flexibility, <code class="computeroutput">parallel_group</code> does
+          not propagate the executor automatically to the operations within the group.
+        </li>
+<li class="listitem">
+          Added <code class="computeroutput">experimental::promise</code>. The <code class="computeroutput">promise</code> type
+          allows eager execution and synchronisation of async operations. For example:<br>
+<pre class="programlisting">auto promise = async_read(
+    stream, asio::buffer(my_buffer),
+    asio::experimental::use_promise);
+
+... do other stuff while the read is going on ...
+
+promise.async_wait( // completion the operation
+    [](error_code ec, std::size_t bytes_read)
+    {
+      ...
+    });
+</pre>
+          <br> Promises can be safely disregarded if the result is no longer required.
+          Different operations can be combined to either wait for all to complete
+          or for one to complete (and cancel the rest). For example, to wait for
+          one to complete:<br>
+<pre class="programlisting">auto timeout_promise =
+  timer.async_wait(
+    asio::experimental::use_promise);
+
+auto read_promise = async_read(
+    stream, asio::buffer(my_buffer),
+    asio::experimental::use_promise);
+
+auto promise =
+  asio::experimental::promise&lt;&gt;::race(
+    timeout_promise, read_promise);
+
+promise.async_wait(
+    [](std::variant&lt;error_code, std::tuple&lt;error_code, std::size_t&gt;&gt; v)
+    {
+      if (v.index() == 0) {} //timed out
+      else if (v.index() == 1) // completed in time
+    });
+</pre>
+          <br> or to wait for all to complete:<br>
+<pre class="programlisting">auto write_promise = async_write(
+    stream, asio::buffer(my_write_buffer),
+    asio::experimental::use_promise);
+
+auto read_promise = async_read(
+    stream, asio::buffer(my_buffer),
+    asio::experimental::use_promise);
+
+auto promise =
+  asio::experimental::promise&lt;&gt;::all(
+    write_promise, read_promise);
+
+promise.async_wait(
+    [](std::tuple&lt;error_code, std::size_t&gt; write_result,
+      std::tuple&lt;error_code, std::size_t&gt; read_result)
+    {
+    });
+</pre>
+          <br> Thanks go to Klemens Morgenstern for contributing this feature.
+        </li>
+<li class="listitem">
+          Added the <code class="computeroutput">experimental::coro</code> class template. The <code class="computeroutput">coro</code>
+          type is a C++20 coroutine primitive for resumable functions, with the ability
+          to combine both asynchronous waiting (<code class="computeroutput">co_await</code>) and yielding
+          (<code class="computeroutput">co_yield</code>) into a single, stateful control flow. For example:<br>
+<pre class="programlisting">#include &lt;boost/asio.hpp&gt;
+#include &lt;boost/asio/experimental/coro.hpp&gt;
+
+using asio::ip::tcp;
+
+asio::experimental::coro&lt;std::string&gt; reader(tcp::socket&amp; sock)
+{
+  std::string buf;
+  while (sock.is_open())
+  {
+    std::size_t n = co_await asio::async_read_until(
+        sock, asio::dynamic_buffer(buf), '\n',
+        asio::experimental::use_coro);
+    co_yield buf.substr(0, n);
+    buf.erase(0, n);
+  }
+}
+
+asio::awaitable&lt;void&gt; consumer(tcp::socket sock)
+{
+  auto r = reader(sock);
+  auto msg1 = co_await r.async_resume(asio::use_awaitable);
+  std::cout &lt;&lt; "Message 1: " &lt;&lt; msg1.value_or("\n");
+  auto msg2 = co_await r.async_resume(asio::use_awaitable);
+  std::cout &lt;&lt; "Message 2: " &lt;&lt; msg2.value_or("\n");
+}
+
+asio::awaitable&lt;void&gt; listen(tcp::acceptor&amp; acceptor)
+{
+  for (;;)
+  {
+    co_spawn(
+        acceptor.get_executor(),
+        consumer(co_await acceptor.async_accept(asio::use_awaitable)),
+        asio::detached);
+  }
+}
+
+int main()
+{
+  asio::io_context ctx;
+  tcp::acceptor acceptor(ctx, {tcp::v4(), 54321});
+  co_spawn(ctx, listen(acceptor), asio::detached);
+  ctx.run();
+}
+</pre>
+          <br> Thanks go to Klemens Morgenstern for contributing this feature.
+        </li>
+<li class="listitem">
+          Added move assignment to <code class="computeroutput">ssl::stream&lt;&gt;</code>.
+        </li>
+<li class="listitem">
+          Changed <code class="computeroutput">co_spawn</code> to <code class="computeroutput">dispatch</code> the coroutine's
+          initial step to the executor, and to only <code class="computeroutput">post</code> the completion
+          handler if the coroutine did not otherwise perform a context switch (i.e.
+          a <code class="computeroutput">co_await</code> on an asynchronous operation).
+        </li>
+<li class="listitem">
+          Enabled additional optimisations for <code class="computeroutput">any_executor</code> and <code class="computeroutput">any_io_executor</code>
+          when used with asynchronous operations.
+        </li>
+<li class="listitem">
+          Added the <code class="computeroutput">nodiscard</code> attribute to <code class="computeroutput">awaitable&lt;&gt;</code>.
+        </li>
+<li class="listitem">
+          Increased the number of cached slots in the default recycling allocator.
+          This number defaults to 2, but may also be specified by defining the <code class="computeroutput">BOOST_ASIO_RECYCLING_ALLOCATOR_CACHE_SIZE</code>
+          macro.
+        </li>
+<li class="listitem">
+          Disabled the <code class="computeroutput">std::system_error</code> message workaround for recent
+          MSVC.
+        </li>
+<li class="listitem">
+          Changed the default allocator behaviour to respect alignment requirements,
+          to support over-aligned types. Requires C++17 or later, or Boost.
+        </li>
+<li class="listitem">
+          Ensured the result strings are always initialised in reverse name resolution.
+        </li>
+<li class="listitem">
+          Fixed recursive template instantiation issues in <code class="computeroutput">use_awaitable_t::executor_with_default</code>.
+        </li>
+<li class="listitem">
+          Fixed the <code class="computeroutput">any_io_executor</code> equality operators to correctly
+          return a result based on the target executor.
+        </li>
+<li class="listitem">
+          Fixed <code class="computeroutput">strand&lt;&gt;</code> to avoid using a potentially moved-from
+          executor.
+        </li>
+<li class="listitem">
+          Ensured <code class="literal">gcc</code> tests are not used for <code class="literal">clang</code>
+          when detecting compiler features.
+        </li>
+<li class="listitem">
+          Disabled coroutines support for the <code class="literal">clang</code> shipped with
+          MSVC.
+        </li>
+<li class="listitem">
+          Fixed compatibility with recent LibreSSL when <code class="computeroutput">OPENSSL_NO_SSL_INTERN</code>
+          is defined.
+        </li>
+<li class="listitem">
+          Fixed <code class="computeroutput">posix::basic_stream_descriptor</code> move operations to work
+          with non-defaulted executors.
+        </li>
+</ul></div>
+<h4>
+<a name="boost_asio.history.h1"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_18_2___boost_1_76"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_18_2___boost_1_76">Asio
       1.18.2 / Boost 1.76</a>
     </h4>
@@ -93,7 +569,7 @@
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h1"></a>
+<a name="boost_asio.history.h2"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_18_1___boost_1_75"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_18_1___boost_1_75">Asio
       1.18.1 / Boost 1.75</a>
     </h4>
@@ -212,7 +688,7 @@ awaitable&lt;void&gt; do_read(tcp_socket socket)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h2"></a>
+<a name="boost_asio.history.h3"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_18_0___boost_1_74"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_18_0___boost_1_74">Asio
       1.18.0 / Boost 1.74</a>
     </h4>
@@ -450,7 +926,7 @@ basic_waitable_timer&lt;
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h3"></a>
+<a name="boost_asio.history.h4"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_16_1___boost_1_73"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_16_1___boost_1_73">Asio
       1.16.1 / Boost 1.73</a>
     </h4>
@@ -542,7 +1018,7 @@ basic_waitable_timer&lt;
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h4"></a>
+<a name="boost_asio.history.h5"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_16_0___boost_1_72"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_16_0___boost_1_72">Asio
       1.16.0 / Boost 1.72</a>
     </h4>
@@ -690,7 +1166,7 @@ co_await socket.async_connect(my_endpoint); // Defaults to use_awaitable.
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h5"></a>
+<a name="boost_asio.history.h6"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_14_1___boost_1_71"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_14_1___boost_1_71">Asio
       1.14.1 / Boost 1.71</a>
     </h4>
@@ -743,7 +1219,7 @@ co_await socket.async_connect(my_endpoint); // Defaults to use_awaitable.
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h6"></a>
+<a name="boost_asio.history.h7"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_14_0___boost_1_70"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_14_0___boost_1_70">Asio
       1.14.0 / Boost 1.70</a>
     </h4>
@@ -1025,7 +1501,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h7"></a>
+<a name="boost_asio.history.h8"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_12_2___boost_1_69"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_12_2___boost_1_69">Asio
       1.12.2 / Boost 1.69</a>
     </h4>
@@ -1099,7 +1575,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h8"></a>
+<a name="boost_asio.history.h9"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_12_1___boost_1_67"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_12_1___boost_1_67">Asio
       1.12.1 / Boost 1.67</a>
     </h4>
@@ -1223,7 +1699,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h9"></a>
+<a name="boost_asio.history.h10"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_12_0___boost_1_66"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_12_0___boost_1_66">Asio
       1.12.0 / Boost 1.66</a>
     </h4>
@@ -1269,7 +1745,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h10"></a>
+<a name="boost_asio.history.h11"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_10_10___boost_1_65"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_10_10___boost_1_65">Asio
       1.10.10 / Boost 1.65</a>
     </h4>
@@ -1306,7 +1782,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h11"></a>
+<a name="boost_asio.history.h12"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_10_9___boost_1_64"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_10_9___boost_1_64">Asio
       1.10.9 / Boost 1.64</a>
     </h4>
@@ -1359,7 +1835,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h12"></a>
+<a name="boost_asio.history.h13"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_10_8___boost_1_62"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_10_8___boost_1_62">Asio
       1.10.8 / Boost 1.62</a>
     </h4>
@@ -1394,7 +1870,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h13"></a>
+<a name="boost_asio.history.h14"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_10_7___boost_1_60"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_10_7___boost_1_60">Asio
       1.10.7 / Boost 1.60</a>
     </h4>
@@ -1429,7 +1905,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h14"></a>
+<a name="boost_asio.history.h15"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_10_6___boost_1_58"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_10_6___boost_1_58">Asio
       1.10.6 / Boost 1.58</a>
     </h4>
@@ -1509,7 +1985,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h15"></a>
+<a name="boost_asio.history.h16"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_10_5___boost_1_57"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_10_5___boost_1_57">Asio
       1.10.5 / Boost 1.57</a>
     </h4>
@@ -1552,7 +2028,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h16"></a>
+<a name="boost_asio.history.h17"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_10_4___boost_1_56"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_10_4___boost_1_56">Asio
       1.10.4 / Boost 1.56</a>
     </h4>
@@ -1574,7 +2050,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h17"></a>
+<a name="boost_asio.history.h18"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_10_3"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_10_3">Asio
       1.10.3</a>
     </h4>
@@ -1609,7 +2085,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h18"></a>
+<a name="boost_asio.history.h19"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_10_2"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_10_2">Asio
       1.10.2</a>
     </h4>
@@ -1682,7 +2158,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h19"></a>
+<a name="boost_asio.history.h20"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_10_1___boost_1_55"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_10_1___boost_1_55">Asio
       1.10.1 / Boost 1.55</a>
     </h4>
@@ -1797,7 +2273,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h20"></a>
+<a name="boost_asio.history.h21"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_10_0___boost_1_54"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_10_0___boost_1_54">Asio
       1.10.0 / Boost 1.54</a>
     </h4>
@@ -1947,7 +2423,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h21"></a>
+<a name="boost_asio.history.h22"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_8_3___boost_1_53"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_8_3___boost_1_53">Asio
       1.8.3 / Boost 1.53</a>
     </h4>
@@ -1988,7 +2464,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h22"></a>
+<a name="boost_asio.history.h23"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_8_2___boost_1_51"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_8_2___boost_1_51">Asio
       1.8.2 / Boost 1.51</a>
     </h4>
@@ -2030,7 +2506,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h23"></a>
+<a name="boost_asio.history.h24"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_8_1___boost_1_50"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_8_1___boost_1_50">Asio
       1.8.1 / Boost 1.50</a>
     </h4>
@@ -2065,7 +2541,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h24"></a>
+<a name="boost_asio.history.h25"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_8_0___boost_1_49"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_8_0___boost_1_49">Asio
       1.8.0 / Boost 1.49</a>
     </h4>
@@ -2112,7 +2588,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h25"></a>
+<a name="boost_asio.history.h26"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_6_1___boost_1_48"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_6_1___boost_1_48">Asio
       1.6.1 / Boost 1.48</a>
     </h4>
@@ -2205,7 +2681,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h26"></a>
+<a name="boost_asio.history.h27"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_6_0___boost_1_47"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_6_0___boost_1_47">Asio
       1.6.0 / Boost 1.47</a>
     </h4>
@@ -2436,7 +2912,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h27"></a>
+<a name="boost_asio.history.h28"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_4_9___boost_1_46_1"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_9___boost_1_46_1">Asio
       1.4.9 / Boost 1.46.1</a>
     </h4>
@@ -2467,7 +2943,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h28"></a>
+<a name="boost_asio.history.h29"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_4_8___boost_1_46"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_8___boost_1_46">Asio
       1.4.8 / Boost 1.46</a>
     </h4>
@@ -2483,7 +2959,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h29"></a>
+<a name="boost_asio.history.h30"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_4_7___boost_1_45"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_7___boost_1_45">Asio
       1.4.7 / Boost 1.45</a>
     </h4>
@@ -2562,7 +3038,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h30"></a>
+<a name="boost_asio.history.h31"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_4_6___boost_1_44"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_6___boost_1_44">Asio
       1.4.6 / Boost 1.44</a>
     </h4>
@@ -2630,7 +3106,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h31"></a>
+<a name="boost_asio.history.h32"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_4_5___boost_1_43"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_5___boost_1_43">Asio
       1.4.5 / Boost 1.43</a>
     </h4>
@@ -2697,7 +3173,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h32"></a>
+<a name="boost_asio.history.h33"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_4_4___boost_1_42"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_4___boost_1_42">Asio
       1.4.4 / Boost 1.42</a>
     </h4>
@@ -2758,7 +3234,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h33"></a>
+<a name="boost_asio.history.h34"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_4_3___boost_1_40"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_3___boost_1_40">Asio
       1.4.3 / Boost 1.40</a>
     </h4>
@@ -2813,7 +3289,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h34"></a>
+<a name="boost_asio.history.h35"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_4_2___boost_1_39"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_2___boost_1_39">Asio
       1.4.2 / Boost 1.39</a>
     </h4>
@@ -2866,7 +3342,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h35"></a>
+<a name="boost_asio.history.h36"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_4_1___boost_1_38"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_1___boost_1_38">Asio
       1.4.1 / Boost 1.38</a>
     </h4>
@@ -2898,7 +3374,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h36"></a>
+<a name="boost_asio.history.h37"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_4_0___boost_1_37"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_4_0___boost_1_37">Asio
       1.4.0 / Boost 1.37</a>
     </h4>
@@ -2933,7 +3409,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h37"></a>
+<a name="boost_asio.history.h38"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_2_0___boost_1_36"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_2_0___boost_1_36">Asio
       1.2.0 / Boost 1.36</a>
     </h4>
@@ -2983,7 +3459,7 @@ void echo_line(tcp::socket&amp; sock, DynamicBuffer buf)
         </li>
 </ul></div>
 <h4>
-<a name="boost_asio.history.h38"></a>
+<a name="boost_asio.history.h39"></a>
       <span class="phrase"><a name="boost_asio.history.asio_1_0_0___boost_1_35"></a></span><a class="link" href="history.html#boost_asio.history.asio_1_0_0___boost_1_35">Asio
       1.0.0 / Boost 1.35</a>
     </h4>
