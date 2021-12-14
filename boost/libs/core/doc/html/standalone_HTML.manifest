@@ -1,4 +1,5 @@
 index.html
+core/revision_history.html
 core/addressof.html
 core/allocator_access.html
 core/alloc_construct.html
@@ -26,13 +27,15 @@ core/ref.html
 boost/is_reference_wrapper.html
 boost/reference_wrapper.html
 boost/unwrap_reference.html
-boost/ref_idm45725818966800.html
-boost/cref_idm45725818962496.html
-boost/ref_idm45725818958080.html
-boost/cref_idm45725818955312.html
+boost/ref_idm10088.html
+boost/cref_idm10102.html
+boost/ref_idm10116.html
+boost/cref_idm10125.html
 boost/unwrap_ref.html
 core/scoped_enum.html
+core/span.html
 core/swap.html
 core/typeinfo.html
+core/type_name.html
 core/uncaught_exceptions.html
 core/use_default.html
