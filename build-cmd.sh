@@ -207,8 +207,12 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
                 bootstrapver="vc142"
                 bjamtoolset="msvc-14.2"
                 ;;
+            16*)
+                bootstrapver="vc143"
+                bjamtoolset="msvc-14.3"
+                ;;
             *)
-                echo "Unrecognized AUTOBUILD_VSVER='$AUTOBUILD_VSVER'" 1>&2 ; exit 1
+                echo "Unrecognized AUTOBUILD_VSVER='$AUTOBUILD_WIN_VSVER'" 1>&2 ; exit 1
                 ;;
         esac
 
