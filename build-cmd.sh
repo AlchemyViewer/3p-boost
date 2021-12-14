@@ -588,7 +588,8 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
            -DVERSION_MACRO="$VERSION_MACRO" \
            -o "$stage/version" "$top/version.c"
         # Boost's VERSION_MACRO emits (e.g.) "1_55"
-        "$stage/version" | tr '_' '.' > "$stage/version.txt"
+        localver=`$stage/version | tr '_' '.' | tr -d '\15\32'`
+        echo "${localver}.0" > "$stage/version.txt"
         rm "$stage/version"
         ;;
 esac
