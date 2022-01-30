@@ -57,7 +57,7 @@ source_environment_tempfile="$stage/source_environment.sh"
 
 # Explicitly request each of the libraries named in BOOST_LIBS.
 # Use magic bash syntax to prefix each entry in BOOST_LIBS with "--with-".
-BOOST_BJAM_OPTIONS="address-model=$AUTOBUILD_ADDRSIZE architecture=x86 --layout=tagged -sNO_BZIP2=1 -sNO_LZMA=1 -sNO_ZSTD=1 \
+BOOST_BJAM_OPTIONS="--layout=tagged -sNO_BZIP2=1 -sNO_LZMA=1 -sNO_ZSTD=1 \
                     ${BOOST_LIBS[*]/#/--with-}"
 
 # Turn these into a bash array: it's important that all of cxxflags (which
@@ -237,7 +237,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # https://www.boost.org/doc/libs/release/doc/html/stacktrace/configuration_and_build.html
         # This helps avoid macro collisions in consuming source files:
         # https://github.com/boostorg/stacktrace/issues/76#issuecomment-489347839
-        WINDOWS_BJAM_OPTIONS=(link=static runtime-link=shared \
+        WINDOWS_BJAM_OPTIONS=(address-model=$AUTOBUILD_ADDRSIZE architecture=x86 link=static runtime-link=shared \
         cxxstd=17 \
         debug-symbols=on \
         --toolset=$bjamtoolset \
@@ -357,7 +357,10 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # Setup osx sdk platform
         SDKNAME="macosx"
         export SDKROOT=$(xcodebuild -version -sdk ${SDKNAME} Path)
-        export MACOSX_DEPLOYMENT_TARGET=10.15
+
+        # Deploy Targets
+        X86_DEPLOY=10.15
+        ARM64_DEPLOY=11.0
 
         # Force zlib static linkage by moving .dylibs out of the way
         trap restore_dylibs EXIT
@@ -371,14 +374,19 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         ZLIB_DEBUG_PATH="${stage}/packages/lib/debug"
         ZLIB_RELEASE_PATH="${stage}/packages/lib/release"
 
-        cp "$top/user-config.jam" project-config.jam
-        sed -e "s#ZLIB_LIB_PATH#${ZLIB_DEBUG_PATH}#g" -i back project-config.jam
-        sed -e "s#ZLIB_LIB_NAME#z#g" -i back project-config.jam
-        sed -e "s#ZLIB_INCLUDE_PATH#${INCLUDE_PATH}/zlib#g" -i back project-config.jam
+        cp "$top/user-config.jam" debug-user-config.jam
+        sed -e "s#ZLIB_LIB_PATH#${ZLIB_DEBUG_PATH}#g" -i back debug-user-config.jam
+        sed -e "s#ZLIB_LIB_NAME#z#g" -i back debug-user-config.jam
+        sed -e "s#ZLIB_INCLUDE_PATH#${INCLUDE_PATH}/zlib#g" -i back debug-user-config.jam
+
+        cp "$top/user-config.jam" release-user-config.jam
+        sed -e "s#ZLIB_LIB_PATH#${ZLIB_RELEASE_PATH}#g" -i back release-user-config.jam
+        sed -e "s#ZLIB_LIB_NAME#z#g" -i back release-user-config.jam
+        sed -e "s#ZLIB_INCLUDE_PATH#${INCLUDE_PATH}/zlib#g" -i back release-user-config.jam
 
         sep "Bootstrap"
         stage_lib="${stage}"/lib
-        ./bootstrap.sh --prefix=$(pwd)
+        ./bootstrap.sh --prefix=$(pwd) --with-toolset=clang cxxflags="-arch x86_64 -arch arm64" cflags="-arch x86_64 -arch arm64" linkflags="-arch x86_64 -arch arm64"
 
         # Boost.Context and Boost.Coroutine2 now require C++14 support.
         # Without the -Wno-etc switches, clang spams the build output with
@@ -392,24 +400,36 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
             debug-symbols=on \
             cxxflags=-std=c++17 \
             cxxflags=-stdlib=libc++ \
-            "cxxflags=-isysroot ${SDKROOT}" \
-            cxxflags=-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET} \
-            cxxflags=-msse4.2
+            cxxflags="-isysroot ${SDKROOT}" \
             cxxflags=-fPIC
-           "cflags=-isysroot ${SDKROOT}" \
-            cflags=-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET} \
-            cflags=-msse4.2
+            cflags="-isysroot ${SDKROOT}" \
             cflags=-fPIC
+            linkflags="-isysroot ${SDKROOT}" \
             "include=${stage}/packages/include" \
             "include=${stage}/packages/include/zlib/" \
             "-sZLIB_INCLUDE=${stage}/packages/include/zlib/" \
-            --disable-icu \
-            --user-config="$PWD/project-config.jam")
+            --disable-icu)
 
-        DEBUG_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" variant=debug optimization=off)
+        DEBUG_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" --user-config="$PWD/debug-user-config.jam" variant=debug optimization=off)
+        RELEASE_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" --user-config="$PWD/release-user-config.jam" variant=release optimization=speed)
 
-        sep "Debug Build"
-        "${bjam}" toolset=clang "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
+        ARM64_OPTIONS=(toolset=clang-darwin target-os=darwin abi=aapcs address-model=64 architecture=arm \
+            cxxflags="-arch arm64" cflags="-arch arm64" linkflags="-arch arm64" \
+            cxxflags=-mmacosx-version-min=${ARM64_DEPLOY} \
+            cflags=-mmacosx-version-min=${ARM64_DEPLOY})
+
+        X86_OPTIONS=(toolset=clang-darwin target-os=darwin abi=sysv binary-format=mach-o address-model=64 architecture=x86 \
+            "cxxflags=-arch x86_64" "cflags=-arch x86_64" linkflags="-arch x86_64" \
+            cflags=-msse4.2 cxxflags=-msse4.2 \
+            cxxflags=-mmacosx-version-min=${X86_DEPLOY} \
+            cflags=-mmacosx-version-min=${X86_DEPLOY})        
+
+        # setup for x86
+        export MACOSX_DEPLOYMENT_TARGET=${X86_DEPLOY}
+
+        sep "X86 Debug Build"
+        rm -rf bin.v2
+        "${bjam}" "${X86_OPTIONS[@]}" "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --stagedir="$stage/debug_x86" stage
 
         # conditionally run unit tests
         # date_time Posix test failures: https://svn.boost.org/trac/boost/ticket/10570
@@ -424,7 +444,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # seem ready for prime time on Mac.
         # Bump the timeout for Boost.Thread tests because our TeamCity Mac
         # build hosts are getting a bit long in the tooth.
-        sep "Debug Tests"
+        sep "X86 Debug Tests"
         find_test_dirs "${BOOST_LIBS[@]}" | \
         grep -v \
              -e 'date_time/' \
@@ -435,20 +455,14 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
              -e 'stacktrace/' \
              -e 'thread/' \
             | \
-        run_tests toolset=clang -a -q \
+        run_tests "${X86_OPTIONS[@]}" -a -q \
                   "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
                   cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
                   cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
 
-        mv "${stage_lib}"/*.a "${stage_debug}"
-
-        sep "Debug Clean"
-        "${bjam}" --clean
-
-        RELEASE_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" variant=release optimization=speed)
-
-        sep "Release Build"
-        "${bjam}" toolset=clang "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
+        sep "X86 Release Build"
+        rm -rf bin.v2
+        "${bjam}" "${X86_OPTIONS[@]}" "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --stagedir="$stage/release_x86" stage
 
         # conditionally run unit tests
         # date_time Posix test failures: https://svn.boost.org/trac/boost/ticket/10570
@@ -463,7 +477,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # seem ready for prime time on Mac.
         # Bump the timeout for Boost.Thread tests because our TeamCity Mac
         # build hosts are getting a bit long in the tooth.
-        sep "Release Tests"
+        sep "X86 Release Tests"
         find_test_dirs "${BOOST_LIBS[@]}" | \
         grep -v \
              -e 'date_time/' \
@@ -474,19 +488,117 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
              -e 'stacktrace/' \
              -e 'thread/' \
             | \
-        run_tests toolset=clang -a -q \
+        run_tests "${X86_OPTIONS[@]}" -a -q \
                   "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
                   cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
                   cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
 
-        mv "${stage_lib}"/*.a "${stage_release}"
+        # setup for ARM64
+        export MACOSX_DEPLOYMENT_TARGET=${ARM64_DEPLOY}
 
-        sep "Release Clean"
-        "${bjam}" --clean
+        sep "ARM64 Debug Build"
+        rm -rf bin.v2
+        "${bjam}" "${ARM64_OPTIONS[@]}" "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --stagedir="$stage/debug_arm64" stage
+
+        # conditionally run unit tests
+        # date_time Posix test failures: https://svn.boost.org/trac/boost/ticket/10570
+        # With Boost 1.64, skip filesystem/tests/issues -- we get:
+        # error: Unable to find file or target named
+        # error:     '6638-convert_aux-fails-init-global.cpp'
+        # error: referred to from project at
+        # error:     'libs/filesystem/test/issues'
+        # regex/tests/de_fuzz depends on an external Fuzzer library:
+        # ld: library not found for -lFuzzer
+        # Sadly, as of Boost 1.65.1, the Stacktrace self-tests just do not
+        # seem ready for prime time on Mac.
+        # Bump the timeout for Boost.Thread tests because our TeamCity Mac
+        # build hosts are getting a bit long in the tooth.
+        sep "ARM64 Debug Tests"
+        find_test_dirs "${BOOST_LIBS[@]}" | \
+        grep -v \
+             -e 'date_time/' \
+             -e 'filesystem/' \
+             -e 'iostreams/' \
+             -e 'program_options/' \
+             -e 'regex/' \
+             -e 'stacktrace/' \
+             -e 'thread/' \
+            | \
+        run_tests "${ARM64_OPTIONS[@]}" -a -q \
+                  "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
+                  cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
+                  cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
+
+        sep "ARM64 Release Build"
+        rm -rf bin.v2
+        "${bjam}" "${ARM64_OPTIONS[@]}" "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --stagedir="$stage/release_arm64" stage
+
+        # conditionally run unit tests
+        # date_time Posix test failures: https://svn.boost.org/trac/boost/ticket/10570
+        # With Boost 1.64, skip filesystem/tests/issues -- we get:
+        # error: Unable to find file or target named
+        # error:     '6638-convert_aux-fails-init-global.cpp'
+        # error: referred to from project at
+        # error:     'libs/filesystem/test/issues'
+        # regex/tests/de_fuzz depends on an external Fuzzer library:
+        # ld: library not found for -lFuzzer
+        # Sadly, as of Boost 1.65.1, the Stacktrace self-tests just do not
+        # seem ready for prime time on Mac.
+        # Bump the timeout for Boost.Thread tests because our TeamCity Mac
+        # build hosts are getting a bit long in the tooth.
+        sep "ARM64 Release Tests"
+        find_test_dirs "${BOOST_LIBS[@]}" | \
+        grep -v \
+             -e 'date_time/' \
+             -e 'filesystem/' \
+             -e 'iostreams/' \
+             -e 'program_options/' \
+             -e 'regex/' \
+             -e 'stacktrace/' \
+             -e 'thread/' \
+            | \
+        run_tests "${ARM64_OPTIONS[@]}" -a -q \
+                  "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
+                  cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
+                  cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
+
+        # create debug fat libs
+        lipo -create ${stage}/debug_x86/lib/libboost_atomic-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_atomic-mt-d-a64.a -output ${stage}/lib/debug/libboost_atomic-mt-d.a
+        lipo -create ${stage}/debug_x86/lib/libboost_chrono-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_chrono-mt-d-a64.a -output ${stage}/lib/debug/libboost_chrono-mt-d.a
+        lipo -create ${stage}/debug_x86/lib/libboost_context-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_context-mt-d-a64.a -output ${stage}/lib/debug/libboost_context-mt-d.a
+        lipo -create ${stage}/debug_x86/lib/libboost_date_time-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_date_time-mt-d-a64.a -output ${stage}/lib/debug/libboost_date_time-mt-d.a
+        lipo -create ${stage}/debug_x86/lib/libboost_fiber-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_fiber-mt-d-a64.a -output ${stage}/lib/debug/libboost_fiber-mt-d.a
+        lipo -create ${stage}/debug_x86/lib/libboost_filesystem-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_filesystem-mt-d-a64.a -output ${stage}/lib/debug/libboost_filesystem-mt-d.a
+        lipo -create ${stage}/debug_x86/lib/libboost_iostreams-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_iostreams-mt-d-a64.a -output ${stage}/lib/debug/libboost_iostreams-mt-d.a
+        lipo -create ${stage}/debug_x86/lib/libboost_nowide-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_nowide-mt-d-a64.a -output ${stage}/lib/debug/libboost_nowide-mt-d.a
+        lipo -create ${stage}/debug_x86/lib/libboost_program_options-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_program_options-mt-d-a64.a -output ${stage}/lib/debug/libboost_program_options-mt-d.a
+        lipo -create ${stage}/debug_x86/lib/libboost_regex-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_regex-mt-d-a64.a -output ${stage}/lib/debug/libboost_regex-mt-d.a
+        lipo -create ${stage}/debug_x86/lib/libboost_stacktrace_basic-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_stacktrace_basic-mt-d-a64.a -output ${stage}/lib/debug/libboost_stacktrace_basic-mt-d.a
+        lipo -create ${stage}/debug_x86/lib/libboost_stacktrace_noop-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_stacktrace_noop-mt-d-a64.a -output ${stage}/lib/debug/libboost_stacktrace_noop-mt-d.a
+        lipo -create ${stage}/debug_x86/lib/libboost_system-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_system-mt-d-a64.a -output ${stage}/lib/debug/libboost_system-mt-d.a
+        lipo -create ${stage}/debug_x86/lib/libboost_thread-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_thread-mt-d-a64.a -output ${stage}/lib/debug/libboost_thread-mt-d.a
+        lipo -create ${stage}/debug_x86/lib/libboost_wave-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_wave-mt-d-a64.a -output ${stage}/lib/debug/libboost_wave-mt-d.a
+
+        # create release fat libs
+        lipo -create ${stage}/release_x86/lib/libboost_atomic-mt-x64.a ${stage}/release_arm64/lib/libboost_atomic-mt-a64.a -output ${stage}/lib/release/libboost_atomic-mt.a
+        lipo -create ${stage}/release_x86/lib/libboost_chrono-mt-x64.a ${stage}/release_arm64/lib/libboost_chrono-mt-a64.a -output ${stage}/lib/release/libboost_chrono-mt.a
+        lipo -create ${stage}/release_x86/lib/libboost_context-mt-x64.a ${stage}/release_arm64/lib/libboost_context-mt-a64.a -output ${stage}/lib/release/libboost_context-mt.a
+        lipo -create ${stage}/release_x86/lib/libboost_date_time-mt-x64.a ${stage}/release_arm64/lib/libboost_date_time-mt-a64.a -output ${stage}/lib/release/libboost_date_time-mt.a
+        lipo -create ${stage}/release_x86/lib/libboost_fiber-mt-x64.a ${stage}/release_arm64/lib/libboost_fiber-mt-a64.a -output ${stage}/lib/release/libboost_fiber-mt.a
+        lipo -create ${stage}/release_x86/lib/libboost_filesystem-mt-x64.a ${stage}/release_arm64/lib/libboost_filesystem-mt-a64.a -output ${stage}/lib/release/libboost_filesystem-mt.a
+        lipo -create ${stage}/release_x86/lib/libboost_iostreams-mt-x64.a ${stage}/release_arm64/lib/libboost_iostreams-mt-a64.a -output ${stage}/lib/release/libboost_iostreams-mt.a
+        lipo -create ${stage}/release_x86/lib/libboost_nowide-mt-x64.a ${stage}/release_arm64/lib/libboost_nowide-mt-a64.a -output ${stage}/lib/release/libboost_nowide-mt.a
+        lipo -create ${stage}/release_x86/lib/libboost_program_options-mt-x64.a ${stage}/release_arm64/lib/libboost_program_options-mt-a64.a -output ${stage}/lib/release/libboost_program_options-mt.a
+        lipo -create ${stage}/release_x86/lib/libboost_regex-mt-x64.a ${stage}/release_arm64/lib/libboost_regex-mt-a64.a -output ${stage}/lib/release/libboost_regex-mt.a
+        lipo -create ${stage}/release_x86/lib/libboost_stacktrace_basic-mt-x64.a ${stage}/release_arm64/lib/libboost_stacktrace_basic-mt-a64.a -output ${stage}/lib/release/libboost_stacktrace_basic-mt.a
+        lipo -create ${stage}/release_x86/lib/libboost_stacktrace_noop-mt-x64.a ${stage}/release_arm64/lib/libboost_stacktrace_noop-mt-a64.a -output ${stage}/lib/release/libboost_stacktrace_noop-mt.a
+        lipo -create ${stage}/release_x86/lib/libboost_system-mt-x64.a ${stage}/release_arm64/lib/libboost_system-mt-a64.a -output ${stage}/lib/release/libboost_system-mt.a
+        lipo -create ${stage}/release_x86/lib/libboost_thread-mt-x64.a ${stage}/release_arm64/lib/libboost_thread-mt-a64.a -output ${stage}/lib/release/libboost_thread-mt.a
+        lipo -create ${stage}/release_x86/lib/libboost_wave-mt-x64.a ${stage}/release_arm64/lib/libboost_wave-mt-a64.a -output ${stage}/lib/release/libboost_wave-mt.a
 
         # populate version_file
         sep "Version"
-        cc -DVERSION_HEADER_FILE="\"$VERSION_HEADER_FILE\"" \
+        cc -arch x86_64 -arch arm64 -O2 -DVERSION_HEADER_FILE="\"$VERSION_HEADER_FILE\"" \
            -DVERSION_MACRO="$VERSION_MACRO" \
            -o "$stage/version" "$top/version.c"
         # Boost's VERSION_MACRO emits (e.g.) "1_55"
@@ -507,7 +619,8 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         sep "bootstrap"
         ./bootstrap.sh --prefix=$(pwd) --without-icu
 
-        DEBUG_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc link=static debug-symbols=on cxxstd=17 \
+        DEBUG_BOOST_BJAM_OPTIONS=(address-model=$AUTOBUILD_ADDRSIZE architecture=x86 \
+            --disable-icu toolset=gcc link=static debug-symbols=on cxxstd=17 \
             "include=${stage}/packages/include" \
             "include=${stage}/packages/include/zlib/" \
             "-sZLIB_LIBPATH=$stage/packages/lib/debug" \
@@ -545,7 +658,8 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         sep "Debug Clean"
         "${bjam}" --clean
 
-        RELEASE_BOOST_BJAM_OPTIONS=(--disable-icu toolset=gcc link=static debug-symbols=on cxxstd=17 "include=$stage/packages/include/zlib/" \
+        RELEASE_BOOST_BJAM_OPTIONS=(address-model=$AUTOBUILD_ADDRSIZE architecture=x86 \
+            --disable-icu toolset=gcc link=static debug-symbols=on cxxstd=17 "include=$stage/packages/include/zlib/" \
             "-sZLIB_LIBPATH=$stage/packages/lib/release" \
             "-sZLIB_INCLUDE=${stage}\/packages/include/zlib/" \
             "${BOOST_BJAM_OPTIONS[@]}" \
