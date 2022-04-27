@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../intrusive.html" title="Chapter 19. Boost.Intrusive">
+<link rel="up" href="../intrusive.html" title="Chapter 17. Boost.Intrusive">
 <link rel="prev" href="intrusive_vs_nontrusive.html" title="Intrusive and non-intrusive containers">
 <link rel="next" href="usage_when.html" title="When to use?">
 </head>
@@ -188,7 +188,7 @@
 <span class="keyword">struct</span> <span class="identifier">my_tag1</span><span class="special">;</span>
 <span class="keyword">struct</span> <span class="identifier">my_tag2</span><span class="special">;</span>
 
-<span class="keyword">typedef</span> <span class="identifier">list_base_hook</span><span class="special">&lt;</span> <span class="identifier">tag</span><span class="special">&lt;</span><span class="identifier">my_tag</span><span class="special">&gt;</span>  <span class="special">&gt;</span> <span class="identifier">BaseHook</span><span class="special">;</span>
+<span class="keyword">typedef</span> <span class="identifier">list_base_hook</span><span class="special">&lt;</span> <span class="identifier">tag</span><span class="special">&lt;</span><span class="identifier">my_tag1</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">BaseHook</span><span class="special">;</span>
 <span class="keyword">typedef</span> <span class="identifier">list_base_hook</span><span class="special">&lt;</span> <span class="identifier">tag</span><span class="special">&lt;</span><span class="identifier">my_tag2</span><span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">BaseHook2</span><span class="special">;</span>
 <span class="keyword">class</span> <span class="identifier">Foo</span>   <span class="special">:</span>  <span class="keyword">public</span> <span class="identifier">BaseHook</span><span class="special">,</span> <span class="keyword">public</span> <span class="identifier">BaseHook2</span>
 <span class="special">{</span> <span class="comment">/**/</span> <span class="special">};</span>

@@ -3,8 +3,24 @@ title = "Changelog"
 weight = 80
 +++
 
+## v2.2.3 1st April 2022 (Boost 1.79) [[release]](https://github.com/ned14/outcome/releases/tag/v2.2.3)
+
+### Enhancements:
+
+Standalone Outcome permanently locks ABI to v2.2.3 release
+: From this release onwards, you are guaranteed that any code compiled with v2.2.3 Outcome
+or newer will link without issue with any code compiled with a different version of Outcome
+after v2.2.3. As a result, `BOOST_OUTCOME_UNSTABLE_VERSION` is no longer defined by default, and
+therefore `BOOST_OUTCOME_V2_NAMESPACE` is now hard coded to `outcome_v2` rather than a namespace
+which permutes per commit.
+
+### Bug fixes:
+
+[#255](https://github.com/ned14/outcome/issues/259)
+: Fix enabling of move assignable was not calculated correctly.
+
 ---
-## v2.2.2 ??? (Boost 1.78) [[release]](https://github.com/ned14/outcome/releases/tag/v2.2.2)
+## v2.2.2 8th December 2021 (Boost 1.78) [[release]](https://github.com/ned14/outcome/releases/tag/v2.2.2)
 
 ### Enhancements:
 
@@ -17,6 +33,7 @@ GCC Coroutines support
 
 ### Bug fixes:
 
+- None.
 
 ---
 ## v2.2.1 13th August 2021 (Boost 1.77) [[release]](https://github.com/ned14/outcome/releases/tag/v2.2.1)

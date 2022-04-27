@@ -27,15 +27,17 @@
 <a name="boost_asio.reference.experimental__as_tuple"></a><a class="link" href="experimental__as_tuple.html" title="experimental::as_tuple">experimental::as_tuple</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="boost_asio.indexterm.experimental__as_tuple"></a> 
-Create a
-        completion token to specify that the completion handler arguments should
-        be combined into a single tuple argument.
+        <a class="indexterm" name="boost_asio.indexterm.experimental__as_tuple"></a>
       </p>
-<pre class="programlisting">template&lt;
-    typename CompletionToken&gt;
-constexpr as_tuple_t&lt; typename decay&lt; CompletionToken &gt;::type &gt; as_tuple(
-    CompletionToken &amp;&amp; completion_token);
+<p>
+        Adapt a <a class="link" href="../overview/model/completion_tokens.html" title="Completion Tokens">completion
+        token</a> to specify that the completion handler arguments should be combined
+        into a single tuple argument.
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">CompletionToken</span><span class="special">&gt;</span>
+<span class="keyword">constexpr</span> <span class="identifier">as_tuple_t</span><span class="special">&lt;</span> <span class="keyword">typename</span> <span class="identifier">decay</span><span class="special">&lt;</span> <span class="identifier">CompletionToken</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="special">&gt;</span> <span class="identifier">as_tuple</span><span class="special">(</span>
+    <span class="identifier">CompletionToken</span> <span class="special">&amp;&amp;</span> <span class="identifier">completion_token</span><span class="special">);</span>
 </pre>
 <h5>
 <a name="boost_asio.reference.experimental__as_tuple.h0"></a>
@@ -50,8 +52,7 @@ constexpr as_tuple_t&lt; typename decay&lt; CompletionToken &gt;::type &gt; as_t
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

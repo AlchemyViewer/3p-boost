@@ -29,50 +29,48 @@
 <p>
           <a class="indexterm" name="boost_asio.indexterm.basic_readable_pipe.basic_readable_pipe"></a> 
 Construct
-          a <a class="link" href="../basic_readable_pipe.html" title="basic_readable_pipe"><code class="computeroutput">basic_readable_pipe</code></a>
-          without opening it.
+          a <a class="link" href="../basic_readable_pipe.html" title="basic_readable_pipe"><code class="computeroutput"><span class="identifier">basic_readable_pipe</span></code></a> without opening
+          it.
         </p>
-<pre class="programlisting">explicit <a class="link" href="basic_readable_pipe/overload1.html" title="basic_readable_pipe::basic_readable_pipe (1 of 5 overloads)">basic_readable_pipe</a>(
-    const executor_type &amp; ex);
+<pre class="programlisting"><span class="keyword">explicit</span> <a class="link" href="basic_readable_pipe/overload1.html" title="basic_readable_pipe::basic_readable_pipe (1 of 5 overloads)">basic_readable_pipe</a><span class="special">(</span>
+    <span class="keyword">const</span> <span class="identifier">executor_type</span> <span class="special">&amp;</span> <span class="identifier">ex</span><span class="special">);</span>
   <span class="emphasis"><em>» <a class="link" href="basic_readable_pipe/overload1.html" title="basic_readable_pipe::basic_readable_pipe (1 of 5 overloads)">more...</a></em></span>
 
-template&lt;
-    typename ExecutionContext&gt;
-explicit <a class="link" href="basic_readable_pipe/overload2.html" title="basic_readable_pipe::basic_readable_pipe (2 of 5 overloads)">basic_readable_pipe</a>(
-    ExecutionContext &amp; context,
-    typename constraint&lt; is_convertible&lt; ExecutionContext &amp;, execution_context &amp; &gt;::value, defaulted_constraint &gt;::type  = defaulted_constraint());
+<span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">ExecutionContext</span><span class="special">&gt;</span>
+<span class="keyword">explicit</span> <a class="link" href="basic_readable_pipe/overload2.html" title="basic_readable_pipe::basic_readable_pipe (2 of 5 overloads)">basic_readable_pipe</a><span class="special">(</span>
+    <span class="identifier">ExecutionContext</span> <span class="special">&amp;</span> <span class="identifier">context</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">constraint</span><span class="special">&lt;</span> <span class="identifier">is_convertible</span><span class="special">&lt;</span> <span class="identifier">ExecutionContext</span> <span class="special">&amp;,</span> <span class="identifier">execution_context</span> <span class="special">&amp;</span> <span class="special">&gt;::</span><span class="identifier">value</span><span class="special">,</span> <span class="identifier">defaulted_constraint</span> <span class="special">&gt;::</span><span class="identifier">type</span>  <span class="special">=</span> <span class="identifier">defaulted_constraint</span><span class="special">());</span>
   <span class="emphasis"><em>» <a class="link" href="basic_readable_pipe/overload2.html" title="basic_readable_pipe::basic_readable_pipe (2 of 5 overloads)">more...</a></em></span>
 </pre>
 <p>
-          Construct a <a class="link" href="../basic_readable_pipe.html" title="basic_readable_pipe"><code class="computeroutput">basic_readable_pipe</code></a>
-          on an existing native pipe.
+          Construct a <a class="link" href="../basic_readable_pipe.html" title="basic_readable_pipe"><code class="computeroutput"><span class="identifier">basic_readable_pipe</span></code></a> on an existing
+          native pipe.
         </p>
-<pre class="programlisting"><a class="link" href="basic_readable_pipe/overload3.html" title="basic_readable_pipe::basic_readable_pipe (3 of 5 overloads)">basic_readable_pipe</a>(
-    const executor_type &amp; ex,
-    const native_handle_type &amp; native_pipe);
+<pre class="programlisting"><a class="link" href="basic_readable_pipe/overload3.html" title="basic_readable_pipe::basic_readable_pipe (3 of 5 overloads)">basic_readable_pipe</a><span class="special">(</span>
+    <span class="keyword">const</span> <span class="identifier">executor_type</span> <span class="special">&amp;</span> <span class="identifier">ex</span><span class="special">,</span>
+    <span class="keyword">const</span> <span class="identifier">native_handle_type</span> <span class="special">&amp;</span> <span class="identifier">native_pipe</span><span class="special">);</span>
   <span class="emphasis"><em>» <a class="link" href="basic_readable_pipe/overload3.html" title="basic_readable_pipe::basic_readable_pipe (3 of 5 overloads)">more...</a></em></span>
 
-template&lt;
-    typename ExecutionContext&gt;
-<a class="link" href="basic_readable_pipe/overload4.html" title="basic_readable_pipe::basic_readable_pipe (4 of 5 overloads)">basic_readable_pipe</a>(
-    ExecutionContext &amp; context,
-    const native_handle_type &amp; native_pipe,
-    typename constraint&lt; is_convertible&lt; ExecutionContext &amp;, execution_context &amp; &gt;::value &gt;::type  = 0);
+<span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">ExecutionContext</span><span class="special">&gt;</span>
+<a class="link" href="basic_readable_pipe/overload4.html" title="basic_readable_pipe::basic_readable_pipe (4 of 5 overloads)">basic_readable_pipe</a><span class="special">(</span>
+    <span class="identifier">ExecutionContext</span> <span class="special">&amp;</span> <span class="identifier">context</span><span class="special">,</span>
+    <span class="keyword">const</span> <span class="identifier">native_handle_type</span> <span class="special">&amp;</span> <span class="identifier">native_pipe</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">constraint</span><span class="special">&lt;</span> <span class="identifier">is_convertible</span><span class="special">&lt;</span> <span class="identifier">ExecutionContext</span> <span class="special">&amp;,</span> <span class="identifier">execution_context</span> <span class="special">&amp;</span> <span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">&gt;::</span><span class="identifier">type</span>  <span class="special">=</span> <span class="number">0</span><span class="special">);</span>
   <span class="emphasis"><em>» <a class="link" href="basic_readable_pipe/overload4.html" title="basic_readable_pipe::basic_readable_pipe (4 of 5 overloads)">more...</a></em></span>
 </pre>
 <p>
-          Move-construct a <a class="link" href="../basic_readable_pipe.html" title="basic_readable_pipe"><code class="computeroutput">basic_readable_pipe</code></a>
-          from another.
+          Move-construct a <a class="link" href="../basic_readable_pipe.html" title="basic_readable_pipe"><code class="computeroutput"><span class="identifier">basic_readable_pipe</span></code></a> from another.
         </p>
-<pre class="programlisting"><a class="link" href="basic_readable_pipe/overload5.html" title="basic_readable_pipe::basic_readable_pipe (5 of 5 overloads)">basic_readable_pipe</a>(
-    basic_readable_pipe &amp;&amp; other);
+<pre class="programlisting"><a class="link" href="basic_readable_pipe/overload5.html" title="basic_readable_pipe::basic_readable_pipe (5 of 5 overloads)">basic_readable_pipe</a><span class="special">(</span>
+    <span class="identifier">basic_readable_pipe</span> <span class="special">&amp;&amp;</span> <span class="identifier">other</span><span class="special">);</span>
   <span class="emphasis"><em>» <a class="link" href="basic_readable_pipe/overload5.html" title="basic_readable_pipe::basic_readable_pipe (5 of 5 overloads)">more...</a></em></span>
 </pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

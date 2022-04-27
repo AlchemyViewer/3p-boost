@@ -27,11 +27,12 @@
 <a name="boost_asio.reference.random_access_file"></a><a class="link" href="random_access_file.html" title="random_access_file">random_access_file</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="boost_asio.indexterm.random_access_file"></a> 
-Typedef for the
-        typical usage of a random-access file.
+        <a class="indexterm" name="boost_asio.indexterm.random_access_file"></a>
       </p>
-<pre class="programlisting">typedef basic_random_access_file random_access_file;
+<p>
+        Typedef for the typical usage of a random-access file.
+      </p>
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">basic_random_access_file</span> <span class="identifier">random_access_file</span><span class="special">;</span>
 </pre>
 <h5>
 <a name="boost_asio.reference.random_access_file.h0"></a>
@@ -462,6 +463,19 @@ Typedef for the
 <tr>
 <td>
                 <p>
+                  <a class="link" href="basic_random_access_file/sync_all_on_write.html" title="basic_random_access_file::sync_all_on_write"><span class="bold"><strong>sync_all_on_write</strong></span></a> <span class="silver">[static]</span>
+                </p>
+              </td>
+<td>
+                <p>
+                  Open the file so that write operations automatically synchronise
+                  the file data and metadata to disk.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
                   <a class="link" href="basic_random_access_file/truncate.html" title="basic_random_access_file::truncate"><span class="bold"><strong>truncate</strong></span></a> <span class="silver">[static]</span>
                 </p>
               </td>
@@ -486,8 +500,8 @@ Typedef for the
 </tbody>
 </table></div>
 <p>
-        The <a class="link" href="basic_random_access_file.html" title="basic_random_access_file"><code class="computeroutput">basic_random_access_file</code></a>
-        class template provides asynchronous and blocking random-access file functionality.
+        The <a class="link" href="basic_random_access_file.html" title="basic_random_access_file"><code class="computeroutput"><span class="identifier">basic_random_access_file</span></code></a> class template
+        provides asynchronous and blocking random-access file functionality.
       </p>
 <h5>
 <a name="boost_asio.reference.random_access_file.h3"></a>
@@ -500,11 +514,13 @@ Typedef for the
         <span class="emphasis"><em>Shared</em></span> <span class="emphasis"><em>objects:</em></span> Unsafe.
       </p>
 <p>
-        Synchronous <code class="computeroutput">read_some_at</code> and <code class="computeroutput">write_some_at</code> operations
+        Synchronous <code class="computeroutput"><span class="identifier">read_some_at</span></code>
+        and <code class="computeroutput"><span class="identifier">write_some_at</span></code> operations
         are thread safe with respect to each other, if the underlying operating system
         calls are also thread safe. This means that it is permitted to perform concurrent
         calls to these synchronous operations on a single file object. Other synchronous
-        operations, such as <code class="computeroutput">open</code> or <code class="computeroutput">close</code>, are not thread
+        operations, such as <code class="computeroutput"><span class="identifier">open</span></code>
+        or <code class="computeroutput"><span class="identifier">close</span></code>, are not thread
         safe.
       </p>
 <h5>
@@ -520,8 +536,7 @@ Typedef for the
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

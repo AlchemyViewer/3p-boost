@@ -28,16 +28,15 @@
           (4 of 10 overloads)</a>
 </h5></div></div></div>
 <p>
-            Construct a <a class="link" href="../../basic_file.html" title="basic_file"><code class="computeroutput">basic_file</code></a>
-            without opening it.
+            Construct a <a class="link" href="../../basic_file.html" title="basic_file"><code class="computeroutput"><span class="identifier">basic_file</span></code></a> without opening it.
           </p>
-<pre class="programlisting">template&lt;
-    typename ExecutionContext&gt;
-basic_file(
-    ExecutionContext &amp; context,
-    const char * path,
-    file_base::flags open_flags,
-    typename constraint&lt; is_convertible&lt; ExecutionContext &amp;, execution_context &amp; &gt;::value, defaulted_constraint &gt;::type  = defaulted_constraint());
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">ExecutionContext</span><span class="special">&gt;</span>
+<span class="identifier">basic_file</span><span class="special">(</span>
+    <span class="identifier">ExecutionContext</span> <span class="special">&amp;</span> <span class="identifier">context</span><span class="special">,</span>
+    <span class="keyword">const</span> <span class="keyword">char</span> <span class="special">*</span> <span class="identifier">path</span><span class="special">,</span>
+    <span class="identifier">file_base</span><span class="special">::</span><span class="identifier">flags</span> <span class="identifier">open_flags</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">constraint</span><span class="special">&lt;</span> <span class="identifier">is_convertible</span><span class="special">&lt;</span> <span class="identifier">ExecutionContext</span> <span class="special">&amp;,</span> <span class="identifier">execution_context</span> <span class="special">&amp;</span> <span class="special">&gt;::</span><span class="identifier">value</span><span class="special">,</span> <span class="identifier">defaulted_constraint</span> <span class="special">&gt;::</span><span class="identifier">type</span>  <span class="special">=</span> <span class="identifier">defaulted_constraint</span><span class="special">());</span>
 </pre>
 <p>
             This constructor initialises a file and opens it.
@@ -68,8 +67,7 @@ basic_file(
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

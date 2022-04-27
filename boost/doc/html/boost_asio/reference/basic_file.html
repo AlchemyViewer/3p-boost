@@ -32,10 +32,10 @@
 <p>
         Provides file functionality.
       </p>
-<pre class="programlisting">template&lt;
-    typename <a class="link" href="Executor1.html" title="Executor requirements">Executor</a>&gt;
-class basic_file :
-  public file_base
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <a class="link" href="Executor1.html" title="Executor requirements">Executor</a><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">basic_file</span> <span class="special">:</span>
+  <span class="keyword">public</span> <span class="identifier">file_base</span>
 </pre>
 <h5>
 <a name="boost_asio.reference.basic_file.h0"></a>
@@ -441,6 +441,19 @@ class basic_file :
 <tr>
 <td>
                 <p>
+                  <a class="link" href="basic_file/sync_all_on_write.html" title="basic_file::sync_all_on_write"><span class="bold"><strong>sync_all_on_write</strong></span></a> <span class="silver">[static]</span>
+                </p>
+              </td>
+<td>
+                <p>
+                  Open the file so that write operations automatically synchronise
+                  the file data and metadata to disk.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
                   <a class="link" href="basic_file/truncate.html" title="basic_file::truncate"><span class="bold"><strong>truncate</strong></span></a> <span class="silver">[static]</span>
                 </p>
               </td>
@@ -465,7 +478,7 @@ class basic_file :
 </tbody>
 </table></div>
 <p>
-        The <a class="link" href="basic_file.html" title="basic_file"><code class="computeroutput">basic_file</code></a>
+        The <a class="link" href="basic_file.html" title="basic_file"><code class="computeroutput"><span class="identifier">basic_file</span></code></a>
         class template provides functionality that is common to both stream-oriented
         and random-access files.
       </p>
@@ -493,8 +506,7 @@ class basic_file :
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

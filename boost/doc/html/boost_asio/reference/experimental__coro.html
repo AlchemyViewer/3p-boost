@@ -32,11 +32,11 @@
 <p>
         The main type of a resumable coroutine.
       </p>
-<pre class="programlisting">template&lt;
-    typename Yield = void,
-    typename Return = void,
-    typename <a class="link" href="Executor1.html" title="Executor requirements">Executor</a> = any_io_executor&gt;
-struct coro
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">Yield</span> <span class="special">=</span> <span class="keyword">void</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Return</span> <span class="special">=</span> <span class="keyword">void</span><span class="special">,</span>
+    <span class="keyword">typename</span> <a class="link" href="Executor1.html" title="Executor requirements">Executor</a> <span class="special">=</span> <span class="identifier">any_io_executor</span><span class="special">&gt;</span>
+<span class="keyword">struct</span> <span class="identifier">coro</span>
 </pre>
 <h5>
 <a name="boost_asio.reference.experimental__coro.h0"></a>
@@ -207,9 +207,10 @@ struct coro
 </tr></tbody>
 </table></div>
 <p>
-        Template parameter <code class="computeroutput">Yield</code> specifies type or signature used by
-        co_yield, <code class="computeroutput">Return</code> specifies the type used for co_return, and
-        <code class="computeroutput">Executor</code> specifies the underlying executor type.
+        Template parameter <code class="computeroutput"><span class="identifier">Yield</span></code>
+        specifies type or signature used by co_yield, <code class="computeroutput"><span class="identifier">Return</span></code>
+        specifies the type used for co_return, and <code class="computeroutput"><span class="identifier">Executor</span></code>
+        specifies the underlying executor type.
       </p>
 <h5>
 <a name="boost_asio.reference.experimental__coro.h2"></a>
@@ -224,8 +225,7 @@ struct coro
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

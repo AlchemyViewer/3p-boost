@@ -27,42 +27,47 @@
 <a name="boost_asio.reference.query"></a><a class="link" href="query.html" title="query">query</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="boost_asio.indexterm.query"></a> 
-A customisation point that queries the value
-        of a property.
+        <a class="indexterm" name="boost_asio.indexterm.query"></a>
       </p>
-<pre class="programlisting">constexpr unspecified query = unspecified;
+<p>
+        A customisation point that queries the value of a property.
+      </p>
+<pre class="programlisting"><span class="keyword">constexpr</span> <span class="identifier">unspecified</span> <span class="identifier">query</span> <span class="special">=</span> <span class="identifier">unspecified</span><span class="special">;</span>
 </pre>
 <p>
-        The name <code class="computeroutput">query</code> denotes a customization point object. The expression
-        <code class="computeroutput">boost::asio::query(E, P)</code> for some subexpressions <code class="computeroutput">E</code>
-        and <code class="computeroutput">P</code> (with types <code class="computeroutput">T = decay_t&lt;decltype(E)&gt;</code>
-        and <code class="computeroutput">Prop = decay_t&lt;decltype(P)&gt;</code>) is expression-equivalent
-        to:
+        The name <code class="computeroutput"><span class="identifier">query</span></code> denotes a
+        customization point object. The expression <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">query</span><span class="special">(</span><span class="identifier">E</span><span class="special">,</span>
+        <span class="identifier">P</span><span class="special">)</span></code>
+        for some subexpressions <code class="computeroutput"><span class="identifier">E</span></code>
+        and <code class="computeroutput"><span class="identifier">P</span></code> (with types <code class="computeroutput"><span class="identifier">T</span> <span class="special">=</span> <span class="identifier">decay_t</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">E</span><span class="special">)&gt;</span></code>
+        and <code class="computeroutput"><span class="identifier">Prop</span> <span class="special">=</span>
+        <span class="identifier">decay_t</span><span class="special">&lt;</span><span class="keyword">decltype</span><span class="special">(</span><span class="identifier">P</span><span class="special">)&gt;</span></code>)
+        is expression-equivalent to:
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-            If <code class="computeroutput">is_applicable_property_v&lt;T, Prop&gt;</code> is not a well-formed
-            constant expression with value <code class="computeroutput">true</code>, <code class="computeroutput">boost::asio::query(E,
-            P)</code> is ill-formed.
+            If <code class="computeroutput"><span class="identifier">is_applicable_property_v</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">Prop</span><span class="special">&gt;</span></code> is not a well-formed constant expression
+            with value <code class="computeroutput"><span class="keyword">true</span></code>, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">query</span><span class="special">(</span><span class="identifier">E</span><span class="special">,</span> <span class="identifier">P</span><span class="special">)</span></code>
+            is ill-formed.
           </li>
 <li class="listitem">
-            Otherwise, <code class="computeroutput">Prop::template static_query_v&lt;T&gt;</code> if the
-            expression <code class="computeroutput">Prop::template static_query_v&lt;T&gt;</code> is a well-formed
-            constant expression.
+            Otherwise, <code class="computeroutput"><span class="identifier">Prop</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">static_query_v</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code> if the expression <code class="computeroutput"><span class="identifier">Prop</span><span class="special">::</span><span class="keyword">template</span> <span class="identifier">static_query_v</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span></code>
+            is a well-formed constant expression.
           </li>
 <li class="listitem">
-            Otherwise, <code class="computeroutput">(E).query(P)</code> if the expression <code class="computeroutput">(E).query(P)</code>
+            Otherwise, <code class="computeroutput"><span class="special">(</span><span class="identifier">E</span><span class="special">).</span><span class="identifier">query</span><span class="special">(</span><span class="identifier">P</span><span class="special">)</span></code> if the expression <code class="computeroutput"><span class="special">(</span><span class="identifier">E</span><span class="special">).</span><span class="identifier">query</span><span class="special">(</span><span class="identifier">P</span><span class="special">)</span></code>
             is well-formed.
           </li>
 <li class="listitem">
-            Otherwise, <code class="computeroutput">query(E, P)</code> if the expression <code class="computeroutput">query(E,
-            P)</code> is a valid expression with overload resolution performed in
-            a context that does not include the declaration of the <code class="computeroutput">query</code>
-            customization point object.
+            Otherwise, <code class="computeroutput"><span class="identifier">query</span><span class="special">(</span><span class="identifier">E</span><span class="special">,</span> <span class="identifier">P</span><span class="special">)</span></code>
+            if the expression <code class="computeroutput"><span class="identifier">query</span><span class="special">(</span><span class="identifier">E</span><span class="special">,</span> <span class="identifier">P</span><span class="special">)</span></code> is a valid expression with overload
+            resolution performed in a context that does not include the declaration
+            of the <code class="computeroutput"><span class="identifier">query</span></code> customization
+            point object.
           </li>
 <li class="listitem">
-            Otherwise, <code class="computeroutput">boost::asio::query(E, P)</code> is ill-formed.
+            Otherwise, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">query</span><span class="special">(</span><span class="identifier">E</span><span class="special">,</span> <span class="identifier">P</span><span class="special">)</span></code>
+            is ill-formed.
           </li>
 </ul></div>
 <h5>
@@ -78,8 +83,7 @@ A customisation point that queries the value
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

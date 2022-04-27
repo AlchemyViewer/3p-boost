@@ -29,9 +29,10 @@
 <p>
           <a class="indexterm" name="boost_asio.indexterm.experimental__deferred_t__executor_with_default.default_completion_token_type"></a> 
 Specify
-          <code class="computeroutput">deferred_t</code> as the default completion token type.
+          <code class="computeroutput"><span class="identifier">deferred_t</span></code> as the default
+          completion token type.
         </p>
-<pre class="programlisting">typedef deferred_t default_completion_token_type;
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">deferred_t</span> <span class="identifier">default_completion_token_type</span><span class="special">;</span>
 </pre>
 <h6>
 <a name="boost_asio.reference.experimental__deferred_t__executor_with_default.default_completion_token_type.h0"></a>
@@ -156,16 +157,15 @@ Specify
 </tbody>
 </table></div>
 <p>
-          The <a class="link" href="../experimental__deferred_t.html" title="experimental::deferred_t"><code class="computeroutput">experimental::deferred_t</code></a>
-          class is used to indicate that an asynchronous operation should return
-          a function object which is itself an initiation function. A <a class="link" href="../experimental__deferred_t.html" title="experimental::deferred_t"><code class="computeroutput">experimental::deferred_t</code></a>
-          object may be passed as a completion token to an asynchronous operation,
-          typically using the special value <code class="computeroutput">boost::asio::deferred</code>. For
-          example:
+          The <a class="link" href="../experimental__deferred_t.html" title="experimental::deferred_t"><code class="computeroutput"><span class="identifier">experimental</span><span class="special">::</span><span class="identifier">deferred_t</span></code></a> class is used to indicate
+          that an asynchronous operation should return a function object which is
+          itself an initiation function. A <a class="link" href="../experimental__deferred_t.html" title="experimental::deferred_t"><code class="computeroutput"><span class="identifier">experimental</span><span class="special">::</span><span class="identifier">deferred_t</span></code></a> object may be passed
+          as a completion token to an asynchronous operation, typically using the
+          special value <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">deferred</span></code>. For example:
         </p>
-<pre class="programlisting">auto my_sender
-  = my_socket.async_read_some(my_buffer,
-      boost::asio::experimental::deferred);
+<pre class="programlisting"><span class="keyword">auto</span> <span class="identifier">my_deferred_op</span>
+  <span class="special">=</span> <span class="identifier">my_socket</span><span class="special">.</span><span class="identifier">async_read_some</span><span class="special">(</span><span class="identifier">my_buffer</span><span class="special">,</span>
+      <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">experimental</span><span class="special">::</span><span class="identifier">deferred</span><span class="special">);</span>
 </pre>
 <p>
           The initiating function (async_read_some in the above example) returns
@@ -184,8 +184,7 @@ Specify
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -30,8 +30,8 @@
 <p>
             Move-construct an overlapped handle from another.
           </p>
-<pre class="programlisting">basic_overlapped_handle(
-    basic_overlapped_handle &amp;&amp; other);
+<pre class="programlisting"><span class="identifier">basic_overlapped_handle</span><span class="special">(</span>
+    <span class="identifier">basic_overlapped_handle</span> <span class="special">&amp;&amp;</span> <span class="identifier">other</span><span class="special">);</span>
 </pre>
 <p>
             This constructor moves a handle from one object to another.
@@ -55,14 +55,13 @@
           </h6>
 <p>
             Following the move, the moved-from object is in the same state as if
-            constructed using the <code class="computeroutput">overlapped_handle(const executor_type&amp;)</code>
+            constructed using the <code class="computeroutput"><span class="identifier">overlapped_handle</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">executor_type</span><span class="special">&amp;)</span></code>
             constructor.
           </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -30,12 +30,12 @@
 <p>
             Resume the coroutine.
           </p>
-<pre class="programlisting">template&lt;
-    typename CompletionToken,
-    detail::convertible_to&lt; input_type &gt; T&gt;
-auto async_resume(
-    T &amp;&amp; ip,
-    CompletionToken &amp;&amp; token);
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">CompletionToken</span><span class="special">,</span>
+    <span class="identifier">detail</span><span class="special">::</span><span class="identifier">convertible_to</span><span class="special">&lt;</span> <span class="identifier">input_type</span> <span class="special">&gt;</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="keyword">auto</span> <span class="identifier">async_resume</span><span class="special">(</span>
+    <span class="identifier">T</span> <span class="special">&amp;&amp;</span> <span class="identifier">ip</span><span class="special">,</span>
+    <span class="identifier">CompletionToken</span> <span class="special">&amp;&amp;</span> <span class="identifier">token</span><span class="special">);</span>
 </pre>
 <h6>
 <a name="boost_asio.reference.experimental__coro.async_resume.overload2.h0"></a>
@@ -67,8 +67,7 @@ auto async_resume(
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>
