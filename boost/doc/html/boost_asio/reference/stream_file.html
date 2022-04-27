@@ -27,11 +27,12 @@
 <a name="boost_asio.reference.stream_file"></a><a class="link" href="stream_file.html" title="stream_file">stream_file</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="boost_asio.indexterm.stream_file"></a> 
-Typedef for the typical usage
-        of a stream-oriented file.
+        <a class="indexterm" name="boost_asio.indexterm.stream_file"></a>
       </p>
-<pre class="programlisting">typedef basic_stream_file stream_file;
+<p>
+        Typedef for the typical usage of a stream-oriented file.
+      </p>
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">basic_stream_file</span> <span class="identifier">stream_file</span><span class="special">;</span>
 </pre>
 <h5>
 <a name="boost_asio.reference.stream_file.h0"></a>
@@ -473,6 +474,19 @@ Typedef for the typical usage
 <tr>
 <td>
                 <p>
+                  <a class="link" href="basic_stream_file/sync_all_on_write.html" title="basic_stream_file::sync_all_on_write"><span class="bold"><strong>sync_all_on_write</strong></span></a> <span class="silver">[static]</span>
+                </p>
+              </td>
+<td>
+                <p>
+                  Open the file so that write operations automatically synchronise
+                  the file data and metadata to disk.
+                </p>
+              </td>
+</tr>
+<tr>
+<td>
+                <p>
                   <a class="link" href="basic_stream_file/truncate.html" title="basic_stream_file::truncate"><span class="bold"><strong>truncate</strong></span></a> <span class="silver">[static]</span>
                 </p>
               </td>
@@ -497,8 +511,8 @@ Typedef for the typical usage
 </tbody>
 </table></div>
 <p>
-        The <a class="link" href="basic_stream_file.html" title="basic_stream_file"><code class="computeroutput">basic_stream_file</code></a>
-        class template provides asynchronous and blocking stream-oriented file functionality.
+        The <a class="link" href="basic_stream_file.html" title="basic_stream_file"><code class="computeroutput"><span class="identifier">basic_stream_file</span></code></a> class template
+        provides asynchronous and blocking stream-oriented file functionality.
       </p>
 <h5>
 <a name="boost_asio.reference.stream_file.h3"></a>
@@ -524,8 +538,7 @@ Typedef for the typical usage
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -27,33 +27,36 @@
 <a name="boost_asio.reference.buffer_size"></a><a class="link" href="buffer_size.html" title="buffer_size">buffer_size</a>
 </h3></div></div></div>
 <p>
-        <a class="indexterm" name="boost_asio.indexterm.buffer_size"></a> 
-Get the total number of bytes
-        in a buffer sequence.
+        <a class="indexterm" name="boost_asio.indexterm.buffer_size"></a>
       </p>
-<pre class="programlisting">template&lt;
-    typename BufferSequence&gt;
-std::size_t buffer_size(
-    const BufferSequence &amp; b);
+<p>
+        Get the total number of bytes in a buffer sequence.
+      </p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">BufferSequence</span><span class="special">&gt;</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <span class="identifier">buffer_size</span><span class="special">(</span>
+    <span class="keyword">const</span> <span class="identifier">BufferSequence</span> <span class="special">&amp;</span> <span class="identifier">b</span><span class="special">);</span>
 </pre>
 <p>
-        The <code class="computeroutput">buffer_size</code> function determines the total size of all buffers
-        in the buffer sequence, as if computed as follows:
+        The <code class="computeroutput"><span class="identifier">buffer_size</span></code> function
+        determines the total size of all buffers in the buffer sequence, as if computed
+        as follows:
       </p>
-<pre class="programlisting">size_t total_size = 0;
-auto i = boost::asio::buffer_sequence_begin(buffers);
-auto end = boost::asio::buffer_sequence_end(buffers);
-for (; i != end; ++i)
-{
-  const_buffer b(*i);
-  total_size += b.size();
-}
-return total_size;
+<pre class="programlisting"><span class="identifier">size_t</span> <span class="identifier">total_size</span> <span class="special">=</span> <span class="number">0</span><span class="special">;</span>
+<span class="keyword">auto</span> <span class="identifier">i</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">buffer_sequence_begin</span><span class="special">(</span><span class="identifier">buffers</span><span class="special">);</span>
+<span class="keyword">auto</span> <span class="identifier">end</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">buffer_sequence_end</span><span class="special">(</span><span class="identifier">buffers</span><span class="special">);</span>
+<span class="keyword">for</span> <span class="special">(;</span> <span class="identifier">i</span> <span class="special">!=</span> <span class="identifier">end</span><span class="special">;</span> <span class="special">++</span><span class="identifier">i</span><span class="special">)</span>
+<span class="special">{</span>
+  <span class="identifier">const_buffer</span> <span class="identifier">b</span><span class="special">(*</span><span class="identifier">i</span><span class="special">);</span>
+  <span class="identifier">total_size</span> <span class="special">+=</span> <span class="identifier">b</span><span class="special">.</span><span class="identifier">size</span><span class="special">();</span>
+<span class="special">}</span>
+<span class="keyword">return</span> <span class="identifier">total_size</span><span class="special">;</span>
 </pre>
 <p>
-        The <code class="computeroutput">BufferSequence</code> template parameter may meet either of the
-        <code class="computeroutput">ConstBufferSequence</code> or <code class="computeroutput">MutableBufferSequence</code> type
-        requirements.
+        The <code class="computeroutput"><span class="identifier">BufferSequence</span></code> template
+        parameter may meet either of the <code class="computeroutput"><span class="identifier">ConstBufferSequence</span></code>
+        or <code class="computeroutput"><span class="identifier">MutableBufferSequence</span></code>
+        type requirements.
       </p>
 <h5>
 <a name="boost_asio.reference.buffer_size.h0"></a>
@@ -68,8 +71,7 @@ return total_size;
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

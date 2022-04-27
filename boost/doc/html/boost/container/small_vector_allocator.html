@@ -94,7 +94,7 @@
                          <span class="keyword">const</span> <a class="link" href="small_vector_allocator.html" title="Class template small_vector_allocator">small_vector_allocator</a> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id-1.3.10.14.36.9.4"></a><h2>Description</h2>
+<a name="id-1.3.9.14.36.9.4"></a><h2>Description</h2>
 <p>A non-standard allocator used to implement <code class="computeroutput"><a class="link" href="small_vector.html" title="Class template small_vector">small_vector</a></code>. Users should never use it directly. It is described here for documentation purposes.</p>
 <p>This allocator inherits from a standard-conforming allocator and forwards member functions to the standard allocator except when internal storage is being used as memory source.</p>
 <p>This allocator is a "partially_propagable" allocator and defines <code class="computeroutput">is_partially_propagable</code> as true_type.</p>
@@ -102,7 +102,7 @@
 <p><code class="computeroutput"><a class="link" href="vector.html" title="Class template vector">boost::container::vector</a></code> supports partially propagable allocators fallbacking to deep copy/swap/move operations when internal storage is being used to store vector elements.</p>
 <p><code class="computeroutput"><a class="link" href="small_vector_allocator.html" title="Class template small_vector_allocator">small_vector_allocator</a></code> assumes that will be instantiated as <code class="computeroutput"><a class="link" href="vector.html" title="Class template vector">boost::container::vector</a>&lt; T, <a class="link" href="small_vector_allocator.html" title="Class template small_vector_allocator">small_vector_allocator</a>&lt;T, Allocator&gt; &gt;</code> and internal storage can be obtained downcasting that vector to <code class="computeroutput"><a class="link" href="small_vector_base.html" title="Class template small_vector_base">small_vector_base</a>&lt;T&gt;</code>. </p>
 <div class="refsect2">
-<a name="id-1.3.10.14.36.9.4.8"></a><h3>
+<a name="id-1.3.9.14.36.9.4.8"></a><h3>
 <a name="boost.container.small_vector_allocatorconstruct-copy-destruct"></a><code class="computeroutput">small_vector_allocator</code> 
         public
        construct/copy/destruct</h3>
@@ -158,7 +158,7 @@
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="id-1.3.10.14.36.9.4.9"></a><h3>
+<a name="id-1.3.9.14.36.9.4.9"></a><h3>
 <a name="idm23911-bb"></a><code class="computeroutput">small_vector_allocator</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
@@ -177,7 +177,7 @@
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="id-1.3.10.14.36.9.4.10"></a><h3>
+<a name="id-1.3.9.14.36.9.4.10"></a><h3>
 <a name="idm24030-bb"></a><code class="computeroutput">small_vector_allocator</code> friend functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">

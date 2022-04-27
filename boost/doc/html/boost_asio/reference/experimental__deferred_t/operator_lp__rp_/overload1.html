@@ -30,16 +30,15 @@
 <p>
             Creates a new deferred from a function.
           </p>
-<pre class="programlisting">template&lt;
-    typename Function&gt;
-constraint&lt; !is_deferred&lt; typename decay&lt; Function &gt;::type &gt;::value, deferred_function&lt; typename decay&lt; Function &gt;::type &gt; &gt;::type operator()(
-    Function &amp;&amp; function) const;
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">Function</span><span class="special">&gt;</span>
+<span class="identifier">constraint</span><span class="special">&lt;</span> <span class="special">!</span><span class="identifier">is_deferred</span><span class="special">&lt;</span> <span class="keyword">typename</span> <span class="identifier">decay</span><span class="special">&lt;</span> <span class="identifier">Function</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="special">&gt;::</span><span class="identifier">value</span><span class="special">,</span> <span class="identifier">deferred_function</span><span class="special">&lt;</span> <span class="keyword">typename</span> <span class="identifier">decay</span><span class="special">&lt;</span> <span class="identifier">Function</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="special">&gt;</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="keyword">operator</span><span class="special">()(</span>
+    <span class="identifier">Function</span> <span class="special">&amp;&amp;</span> <span class="identifier">function</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
 </pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

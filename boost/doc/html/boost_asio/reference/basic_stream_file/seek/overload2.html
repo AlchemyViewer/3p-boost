@@ -30,10 +30,10 @@
 <p>
             Seek to a position in the file.
           </p>
-<pre class="programlisting">uint64_t seek(
-    int64_t offset,
-    file_base::seek_basis whence,
-    boost::system::error_code &amp; ec);
+<pre class="programlisting"><span class="identifier">uint64_t</span> <span class="identifier">seek</span><span class="special">(</span>
+    <span class="identifier">int64_t</span> <span class="identifier">offset</span><span class="special">,</span>
+    <span class="identifier">file_base</span><span class="special">::</span><span class="identifier">seek_basis</span> <span class="identifier">whence</span><span class="special">,</span>
+    <span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span> <span class="special">&amp;</span> <span class="identifier">ec</span><span class="special">);</span>
 </pre>
 <p>
             This function updates the current position in the file.
@@ -47,11 +47,12 @@
 <dl class="variablelist">
 <dt><span class="term">offset</span></dt>
 <dd><p>
-                  The requested position in the file, relative to <code class="computeroutput">whence</code>.
+                  The requested position in the file, relative to <code class="computeroutput"><span class="identifier">whence</span></code>.
                 </p></dd>
 <dt><span class="term">whence</span></dt>
 <dd><p>
-                  One of <code class="computeroutput">seek_set</code>, <code class="computeroutput">seek_cur</code> or <code class="computeroutput">seek_end</code>.
+                  One of <code class="computeroutput"><span class="identifier">seek_set</span></code>,
+                  <code class="computeroutput"><span class="identifier">seek_cur</span></code> or <code class="computeroutput"><span class="identifier">seek_end</span></code>.
                 </p></dd>
 <dt><span class="term">ec</span></dt>
 <dd><p>
@@ -70,8 +71,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

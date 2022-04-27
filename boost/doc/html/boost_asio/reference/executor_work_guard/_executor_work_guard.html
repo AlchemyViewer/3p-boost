@@ -30,17 +30,16 @@
           <a class="indexterm" name="boost_asio.indexterm.executor_work_guard._executor_work_guard"></a> 
 Destructor.
         </p>
-<pre class="programlisting">~executor_work_guard();
+<pre class="programlisting"><span class="special">~</span><span class="identifier">executor_work_guard</span><span class="special">();</span>
 </pre>
 <p>
           Unless the object has already been reset, or is in a moved-from state,
-          calls <code class="computeroutput">on_work_finished()</code> on the stored executor.
+          calls <code class="computeroutput"><span class="identifier">on_work_finished</span><span class="special">()</span></code> on the stored executor.
         </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

@@ -31,7 +31,7 @@
 The
           file type when rebound to the specified executor.
         </p>
-<pre class="programlisting">typedef basic_stream_file&lt; Executor1 &gt; other;
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">basic_stream_file</span><span class="special">&lt;</span> <span class="identifier">Executor1</span> <span class="special">&gt;</span> <span class="identifier">other</span><span class="special">;</span>
 </pre>
 <h6>
 <a name="boost_asio.reference.basic_stream_file__rebind_executor.other.h0"></a>
@@ -474,6 +474,19 @@ The
 <tr>
 <td>
                   <p>
+                    <a class="link" href="../basic_stream_file/sync_all_on_write.html" title="basic_stream_file::sync_all_on_write"><span class="bold"><strong>sync_all_on_write</strong></span></a> <span class="silver">[static]</span>
+                  </p>
+                </td>
+<td>
+                  <p>
+                    Open the file so that write operations automatically synchronise
+                    the file data and metadata to disk.
+                  </p>
+                </td>
+</tr>
+<tr>
+<td>
+                  <p>
                     <a class="link" href="../basic_stream_file/truncate.html" title="basic_stream_file::truncate"><span class="bold"><strong>truncate</strong></span></a> <span class="silver">[static]</span>
                   </p>
                 </td>
@@ -498,9 +511,8 @@ The
 </tbody>
 </table></div>
 <p>
-          The <a class="link" href="../basic_stream_file.html" title="basic_stream_file"><code class="computeroutput">basic_stream_file</code></a>
-          class template provides asynchronous and blocking stream-oriented file
-          functionality.
+          The <a class="link" href="../basic_stream_file.html" title="basic_stream_file"><code class="computeroutput"><span class="identifier">basic_stream_file</span></code></a> class template
+          provides asynchronous and blocking stream-oriented file functionality.
         </p>
 <h6>
 <a name="boost_asio.reference.basic_stream_file__rebind_executor.other.h3"></a>
@@ -526,8 +538,7 @@ The
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

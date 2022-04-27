@@ -1,7 +1,7 @@
 [/
     Boost.Optional
 
-    Copyright (c) 2015 - 2018 Andrzej Krzemienski
+    Copyright (c) 2015 - 2021 Andrzej Krzemienski
 
     Distributed under the Boost Software License, Version 1.0.
     (See accompanying file LICENSE_1_0.txt or copy at
@@ -10,6 +10,14 @@
 
 
 [section:relnotes Release Notes]
+
+[heading Boost Release 1.79]
+
+* Fixed [@https://github.com/boostorg/optional/issues/98 issue #98].
+* Fixed [@https://github.com/boostorg/optional/issues/92 issue #92].
+* Added support for `BOOST_NO_IOSTREAM`.
+* Now aligned storage uses `unsigned char` rather than `char` to avoid UB.
+* Now using cv-unqualified `value_type` with placement `new` to avoid UB.
 
 [heading Boost Release 1.76]
 

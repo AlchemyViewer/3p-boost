@@ -33,14 +33,14 @@
 <p>
             Alter the size of the file.
           </p>
-<pre class="programlisting">void resize(
-    uint64_t n);
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">resize</span><span class="special">(</span>
+    <span class="identifier">uint64_t</span> <span class="identifier">n</span><span class="special">);</span>
 </pre>
 <p>
             This function resizes the file to the specified size, in bytes. If the
-            current file size exceeds <code class="computeroutput">n</code> then any extra data is discarded.
-            If the current size is less than <code class="computeroutput">n</code> then the file is extended
-            and filled with zeroes.
+            current file size exceeds <code class="computeroutput"><span class="identifier">n</span></code>
+            then any extra data is discarded. If the current size is less than <code class="computeroutput"><span class="identifier">n</span></code> then the file is extended and filled
+            with zeroes.
           </p>
 <h6>
 <a name="boost_asio.reference.basic_random_access_file.resize.overload1.h0"></a>
@@ -71,8 +71,7 @@
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

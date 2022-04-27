@@ -31,18 +31,16 @@
 Cancel
           all asynchronous operations waiting on the channel.
         </p>
-<pre class="programlisting">void cancel();
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">cancel</span><span class="special">();</span>
 </pre>
 <p>
-          All outstanding send operations will complete with the error <code class="computeroutput">boost::asio::experimental::error::channel_canceld</code>.
-          Outstanding receive operations complete with the result as determined by
-          the channel traits.
+          All outstanding send operations will complete with the error <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">experimental</span><span class="special">::</span><span class="identifier">error</span><span class="special">::</span><span class="identifier">channel_cancelled</span></code>. Outstanding receive
+          operations complete with the result as determined by the channel traits.
         </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

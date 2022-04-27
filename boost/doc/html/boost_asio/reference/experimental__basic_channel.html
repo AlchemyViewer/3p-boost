@@ -32,11 +32,11 @@
 <p>
         A channel for messages.
       </p>
-<pre class="programlisting">template&lt;
-    typename <a class="link" href="Executor1.html" title="Executor requirements">Executor</a>,
-    typename Traits,
-    typename... Signatures&gt;
-class basic_channel
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <a class="link" href="Executor1.html" title="Executor requirements">Executor</a><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Traits</span><span class="special">,</span>
+    <span class="keyword">typename</span><span class="special">...</span> <span class="identifier">Signatures</span><span class="special">&gt;</span>
+<span class="keyword">class</span> <span class="identifier">basic_channel</span>
 </pre>
 <h5>
 <a name="boost_asio.reference.experimental__basic_channel.h0"></a>
@@ -304,8 +304,81 @@ class basic_channel
 </tr>
 </tbody>
 </table></div>
+<p>
+        The <a class="link" href="experimental__basic_channel.html" title="experimental::basic_channel"><code class="computeroutput"><span class="identifier">experimental</span><span class="special">::</span><span class="identifier">basic_channel</span></code></a> class template is
+        used for sending messages between different parts of the same application.
+        A <span class="emphasis"><em>message</em></span> is defined as a collection of arguments to
+        be passed to a completion handler, and the set of messages supported by a
+        channel is specified by its <code class="computeroutput"><span class="identifier">Traits</span></code>
+        and <code class="computeroutput"><span class="identifier">Signatures</span><span class="special">...</span></code>
+        template parameters. Messages may be sent and received using asynchronous
+        or non-blocking synchronous operations.
+      </p>
+<p>
+        Unless customising the traits, applications will typically use the <code class="computeroutput"><span class="identifier">experimental</span><span class="special">::</span><span class="identifier">channel</span></code> alias template. For example:
+      </p>
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">send_loop</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">i</span><span class="special">,</span> <span class="identifier">steady_timer</span><span class="special">&amp;</span> <span class="identifier">timer</span><span class="special">,</span>
+    <span class="identifier">channel</span><span class="special">&lt;</span><span class="keyword">void</span><span class="special">(</span><span class="identifier">error_code</span><span class="special">,</span> <span class="keyword">int</span><span class="special">)&gt;&amp;</span> <span class="identifier">ch</span><span class="special">)</span>
+<span class="special">{</span>
+  <span class="keyword">if</span> <span class="special">(</span><span class="identifier">i</span> <span class="special">&lt;</span> <span class="number">10</span><span class="special">)</span>
+  <span class="special">{</span>
+    <span class="identifier">timer</span><span class="special">.</span><span class="identifier">expires_after</span><span class="special">(</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">seconds</span><span class="special">(</span><span class="number">1</span><span class="special">));</span>
+    <span class="identifier">timer</span><span class="special">.</span><span class="identifier">async_wait</span><span class="special">(</span>
+        <span class="special">[</span><span class="identifier">i</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">timer</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">ch</span><span class="special">](</span><span class="identifier">error_code</span> <span class="identifier">error</span><span class="special">)</span>
+        <span class="special">{</span>
+          <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">error</span><span class="special">)</span>
+          <span class="special">{</span>
+            <span class="identifier">ch</span><span class="special">.</span><span class="identifier">async_send</span><span class="special">(</span><span class="identifier">error_code</span><span class="special">(),</span> <span class="identifier">i</span><span class="special">,</span>
+                <span class="special">[</span><span class="identifier">i</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">timer</span><span class="special">,</span> <span class="special">&amp;</span><span class="identifier">ch</span><span class="special">](</span><span class="identifier">error_code</span> <span class="identifier">error</span><span class="special">)</span>
+                <span class="special">{</span>
+                  <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">error</span><span class="special">)</span>
+                  <span class="special">{</span>
+                    <span class="identifier">send_loop</span><span class="special">(</span><span class="identifier">i</span> <span class="special">+</span> <span class="number">1</span><span class="special">,</span> <span class="identifier">timer</span><span class="special">,</span> <span class="identifier">ch</span><span class="special">);</span>
+                  <span class="special">}</span>
+                <span class="special">});</span>
+          <span class="special">}</span>
+        <span class="special">});</span>
+  <span class="special">}</span>
+  <span class="keyword">else</span>
+  <span class="special">{</span>
+    <span class="identifier">ch</span><span class="special">.</span><span class="identifier">close</span><span class="special">();</span>
+  <span class="special">}</span>
+<span class="special">}</span>
+
+<span class="keyword">void</span> <span class="identifier">receive_loop</span><span class="special">(</span><span class="identifier">channel</span><span class="special">&lt;</span><span class="keyword">void</span><span class="special">(</span><span class="identifier">error_code</span><span class="special">,</span> <span class="keyword">int</span><span class="special">)&gt;&amp;</span> <span class="identifier">ch</span><span class="special">)</span>
+<span class="special">{</span>
+  <span class="identifier">ch</span><span class="special">.</span><span class="identifier">async_receive</span><span class="special">(</span>
+      <span class="special">[&amp;</span><span class="identifier">ch</span><span class="special">](</span><span class="identifier">error_code</span> <span class="identifier">error</span><span class="special">,</span> <span class="keyword">int</span> <span class="identifier">i</span><span class="special">)</span>
+      <span class="special">{</span>
+        <span class="keyword">if</span> <span class="special">(!</span><span class="identifier">error</span><span class="special">)</span>
+        <span class="special">{</span>
+          <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="string">"Received "</span> <span class="special">&lt;&lt;</span> <span class="identifier">i</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+          <span class="identifier">receive_loop</span><span class="special">(</span><span class="identifier">ch</span><span class="special">);</span>
+        <span class="special">}</span>
+      <span class="special">});</span>
+<span class="special">}</span>
+</pre>
 <h5>
 <a name="boost_asio.reference.experimental__basic_channel.h2"></a>
+        <span class="phrase"><a name="boost_asio.reference.experimental__basic_channel.thread_safety"></a></span><a class="link" href="experimental__basic_channel.html#boost_asio.reference.experimental__basic_channel.thread_safety">Thread
+        Safety</a>
+      </h5>
+<p>
+        <span class="emphasis"><em>Distinct</em></span> <span class="emphasis"><em>objects:</em></span> Safe.
+      </p>
+<p>
+        <span class="emphasis"><em>Shared</em></span> <span class="emphasis"><em>objects:</em></span> Unsafe.
+      </p>
+<p>
+        The <a class="link" href="experimental__basic_channel.html" title="experimental::basic_channel"><code class="computeroutput"><span class="identifier">experimental</span><span class="special">::</span><span class="identifier">basic_channel</span></code></a> class template is
+        not thread-safe, and would typically be used for passing messages between
+        application code that runs on the same thread or in the same strand. Consider
+        using <a class="link" href="experimental__basic_concurrent_channel.html" title="experimental::basic_concurrent_channel"><code class="computeroutput"><span class="identifier">experimental</span><span class="special">::</span><span class="identifier">basic_concurrent_channel</span></code></a>, and its
+        alias template <code class="computeroutput"><span class="identifier">experimental</span><span class="special">::</span><span class="identifier">concurrent_channel</span></code>,
+        to pass messages between code running in different threads.
+      </p>
+<h5>
+<a name="boost_asio.reference.experimental__basic_channel.h3"></a>
         <span class="phrase"><a name="boost_asio.reference.experimental__basic_channel.requirements"></a></span><a class="link" href="experimental__basic_channel.html#boost_asio.reference.experimental__basic_channel.requirements">Requirements</a>
       </h5>
 <p>
@@ -317,8 +390,7 @@ class basic_channel
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

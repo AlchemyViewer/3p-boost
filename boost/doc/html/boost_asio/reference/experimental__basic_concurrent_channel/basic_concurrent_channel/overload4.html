@@ -28,14 +28,14 @@
           (4 of 4 overloads)</a>
 </h5></div></div></div>
 <p>
-            Move-construct a <a class="link" href="../../experimental__basic_concurrent_channel.html" title="experimental::basic_concurrent_channel"><code class="computeroutput">experimental::basic_concurrent_channel</code></a>
-            from another.
+            Move-construct a <a class="link" href="../../experimental__basic_concurrent_channel.html" title="experimental::basic_concurrent_channel"><code class="computeroutput"><span class="identifier">experimental</span><span class="special">::</span><span class="identifier">basic_concurrent_channel</span></code></a> from
+            another.
           </p>
-<pre class="programlisting">template&lt;
-    typename <a class="link" href="../../Executor1.html" title="Executor requirements">Executor1</a>&gt;
-basic_concurrent_channel(
-    basic_concurrent_channel&lt; Executor1, Traits, Signatures...&gt; &amp;&amp; other,
-    typename constraint&lt; is_convertible&lt; Executor1, Executor &gt;::value &gt;::type  = 0);
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <a class="link" href="../../Executor1.html" title="Executor requirements">Executor1</a><span class="special">&gt;</span>
+<span class="identifier">basic_concurrent_channel</span><span class="special">(</span>
+    <span class="identifier">basic_concurrent_channel</span><span class="special">&lt;</span> <span class="identifier">Executor1</span><span class="special">,</span> <span class="identifier">Traits</span><span class="special">,</span> <span class="identifier">Signatures</span><span class="special">...&gt;</span> <span class="special">&amp;&amp;</span> <span class="identifier">other</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">constraint</span><span class="special">&lt;</span> <span class="identifier">is_convertible</span><span class="special">&lt;</span> <span class="identifier">Executor1</span><span class="special">,</span> <span class="identifier">Executor</span> <span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">&gt;::</span><span class="identifier">type</span>  <span class="special">=</span> <span class="number">0</span><span class="special">);</span>
 </pre>
 <p>
             This constructor moves a channel from one object to another.
@@ -49,7 +49,7 @@ basic_concurrent_channel(
 <dl class="variablelist">
 <dt><span class="term">other</span></dt>
 <dd><p>
-                  The other <a class="link" href="../../experimental__basic_concurrent_channel.html" title="experimental::basic_concurrent_channel"><code class="computeroutput">experimental::basic_concurrent_channel</code></a>
+                  The other <a class="link" href="../../experimental__basic_concurrent_channel.html" title="experimental::basic_concurrent_channel"><code class="computeroutput"><span class="identifier">experimental</span><span class="special">::</span><span class="identifier">basic_concurrent_channel</span></code></a>
                   object from which the move will occur.
                 </p></dd>
 </dl>
@@ -60,14 +60,13 @@ basic_concurrent_channel(
           </h6>
 <p>
             Following the move, the moved-from object is in the same state as if
-            constructed using the <code class="computeroutput">basic_concurrent_channel(const executor_type&amp;)</code>
+            constructed using the <code class="computeroutput"><span class="identifier">basic_concurrent_channel</span><span class="special">(</span><span class="keyword">const</span> <span class="identifier">executor_type</span><span class="special">&amp;)</span></code>
             constructor.
           </p>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

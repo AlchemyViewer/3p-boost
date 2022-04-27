@@ -30,21 +30,20 @@
 <p>
           Register buffers with an execution context.
         </p>
-<pre class="programlisting">template&lt;
-    typename ExecutionContext,
-    typename <a class="link" href="../MutableBufferSequence.html" title="Mutable buffer sequence requirements">MutableBufferSequence</a>,
-    typename Allocator&gt;
-buffer_registration&lt; MutableBufferSequence, Allocator &gt; register_buffers(
-    ExecutionContext &amp; ctx,
-    const MutableBufferSequence &amp; buffer_sequence,
-    const Allocator &amp; alloc,
-    typename constraint&lt; is_convertible&lt; ExecutionContext &amp;, execution_context &amp; &gt;::value &gt;::type  = 0);
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span> <span class="identifier">ExecutionContext</span><span class="special">,</span>
+    <span class="keyword">typename</span> <a class="link" href="../MutableBufferSequence.html" title="Mutable buffer sequence requirements">MutableBufferSequence</a><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">Allocator</span><span class="special">&gt;</span>
+<span class="identifier">buffer_registration</span><span class="special">&lt;</span> <span class="identifier">MutableBufferSequence</span><span class="special">,</span> <span class="identifier">Allocator</span> <span class="special">&gt;</span> <span class="identifier">register_buffers</span><span class="special">(</span>
+    <span class="identifier">ExecutionContext</span> <span class="special">&amp;</span> <span class="identifier">ctx</span><span class="special">,</span>
+    <span class="keyword">const</span> <span class="identifier">MutableBufferSequence</span> <span class="special">&amp;</span> <span class="identifier">buffer_sequence</span><span class="special">,</span>
+    <span class="keyword">const</span> <span class="identifier">Allocator</span> <span class="special">&amp;</span> <span class="identifier">alloc</span><span class="special">,</span>
+    <span class="keyword">typename</span> <span class="identifier">constraint</span><span class="special">&lt;</span> <span class="identifier">is_convertible</span><span class="special">&lt;</span> <span class="identifier">ExecutionContext</span> <span class="special">&amp;,</span> <span class="identifier">execution_context</span> <span class="special">&amp;</span> <span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">&gt;::</span><span class="identifier">type</span>  <span class="special">=</span> <span class="number">0</span><span class="special">);</span>
 </pre>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
 <td align="left"></td>
-<td align="right"><div class="copyright-footer">Copyright © 2003-2021 Christopher
-      M. Kohlhoff<p>
+<td align="right"><div class="copyright-footer">Copyright © 2003-2022 Christopher M. Kohlhoff<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
       </p>

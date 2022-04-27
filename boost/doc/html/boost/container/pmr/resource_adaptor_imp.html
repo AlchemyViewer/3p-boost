@@ -66,7 +66,7 @@
   <span class="keyword">static</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> <a class="link" href="resource_adaptor_imp.html#idm18881-bb"><span class="identifier">priv_guaranteed_allocator_alignment</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="id-1.3.10.14.27.3.4"></a><h2>Description</h2>
+<a name="id-1.3.9.14.27.3.4"></a><h2>Description</h2>
 <p>An instance of resource_adaptor&lt;Allocator&gt; is an adaptor that wraps a <a class="link" href="memory_resource.html" title="Class memory_resource">memory_resource</a> interface around Allocator. In order that resource_adaptor&lt;X&lt;T&gt;&gt; and resource_adaptor&lt;X<span style="color: red">&lt;underline&gt;&gt; are the same type for any allocator template X and types T and U, resource_adaptor&lt;Allocator&gt; is rendered as an alias to this class template such that Allocator is rebound to a char value type in every specialization of the class template. The requirements on this class template are defined below. In addition to the Allocator requirements, the parameter to resource_adaptor shall meet the following additional requirements:&lt;/underline&gt;</span></p>
 <p><span style="color: red">&lt;underline&gt;<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem"><p><code class="computeroutput">typename <a class="link" href="../allocator_traits.html" title="Struct template allocator_traits">allocator_traits</a>&lt;Allocator&gt;:: pointer</code> shall be identical to <code class="computeroutput">typename <a class="link" href="../allocator_traits.html" title="Struct template allocator_traits">allocator_traits</a>&lt;Allocator&gt;:: value_type*</code>.</p></li>
@@ -76,7 +76,7 @@
 </ul></div>
 &lt;/underline&gt;</span></p>
 <div class="refsect2">
-<a name="id-1.3.10.14.27.3.4.4"></a><h3>
+<a name="id-1.3.9.14.27.3.4.4"></a><h3>
 <a name="boost.container.pmr.resource_adaptor_impconstruct-copy-destruct"></a><code class="computeroutput">resource_adaptor_imp</code> 
         public
        construct/copy/destruct</h3>
@@ -112,7 +112,7 @@
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="id-1.3.10.14.27.3.4.5"></a><h3>
+<a name="id-1.3.9.14.27.3.4.5"></a><h3>
 <a name="idm18767-bb"></a><code class="computeroutput">resource_adaptor_imp</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
@@ -124,7 +124,7 @@
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="id-1.3.10.14.27.3.4.6"></a><h3>
+<a name="id-1.3.9.14.27.3.4.6"></a><h3>
 <a name="idm18824-bb"></a><code class="computeroutput">resource_adaptor_imp</code> protected member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
@@ -144,7 +144,7 @@
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="id-1.3.10.14.27.3.4.7"></a><h3>
+<a name="id-1.3.9.14.27.3.4.7"></a><h3>
 <a name="idm18857-bb"></a><code class="computeroutput">resource_adaptor_imp</code> private member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem"><pre class="literallayout"><span class="keyword">void</span> <span class="special">*</span> <a name="idm18858-bb"></a><span class="identifier">priv_aligned_alloc</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> bytes<span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span> alignment<span class="special">)</span><span class="special">;</span></pre></li>
@@ -153,7 +153,7 @@
 </ol></div>
 </div>
 <div class="refsect2">
-<a name="id-1.3.10.14.27.3.4.8"></a><h3>
+<a name="id-1.3.9.14.27.3.4.8"></a><h3>
 <a name="idm18872-bb"></a><code class="computeroutput">resource_adaptor_imp</code> private static functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem"><pre class="literallayout"><span class="keyword">static</span> <span class="keyword">void</span> <span class="special">*</span> <a name="idm18873-bb"></a><span class="identifier">priv_bookeeping_addr_from_aligned_ptr</span><span class="special">(</span><span class="keyword">void</span> <span class="special">*</span> aligned_ptr<span class="special">)</span><span class="special">;</span></pre></li>
