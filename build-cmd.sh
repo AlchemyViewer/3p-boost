@@ -194,7 +194,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         ZLIB_DEBUG_PATH="$(cygpath -m "${stage}"/packages/lib/debug)"
         ZLIB_RELEASE_PATH="$(cygpath -m "${stage}"/packages/lib/release)"
 
-        case "$AUTOBUILD_WIN_VSVER" in
+        case "$AUTOBUILD_VSVER" in
             120)
                 bootstrapver="vc12"
                 bjamtoolset="msvc-12.0"
@@ -212,7 +212,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
                 bjamtoolset="msvc-14.3"
                 ;;
             *)
-                echo "Unrecognized AUTOBUILD_WIN_VSVER='$AUTOBUILD_WIN_VSVER'" 1>&2 ; exit 1
+                echo "Unrecognized AUTOBUILD_VSVER='$AUTOBUILD_VSVER'" 1>&2 ; exit 1
                 ;;
         esac
 
