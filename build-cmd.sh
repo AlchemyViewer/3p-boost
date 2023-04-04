@@ -401,9 +401,11 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
             cxxflags=-std=c++17 \
             cxxflags=-stdlib=libc++ \
             cxxflags="-isysroot ${SDKROOT}" \
-            cxxflags=-fPIC
+            cxxflags=-fPIC \
+            cxxflags="-fvisibility=hidden" \
+            cxxflags="-fvisibility-inlines-hidden" \
             cflags="-isysroot ${SDKROOT}" \
-            cflags=-fPIC
+            cflags=-fPIC \
             linkflags="-isysroot ${SDKROOT}" \
             "include=${stage}/packages/include" \
             "include=${stage}/packages/include/zlib/" \
