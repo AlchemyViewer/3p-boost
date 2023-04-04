@@ -395,7 +395,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # fail for lack of an ICU library.
         DARWIN_BJAM_OPTIONS=("${BOOST_BJAM_OPTIONS[@]}" \
             link=static \
-            visibility=global \
+            visibility=hidden \
             cxxstd=17 \
             debug-symbols=on \
             cxxflags=-std=c++17 \
