@@ -1,4 +1,4 @@
-# Copyright 2018-2022 Emil Dotchevski and Reverge Studios, Inc.
+# Copyright 2018-2023 Emil Dotchevski and Reverge Studios, Inc.
 
 # Distributed under the Boost Software License, Version 1.0. (See accompanying
 # file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -134,8 +134,11 @@ if option_enable_unit_tests
         'defer_nested_new_error_result_test',
         'defer_nested_success_exception_test',
         'defer_nested_success_result_test',
-        'diagnostic_info_test',
+        'diagnostic_info_test1',
         'diagnostic_info_test2',
+        'diagnostic_info_test3',
+        'diagnostic_info_test4',
+        'diagnostic_info_test5',
         'e_errno_test',
         'e_LastError_test',
         'error_code_test',
@@ -167,6 +170,7 @@ if option_enable_unit_tests
         'result_bad_result_test',
         'result_implicit_conversion_test',
         'result_load_test',
+        'result_print_test',
         'result_ref_test',
         'result_state_test',
         'tls_array_alloc_test1',

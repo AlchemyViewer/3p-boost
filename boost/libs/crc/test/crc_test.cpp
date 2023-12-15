@@ -14,14 +14,13 @@
 //  14 May 2001  Initial version (Daryle Walker)
 
 
-#include <boost/config.hpp>                      // for BOOST_MSVC, etc.
 #include <boost/crc.hpp>                         // for boost::crc_basic, etc.
+#include <boost/config.hpp>                      // for BOOST_MSVC, etc.
 #include <boost/cstdint.hpp>                     // for boost::uint16_t, etc.
-#include <boost/cstdlib.hpp>                     // for boost::exit_success
 #include <boost/integer.hpp>                     // for boost::uint_t
 #include <boost/random/linear_congruential.hpp>  // for boost::minstd_rand
 #include <boost/core/lightweight_test.hpp>
-#include <boost/timer.hpp>                       // for boost::timer
+#include <boost/timer/timer.hpp>                 // for boost::timer
 
 #include <algorithm>  // for std::for_each, std::generate_n, std::count
 #include <climits>    // for CHAR_BIT
@@ -392,7 +391,7 @@ time_trial
     // Trial loop
     uint32_t      trial_count = 0, wrong_count = 0;
     double        elapsed_time = 0.0;
-    boost::timer  t;
+    boost::timer::cpu_timer t;
 
     do
     {
@@ -402,7 +401,7 @@ time_trial
         {
             ++wrong_count;
         }
-        elapsed_time = t.elapsed();
+        elapsed_time = t.elapsed().wall / 1e9;
         ++trial_count;
     } while ( (trial_count < max_count) && (elapsed_time < max_time) );
 

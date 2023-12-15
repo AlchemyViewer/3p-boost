@@ -4,6 +4,7 @@ beast_hidden.html
 beast/ref.html
 beast/ref/boost__beast__async_base.html
 beast/ref/boost__beast__async_base/executor_type.html
+beast/ref/boost__beast__async_base/immediate_executor_type.html
 beast/ref/boost__beast__async_base/allocator_type.html
 beast/ref/boost__beast__async_base/cancellation_slot_type.html
 beast/ref/boost__beast__async_base/async_base.html
@@ -14,6 +15,7 @@ beast/ref/boost__beast__async_base/_dtor_async_base.html
 beast/ref/boost__beast__async_base/operator_eq_.html
 beast/ref/boost__beast__async_base/get_allocator.html
 beast/ref/boost__beast__async_base/get_executor.html
+beast/ref/boost__beast__async_base/get_immediate_executor.html
 beast/ref/boost__beast__async_base/get_cancellation_slot.html
 beast/ref/boost__beast__async_base/set_allowed_cancellation.html
 beast/ref/boost__beast__async_base/handler.html
@@ -752,6 +754,15 @@ beast/ref/boost__beast__iequal/operator_lp__rp_.html
 beast/ref/boost__beast__iless.html
 beast/ref/boost__beast__iless/is_transparent.html
 beast/ref/boost__beast__iless/operator_lp__rp_.html
+beast/ref/boost__beast__test__immediate_executor.html
+beast/ref/boost__beast__test__immediate_executor/immediate_executor.html
+beast/ref/boost__beast__test__immediate_executor/query.html
+beast/ref/boost__beast__test__immediate_executor/query/overload1.html
+beast/ref/boost__beast__test__immediate_executor/query/overload2.html
+beast/ref/boost__beast__test__immediate_executor/query/overload3.html
+beast/ref/boost__beast__test__immediate_executor/execute.html
+beast/ref/boost__beast__test__immediate_executor/operator_eq__eq_.html
+beast/ref/boost__beast__test__immediate_executor/operator__not__eq_.html
 beast/ref/boost__beast__zlib__inflate_stream.html
 beast/ref/boost__beast__zlib__inflate_stream/inflate_stream.html
 beast/ref/boost__beast__zlib__inflate_stream/reset.html
@@ -1045,6 +1056,7 @@ beast/ref/boost__beast__stable_async_base/stable_async_base/overload2.html
 beast/ref/boost__beast__stable_async_base/_dtor_stable_async_base.html
 beast/ref/boost__beast__stable_async_base/get_allocator.html
 beast/ref/boost__beast__stable_async_base/get_executor.html
+beast/ref/boost__beast__stable_async_base/get_immediate_executor.html
 beast/ref/boost__beast__stable_async_base/get_cancellation_slot.html
 beast/ref/boost__beast__stable_async_base/set_allowed_cancellation.html
 beast/ref/boost__beast__stable_async_base/handler.html
@@ -1053,6 +1065,7 @@ beast/ref/boost__beast__stable_async_base/complete.html
 beast/ref/boost__beast__stable_async_base/complete_now.html
 beast/ref/boost__beast__stable_async_base/allocate_stable.html
 beast/ref/boost__beast__stable_async_base/executor_type.html
+beast/ref/boost__beast__stable_async_base/immediate_executor_type.html
 beast/ref/boost__beast__stable_async_base/allocator_type.html
 beast/ref/boost__beast__stable_async_base/cancellation_slot_type.html
 beast/ref/boost__beast__static_buffer.html

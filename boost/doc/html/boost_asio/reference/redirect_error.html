@@ -36,7 +36,7 @@
       </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <span class="identifier">CompletionToken</span><span class="special">&gt;</span>
-<span class="identifier">redirect_error_t</span><span class="special">&lt;</span> <span class="keyword">typename</span> <span class="identifier">decay</span><span class="special">&lt;</span> <span class="identifier">CompletionToken</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="special">&gt;</span> <span class="identifier">redirect_error</span><span class="special">(</span>
+<span class="identifier">redirect_error_t</span><span class="special">&lt;</span> <span class="identifier">decay_t</span><span class="special">&lt;</span> <span class="identifier">CompletionToken</span> <span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">redirect_error</span><span class="special">(</span>
     <span class="identifier">CompletionToken</span> <span class="special">&amp;&amp;</span> <span class="identifier">completion_token</span><span class="special">,</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span> <span class="special">&amp;</span> <span class="identifier">ec</span><span class="special">);</span>
 </pre>

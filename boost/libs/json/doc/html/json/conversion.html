@@ -338,6 +338,53 @@
               </p>
             </td>
 </tr>
+<tr>
+<td>
+              <p>
+                Type satisfying <a class="link" href="ref/boost__json__is_variant_like.html" title="is_variant_like"><code class="computeroutput"><span class="identifier">is_variant_like</span></code></a>
+              </p>
+            </td>
+<td>
+              <p>
+                <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">variant</span></code> and similar types, e.g.
+                <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">variant2</span><span class="special">::</span><span class="identifier">variant</span></code>.
+              </p>
+            </td>
+<td>
+              <p>
+                The result is equal to the result of conversion of the active variant
+                alternative.
+              </p>
+            </td>
+<td>
+              <p>
+                The result holds the first alternative for which a conversion succeeds.
+              </p>
+            </td>
+</tr>
+<tr>
+<td>
+              <p>
+                Type satisfying <a class="link" href="ref/boost__json__is_optional_like.html" title="is_optional_like"><code class="computeroutput"><span class="identifier">is_optional_like</span></code></a>
+              </p>
+            </td>
+<td>
+            </td>
+<td>
+              <p>
+                If the input value is empty, the result is a <code class="computeroutput"><span class="identifier">null</span></code>.
+                Otherwise it is equivalent to conversion of the object stored inside
+                of optional.
+              </p>
+            </td>
+<td>
+              <p>
+                The result is default constructed if the input value is <code class="computeroutput"><span class="identifier">null</span></code>. Otherwise the result is constructed
+                from the result of conversion of the input to the type stored in
+                optional.
+              </p>
+            </td>
+</tr>
 </tbody>
 </table></div>
 </div>

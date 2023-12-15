@@ -1,5 +1,98 @@
 <?xml version="1.0" standalone="yes"?>
-<library-reference id="boost_sort_c___reference"><title>Boost.Sort C++ Reference</title><header name="boost/sort/spreadsort/float_sort.hpp">
+<library-reference id="boost_sort_c___reference"><title>Boost.Sort C++ Reference</title><header name="boost/sort/pdqsort/pdqsort.hpp">
+<namespace name="boost">
+<namespace name="sort">
+<function name="pdqsort"><type>void</type><template>
+          <template-type-parameter name="Iter"/>
+          <template-type-parameter name="Compare"/>
+        </template><parameter name="first"><paramtype>Iter</paramtype><description><para>Iterator pointer to first element. </para></description></parameter><parameter name="last"><paramtype>Iter</paramtype><description><para>Iterator pointing to one beyond the end of data. </para></description></parameter><parameter name="comp"><paramtype>Compare</paramtype><description><para>A binary functor that returns whether the first element passed to it should go before the second in order. </para></description></parameter><purpose>Generic sort algorithm using random access iterators and a user-defined comparison operator. </purpose><description><para><computeroutput>pdqsort</computeroutput> is a fast generic sorting algorithm that is similar in concept to introsort but runs faster on certain patterns. <computeroutput>pdqsort</computeroutput> is in-place, unstable, deterministic, has a worst case runtime of <emphasis>O(N * lg(N))</emphasis> and a best case of <emphasis>O(N)</emphasis>. Even without patterns, the quicksort has been very efficiently implemented, and <computeroutput>pdqsort</computeroutput> runs 1-5% faster than GCC 6.2's <computeroutput>std::sort</computeroutput>. If the type being sorted is <computeroutput>std::is_arithmetic</computeroutput> and Compare is <computeroutput>std::less</computeroutput> or <computeroutput>std::greater</computeroutput> this function will automatically use <computeroutput>pdqsort_branchless</computeroutput> for far greater speedups.</para><para>
+
+
+
+
+
+
+
+<warning><para>Invalid arguments cause undefined behaviour. </para>
+</warning>
+<warning><para>Throwing an exception may cause data loss. </para>
+</warning>
+</para></description><requires><para>[<computeroutput>first</computeroutput>, <computeroutput>last</computeroutput>) is a valid range. </para>
+</requires><requires><para><computeroutput>RandomAccessIter</computeroutput> <computeroutput>value_type</computeroutput> is <ulink url="http://en.cppreference.com/w/cpp/concept/MoveAssignable">MoveAssignable</ulink> </para>
+</requires><requires><para><computeroutput>RandomAccessIter</computeroutput> <computeroutput>value_type</computeroutput> is <ulink url="http://en.cppreference.com/w/cpp/concept/MoveConstructible">MoveConstructible</ulink> </para>
+</requires><requires><para><computeroutput>RandomAccessIter</computeroutput> <computeroutput>value_type</computeroutput> is <ulink url="http://en.cppreference.com/w/cpp/concept/LessThanComparable">LessThanComparable</ulink> </para>
+</requires><postconditions><para>The elements in the range [<computeroutput>first</computeroutput>, <computeroutput>last</computeroutput>) are sorted in ascending order.</para>
+</postconditions><returns><para><computeroutput>void</computeroutput>.</para>
+</returns><throws><simpara><classname>std::exception</classname> Propagates exceptions if any of the element comparisons, the element swaps (or moves), functors, or any operations on iterators throw. </simpara></throws></function>
+<function name="pdqsort_branchless"><type>void</type><template>
+          <template-type-parameter name="Iter"/>
+          <template-type-parameter name="Compare"/>
+        </template><parameter name="first"><paramtype>Iter</paramtype><description><para>Iterator pointer to first element. </para></description></parameter><parameter name="last"><paramtype>Iter</paramtype><description><para>Iterator pointing to one beyond the end of data. </para></description></parameter><parameter name="comp"><paramtype>Compare</paramtype><description><para>A binary functor that returns whether the first element passed to it should go before the second in order. </para></description></parameter><purpose>Generic sort algorithm using random access iterators and a user-defined comparison operator. </purpose><description><para><computeroutput>pdqsort_branchless</computeroutput> is a fast generic sorting algorithm that is similar in concept to introsort but runs faster on certain patterns. <computeroutput>pdqsort_branchless</computeroutput> is in-place, unstable, deterministic, has a worst case runtime of <emphasis>O(N * lg(N))</emphasis> and a best case of <emphasis>O(N)</emphasis>. Even without patterns, the quicksort has been very efficiently implemented with block based partitioning, and <computeroutput>pdqsort_branchless</computeroutput> runs 80-90% faster than GCC 6.2's <computeroutput>std::sort</computeroutput> when sorting small data such as integers. However, this speedup is gained by totally bypassing the branch predictor, if your comparison operator or iterator contains branches you will most likely see little gain or a small loss in performance.</para><para>
+
+
+
+
+
+
+
+<warning><para>Invalid arguments cause undefined behaviour. </para>
+</warning>
+<warning><para>Throwing an exception may cause data loss. </para>
+</warning>
+</para></description><requires><para>[<computeroutput>first</computeroutput>, <computeroutput>last</computeroutput>) is a valid range. </para>
+</requires><requires><para><computeroutput>RandomAccessIter</computeroutput> <computeroutput>value_type</computeroutput> is <ulink url="http://en.cppreference.com/w/cpp/concept/MoveAssignable">MoveAssignable</ulink> </para>
+</requires><requires><para><computeroutput>RandomAccessIter</computeroutput> <computeroutput>value_type</computeroutput> is <ulink url="http://en.cppreference.com/w/cpp/concept/MoveConstructible">MoveConstructible</ulink> </para>
+</requires><requires><para><computeroutput>RandomAccessIter</computeroutput> <computeroutput>value_type</computeroutput> is <ulink url="http://en.cppreference.com/w/cpp/concept/LessThanComparable">LessThanComparable</ulink> </para>
+</requires><postconditions><para>The elements in the range [<computeroutput>first</computeroutput>, <computeroutput>last</computeroutput>) are sorted in ascending order.</para>
+</postconditions><returns><para><computeroutput>void</computeroutput>.</para>
+</returns><throws><simpara><classname>std::exception</classname> Propagates exceptions if any of the element comparisons, the element swaps (or moves), functors, or any operations on iterators throw. </simpara></throws></function>
+<function name="pdqsort"><type>void</type><template>
+          <template-type-parameter name="Iter"/>
+        </template><parameter name="first"><paramtype>Iter</paramtype><description><para>Iterator pointer to first element. </para></description></parameter><parameter name="last"><paramtype>Iter</paramtype><description><para>Iterator pointing to one beyond the end of data. </para></description></parameter><purpose>Generic sort algorithm using random access iterators. </purpose><description><para><computeroutput>pdqsort</computeroutput> is a fast generic sorting algorithm that is similar in concept to introsort but runs faster on certain patterns. <computeroutput>pdqsort</computeroutput> is in-place, unstable, deterministic, has a worst case runtime of <emphasis>O(N * lg(N))</emphasis> and a best case of <emphasis>O(N)</emphasis>. Even without patterns, the quicksort partitioning has been very efficiently implemented, and <computeroutput>pdqsort</computeroutput> runs 80-90% faster than GCC 6.2's <computeroutput>std::sort</computeroutput>. If the type being sorted is <computeroutput>std::is_arithmetic</computeroutput> this function will automatically use <computeroutput>pdqsort_branchless</computeroutput>.</para><para>
+
+
+
+
+
+
+
+<warning><para>Invalid arguments cause undefined behaviour. </para>
+</warning>
+<warning><para>Throwing an exception may cause data loss. </para>
+</warning>
+</para></description><requires><para>[<computeroutput>first</computeroutput>, <computeroutput>last</computeroutput>) is a valid range. </para>
+</requires><requires><para><computeroutput>RandomAccessIter</computeroutput> <computeroutput>value_type</computeroutput> is <ulink url="http://en.cppreference.com/w/cpp/concept/MoveAssignable">MoveAssignable</ulink> </para>
+</requires><requires><para><computeroutput>RandomAccessIter</computeroutput> <computeroutput>value_type</computeroutput> is <ulink url="http://en.cppreference.com/w/cpp/concept/MoveConstructible">MoveConstructible</ulink> </para>
+</requires><requires><para><computeroutput>RandomAccessIter</computeroutput> <computeroutput>value_type</computeroutput> is <ulink url="http://en.cppreference.com/w/cpp/concept/LessThanComparable">LessThanComparable</ulink> </para>
+</requires><postconditions><para>The elements in the range [<computeroutput>first</computeroutput>, <computeroutput>last</computeroutput>) are sorted in ascending order.</para>
+</postconditions><returns><para><computeroutput>void</computeroutput>.</para>
+</returns><throws><simpara><classname>std::exception</classname> Propagates exceptions if any of the element comparisons, the element swaps (or moves), functors, or any operations on iterators throw. </simpara></throws></function>
+<function name="pdqsort_branchless"><type>void</type><template>
+          <template-type-parameter name="Iter"/>
+        </template><parameter name="first"><paramtype>Iter</paramtype><description><para>Iterator pointer to first element. </para></description></parameter><parameter name="last"><paramtype>Iter</paramtype><description><para>Iterator pointing to one beyond the end of data. </para></description></parameter><purpose>Generic sort algorithm using random access iterators. </purpose><description><para><computeroutput>pdqsort_branchless</computeroutput> is a fast generic sorting algorithm that is similar in concept to introsort but runs faster on certain patterns. <computeroutput>pdqsort_branchless</computeroutput> is in-place, unstable, deterministic, has a worst case runtime of <emphasis>O(N * lg(N))</emphasis> and a best case of <emphasis>O(N)</emphasis>. Even without patterns, the quicksort has been very efficiently implemented with block based partitioning, and <computeroutput>pdqsort_branchless</computeroutput> runs 80-90% faster than GCC 6.2's <computeroutput>std::sort</computeroutput> when sorting small data such as integers. However, this speedup is gained by totally bypassing the branch predictor, if your comparison operator or iterator contains branches you will most likely see little gain or a small loss in performance.</para><para>
+
+
+
+
+
+
+
+<warning><para>Invalid arguments cause undefined behaviour. </para>
+</warning>
+<warning><para>Throwing an exception may cause data loss. </para>
+</warning>
+</para></description><requires><para>[<computeroutput>first</computeroutput>, <computeroutput>last</computeroutput>) is a valid range. </para>
+</requires><requires><para><computeroutput>RandomAccessIter</computeroutput> <computeroutput>value_type</computeroutput> is <ulink url="http://en.cppreference.com/w/cpp/concept/MoveAssignable">MoveAssignable</ulink> </para>
+</requires><requires><para><computeroutput>RandomAccessIter</computeroutput> <computeroutput>value_type</computeroutput> is <ulink url="http://en.cppreference.com/w/cpp/concept/MoveConstructible">MoveConstructible</ulink> </para>
+</requires><requires><para><computeroutput>RandomAccessIter</computeroutput> <computeroutput>value_type</computeroutput> is <ulink url="http://en.cppreference.com/w/cpp/concept/LessThanComparable">LessThanComparable</ulink> </para>
+</requires><postconditions><para>The elements in the range [<computeroutput>first</computeroutput>, <computeroutput>last</computeroutput>) are sorted in ascending order.</para>
+</postconditions><returns><para><computeroutput>void</computeroutput>.</para>
+</returns><throws><simpara><classname>std::exception</classname> Propagates exceptions if any of the element comparisons, the element swaps (or moves), functors, or any operations on iterators throw. </simpara></throws></function>
+</namespace>
+</namespace>
+<macro name="BOOST_PDQSORT_PREFER_MOVE" kind="functionlike"><macro-parameter name="x"/></macro>
+</header>
+<header name="boost/sort/spreadsort/float_sort.hpp">
 <namespace name="boost">
 <namespace name="sort">
 <namespace name="spreadsort">
@@ -85,6 +178,10 @@ spreadsort(vec.begin(), vec.end());
         </template><parameter name="range"><paramtype>Range &amp;</paramtype><description><para>Range [first, last) for sorting. </para></description></parameter><parameter name="rshift"><paramtype>Right_shift</paramtype><description><para>Functor that returns the result of shifting the value_type right a specified number of bits. </para></description></parameter><parameter name="comp"><paramtype>Compare</paramtype><description><para>A binary functor that returns whether the first element passed to it should go before the second in order. </para></description></parameter><purpose>Float sort algorithm using range with both right-shift and user-defined comparison operator. </purpose><description><para>
 </para></description></function>
 </namespace>
+
+
+
+
 </namespace>
 </namespace>
 </header>
@@ -313,6 +410,10 @@ Some performance plots of runtime vs. n and log(range) are provided:<sbr/>
 
 
 </namespace>
+
+
+
+
 </namespace>
 </namespace>
 </header>
@@ -422,6 +523,10 @@ Some performance plots of runtime vs. n and log(range) are provided:<sbr/>
 
 
 </namespace>
+
+
+
+
 </namespace>
 </namespace>
 </header>
@@ -950,6 +1055,10 @@ Some performance plots of runtime vs. n and log(range) are provided:<sbr/>
 
 
 </namespace>
+
+
+
+
 </namespace>
 </namespace>
 </header>

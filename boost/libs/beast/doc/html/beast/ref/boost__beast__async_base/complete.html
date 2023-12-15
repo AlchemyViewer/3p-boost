@@ -28,7 +28,7 @@
 <a name="beast.ref.boost__beast__async_base.complete"></a><a class="link" href="complete.html" title="async_base::complete">async_base::complete</a>
 </h5></div></div></div>
 <p>
-          <a class="indexterm" name="idm1528"></a>
+          <a class="indexterm" name="idm1592"></a>
         </p>
 <p>
           Invoke the final completion handler, maybe using post.
@@ -85,7 +85,10 @@
 <td>
                   <p>
                     If this value is <code class="computeroutput"><span class="keyword">false</span></code>,
-                    then the handler will be submitted to the executor using <code class="computeroutput"><span class="identifier">net</span><span class="special">::</span><span class="identifier">post</span></code>. Otherwise the handler
+                    then the handler will be submitted to the to the immediate executor
+                    using <code class="computeroutput"><span class="identifier">net</span><span class="special">::</span><span class="identifier">dispatch</span></code>. If the handler has
+                    no immediate executor, this will submit to the executor via
+                    <code class="computeroutput"><span class="identifier">net</span><span class="special">::</span><span class="identifier">post</span></code>. Otherwise the handler
                     will be invoked as if by calling <a class="link" href="complete_now.html" title="async_base::complete_now"><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">beast</span><span class="special">::</span><span class="identifier">async_base</span><span class="special">::</span><span class="identifier">complete_now</span></code></a>.
                   </p>
                 </td>

@@ -67,7 +67,7 @@
 </pre>
 <p>
         The function <a class="link" href="../ref/boost__urls__format_to.html" title="format_to"><code class="computeroutput"><span class="identifier">format_to</span></code></a> can be used to format
-        URLs into any modifiable container that inherits from <a class="link" href="../ref/boost__urls__url_base.html" title="url_base"><code class="computeroutput"><span class="identifier">url_base</span></code></a>.
+        URLs into any modifiable URL container.
       </p>
 <pre class="programlisting"><span class="identifier">static_url</span><span class="special">&lt;</span><span class="number">50</span><span class="special">&gt;</span> <span class="identifier">u</span><span class="special">;</span>
 <span class="identifier">format_to</span><span class="special">(</span><span class="identifier">u</span><span class="special">,</span> <span class="string">"{}://{}:{}/rfc/{}"</span><span class="special">,</span> <span class="string">"https"</span><span class="special">,</span> <span class="string">"www.ietf.org"</span><span class="special">,</span> <span class="number">80</span><span class="special">,</span> <span class="string">"rfc2396.txt"</span><span class="special">);</span>
@@ -75,7 +75,7 @@
 </pre>
 <p>
         As with <a href="https://en.cppreference.com/w/cpp/utility/format/format" target="_top"><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">format</span></code></a>,
-        positional and named arguments are also supported.
+        positional and named arguments are supported.
       </p>
 <pre class="programlisting"><span class="identifier">url</span> <span class="identifier">u</span> <span class="special">=</span> <span class="identifier">format</span><span class="special">(</span><span class="string">"{0}://{2}:{1}/{3}{4}{3}"</span><span class="special">,</span> <span class="string">"https"</span><span class="special">,</span> <span class="number">80</span><span class="special">,</span> <span class="string">"www.ietf.org"</span><span class="special">,</span> <span class="string">"abra"</span><span class="special">,</span> <span class="string">"cad"</span><span class="special">);</span>
 <span class="identifier">assert</span><span class="special">(</span><span class="identifier">u</span><span class="special">.</span><span class="identifier">buffer</span><span class="special">()</span> <span class="special">==</span> <span class="string">"https://www.ietf.org:80/abracadabra"</span><span class="special">);</span>

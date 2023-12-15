@@ -35,7 +35,7 @@
 <method name="crbegin" cv="const noexcept"><type>const_reverse_iterator</type><description><para><emphasis role="bold">Complexity:</emphasis> O(1)</para><para><emphasis role="bold">Async-Handler-Safety</emphasis>: Safe. </para></description></method>
 <method name="rend" cv="const noexcept"><type>const_reverse_iterator</type><description><para><emphasis role="bold">Complexity:</emphasis> O(1)</para><para><emphasis role="bold">Async-Handler-Safety</emphasis>: Safe. </para></description></method>
 <method name="crend" cv="const noexcept"><type>const_reverse_iterator</type><description><para><emphasis role="bold">Complexity:</emphasis> O(1)</para><para><emphasis role="bold">Async-Handler-Safety</emphasis>: Safe. </para></description></method>
-<method name="conversion-operator" cv="const noexcept" specifiers="explicit"><type>bool</type><purpose>Allows to check that stack trace capturing was successful. </purpose><description><para>
+<method name="operator bool" cv="const noexcept" specifiers="explicit"><type>constexpr</type><purpose>Allows to check that stack trace capturing was successful. </purpose><description><para>
 <emphasis role="bold">Complexity:</emphasis> O(1)</para><para><emphasis role="bold">Async-Handler-Safety</emphasis>: Safe. </para></description><returns><para><computeroutput>true</computeroutput> if <computeroutput>this-&gt;size() != 0</computeroutput></para>
 </returns></method>
 <method name="empty" cv="const noexcept"><type>bool</type><purpose>Allows to check that stack trace failed. </purpose><description><para>
@@ -53,7 +53,7 @@
 <copy-assignment><type><classname>basic_stacktrace</classname> &amp;</type><parameter name="st"><paramtype>const <classname>basic_stacktrace</classname> &amp;</paramtype></parameter><description><para><emphasis role="bold">Complexity:</emphasis> O(st.size())</para><para><emphasis role="bold">Async-Handler-Safety</emphasis>: Safe if Allocator construction, copying, Allocator::allocate and Allocator::deallocate are async signal safe. </para></description></copy-assignment>
 <destructor><description><para><emphasis role="bold">Complexity:</emphasis> O(1)</para><para><emphasis role="bold">Async-Handler-Safety</emphasis>: Safe if Allocator::deallocate is async signal safe. </para></description></destructor>
 <constructor cv="noexcept"><parameter name="st"><paramtype><classname>basic_stacktrace</classname> &amp;&amp;</paramtype></parameter><description><para><emphasis role="bold">Complexity:</emphasis> O(1)</para><para><emphasis role="bold">Async-Handler-Safety</emphasis>: Safe if Allocator construction and copying are async signal safe. </para></description></constructor>
-<copy-assignment><type><classname>basic_stacktrace</classname> &amp;</type><parameter name="st"><paramtype><classname>basic_stacktrace</classname> &amp;&amp;</paramtype></parameter><description><para><emphasis role="bold">Complexity:</emphasis> O(st.size())</para><para><emphasis role="bold">Async-Handler-Safety</emphasis>: Safe if Allocator construction and copying are async signal safe. </para></description></copy-assignment>
+<copy-assignment cv="noexcept((std::is_nothrow_move_assignable&lt; std::vector&lt; boost::stacktrace::frame, Allocator &gt; &gt;::value))"><type><classname>basic_stacktrace</classname> &amp;</type><parameter name="st"><paramtype><classname>basic_stacktrace</classname> &amp;&amp;</paramtype></parameter><description><para><emphasis role="bold">Complexity:</emphasis> O(st.size())</para><para><emphasis role="bold">Async-Handler-Safety</emphasis>: Safe if Allocator construction and copying are async signal safe. </para></description></copy-assignment>
 <method-group name="public static functions">
 <method name="from_dump" specifiers="static"><type><classname>basic_stacktrace</classname></type><template>
           <template-type-parameter name="Char"/>
@@ -137,10 +137,11 @@
 
 <emphasis role="bold">Complexity:</emphasis> unknown (lots of platform specific work).</para><para><emphasis role="bold">Async-Handler-Safety</emphasis>: Unsafe. </para></description><returns><para>Code line in the source file, were the function of the frame is defined. </para>
 </returns><throws><simpara><classname>std::bad_alloc</classname> if not enough memory to construct string for internal needs.</simpara></throws></method>
-<method name="empty" cv="const noexcept"><type>constexpr bool</type><purpose>Checks that frame is not references NULL address. </purpose><description><para>
-<emphasis role="bold">Complexity:</emphasis> O(1)</para><para><emphasis role="bold">Async-Handler-Safety</emphasis>: Safe.</para><para>Checks that frame references NULL address. 
+<method name="operator bool" cv="const noexcept" specifiers="explicit"><type>constexpr</type><purpose>Checks that frame is not references NULL address. </purpose><description><para>
 <emphasis role="bold">Complexity:</emphasis> O(1)</para><para><emphasis role="bold">Async-Handler-Safety</emphasis>: Safe. </para></description><returns><para><computeroutput>true</computeroutput> if <computeroutput>this-&gt;address() != 0</computeroutput></para>
-</returns><returns><para><computeroutput>true</computeroutput> if <computeroutput>this-&gt;address() == 0</computeroutput></para>
+</returns></method>
+<method name="empty" cv="const noexcept"><type>constexpr bool</type><purpose>Checks that frame references NULL address. </purpose><description><para>
+<emphasis role="bold">Complexity:</emphasis> O(1)</para><para><emphasis role="bold">Async-Handler-Safety</emphasis>: Safe. </para></description><returns><para><computeroutput>true</computeroutput> if <computeroutput>this-&gt;address() == 0</computeroutput></para>
 </returns></method>
 </method-group>
 <constructor cv="noexcept"><purpose>Constructs frame that references NULL address. Calls to source_file() and source_line() will return empty string. Calls to source_line() will return 0. </purpose><description><para><emphasis role="bold">Complexity:</emphasis> O(1).</para><para><emphasis role="bold">Async-Handler-Safety</emphasis>: Safe. 

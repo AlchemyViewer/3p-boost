@@ -31,9 +31,11 @@
 <p>
             Equality operator.
           </p>
-<pre class="programlisting"><span class="keyword">bool</span> <span class="keyword">operator</span><span class="special">==(</span>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
+    <span class="keyword">typename</span><span class="special">...</span> <span class="identifier">SupportableProperties</span><span class="special">&gt;</span>
+<span class="keyword">bool</span> <span class="keyword">operator</span><span class="special">==(</span>
     <span class="identifier">nullptr_t</span> <span class="special">,</span>
-    <span class="keyword">const</span> <span class="identifier">any_executor</span><span class="special">&lt;</span> <span class="identifier">SupportableProperties</span><span class="special">...&gt;</span> <span class="special">&amp;</span> <span class="identifier">b</span><span class="special">);</span>
+    <span class="keyword">const</span> <span class="identifier">any_executor</span><span class="special">&lt;</span> <span class="identifier">SupportableProperties</span><span class="special">...</span> <span class="special">&gt;</span> <span class="special">&amp;</span> <span class="identifier">b</span><span class="special">);</span>
 </pre>
 </div>
 <div class="copyright-footer">Copyright © 2003-2023 Christopher M. Kohlhoff<p>

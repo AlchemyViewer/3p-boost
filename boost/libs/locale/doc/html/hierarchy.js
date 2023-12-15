@@ -10,9 +10,9 @@ var hierarchy =
     [ "boost::locale::boundary::break_info", "structboost_1_1locale_1_1boundary_1_1break__info.html", null ],
     [ "boost::locale::calendar", "classboost_1_1locale_1_1calendar.html", null ],
     [ "std::codecvt", null, [
-      [ "boost::locale::generic_codecvt< CharType, CodecvtImpl, 1 >", "classboost_1_1locale_1_1generic__codecvt_3_01CharType_00_01CodecvtImpl_00_011_01_4.html", null ],
       [ "boost::locale::generic_codecvt< CharType, CodecvtImpl, 2 >", "classboost_1_1locale_1_1generic__codecvt_3_01CharType_00_01CodecvtImpl_00_012_01_4.html", null ],
-      [ "boost::locale::generic_codecvt< CharType, CodecvtImpl, 4 >", "classboost_1_1locale_1_1generic__codecvt_3_01CharType_00_01CodecvtImpl_00_014_01_4.html", null ]
+      [ "boost::locale::generic_codecvt< CharType, CodecvtImpl, 4 >", "classboost_1_1locale_1_1generic__codecvt_3_01CharType_00_01CodecvtImpl_00_014_01_4.html", null ],
+      [ "boost::locale::generic_codecvt< char, CodecvtImpl, 1 >", "classboost_1_1locale_1_1generic__codecvt_3_01char_00_01CodecvtImpl_00_011_01_4.html", null ]
     ] ],
     [ "std::collate", null, [
       [ "boost::locale::collator< CharType >", "classboost_1_1locale_1_1collator.html", null ]
@@ -46,9 +46,9 @@ var hierarchy =
       [ "boost::locale::utf8_codecvt< CharType >", "classboost_1_1locale_1_1utf8__codecvt.html", null ]
     ] ],
     [ "boost::locale::generic_codecvt_base", "classboost_1_1locale_1_1generic__codecvt__base.html", [
-      [ "boost::locale::generic_codecvt< CharType, CodecvtImpl, 1 >", "classboost_1_1locale_1_1generic__codecvt_3_01CharType_00_01CodecvtImpl_00_011_01_4.html", null ],
       [ "boost::locale::generic_codecvt< CharType, CodecvtImpl, 2 >", "classboost_1_1locale_1_1generic__codecvt_3_01CharType_00_01CodecvtImpl_00_012_01_4.html", null ],
-      [ "boost::locale::generic_codecvt< CharType, CodecvtImpl, 4 >", "classboost_1_1locale_1_1generic__codecvt_3_01CharType_00_01CodecvtImpl_00_014_01_4.html", null ]
+      [ "boost::locale::generic_codecvt< CharType, CodecvtImpl, 4 >", "classboost_1_1locale_1_1generic__codecvt_3_01CharType_00_01CodecvtImpl_00_014_01_4.html", null ],
+      [ "boost::locale::generic_codecvt< char, CodecvtImpl, 1 >", "classboost_1_1locale_1_1generic__codecvt_3_01char_00_01CodecvtImpl_00_011_01_4.html", null ]
     ] ],
     [ "boost::locale::hold_ptr< T >", "classboost_1_1locale_1_1hold__ptr.html", null ],
     [ "boost::locale::hold_ptr< boost::locale::abstract_calendar >", "classboost_1_1locale_1_1hold__ptr.html", null ],

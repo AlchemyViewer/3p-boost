@@ -177,7 +177,6 @@
 <method name="get" cv="const"><type>result_type const &amp;</type></method>
 <method name="has_result" cv="const"><type>bool</type></method>
 </method-group>
-<copy-assignment><type><classname>with_cached_result</classname> &amp;</type><parameter name=""><paramtype><classname>with_cached_result</classname> const &amp;</paramtype></parameter></copy-assignment>
 </struct><namespace name="tag">
 <struct name="as_droppable"><template>
       <template-type-parameter name="Feature"/>

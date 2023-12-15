@@ -1,3 +1,42 @@
+Version 351:
+
+* Use the explicit type std::size_t when completing transfer_op
+
+--------------------------------------------------------------------------------
+
+Version 350:
+
+* Allocation and invocation hooks are removed
+* `detail::bind_default_executor` helper is removed
+* Improved documentation for `websocket::stream::async_write_some`
+
+--------------------------------------------------------------------------------
+
+Version 349:
+
+* Added support for `immediate_executor`
+* `BOOST_ASIO_INITFN_AUTO_RES` replaces `BOOST_ASIO_INITFN_RESULT_TYPE`
+* Updated license info for `work_guard`
+* Corrected handler requirements of ping/pong
+* Improved Drone caching
+* `server-flex-awaitable` example now resets parser
+* OpenSSL 1.1.1.2100 or later is required for x86
+* GCC 5.0 or later is required
+* Introduced self-hosted GitHub actions runners
+* Minor documentation fixes and updates
+
+--------------------------------------------------------------------------------
+
+Version 348:
+
+* multiple CI fixes
+* jamfile uses openssl.jam
+* websocket uses upper case Upgrade for connection field
+* ssl_stream does not use BOOST_BEAST_ASYNC_TPARAM1 because of clang-16
+* doc updates
+
+--------------------------------------------------------------------------------
+
 Version 347:
 
 * `placeholder` ambiguity fix.
@@ -170,9 +209,9 @@ Version 324:
 Version 323:
 
 * Fix clang-cl UTF8 path handling for `file_win32`.
-* Fix clang-cl UTF8 path handling for `file_stdio`. 
+* Fix clang-cl UTF8 path handling for `file_stdio`.
 * Add individual tests to CMake workflow.
-* Update CI to include gcc 11, clang 12, msvc 14.3. 
+* Update CI to include gcc 11, clang 12, msvc 14.3.
 * Update code coverage settings.
 
 --------------------------------------------------------------------------------
@@ -351,10 +390,10 @@ Version 301:
 API Changes:
 
 * Previously, `teardown` and `async_teardown` of a websocket connection over SSL
-  would only shut down the SSL layer, leaving the TCP layer connected. Now the 
-  SSL teardown will tear down both the SSL and TCP layers, cleanly shutting down 
+  would only shut down the SSL layer, leaving the TCP layer connected. Now the
+  SSL teardown will tear down both the SSL and TCP layers, cleanly shutting down
   the TCP connection and closing the socket.
-  Should the client expect the TCP socket to remain connected, users will need to 
+  Should the client expect the TCP socket to remain connected, users will need to
   re-engineer their code.
 
 --------------------------------------------------------------------------------
@@ -390,15 +429,15 @@ Version 297:
 
 API Changes:
 
-* `string_param`, which was previously the argument type when setting field values 
-   has been replaced by `string_view`. Because of this, it is no longer possible to 
-   set message field values directly as integrals. 
+* `string_param`, which was previously the argument type when setting field values
+   has been replaced by `string_view`. Because of this, it is no longer possible to
+   set message field values directly as integrals.
 
-   Users are required to convert numeric arguments to a string type prior to calling 
+   Users are required to convert numeric arguments to a string type prior to calling
    `fields::set` et. al.
-   
+
    Beast provides the non-allocating `to_static_string()` function for this purpose.
-   
+
    To set Content-Length field manually, call `message::content_length`.
 
 --------------------------------------------------------------------------------
@@ -419,7 +458,7 @@ Version 296:
 API Changes:
 
 * The file `core/buffers_adapter.hpp` has been removed along with the deprecated
-  alias typename `buffers_adapter`. Affected programs should use 
+  alias typename `buffers_adapter`. Affected programs should use
   `core/buffers_adapator.hpp` and the type `buffers_adaptor`.
 
 * The error code enum `invalid_code_lenths` was a synonym of `invalid_code_lengths`.
@@ -429,7 +468,7 @@ API Changes:
   the type trait `is_completion_handler`. Beast uses the CompletionHandler correctness
   checks provided by Asio. In a c++20 environment, these convert to concept checks.
 
-* The `reset` function has been removed from `flat_static_buffer`. Use the 
+* The `reset` function has been removed from `flat_static_buffer`. Use the
   `clear` function instead.
 
 * Code that depends on `mutable_data_type` should be refactored to use
@@ -440,7 +479,7 @@ API Changes:
   - `multi_buffer`
   - `static_buffer`
 
-* handler_ptr has been removed. Users should use net::bind_handler and/or 
+* handler_ptr has been removed. Users should use net::bind_handler and/or
 bind_front_handler instead.
 
 * websocket::role_type has been removed. Users should use beast::role_type instead.
@@ -455,7 +494,7 @@ Programs still using these names should be refactored to use the `decorator` fea
 the remaining handshake and accept functions.
 
 * The macro BOOST_BEAST_NO_DEPRECATED will no longer be noticed by Beast. The only way to
-enable deprecated functionality is now the macro BOOST_BEAST_ALLOW_DEPRECATED which is 
+enable deprecated functionality is now the macro BOOST_BEAST_ALLOW_DEPRECATED which is
 undefined by default. That is, all deprecated behaviour is disabled by default.
 
 --------------------------------------------------------------------------------
@@ -497,7 +536,7 @@ by the HTTP parser:
 - http::async_read_header
 - http::async_read_some
 
-As of now, the `bytes_transferred` return value will indicate the number of bytes 
+As of now, the `bytes_transferred` return value will indicate the number of bytes
 consumed by the parser when parsing an http message.
 
 Actions Required:
@@ -525,7 +564,7 @@ Behaviour Changes:
 Version 292:
 
 * Fix compile errors on Visual Studio with /std:c++latest
-* Fix standalone compilation error with std::string_view 
+* Fix standalone compilation error with std::string_view
 * OpenSSL 1.0.2 or later is required
 * Fix c++20 deprecation warning in span_body
 
@@ -594,7 +633,7 @@ API Changes:
   - flat_static_buffer
   - multi_buffer
   - static_buffer
-  
+
 * Nested mutable_data_type in Beast dynamic buffers is deprecated:
 
 Changes Required:

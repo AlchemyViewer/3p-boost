@@ -668,12 +668,12 @@ pre.rouge {
 <li><a href="#overview_introduction">Introduction to the Boost.Endian library</a></li>
 <li><a href="#overview_intrinsics">Built-in support for Intrinsics</a></li>
 <li><a href="#overview_performance">Performance</a></li>
-<li><a href="#overview_cpp03_support">C&#43;&#43;03 support for C&#43;&#43;11 features</a></li>
 <li><a href="#overview_faq">Overall FAQ</a></li>
 </ul>
 </li>
 <li><a href="#changelog">Revision History</a>
 <ul class="sectlevel2">
+<li><a href="#overview_changes_in_1_84_0">Changes in 1.84.0</a></li>
 <li><a href="#overview_changes_in_1_75_0">Changes in 1.75.0</a></li>
 <li><a href="#overview_changes_in_1_74_0">Changes in 1.74.0</a></li>
 <li><a href="#overview_changes_in_1_72_0">Changes in 1.72.0</a></li>
@@ -706,7 +706,6 @@ pre.rouge {
 <li><a href="#buffers_class_template_endian_buffer">Class template <code>endian_buffer</code></a></li>
 <li><a href="#buffers_faq">FAQ</a></li>
 <li><a href="#buffers_design_considerations_for_boost_endian_buffers">Design considerations for Boost.Endian buffers</a></li>
-<li><a href="#buffers_c11">C&#43;&#43;11</a></li>
 <li><a href="#buffers_compilation">Compilation</a></li>
 </ul>
 </li>
@@ -722,7 +721,6 @@ pre.rouge {
 <li><a href="#arithmetic_design_considerations_for_boost_endian_types">Design considerations for Boost.Endian types</a></li>
 <li><a href="#arithmetic_experience">Experience</a></li>
 <li><a href="#arithmetic_motivating_use_cases">Motivating use cases</a></li>
-<li><a href="#arithmetic_c11">C&#43;&#43;11</a></li>
 <li><a href="#arithmetic_compilation">Compilation</a></li>
 <li><a href="#arithmetic_acknowledgements">Acknowledgements</a></li>
 </ul>
@@ -882,9 +880,7 @@ be used directly in generic code of for less common use cases.</p>
 </dl>
 </div>
 <div class="paragraph">
-<p>Boost Endian is a header-only library. C&#43;&#43;11 features affecting interfaces,
-such as <code>noexcept</code>, are  used only if available. See
-<a href="#overview_cpp03_support">C&#43;&#43;03 support for C&#43;&#43;11 features</a> for details.</p>
+<p>Boost Endian is a header-only library and requires C&#43;&#43;11.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1164,42 +1160,6 @@ the build setup.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="overview_cpp03_support">C&#43;&#43;03 support for C&#43;&#43;11 features</h3>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">C&#43;&#43;11 Feature</th>
-<th class="tableblock halign-left valign-top">Action with C&#43;&#43;03 Compilers</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Scoped enums</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Uses header
-<a href="http://www.boost.org/libs/core/doc/html/core/scoped_enum.html">boost/core/scoped_enum.hpp</a>
-to emulate C&#43;&#43;11 scoped enums.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>noexcept</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Uses <code>BOOST_NOEXCEPT</code> macro, which is defined as null for compilers not
-supporting this C&#43;&#43;11 feature.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">C&#43;&#43;11 PODs
-(<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2342.htm">N2342</a>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Takes advantage of C&#43;&#43;03 compilers that relax C&#43;&#43;03 POD rules, but see
-Limitations <a href="#buffers_limitations">here</a> and <a href="#arithmetic_limitations">here</a>.
-Also see macros for explicit POD control <a href="#buffers_compilation">here</a> and
-<a href="#arithmetic_compilation">here</a></p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
 <h3 id="overview_faq">Overall FAQ</h3>
 <div class="dlist">
 <dl>
@@ -1209,7 +1169,7 @@ Also see macros for explicit POD control <a href="#buffers_compilation">here</a>
 </dd>
 <dt class="hdlist1">Are C&#43;&#43;03 compilers supported?</dt>
 <dd>
-<p>Yes.</p>
+<p>No. C&#43;&#43;11 is required since release 1.84.</p>
 </dd>
 <dt class="hdlist1">Does the implementation use compiler intrinsic built-in byte swapping?</dt>
 <dd>
@@ -1318,15 +1278,25 @@ does not necessarily produce another valid floating point number.</p>
 <h2 id="changelog">Revision History</h2>
 <div class="sectionbody">
 <div class="sect2">
+<h3 id="overview_changes_in_1_84_0">Changes in 1.84.0</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>C&#43;&#43;03 is no longer supported.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
 <h3 id="overview_changes_in_1_75_0">Changes in 1.75.0</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><code>endian_arithmetic</code> no longer inherits from <code>endian_buffer</code></p>
+<p><code>endian_arithmetic</code> no longer inherits from <code>endian_buffer</code>.</p>
 </li>
 <li>
 <p>When <code>BOOST_ENDIAN_NO_CTORS</code> is defined, the unaligned <code>endian_buffer</code> and
-<code>endian_arithmetic</code> are C&#43;&#43;03 PODs, to enable use of <code>__attribute__((packed))</code></p>
+<code>endian_arithmetic</code> are C&#43;&#43;03 PODs, to enable use of <code>__attribute__((packed))</code>.</p>
 </li>
 </ul>
 </div>
@@ -1336,13 +1306,13 @@ does not necessarily produce another valid floating point number.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Enabled scoped enumeration types in <code>endian_reverse</code></p>
+<p>Enabled scoped enumeration types in <code>endian_reverse</code>.</p>
 </li>
 <li>
-<p>Enabled <code>bool</code>, <code>enum</code>, <code>float</code>, <code>double</code> in <code>endian_reverse_inplace</code></p>
+<p>Enabled <code>bool</code>, <code>enum</code>, <code>float</code>, <code>double</code> in <code>endian_reverse_inplace</code>.</p>
 </li>
 <li>
-<p>Added an overload of <code>endian_reverse_inplace</code> for arrays</p>
+<p>Added an overload of <code>endian_reverse_inplace</code> for arrays.</p>
 </li>
 </ul>
 </div>
@@ -1353,22 +1323,22 @@ does not necessarily produce another valid floating point number.</p>
 <ul>
 <li>
 <p>Made <code>endian_reverse</code>, <code>conditional_reverse</code> and <code>*_to_*</code> <code>constexpr</code>
-on GCC and Clang</p>
+on GCC and Clang.</p>
 </li>
 <li>
-<p>Added convenience load and store functions</p>
+<p>Added convenience load and store functions.</p>
 </li>
 <li>
-<p>Added floating point convenience typedefs</p>
+<p>Added floating point convenience typedefs.</p>
 </li>
 <li>
-<p>Added a non-const overload of <code>data()</code>; changed its return type to <code>unsigned char*</code></p>
+<p>Added a non-const overload of <code>data()</code>; changed its return type to <code>unsigned char*</code>.</p>
 </li>
 <li>
-<p>Added <code>__int128</code> support to <code>endian_reverse</code> when available</p>
+<p>Added <code>__int128</code> support to <code>endian_reverse</code> when available.</p>
 </li>
 <li>
-<p>Added a convenience header <code>boost/endian.hpp</code></p>
+<p>Added a convenience header <code>boost/endian.hpp</code>.</p>
 </li>
 </ul>
 </div>
@@ -1378,19 +1348,19 @@ on GCC and Clang</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Clarified requirements on the value type template parameter</p>
+<p>Clarified requirements on the value type template parameter.</p>
 </li>
 <li>
-<p>Added support for <code>float</code> and <code>double</code> to <code>endian_buffer</code> and <code>endian_arithmetic</code></p>
+<p>Added support for <code>float</code> and <code>double</code> to <code>endian_buffer</code> and <code>endian_arithmetic</code>.</p>
 </li>
 <li>
-<p>Added <code>endian_load</code>, <code>endian_store</code></p>
+<p>Added <code>endian_load</code>, <code>endian_store</code>.</p>
 </li>
 <li>
-<p>Updated <code>endian_reverse</code> to correctly support all non-<code>bool</code> integral types</p>
+<p>Updated <code>endian_reverse</code> to correctly support all non-<code>bool</code> integral types.</p>
 </li>
 <li>
-<p>Moved deprecated names to the deprecated header <code>endian.hpp</code></p>
+<p>Moved deprecated names to the deprecated header <code>endian.hpp</code>.</p>
 </li>
 </ul>
 </div>
@@ -1790,9 +1760,7 @@ big, or little endian byte ordering. User defined types are also supported.</p>
 <div class="sect2">
 <h3 id="conversion_reference">Reference</h3>
 <div class="paragraph">
-<p>Functions are implemented <code>inline</code> if appropriate. For C&#43;&#43;03 compilers,
-<code>noexcept</code> is elided. Boost scoped enum emulation is used so that the library
-still works for compilers that do not support scoped enums.</p>
+<p>Functions are implemented <code>inline</code> if appropriate.</p>
 </div>
 <div class="sect3">
 <h4 id="conversion_definitions">Definitions</h4>
@@ -1842,7 +1810,7 @@ its value is never read, there would be no undefined behavior.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="c++"><span class="cp">#define BOOST_ENDIAN_INTRINSIC_MSG \
-   &#8220;message describing presence or absence of intrinsics&#8221;
+   "message describing presence or absence of intrinsics"
 </span>
 <span class="k">namespace</span> <span class="n">boost</span>
 <span class="p">{</span>
@@ -1850,9 +1818,9 @@ its value is never read, there would be no undefined behavior.</p>
 <span class="p">{</span>
   <span class="k">enum</span> <span class="k">class</span> <span class="nc">order</span>
   <span class="p">{</span>
-    <span class="n">native</span> <span class="o">=</span> <span class="err"><code></span><span class="n">see</span> <span class="n">below</span><span class="err"></code></span><span class="p">,</span>
-    <span class="n">big</span>    <span class="o">=</span> <span class="err"><code></span><span class="n">see</span> <span class="n">below</span><span class="err"></code></span><span class="p">,</span>
-    <span class="n">little</span> <span class="o">=</span> <span class="err"><code></span><span class="n">see</span> <span class="n">below</span><span class="err"></code></span><span class="p">,</span>
+    <span class="n">native</span> <span class="o">=</span> <span class="cm">/* see below */</span><span class="p">,</span>
+    <span class="n">big</span>    <span class="o">=</span> <span class="cm">/* see below */</span><span class="p">,</span>
+    <span class="n">little</span> <span class="o">=</span> <span class="cm">/* see below */</span><span class="p">,</span>
   <span class="p">};</span>
 
   <span class="c1">// Byte reversal functions</span>
@@ -1901,84 +1869,84 @@ its value is never read, there would be no undefined behavior.</p>
   <span class="c1">// Generic load and store functions</span>
 
   <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="n">order</span> <span class="n">Order</span><span class="p">&gt;</span>
-    <span class="n">T</span> <span class="n">endian_load</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"><strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+    <span class="n">T</span> <span class="n">endian_load</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
   <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">N</span><span class="p">,</span> <span class="n">order</span> <span class="n">Order</span><span class="p">&gt;</span>
-    <span class="kt">void</span> <span class="n">endian_store</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"></strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">T</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="n">endian_store</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">T</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
   <span class="c1">// Convenience load functions</span>
 
-  <span class="n">boost</span><span class="o">::</span><span class="kt">int16_t</span> <span class="n">load_little_s16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"><strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">uint16_t</span> <span class="n">load_little_u16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"></strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">int16_t</span> <span class="n">load_big_s16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"><strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">uint16_t</span> <span class="n">load_big_u16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"></strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">int16_t</span> <span class="n">load_little_s16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">uint16_t</span> <span class="n">load_little_u16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">int16_t</span> <span class="n">load_big_s16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">uint16_t</span> <span class="n">load_big_u16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
-  <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">load_little_s24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"><strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">load_little_u24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"></strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">load_big_s24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"><strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">load_big_u24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"></strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">load_little_s24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">load_little_u24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">load_big_s24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">load_big_u24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
-  <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">load_little_s32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"><strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">load_little_u32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"></strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">load_big_s32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"><strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">load_big_u32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"></strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">load_little_s32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">load_little_u32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">load_big_s32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">load_big_u32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
-  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_little_s40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"><strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_little_u40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"></strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_big_s40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"><strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_big_u40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"></strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_little_s40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_little_u40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_big_s40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_big_u40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
-  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_little_s48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"><strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_little_u48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"></strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_big_s48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"><strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_big_u48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"></strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_little_s48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_little_u48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_big_s48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_big_u48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
-  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_little_s56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"><strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_little_u56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"></strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_big_s56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"><strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_big_u56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"></strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_little_s56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_little_u56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_big_s56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_big_u56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
-  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_little_s64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"><strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_little_u64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"></strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_big_s64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"><strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_big_u64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o"></strong></span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_little_s64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_little_u64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">load_big_s64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">load_big_u64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">p</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
   <span class="c1">// Convenience store functions</span>
 
-  <span class="kt">void</span> <span class="n">store_little_s16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"><strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int16_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_little_u16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"></strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint16_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_big_s16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"><strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int16_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_big_u16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"></strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint16_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_little_s16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int16_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_little_u16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint16_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_big_s16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int16_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_big_u16</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint16_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
-  <span class="kt">void</span> <span class="n">store_little_s24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"><strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_little_u24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"></strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_big_s24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"><strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_big_u24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"></strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_little_s24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_little_u24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_big_s24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_big_u24</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
-  <span class="kt">void</span> <span class="n">store_little_s32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"><strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_little_u32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"></strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_big_s32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"><strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_big_u32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"></strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_little_s32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_little_u32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_big_s32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_big_u32</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint32_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
-  <span class="kt">void</span> <span class="n">store_little_s40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"><strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_little_u40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"></strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_big_s40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"><strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_big_u40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"></strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_little_s40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_little_u40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_big_s40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_big_u40</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
-  <span class="kt">void</span> <span class="n">store_little_s48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"><strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_little_u48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"></strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_big_s48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"><strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_big_u48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"></strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_little_s48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_little_u48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_big_s48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_big_u48</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
-  <span class="kt">void</span> <span class="n">store_little_s56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"><strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_little_u56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"></strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_big_s56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"><strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_big_u56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"></strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_little_s56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_little_u56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_big_s56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_big_u56</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
-  <span class="kt">void</span> <span class="n">store_little_s64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"><strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_little_u64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"></strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_big_s64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"><strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="n">store_big_u64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o"></strong></span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_little_s64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_little_u64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_big_s64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">int64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+  <span class="kt">void</span> <span class="n">store_big_u64</span><span class="p">(</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="kt">uint64_t</span> <span class="n">v</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
 <span class="p">}</span> <span class="c1">// namespace endian</span>
 <span class="p">}</span> <span class="c1">// namespace boost</span></code></pre>
@@ -2918,17 +2886,6 @@ design, implementation, testing, and documentation has only considered issues
 related to 8-bit bytes, and there have been no real-world use cases presented
 for other sizes.</p>
 </div>
-<div class="paragraph">
-<p>In C&#43;&#43;03, <code>endian_buffer</code> does not meet the requirements for POD types because
-it has constructors and a private data member. This means that
-common use cases are relying on unspecified behavior in that the C&#43;&#43; Standard
-does not guarantee memory layout for non-POD types. This has not been a problem
-in practice since all known C&#43;&#43; compilers  lay out memory as if <code>endian</code> were
-a POD type. In C&#43;&#43;11, it is possible to specify the default constructor as
-trivial, and private data members and base classes  no longer disqualify a type
-from being a POD type. Thus under C&#43;&#43;11, <code>endian_buffer</code> will no longer be
-relying on unspecified behavior.</p>
-</div>
 </div>
 <div class="sect2">
 <h3 id="buffers_feature_set">Feature set</h3>
@@ -3146,8 +3103,6 @@ user-specified endianness, value type, size, and alignment.</p>
 <span class="p">{</span>
   <span class="k">namespace</span> <span class="n">endian</span>
   <span class="p">{</span>
-    <span class="c1">//  C++11 features emulated if not available</span>
-
     <span class="k">enum</span> <span class="k">class</span> <span class="nc">align</span> <span class="p">{</span> <span class="n">no</span><span class="p">,</span> <span class="n">yes</span> <span class="p">};</span>
 
     <span class="k">template</span> <span class="o">&lt;</span><span class="n">order</span> <span class="n">Order</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">Nbits</span><span class="p">,</span>
@@ -3157,6 +3112,9 @@ user-specified endianness, value type, size, and alignment.</p>
     <span class="nl">public:</span>
 
       <span class="k">typedef</span> <span class="n">T</span> <span class="n">value_type</span><span class="p">;</span>
+
+      <span class="c1">// if BOOST_ENDIAN_NO_CTORS is defined, these two</span>
+      <span class="c1">// constructors will not be present</span>
 
       <span class="n">endian_buffer</span><span class="p">()</span> <span class="k">noexcept</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
       <span class="k">explicit</span> <span class="n">endian_buffer</span><span class="p">(</span><span class="n">T</span> <span class="n">v</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
@@ -3523,14 +3481,10 @@ format for binary I/O. Thus they can be read or written in bulk.</p>
 </dd>
 <dt class="hdlist1">Are endian types PODs?</dt>
 <dd>
-<p>Yes for C&#43;&#43;11. No for C&#43;&#43;03, although several
-<a href="#buffers_compilation">macros</a> are available to force PODness in all cases.</p>
-</dd>
-<dt class="hdlist1">What are the implications of endian integer types not being PODs with C&#43;&#43;03 compilers?</dt>
-<dd>
-<p>They can&#8217;t be used in unions. Also, compilers aren&#8217;t required to align or lay
-out storage in portable ways, although this potential problem hasn&#8217;t prevented
-use of Boost.Endian with real compilers.</p>
+<p>Yes for the C&#43;&#43;11 definition of POD. No for the C&#43;&#43;03 definition of POD,
+although the <a href="#buffers_compilation">macro</a> <code>BOOST_ENDIAN_NO_CTORS</code> can be
+used to disable the constructors and to force C&#43;&#43;03 PODness (which is
+required, for example, by the GCC <code>__attribute__((packed))</code> extension.)</p>
 </dd>
 <dt class="hdlist1">What good is native endianness?</dt>
 <dd>
@@ -3584,42 +3538,16 @@ architecture.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="buffers_c11">C&#43;&#43;11</h3>
-<div class="paragraph">
-<p>The availability of the C&#43;&#43;11
-<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2346.htm">Defaulted
-Functions</a> feature is detected automatically, and will be used if present to
-ensure that objects of <code>class endian_buffer</code> are trivial, and thus
-PODs.</p>
-</div>
-</div>
-<div class="sect2">
 <h3 id="buffers_compilation">Compilation</h3>
 <div class="paragraph">
 <p>Boost.Endian is implemented entirely within headers, with no need to link to
 any Boost object libraries.</p>
 </div>
 <div class="paragraph">
-<p>Several macros allow user control over features:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>BOOST_ENDIAN_NO_CTORS</code> causes <code>class endian_buffer</code> to have no
-constructors. The intended use is for compiling user code that must be
-portable between compilers regardless of C&#43;&#43;11
-<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2346.htm">Defaulted
-Functions</a> support. Use of constructors will always fail,</p>
-</li>
-<li>
-<p><code>BOOST_ENDIAN_FORCE_PODNESS</code> causes <code>BOOST_ENDIAN_NO_CTORS</code> to be defined if
-the compiler does not support C&#43;&#43;11
-<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2346.htm">Defaulted
-Functions</a>. This is ensures that objects of <code>class endian_buffer</code> are PODs, and
-so can be used in C&#43;&#43;03 unions. In C&#43;&#43;11, <code>class endian_buffer</code> objects are
-PODs, even though they have constructors, so can always be used in unions.</p>
-</li>
-</ul>
+<p>The macro <code>BOOST_ENDIAN_NO_CTORS</code>, when defined, causes <code>class endian_buffer</code>
+to have no constructors. The intended use is to guarantee that <code>endian_buffer</code>
+is a C&#43;&#43;03 POD. This is required, for example, by the GCC
+<code>__attribute__((packed))</code> extension.</p>
 </div>
 </div>
 </div>
@@ -3761,17 +3689,6 @@ compilation will result in an <code>#error</code>. This restriction is in place 
 design, implementation, testing, and documentation has only considered issues
 related to 8-bit bytes, and there have been no real-world use cases presented
 for other sizes.</p>
-</div>
-<div class="paragraph">
-<p>In C&#43;&#43;03, <code>endian_arithmetic</code> does not meet the requirements for POD types
-because it has constructors, private data members, and a base class. This means
-that common use cases are relying on unspecified behavior in that the C&#43;&#43;
-Standard does not guarantee memory layout for non-POD types. This has not been a
-problem in practice since all known C&#43;&#43; compilers  lay out memory as if
-<code>endian</code> were a POD type. In C&#43;&#43;11, it is possible to specify the default
-constructor as trivial, and private data members and base classes  no longer
-disqualify a type from being a POD type. Thus under C&#43;&#43;11, <code>endian_arithmetic</code>
-will no longer be relying on unspecified behavior.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4002,8 +3919,6 @@ supplied.</p>
 <span class="p">{</span>
   <span class="k">namespace</span> <span class="n">endian</span>
   <span class="p">{</span>
-    <span class="c1">//  C++11 features emulated if not available</span>
-
     <span class="k">enum</span> <span class="k">class</span> <span class="nc">align</span> <span class="p">{</span> <span class="n">no</span><span class="p">,</span> <span class="n">yes</span> <span class="p">};</span>
 
     <span class="k">template</span> <span class="o">&lt;</span><span class="n">order</span> <span class="n">Order</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">n_bits</span><span class="p">,</span>
@@ -4014,8 +3929,9 @@ supplied.</p>
 
       <span class="k">typedef</span> <span class="n">T</span> <span class="n">value_type</span><span class="p">;</span>
 
-      <span class="c1">// if BOOST_ENDIAN_FORCE_PODNESS is defined &amp;&amp; C++11 PODs are not</span>
-      <span class="c1">// available then these two constructors will not be present</span>
+      <span class="c1">// if BOOST_ENDIAN_NO_CTORS is defined, these two</span>
+      <span class="c1">// constructors will not be present</span>
+
       <span class="n">endian_arithmetic</span><span class="p">()</span> <span class="k">noexcept</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>
       <span class="n">endian_arithmetic</span><span class="p">(</span><span class="n">T</span> <span class="n">v</span><span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
@@ -4204,7 +4120,7 @@ supplied.</p>
 <h4 id="arithmetic_members">Members</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="c++"><span class="n">endian_arithmetic</span><span class="p">()</span> <span class="k">noexcept</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span>  <span class="c1">// C++03: endian(){}</span></code></pre>
+<pre class="rouge highlight"><code data-lang="c++"><span class="n">endian_arithmetic</span><span class="p">()</span> <span class="k">noexcept</span> <span class="o">=</span> <span class="k">default</span><span class="p">;</span></code></pre>
 </div>
 </div>
 <div class="ulist none">
@@ -4416,14 +4332,10 @@ format for binary I/O. Thus they can be read or written in bulk.</p>
 </dd>
 <dt class="hdlist1">Are endian types PODs?</dt>
 <dd>
-<p>Yes for C&#43;&#43;11. No for C&#43;&#43;03, although several
-<a href="#arithmetic_compilation">macros</a> are available to force PODness in all cases.</p>
-</dd>
-<dt class="hdlist1">What are the implications of endian integer types not being PODs with C&#43;&#43;03 compilers?</dt>
-<dd>
-<p>They can&#8217;t be used in unions. Also, compilers aren&#8217;t required to align or lay
-out storage in portable ways, although this potential problem hasn&#8217;t prevented
-use of Boost.Endian with real compilers.</p>
+<p>Yes for the C&#43;&#43;11 definition of POD. No for the C&#43;&#43;03 definition of POD,
+although the <a href="#arithmetic_compilation">macro</a> <code>BOOST_ENDIAN_NO_CTORS</code> can be
+used to disable the constructors and to force C&#43;&#43;03 PODness (which is
+required, for example, by the GCC <code>__attribute__((packed))</code> extension.)</p>
 </dd>
 <dt class="hdlist1">What good is native endianness?</dt>
 <dd>
@@ -4518,42 +4430,16 @@ places. Using Boost.Endian simplifies and cleans the code wonderfully."</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="arithmetic_c11">C&#43;&#43;11</h3>
-<div class="paragraph">
-<p>The availability of the C&#43;&#43;11
-<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2346.htm">Defaulted
-Functions</a> feature is detected automatically, and will be used if present to
-ensure that objects of <code>class endian_arithmetic</code> are trivial, and thus PODs.</p>
-</div>
-</div>
-<div class="sect2">
 <h3 id="arithmetic_compilation">Compilation</h3>
 <div class="paragraph">
 <p>Boost.Endian is implemented entirely within headers, with no need to link to any
 Boost object libraries.</p>
 </div>
 <div class="paragraph">
-<p>Several macros allow user control over features:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>BOOST_ENDIAN_NO_CTORS causes <code>class endian_arithmetic</code> to have no
-constructors. The intended use is for compiling user code that must be portable
-between compilers regardless of C&#43;&#43;11
-<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2346.htm">Defaulted
-Functions</a> support. Use of constructors will always fail,</p>
-</li>
-<li>
-<p>BOOST_ENDIAN_FORCE_PODNESS causes BOOST_ENDIAN_NO_CTORS to be defined if
-the compiler does not support C&#43;&#43;11
-<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2346.htm">Defaulted
-Functions</a>. This is ensures that objects of <code>class endian_arithmetic</code> are PODs,
-and so can be used in C&#43;&#43;03 unions. In C&#43;&#43;11, <code>class endian_arithmetic</code>
-objects are PODs, even though they have constructors, so can always be used in
-unions.</p>
-</li>
-</ul>
+<p>The macro <code>BOOST_ENDIAN_NO_CTORS</code>, when defined, causes <code>class endian_buffer</code>
+to have no constructors. The intended use is to guarantee that <code>endian_buffer</code>
+is a C&#43;&#43;03 POD. This is required, for example, by the GCC
+<code>__attribute__((packed))</code> extension.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4833,7 +4719,7 @@ anyone has been missed.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-08 21:02:51 UTC
+Last updated 2023-12-06 21:03:02 UTC
 </div>
 </div>
 <style>

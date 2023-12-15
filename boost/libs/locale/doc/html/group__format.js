@@ -16,6 +16,7 @@ var group__format =
     [ "boost::locale::format", "group__format.html#gad7914df7b54382c1ad7f5360676fe2e8", null ],
     [ "boost::locale::u16format", "group__format.html#ga7e1b668f020290ebca6570b4c12a36e6", null ],
     [ "boost::locale::u32format", "group__format.html#ga70ce1d532e859739182439f1f3321032", null ],
+    [ "boost::locale::u8format", "group__format.html#gaf2d3787942028a5371ede60cb128489f", null ],
     [ "boost::locale::wformat", "group__format.html#ga610f3ae827801febc962019cf82a2227", null ],
     [ "boost::locale::operator<<", "group__format.html#gafcfb4e10f1af1950cf8a1fd0a87035b1", null ]
 ];

@@ -28,6 +28,7 @@
 <a name="core.revision_history"></a><a class="link" href="revision_history.html" title="Revision History">Revision History</a>
 </h2></div></div></div>
 <div class="toc"><dl class="toc">
+<dt><span class="section"><a href="revision_history.html#core.revision_history.changes_in_1_84_0">Changes in 1.84.0</a></span></dt>
 <dt><span class="section"><a href="revision_history.html#core.revision_history.changes_in_1_83_0">Changes in 1.83.0</a></span></dt>
 <dt><span class="section"><a href="revision_history.html#core.revision_history.changes_in_1_82_0">Changes in 1.82.0</a></span></dt>
 <dt><span class="section"><a href="revision_history.html#core.revision_history.changes_in_1_81_0">Changes in 1.81.0</a></span></dt>
@@ -42,6 +43,35 @@
 <dt><span class="section"><a href="revision_history.html#core.revision_history.changes_in_1_67_0">Changes in 1.67.0</a></span></dt>
 <dt><span class="section"><a href="revision_history.html#core.revision_history.changes_in_1_65_0">Changes in 1.65.0</a></span></dt>
 </dl></div>
+<div class="section">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="core.revision_history.changes_in_1_84_0"></a><a class="link" href="revision_history.html#core.revision_history.changes_in_1_84_0" title="Changes in 1.84.0">Changes in 1.84.0</a>
+</h3></div></div></div>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+            <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">swap</span></code> utility function has been renamed
+            to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">core</span><span class="special">::</span><span class="identifier">invoke_swap</span></code> to avoid forming a potential
+            infinite recursion when the arguments are not swappable. The new function
+            is defined in <code class="computeroutput"><span class="identifier">boost</span><span class="special">/</span><span class="identifier">core</span><span class="special">/</span><span class="identifier">invoke_swap</span><span class="special">.</span><span class="identifier">hpp</span></code> and is functionally equivalent
+            to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">swap</span></code>. The old <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">swap</span></code>
+            name is preserved for backward compatibility but deprecated and will
+            be removed in a future release. Its <code class="computeroutput"><span class="keyword">noexcept</span></code>
+            specification has been removed to avoid compile errors caused by compile-time
+            recursion. <code class="computeroutput"><span class="identifier">BOOST_ALLOW_DEPRECATED_SYMBOLS</span></code>
+            or <code class="computeroutput"><span class="identifier">BOOST_ALLOW_DEPRECATED</span></code>
+            can be defined to suppress deprecation warnings for the transition period.
+            (<a href="https://github.com/boostorg/core/issues/148" target="_top">#148</a>)
+          </li>
+<li class="listitem">
+            Headers <code class="computeroutput"><span class="identifier">boost</span><span class="special">/</span><span class="identifier">swap</span><span class="special">.</span><span class="identifier">hpp</span></code>, <code class="computeroutput"><span class="identifier">boost</span><span class="special">/</span><span class="identifier">utility</span><span class="special">/</span><span class="identifier">swap</span><span class="special">.</span><span class="identifier">hpp</span></code>
+            and <code class="computeroutput"><span class="identifier">boost</span><span class="special">/</span><span class="identifier">core</span><span class="special">/</span><span class="identifier">swap</span><span class="special">.</span><span class="identifier">hpp</span></code> are deprecated and will be removed.
+            Please, switch to <code class="computeroutput"><span class="identifier">boost</span><span class="special">/</span><span class="identifier">core</span><span class="special">/</span><span class="identifier">invoke_swap</span><span class="special">.</span><span class="identifier">hpp</span></code>.
+            <code class="computeroutput"><span class="identifier">BOOST_ALLOW_DEPRECATED_HEADERS</span></code>
+            or <code class="computeroutput"><span class="identifier">BOOST_ALLOW_DEPRECATED</span></code>
+            can be defined to suppress deprecation warnings.
+          </li>
+</ul></div>
+</div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="core.revision_history.changes_in_1_83_0"></a><a class="link" href="revision_history.html#core.revision_history.changes_in_1_83_0" title="Changes in 1.83.0">Changes in 1.83.0</a>

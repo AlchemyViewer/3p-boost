@@ -90,7 +90,7 @@ Handling Dates and Time</h1>
 <div class="line"><span class="comment">// Set some_point&#39;s date to 1995-Jan-1.</span></div>
 <div class="line">cout &lt;&lt; <span class="stringliteral">&quot;The &quot;</span>&lt;&lt; as::date &lt;&lt; some_point &lt;&lt; <span class="stringliteral">&quot; is the &quot;</span></div>
 <div class="line">    &lt;&lt; as::ordinal &lt;&lt; some_point / period::day_of_week_local() &lt;&lt; <span class="stringliteral">&quot; day of the week&quot;</span>  &lt;&lt; endl;</div>
-<div class="ttc" id="aclassboost_1_1locale_1_1date__time_html"><div class="ttname"><a href="classboost_1_1locale_1_1date__time.html">boost::locale::date_time</a></div><div class="ttdoc">this class represents a date time and allows to perform various operation according to the locale set...</div><div class="ttdef"><b>Definition:</b> date_time.hpp:561</div></div>
+<div class="ttc" id="aclassboost_1_1locale_1_1date__time_html"><div class="ttname"><a href="classboost_1_1locale_1_1date__time.html">boost::locale::date_time</a></div><div class="ttdoc">this class represents a date time and allows to perform various operation according to the locale set...</div><div class="ttdef"><b>Definition:</b> date_time.hpp:558</div></div>
 <div class="ttc" id="anamespaceboost_1_1locale_html"><div class="ttname"><a href="namespaceboost_1_1locale.html">boost::locale</a></div><div class="ttdoc">This is the main namespace that encloses all localization classes.</div><div class="ttdef"><b>Definition:</b> boundary_point.hpp:13</div></div>
 </div><!-- fragment --><p >You can calculate the difference between dates by dividing the difference by a period:</p>
 <div class="fragment"><div class="line"><a class="code hl_class" href="classboost_1_1locale_1_1date__time.html">date_time</a> now;</div>
@@ -120,8 +120,8 @@ Handling Dates and Time</h1>
 <div class="line"><a class="code hl_class" href="classboost_1_1locale_1_1date__time.html">date_time</a> heb(greg.time(),l_hebrew);</div>
 <div class="line"><span class="comment">// Now we can query the year.</span></div>
 <div class="line">std::cout &lt;&lt; <span class="stringliteral">&quot;Hebrew year is &quot;</span> &lt;&lt; heb / year &lt;&lt; std::endl;</div>
-<div class="ttc" id="aclassboost_1_1locale_1_1generator_html"><div class="ttname"><a href="classboost_1_1locale_1_1generator.html">boost::locale::generator</a></div><div class="ttdoc">the major class used for locale generation</div><div class="ttdef"><b>Definition:</b> generator.hpp:96</div></div>
-<div class="ttc" id="anamespaceboost_1_1locale_1_1period_html"><div class="ttname"><a href="namespaceboost_1_1locale_1_1period.html">boost::locale::period</a></div><div class="ttdoc">Namespace that contains various types for manipulation with dates.</div><div class="ttdef"><b>Definition:</b> date_time.hpp:54</div></div>
+<div class="ttc" id="aclassboost_1_1locale_1_1generator_html"><div class="ttname"><a href="classboost_1_1locale_1_1generator.html">boost::locale::generator</a></div><div class="ttdoc">the major class used for locale generation</div><div class="ttdef"><b>Definition:</b> generator.hpp:101</div></div>
+<div class="ttc" id="anamespaceboost_1_1locale_1_1period_html"><div class="ttname"><a href="namespaceboost_1_1locale_1_1period.html">boost::locale::period</a></div><div class="ttdoc">Namespace that contains various types for manipulation with dates.</div><div class="ttdef"><b>Definition:</b> date_time.hpp:55</div></div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd></dd></dl>
 <p>Non-ICU based backends support the same date-time range as <code>mktime</code> and <code>localtime</code> C library functions.</p>
 <ul>

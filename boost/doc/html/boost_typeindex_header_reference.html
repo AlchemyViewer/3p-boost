@@ -115,9 +115,9 @@
   <span class="keyword">namespace</span> <span class="identifier">typeindex</span> <span class="special">{</span>
     <span class="keyword">struct</span> <a class="link" href="boost/typeindex/bad_runtime_cast.html" title="Struct bad_runtime_cast">bad_runtime_cast</a><span class="special">;</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">,</span> <span class="keyword">typename</span> U<span class="special">&gt;</span> 
-      <span class="identifier">boost</span><span class="special">::</span><span class="identifier">add_reference</span><span class="special">&lt;</span> <span class="identifier">T</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a class="link" href="boost/typeindex/runtime_c_1_3_41_8_7_2_1_2.html" title="Function template runtime_cast"><span class="identifier">runtime_cast</span></a><span class="special">(</span><span class="identifier">U</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+      <span class="identifier">std</span><span class="special">::</span><span class="identifier">add_lvalue_reference</span><span class="special">&lt;</span> <span class="identifier">T</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a class="link" href="boost/typeindex/runtime_c_1_3_41_8_7_2_1_2.html" title="Function template runtime_cast"><span class="identifier">runtime_cast</span></a><span class="special">(</span><span class="identifier">U</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
     <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> T<span class="special">,</span> <span class="keyword">typename</span> U<span class="special">&gt;</span> 
-      <span class="identifier">boost</span><span class="special">::</span><span class="identifier">add_reference</span><span class="special">&lt;</span> <span class="identifier">constT</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a class="link" href="boost/typeindex/runtime_c_1_3_41_8_7_2_1_3.html" title="Function template runtime_cast"><span class="identifier">runtime_cast</span></a><span class="special">(</span><span class="identifier">U</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+      <span class="identifier">std</span><span class="special">::</span><span class="identifier">add_lvalue_reference</span><span class="special">&lt;</span> <span class="identifier">constT</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <a class="link" href="boost/typeindex/runtime_c_1_3_41_8_7_2_1_3.html" title="Function template runtime_cast"><span class="identifier">runtime_cast</span></a><span class="special">(</span><span class="identifier">U</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
   <span class="special">}</span>
 <span class="special">}</span></pre>
 </div>
@@ -127,8 +127,8 @@
 <p>Contains the macros BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST and BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS. </p>
 <pre class="synopsis">
 
-<a class="link" href="BOOST_TYPE_IN_1_3_41_8_8_3.html" title="Macro BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS">BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS</a>(base_class_seq)
-<a class="link" href="BOOST_TYPE_IN_1_3_41_8_8_4.html" title="Macro BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST">BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST</a>(base_class_seq)
+<a class="link" href="BOOST_TYPE_IN_1_3_41_8_8_3.html" title="Macro BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS">BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS</a>(...)
+<a class="link" href="BOOST_TYPE_IN_1_3_41_8_8_4.html" title="Macro BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST">BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST</a>(...)
 <a class="link" href="BOOST_TYPE_IN_1_3_41_8_8_5.html" title="Macro BOOST_TYPE_INDEX_NO_BASE_CLASS">BOOST_TYPE_INDEX_NO_BASE_CLASS</a></pre>
 </div>
 <div class="section">

@@ -8,7 +8,7 @@
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
 <link rel="up" href="../variant.html" title="Chapter 43. Boost.Variant">
 <link rel="prev" href="tutorial.html" title="Tutorial">
-<link rel="next" href="../BOOST_VARIANT_LIMIT_TYPES.html" title="Macro BOOST_VARIANT_LIMIT_TYPES">
+<link rel="next" href="../BOOST_VARIANT_ENUM_PARAMS.html" title="Macro BOOST_VARIANT_ENUM_PARAMS">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -22,7 +22,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="tutorial.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../variant.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../BOOST_VARIANT_LIMIT_TYPES.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="tutorial.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../variant.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../BOOST_VARIANT_ENUM_PARAMS.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
@@ -226,13 +226,11 @@ public:
     Also defines several preprocessor symbols, as described below.</p>
 <pre class="synopsis">
 
-<a class="link" href="../BOOST_VARIANT_LIMIT_TYPES.html" title="Macro BOOST_VARIANT_LIMIT_TYPES">BOOST_VARIANT_LIMIT_TYPES</a>
-<a class="link" href="../BOOST_VARIANT_1_3_44_5_3_4.html" title="Macro BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES">BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES</a>
 <a class="link" href="../BOOST_VARIANT_ENUM_PARAMS.html" title="Macro BOOST_VARIANT_ENUM_PARAMS">BOOST_VARIANT_ENUM_PARAMS</a>(param)
-<a class="link" href="../BOOST_VARIANT_1_3_44_5_3_6.html" title="Macro BOOST_VARIANT_ENUM_SHIFTED_PARAMS">BOOST_VARIANT_ENUM_SHIFTED_PARAMS</a>(param)
-<a class="link" href="../BOOST_VARIANT_1_3_44_5_3_7.html" title="Macro BOOST_VARIANT_NO_TYPE_SEQUENCE_SUPPORT">BOOST_VARIANT_NO_TYPE_SEQUENCE_SUPPORT</a>
-<a class="link" href="../BOOST_VARIANT_1_3_44_5_3_8.html" title="Macro BOOST_VARIANT_DO_NOT_SPECIALIZE_STD_HASH">BOOST_VARIANT_DO_NOT_SPECIALIZE_STD_HASH</a>
-<a class="link" href="../BOOST_VARIANT_1_3_44_5_3_9.html" title="Macro BOOST_VARIANT_NO_FULL_RECURSIVE_VARIANT_SUPPORT">BOOST_VARIANT_NO_FULL_RECURSIVE_VARIANT_SUPPORT</a></pre>
+<a class="link" href="../BOOST_VARIANT_1_3_44_5_3_4.html" title="Macro BOOST_VARIANT_ENUM_SHIFTED_PARAMS">BOOST_VARIANT_ENUM_SHIFTED_PARAMS</a>(param)
+<a class="link" href="../BOOST_VARIANT_1_3_44_5_3_5.html" title="Macro BOOST_VARIANT_NO_TYPE_SEQUENCE_SUPPORT">BOOST_VARIANT_NO_TYPE_SEQUENCE_SUPPORT</a>
+<a class="link" href="../BOOST_VARIANT_1_3_44_5_3_6.html" title="Macro BOOST_VARIANT_DO_NOT_SPECIALIZE_STD_HASH">BOOST_VARIANT_DO_NOT_SPECIALIZE_STD_HASH</a>
+<a class="link" href="../BOOST_VARIANT_1_3_44_5_3_7.html" title="Macro BOOST_VARIANT_NO_FULL_RECURSIVE_VARIANT_SUPPORT">BOOST_VARIANT_NO_FULL_RECURSIVE_VARIANT_SUPPORT</a></pre>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h3 class="title">
@@ -311,21 +309,18 @@ public:
 <a name="header.boost.variant.multivisitors_hpp"></a>Header &lt;<a href="../../../boost/variant/multivisitors.hpp" target="_top">boost/variant/multivisitors.hpp</a>&gt;</h3></div></div></div>
 <p>Provides declarations of <a class="link" href="../boost/apply_visitor.html" title="Function apply_visitor">apply_visitor</a> for three or more
     <code class="computeroutput"><a class="link" href="../boost/variant.html" title="Class template variant">variant</a></code> parameters.</p>
-<pre class="synopsis">
-
-<a class="link" href="../BOOST_VARAINT_1_3_44_5_8_3.html" title="Macro BOOST_VARAINT_MAX_MULTIVIZITOR_PARAMS">BOOST_VARAINT_MAX_MULTIVIZITOR_PARAMS</a></pre>
 <pre class="synopsis"><span class="keyword">namespace</span> <span class="identifier">boost</span> <span class="special">{</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> MultiVisitor<span class="special">,</span> <span class="keyword">typename</span> Variant1<span class="special">,</span> <span class="keyword">typename</span> Variant2<span class="special">,</span> 
            <span class="keyword">typename</span> Variant3<span class="special">&gt;</span> 
     <span class="keyword">typename</span> <span class="identifier">MultiVisitor</span><span class="special">::</span><span class="identifier">result_type</span> <span class="identifier">OR</span> <span class="keyword">decltype</span><span class="special">(</span><span class="keyword">auto</span><span class="special">)</span> 
-    <a class="link" href="../boost/apply_visit_1_3_44_5_8_4_1.html" title="Function apply_visitor /*three or more variant parameters*/"><span class="identifier">apply_visitor</span> <span class="comment">/*three or more variant parameters*/</span></a><span class="special">(</span><span class="identifier">MultiVisitor</span> <span class="special">&amp;</span><span class="special">,</span> 
+    <a class="link" href="../boost/apply_visit_1_3_44_5_8_3_1.html" title="Function apply_visitor /*three or more variant parameters*/"><span class="identifier">apply_visitor</span> <span class="comment">/*three or more variant parameters*/</span></a><span class="special">(</span><span class="identifier">MultiVisitor</span> <span class="special">&amp;</span><span class="special">,</span> 
                                                        <span class="identifier">Variant1</span><span class="special">&amp;&amp;</span><span class="special">,</span> 
                                                        <span class="identifier">Variant2</span><span class="special">&amp;&amp;</span><span class="special">,</span> 
                                                        <span class="identifier">Variant3</span><span class="special">&amp;&amp;</span><span class="special">,</span> <span class="special">...</span><span class="special">)</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> MultiVisitor<span class="special">,</span> <span class="keyword">typename</span> Variant1<span class="special">,</span> <span class="keyword">typename</span> Variant2<span class="special">,</span> 
            <span class="keyword">typename</span> Variant3<span class="special">&gt;</span> 
     <span class="keyword">typename</span> <span class="identifier">MultiVisitor</span><span class="special">::</span><span class="identifier">result_type</span> <span class="identifier">OR</span> <span class="keyword">decltype</span><span class="special">(</span><span class="keyword">auto</span><span class="special">)</span> 
-    <a class="link" href="../boost/apply_visit_1_3_44_5_8_4_1.html" title="Function apply_visitor /*three or more variant parameters*/"><span class="identifier">apply_visitor</span> <span class="comment">/*three or more variant parameters*/</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">MultiVisitor</span> <span class="special">&amp;</span><span class="special">,</span> 
+    <a class="link" href="../boost/apply_visit_1_3_44_5_8_3_1.html" title="Function apply_visitor /*three or more variant parameters*/"><span class="identifier">apply_visitor</span> <span class="comment">/*three or more variant parameters*/</span></a><span class="special">(</span><span class="keyword">const</span> <span class="identifier">MultiVisitor</span> <span class="special">&amp;</span><span class="special">,</span> 
                                                        <span class="identifier">Variant1</span><span class="special">&amp;&amp;</span><span class="special">,</span> 
                                                        <span class="identifier">Variant2</span><span class="special">&amp;&amp;</span><span class="special">,</span> 
                                                        <span class="identifier">Variant3</span><span class="special">&amp;&amp;</span><span class="special">,</span> <span class="special">...</span><span class="special">)</span><span class="special">;</span>
@@ -429,7 +424,7 @@ public:
 </div>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="tutorial.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../variant.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../BOOST_VARIANT_LIMIT_TYPES.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="tutorial.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../variant.html"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="../BOOST_VARIANT_ENUM_PARAMS.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

@@ -116,7 +116,7 @@
               </td>
 <td>
                 <p>
-                  Wrap a function object in a packaged task.
+                  Wrap a function object in a packaged task. <br> <span class="silver"> —</span><br>
                 </p>
               </td>
 </tr>
@@ -167,7 +167,7 @@
         value <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">use_future</span></code>. For example:
       </p>
 <pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">future</span><span class="special">&lt;</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">size_t</span><span class="special">&gt;</span> <span class="identifier">my_future</span>
-  <span class="special">=</span> <span class="identifier">my_socket</span><span class="special">.</span><span class="identifier">async_read_some</span><span class="special">(</span><span class="identifier">my_buffer</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">use_future</span><span class="special">);</span>
+ <span class="special">=</span> <span class="identifier">my_socket</span><span class="special">.</span><span class="identifier">async_read_some</span><span class="special">(</span><span class="identifier">my_buffer</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">use_future</span><span class="special">);</span>
 </pre>
 <p>
         The initiating function (async_read_some in the above example) returns a

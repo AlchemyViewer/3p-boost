@@ -102,7 +102,9 @@
             <a href="https://www.boost.org/doc/libs/release/doc/html/container.html#container.intro.introduction_building_container" target="_top">documentation</a>)
           </li>
 <li class="listitem">
-            Supports -fno-exceptions, detected automatically
+            Supports <code class="computeroutput"><span class="special">-</span><span class="identifier">fno</span><span class="special">-</span><span class="identifier">exceptions</span></code>,
+            detected automatically (but read <a class="link" href="overview.html#json.overview.requirements.disabling_exceptions">the
+            relevant section</a> on this page).
           </li>
 </ul></div>
 <p>
@@ -141,6 +143,26 @@
       </p>
 <h5>
 <a name="json.overview.requirements.h1"></a>
+        <span class="phrase"><a name="json.overview.requirements.disabling_exceptions"></a></span><a class="link" href="overview.html#json.overview.requirements.disabling_exceptions">Disabling
+        Exceptions</a>
+      </h5>
+<p>
+        In order to support building with exceptions disabled this library uses another
+        Boost library, <a href="https://www.boost.org/doc/libs/release/libs/throw_exception" target="_top">Boost.ThrowException</a>.
+        This allows to automatically discover whether exception support is available.
+        On the other hand, as explained in Boost.ThrowException's documentation,
+        if exceptions are disabled, the users need to provide their own implementation
+        for <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">throw_exception</span></code>, in order to link their
+        binaries successfully. Here's a very simple example of such implementation:
+      </p>
+<pre class="programlisting"><span class="keyword">void</span> <span class="identifier">throw_exception</span><span class="special">(</span> <span class="keyword">const</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">exception</span><span class="special">&amp;,</span> <span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">source_location</span><span class="special">&amp;</span> <span class="special">)</span>
+<span class="special">{</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">printf</span><span class="special">(</span><span class="string">"Exceptions are not supported!"</span><span class="special">);</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">abort</span><span class="special">();</span>
+<span class="special">}</span>
+</pre>
+<h5>
+<a name="json.overview.requirements.h2"></a>
         <span class="phrase"><a name="json.overview.requirements.embedded"></a></span><a class="link" href="overview.html#json.overview.requirements.embedded">Embedded</a>
       </h5>
 <p>
@@ -154,7 +176,7 @@
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">json</span><span class="special">/</span><span class="identifier">src</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 </pre>
 <h5>
-<a name="json.overview.requirements.h2"></a>
+<a name="json.overview.requirements.h3"></a>
         <span class="phrase"><a name="json.overview.requirements.supported_compilers"></a></span><a class="link" href="overview.html#json.overview.requirements.supported_compilers">Supported
         Compilers</a>
       </h5>
@@ -173,7 +195,7 @@
           </li>
 </ul></div>
 <h5>
-<a name="json.overview.requirements.h3"></a>
+<a name="json.overview.requirements.h4"></a>
         <span class="phrase"><a name="json.overview.requirements.supported_json_text"></a></span><a class="link" href="overview.html#json.overview.requirements.supported_json_text">Supported
         JSON Text</a>
       </h5>

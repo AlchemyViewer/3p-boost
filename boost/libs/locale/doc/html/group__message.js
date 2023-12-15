@@ -45,6 +45,7 @@ var group__message =
     [ "boost::locale::basic_message::string_type", "group__message.html#ga529423e08fc9a8ca9ceef5c56181c6d3", null ],
     [ "boost::locale::u16message", "group__message.html#ga43ddf342eec2ab9145d04727f8161e1c", null ],
     [ "boost::locale::u32message", "group__message.html#ga6c0b40121a07c13de9e712845b43468f", null ],
+    [ "boost::locale::u8message", "group__message.html#ga23354a06f2d52bd90df2bdf57a11e74a", null ],
     [ "boost::locale::wmessage", "group__message.html#gafea131aa123d666905076f34b77326a9", null ],
     [ "boost::locale::basic_message::basic_message", "group__message.html#ga33bdf7fbb164a96a8685b5747afc2b45", null ],
     [ "boost::locale::basic_message::basic_message", "group__message.html#ga65af5eb60d875ded302e1c843fc3a218", null ],

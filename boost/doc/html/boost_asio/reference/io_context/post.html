@@ -35,7 +35,7 @@
         </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <a class="link" href="../LegacyCompletionHandler.html" title="Legacy completion handler requirements">LegacyCompletionHandler</a><span class="special">&gt;</span>
-<a class="link" href="../asynchronous_operations.html#boost_asio.reference.asynchronous_operations.automatic_deduction_of_initiating_function_return_type"><span class="emphasis"><em>DEDUCED</em></span></a> <span class="identifier">post</span><span class="special">(</span>
+<span class="keyword">auto</span> <span class="identifier">post</span><span class="special">(</span>
     <span class="identifier">LegacyCompletionHandler</span> <span class="special">&amp;&amp;</span> <span class="identifier">handler</span><span class="special">);</span>
 </pre>
 <p>
@@ -80,8 +80,7 @@
         </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
-              the handler's <code class="computeroutput"><span class="identifier">asio_handler_allocate</span></code>
-              function; or
+              the handler's associated allocator; or
             </li>
 <li class="listitem">
               the handler's copy constructor

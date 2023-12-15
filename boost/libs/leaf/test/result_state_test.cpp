@@ -1,4 +1,4 @@
-// Copyright 2018-2022 Emil Dotchevski and Reverge Studios, Inc.
+// Copyright 2018-2023 Emil Dotchevski and Reverge Studios, Inc.
 
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -14,6 +14,12 @@
 #include "lightweight_test.hpp"
 
 namespace leaf = boost::leaf;
+
+static_assert(std::is_same<void, leaf::result<void>::value_type>::value, "Bad value_type");
+static_assert(std::is_same<int, leaf::result<int>::value_type>::value, "Bad value_type");
+static_assert(std::is_same<int const, leaf::result<int const>::value_type>::value, "Bad value_type");
+static_assert(std::is_same<int &, leaf::result<int &>::value_type>::value, "Bad value_type");
+static_assert(std::is_same<int const &, leaf::result<int const &>::value_type>::value, "Bad value_type");
 
 struct val
 {

@@ -145,6 +145,12 @@ mysql/ref/boost__mysql__connection/ping/overload2.html
 mysql/ref/boost__mysql__connection/async_ping.html
 mysql/ref/boost__mysql__connection/async_ping/overload1.html
 mysql/ref/boost__mysql__connection/async_ping/overload2.html
+mysql/ref/boost__mysql__connection/reset_connection.html
+mysql/ref/boost__mysql__connection/reset_connection/overload1.html
+mysql/ref/boost__mysql__connection/reset_connection/overload2.html
+mysql/ref/boost__mysql__connection/async_reset_connection.html
+mysql/ref/boost__mysql__connection/async_reset_connection/overload1.html
+mysql/ref/boost__mysql__connection/async_reset_connection/overload2.html
 mysql/ref/boost__mysql__connection/close.html
 mysql/ref/boost__mysql__connection/close/overload1.html
 mysql/ref/boost__mysql__connection/close/overload2.html

@@ -37,13 +37,13 @@
     <span class="keyword">typename</span> <a class="link" href="../Executor1.html" title="Executor requirements">Executor</a><span class="special">,</span>
     <span class="keyword">typename</span> <span class="identifier">Iterator</span><span class="special">,</span>
     <span class="keyword">typename</span> <a class="link" href="../ConnectCondition.html" title="Connect condition requirements">ConnectCondition</a><span class="special">,</span>
-    <span class="keyword">typename</span> <a class="link" href="../IteratorConnectToken.html" title="Iterator connect token requirements">IteratorConnectToken</a> <span class="special">=</span> <a class="link" href="../asynchronous_operations.html#boost_asio.reference.asynchronous_operations.default_completion_tokens"><span class="emphasis"><em>DEFAULT</em></span></a><span class="special">&gt;</span>
-<a class="link" href="../asynchronous_operations.html#boost_asio.reference.asynchronous_operations.automatic_deduction_of_initiating_function_return_type"><span class="emphasis"><em>DEDUCED</em></span></a> <span class="identifier">async_connect</span><span class="special">(</span>
+    <span class="keyword">typename</span> <a class="link" href="../IteratorConnectToken.html" title="Iterator connect token requirements">IteratorConnectToken</a> <span class="special">=</span> <span class="identifier">default_completion_token_t</span><span class="special">&lt;</span><span class="identifier">Executor</span><span class="special">&gt;&gt;</span>
+<span class="keyword">auto</span> <span class="identifier">async_connect</span><span class="special">(</span>
     <span class="identifier">basic_socket</span><span class="special">&lt;</span> <span class="identifier">Protocol</span><span class="special">,</span> <span class="identifier">Executor</span> <span class="special">&gt;</span> <span class="special">&amp;</span> <span class="identifier">s</span><span class="special">,</span>
     <span class="identifier">Iterator</span> <span class="identifier">begin</span><span class="special">,</span>
     <span class="identifier">Iterator</span> <span class="identifier">end</span><span class="special">,</span>
     <span class="identifier">ConnectCondition</span> <span class="identifier">connect_condition</span><span class="special">,</span>
-    <span class="identifier">IteratorConnectToken</span> <span class="special">&amp;&amp;</span> <span class="identifier">token</span> <span class="special">=</span> <a class="link" href="../asynchronous_operations.html#boost_asio.reference.asynchronous_operations.default_completion_tokens"><span class="emphasis"><em>DEFAULT</em></span></a><span class="special">);</span>
+    <span class="identifier">IteratorConnectToken</span> <span class="special">&amp;&amp;</span> <span class="identifier">token</span> <span class="special">=</span> <span class="identifier">default_completion_token_t</span><span class="special">&lt;</span> <span class="identifier">Executor</span> <span class="special">&gt;());</span>
 </pre>
 <p>
           This function attempts to connect a socket to one of a sequence of endpoints.
@@ -79,8 +79,8 @@
                 The signature of the function object must be:
               </p>
 <pre class="programlisting"><span class="keyword">bool</span> <span class="identifier">connect_condition</span><span class="special">(</span>
-    <span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">&amp;</span> <span class="identifier">ec</span><span class="special">,</span>
-    <span class="keyword">const</span> <span class="keyword">typename</span> <span class="identifier">Protocol</span><span class="special">::</span><span class="identifier">endpoint</span><span class="special">&amp;</span> <span class="identifier">next</span><span class="special">);</span>
+   <span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">&amp;</span> <span class="identifier">ec</span><span class="special">,</span>
+   <span class="keyword">const</span> <span class="keyword">typename</span> <span class="identifier">Protocol</span><span class="special">::</span><span class="identifier">endpoint</span><span class="special">&amp;</span> <span class="identifier">next</span><span class="special">);</span>
 </pre>
 <p>
                 The <code class="computeroutput"><span class="identifier">ec</span></code> parameter
@@ -150,8 +150,7 @@
 <span class="special">};</span>
 </pre>
 <p>
-          It would be used with the <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">connect</span></code>
-          function as follows:
+          It would be used with the <a class="link" href="../connect.html" title="connect"><code class="computeroutput"><span class="identifier">connect</span></code></a> function as follows:
         </p>
 <pre class="programlisting"><span class="identifier">tcp</span><span class="special">::</span><span class="identifier">resolver</span> <span class="identifier">r</span><span class="special">(</span><span class="identifier">my_context</span><span class="special">);</span>
 <span class="identifier">tcp</span><span class="special">::</span><span class="identifier">resolver</span><span class="special">::</span><span class="identifier">query</span> <span class="identifier">q</span><span class="special">(</span><span class="string">"host"</span><span class="special">,</span> <span class="string">"service"</span><span class="special">);</span>

@@ -198,28 +198,28 @@ See <ulink url="boost_typeindex/rtti_emulation_limitations.html">RTTI emulation 
           <template-type-parameter name="U"><purpose><para>A complete class type of the source instance, u. </para></purpose></template-type-parameter>
         </template><parameter name="u"><paramtype>U *</paramtype></parameter><purpose>Safely converts pointers to classes up, down, and sideways along the inheritance hierarchy. </purpose><description><para>
 
-</para></description><returns><para>If there exists a valid conversion from U* to T, returns a T that points to an address suitably offset from u. If no such conversion exists, returns NULL. </para>
+</para></description><returns><para>If there exists a valid conversion from U* to T, returns a T that points to an address suitably offset from u. If no such conversion exists, returns nullptr. </para>
 </returns></function>
 <function name="runtime_cast"><type>T</type><template>
           <template-type-parameter name="T"><purpose><para>The desired target type. Like dynamic_cast, must be a pointer to complete class type. </para></purpose></template-type-parameter>
           <template-type-parameter name="U"><purpose><para>A complete class type of the source instance, u. </para></purpose></template-type-parameter>
         </template><parameter name="u"><paramtype>U const *</paramtype></parameter><purpose>Safely converts pointers to classes up, down, and sideways along the inheritance hierarchy. </purpose><description><para>
 
-</para></description><returns><para>If there exists a valid conversion from U* to T, returns a T that points to an address suitably offset from u. If no such conversion exists, returns NULL. </para>
+</para></description><returns><para>If there exists a valid conversion from U* to T, returns a T that points to an address suitably offset from u. If no such conversion exists, returns nullptr. </para>
 </returns></function>
 <function name="runtime_pointer_cast"><type>T *</type><template>
           <template-type-parameter name="T"><purpose><para>The desired target type to return a pointer to. </para></purpose></template-type-parameter>
           <template-type-parameter name="U"><purpose><para>A complete class type of the source instance, u. </para></purpose></template-type-parameter>
         </template><parameter name="u"><paramtype>U *</paramtype></parameter><purpose>Safely converts pointers to classes up, down, and sideways along the inheritance hierarchy. </purpose><description><para>
 
-</para></description><returns><para>If there exists a valid conversion from U const* to T*, returns a T* that points to an address suitably offset from u. If no such conversion exists, returns NULL. </para>
+</para></description><returns><para>If there exists a valid conversion from U const* to T*, returns a T* that points to an address suitably offset from u. If no such conversion exists, returns nullptr. </para>
 </returns></function>
 <function name="runtime_pointer_cast"><type>T const *</type><template>
           <template-type-parameter name="T"><purpose><para>The desired target type to return a pointer to. </para></purpose></template-type-parameter>
           <template-type-parameter name="U"><purpose><para>A complete class type of the source instance, u. </para></purpose></template-type-parameter>
         </template><parameter name="u"><paramtype>U const *</paramtype></parameter><purpose>Safely converts pointers to classes up, down, and sideways along the inheritance hierarchy. </purpose><description><para>
 
-</para></description><returns><para>If there exists a valid conversion from U const* to T const*, returns a T const* that points to an address suitably offset from u. If no such conversion exists, returns NULL. </para>
+</para></description><returns><para>If there exists a valid conversion from U const* to T const*, returns a T const* that points to an address suitably offset from u. If no such conversion exists, returns nullptr. </para>
 </returns></function>
 
 </namespace>
@@ -238,14 +238,14 @@ See <ulink url="boost_typeindex/rtti_emulation_limitations.html">RTTI emulation 
 
 
 
-<function name="runtime_cast"><type>boost::add_reference&lt; T &gt;::type</type><template>
+<function name="runtime_cast"><type>std::add_lvalue_reference&lt; T &gt;::type</type><template>
           <template-type-parameter name="T"><purpose><para>The desired target type. Like dynamic_cast, must be a pointer to complete class type. </para></purpose></template-type-parameter>
           <template-type-parameter name="U"><purpose><para>A complete class type of the source instance, u. </para></purpose></template-type-parameter>
         </template><parameter name="u"><paramtype>U &amp;</paramtype></parameter><purpose>Safely converts references to classes up, down, and sideways along the inheritance hierarchy. </purpose><description><para>
 
 </para></description><returns><para>If there exists a valid conversion from U&amp; to T, returns a T that references an address suitably offset from u. If no such conversion exists, throws <classname alt="boost::typeindex::bad_runtime_cast">boost::typeindex::bad_runtime_cast</classname>. </para>
 </returns></function>
-<function name="runtime_cast"><type>boost::add_reference&lt; constT &gt;::type</type><template>
+<function name="runtime_cast"><type>std::add_lvalue_reference&lt; constT &gt;::type</type><template>
           <template-type-parameter name="T"><purpose><para>The desired target type. Like dynamic_cast, must be a pointer to complete class type. </para></purpose></template-type-parameter>
           <template-type-parameter name="U"><purpose><para>A complete class type of the source instance, u. </para></purpose></template-type-parameter>
         </template><parameter name="u"><paramtype>U const &amp;</paramtype></parameter><purpose>Safely converts references to classes up, down, and sideways along the inheritance hierarchy. </purpose><description><para>
@@ -282,22 +282,22 @@ See <ulink url="boost_typeindex/rtti_emulation_limitations.html">RTTI emulation 
 
 </namespace>
 </namespace>
-<macro name="BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS" kind="functionlike"><macro-parameter name="base_class_seq"><description><para>A Boost.Preprocessor sequence of the current class' direct bases, or BOOST_TYPE_INDEX_NO_BASE_CLASS if this class has no direct base classes. </para></description></macro-parameter><purpose>Macro used to make a class compatible with boost::typeindex::runtime_cast. </purpose><description><para>BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS generates a virtual function in the current class that, when combined with the supplied base class information, allows boost::typeindex::runtime_cast to accurately convert between dynamic types of instances of the current class.</para><para>BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS also adds support for boost::typeindex::type_id_runtime by including BOOST_TYPE_INDEX_REGISTER_CLASS. It is typical that these features are used together, but in the event that BOOST_TYPE_INDEX_REGISTER_CLASS is undesirable in the current class, BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST is provided.</para><para><emphasis role="bold">Example:</emphasis> <programlisting language="c++">struct base1 {
-    BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS(BOOST_TYPE_INDEX_NO_BASE_CLASS)
+<macro name="BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS" kind="functionlike"><macro-parameter name="..."/><purpose>Macro used to make a class compatible with boost::typeindex::runtime_cast. </purpose><description><para>BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS generates a virtual function in the current class that, when combined with the supplied base class information, allows boost::typeindex::runtime_cast to accurately convert between dynamic types of instances of the current class.</para><para>BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS also adds support for boost::typeindex::type_id_runtime by including BOOST_TYPE_INDEX_REGISTER_CLASS. It is typical that these features are used together, but in the event that BOOST_TYPE_INDEX_REGISTER_CLASS is undesirable in the current class, BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST is provided.</para><para><emphasis role="bold">Example:</emphasis> <programlisting language="c++">struct base1 {
+    BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS()
     virtual ~base1();
 };
 
 struct base2 {
-    BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS(BOOST_TYPE_INDEX_NO_BASE_CLASS)
+    BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS()
     virtual ~base2();
 };
 
 struct derived1 : base1 {
-    BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS((base1))
+    BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS(base1)
 };
 
 struct derived2 : base1, base2 {
-    BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS((base1)(base2))
+    BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS(base1, base2)
 };
 
 ...
@@ -308,22 +308,22 @@ if(derived2* pb2 = boost::typeindex::runtime_cast&lt;derived2*&gt;(pb1)) {
 }
 </programlisting></para><para>
 </para></description></macro>
-<macro name="BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST" kind="functionlike"><macro-parameter name="base_class_seq"><description><para>A Boost.Preprocessor sequence of the current class' direct bases, or BOOST_TYPE_INDEX_NO_BASE_CLASS if this class has no direct base classes. </para></description></macro-parameter><purpose>Macro used to make a class compatible with boost::typeindex::runtime_cast without including support for boost::typeindex::type_id_runtime. </purpose><description><para>BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST is provided as an alternative to BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS in the event that support for boost::typeindex::type_id_runtime is undesirable.</para><para><emphasis role="bold">Example:</emphasis> <programlisting language="c++">struct base1 {
-    BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST(BOOST_TYPE_INDEX_NO_BASE_CLASS)
+<macro name="BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST" kind="functionlike"><macro-parameter name="..."/><purpose>Macro used to make a class compatible with boost::typeindex::runtime_cast without including support for boost::typeindex::type_id_runtime. </purpose><description><para>BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST is provided as an alternative to BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS in the event that support for boost::typeindex::type_id_runtime is undesirable.</para><para><emphasis role="bold">Example:</emphasis> <programlisting language="c++">struct base1 {
+    BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST()
     virtual ~base1();
 };
 
 struct base2 {
-    BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST(BOOST_TYPE_INDEX_NO_BASE_CLASS)
+    BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST()
     virtual ~base2();
 };
 
 struct derived1 : base1 {
-    BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST((base1))
+    BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST(base1)
 };
 
 struct derived2 : base1, base2 {
-    BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST((base1)(base2))
+    BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST(base1, base2)
 };
 
 ...
@@ -333,7 +333,8 @@ if(derived2* pb2 = boost::typeindex::runtime_cast&lt;derived2*&gt;(pb1))
 { /* can't call boost::typeindex::type_id_runtime(*pb1) here */ }
 </programlisting></para><para>
 </para></description></macro>
-<macro name="BOOST_TYPE_INDEX_NO_BASE_CLASS"><purpose>Instructs BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS and BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST that this class has no base classes. </purpose></macro>
+<macro name="BOOST_TYPE_INDEX_NO_BASE_CLASS"><purpose>Instructs BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS and BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST that this class has no base classes. </purpose><description><para><xrefsect id="deprecated_1_deprecated000001"><xreftitle>Deprecated</xreftitle><xrefdescription><para>Just remove and use BOOST_TYPE_INDEX_REGISTER_RUNTIME_CLASS() or BOOST_TYPE_INDEX_IMPLEMENT_RUNTIME_CAST() </para>
+</xrefdescription></xrefsect></para></description></macro>
 </header>
 <header name="boost/type_index/runtime_cast/std_shared_ptr_cast.hpp">
 <para>Contains the overload of boost::typeindex::runtime_pointer_cast for std::shared_ptr types. </para><namespace name="boost">

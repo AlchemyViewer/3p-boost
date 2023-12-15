@@ -36,7 +36,7 @@
     <span class="keyword">typename</span> <a class="link" href="../../Executor1.html" title="Executor requirements">Executor1</a><span class="special">&gt;</span>
 <span class="keyword">void</span> <span class="identifier">accept</span><span class="special">(</span>
     <span class="identifier">basic_socket</span><span class="special">&lt;</span> <span class="identifier">Protocol1</span><span class="special">,</span> <span class="identifier">Executor1</span> <span class="special">&gt;</span> <span class="special">&amp;</span> <span class="identifier">peer</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">constraint</span><span class="special">&lt;</span> <span class="identifier">is_convertible</span><span class="special">&lt;</span> <span class="identifier">Protocol</span><span class="special">,</span> <span class="identifier">Protocol1</span> <span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">&gt;::</span><span class="identifier">type</span>  <span class="special">=</span> <span class="number">0</span><span class="special">);</span>
+    <span class="identifier">constraint_t</span><span class="special">&lt;</span> <span class="identifier">is_convertible</span><span class="special">&lt;</span> <span class="identifier">Protocol</span><span class="special">,</span> <span class="identifier">Protocol1</span> <span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">&gt;</span>  <span class="special">=</span> <span class="number">0</span><span class="special">);</span>
 </pre>
 <p>
             This function is used to accept a new connection from a peer into the

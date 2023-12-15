@@ -41,6 +41,40 @@
 </pre>
 <h5>
 <a name="boost_asio.reference.experimental__promise.h0"></a>
+        <span class="phrase"><a name="boost_asio.reference.experimental__promise.types"></a></span><a class="link" href="experimental__promise.html#boost_asio.reference.experimental__promise.types">Types</a>
+      </h5>
+<div class="informaltable"><table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th>
+                <p>
+                  Name
+                </p>
+              </th>
+<th>
+                <p>
+                  Description
+                </p>
+              </th>
+</tr></thead>
+<tbody><tr>
+<td>
+                <p>
+                  <a class="link" href="experimental__promise/value_type.html" title="experimental::promise::value_type"><span class="bold"><strong>value_type</strong></span></a>
+                </p>
+              </td>
+<td>
+                <p>
+                  The value that's returned by the promise.
+                </p>
+              </td>
+</tr></tbody>
+</table></div>
+<h5>
+<a name="boost_asio.reference.experimental__promise.h1"></a>
         <span class="phrase"><a name="boost_asio.reference.experimental__promise.member_functions"></a></span><a class="link" href="experimental__promise.html#boost_asio.reference.experimental__promise.member_functions">Member
         Functions</a>
       </h5>
@@ -121,15 +155,23 @@
 </tr>
 </tbody>
 </table></div>
-<p>
-        Signature The signature of the operation.
-      </p>
-<p>
-        Executor The executor to be used by the promise (taken from the operation).
-      </p>
-<p>
-        Allocator The allocator used for the promise. Can be set through use_allocator.
-      </p>
+<div class="variablelist">
+<p class="title"><b></b></p>
+<dl class="variablelist">
+<dt><span class="term">Signature</span></dt>
+<dd><p>
+              The signature of the operation.
+            </p></dd>
+<dt><span class="term">Executor</span></dt>
+<dd><p>
+              The executor to be used by the promise (taken from the operation).
+            </p></dd>
+<dt><span class="term">Allocator</span></dt>
+<dd><p>
+              The allocator used for the promise. Can be set through use_allocator.
+            </p></dd>
+</dl>
+</div>
 <p>
         A promise can be used to initiate an asynchronous option that can be completed
         later. If the promise gets destroyed before completion, the operation gets
@@ -139,7 +181,7 @@
         A promise fulfills the requirements of async_operation.
       </p>
 <h5>
-<a name="boost_asio.reference.experimental__promise.h1"></a>
+<a name="boost_asio.reference.experimental__promise.h2"></a>
         <span class="phrase"><a name="boost_asio.reference.experimental__promise.examples"></a></span><a class="link" href="experimental__promise.html#boost_asio.reference.experimental__promise.examples">Examples</a>
       </h5>
 <p>
@@ -154,7 +196,7 @@
 <span class="special">}</span>
 </pre>
 <h5>
-<a name="boost_asio.reference.experimental__promise.h2"></a>
+<a name="boost_asio.reference.experimental__promise.h3"></a>
         <span class="phrase"><a name="boost_asio.reference.experimental__promise.requirements"></a></span><a class="link" href="experimental__promise.html#boost_asio.reference.experimental__promise.requirements">Requirements</a>
       </h5>
 <p>

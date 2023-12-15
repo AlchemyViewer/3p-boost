@@ -14,7 +14,7 @@
 <method name="result" cv="const"><type>result_type</type><parameter name=""><paramtype>dont_care</paramtype></parameter></method>
 <method name="serialize"><type>void</type><template>
           <template-type-parameter name="Archive"/>
-        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name="file_version"><paramtype>const unsigned int</paramtype></parameter></method>
+        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name=""><paramtype>const unsigned int</paramtype></parameter></method>
 </method-group>
 <constructor><parameter name=""><paramtype>dont_care</paramtype></parameter></constructor>
 </struct>
@@ -335,7 +335,7 @@
 <method name="result" cv="const"><type>result_type</type><parameter name=""><paramtype>dont_care</paramtype></parameter></method>
 <method name="serialize"><type>void</type><template>
           <template-type-parameter name="Archive"/>
-        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name="file_version"><paramtype>const unsigned int</paramtype></parameter></method>
+        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name=""><paramtype>const unsigned int</paramtype></parameter></method>
 </method-group>
 <constructor><template>
           <template-type-parameter name="Args"/>
@@ -407,7 +407,7 @@
 <method name="result" cv="const"><type>result_type</type><parameter name=""><paramtype>dont_care</paramtype></parameter></method>
 <method name="serialize"><type>void</type><template>
           <template-type-parameter name="Archive"/>
-        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name="file_version"><paramtype>const unsigned int</paramtype></parameter></method>
+        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name=""><paramtype>const unsigned int</paramtype></parameter></method>
 </method-group>
 <constructor><template>
           <template-type-parameter name="Args"/>
@@ -422,7 +422,7 @@
         </template><parameter name="args"><paramtype>Args const &amp;</paramtype></parameter></method>
 <method name="serialize"><type>void</type><template>
           <template-type-parameter name="Archive"/>
-        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name="file_version"><paramtype>const unsigned int</paramtype></parameter></method>
+        </template><parameter name=""><paramtype>Archive &amp;</paramtype></parameter><parameter name=""><paramtype>const unsigned int</paramtype></parameter></method>
 </method-group>
 <constructor><parameter name=""><paramtype>dont_care</paramtype></parameter></constructor>
 </struct>
@@ -536,7 +536,7 @@
 <method name="result" cv="const"><type>result_type</type><parameter name=""><paramtype>dont_care</paramtype></parameter></method>
 <method name="serialize"><type>void</type><template>
           <template-type-parameter name="Archive"/>
-        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name="file_version"><paramtype>const unsigned int</paramtype></parameter></method>
+        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name=""><paramtype>const unsigned int</paramtype></parameter></method>
 </method-group>
 <constructor><template>
           <template-type-parameter name="Args"/>
@@ -573,7 +573,7 @@
         </template><parameter name="args"><paramtype>Args const &amp;</paramtype></parameter></method>
 <method name="serialize"><type>void</type><template>
           <template-type-parameter name="Archive"/>
-        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name="file_version"><paramtype>const unsigned int</paramtype></parameter></method>
+        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name=""><paramtype>const unsigned int</paramtype></parameter></method>
 </method-group>
 <constructor><template>
           <template-type-parameter name="Args"/>
@@ -1296,7 +1296,7 @@ M_{2,n} = \sum_{i = n-N+1}^n (x_i - \mu_n)^2 = M_{2,n-1} + (x_n - \mu_n)(x_n - \
 <method name="result" cv="const"><type>result_type</type><parameter name=""><paramtype>dont_care</paramtype></parameter></method>
 <method name="serialize"><type>void</type><template>
           <template-type-parameter name="Archive"/>
-        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name="file_version"><paramtype>const unsigned int</paramtype></parameter></method>
+        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name=""><paramtype>const unsigned int</paramtype></parameter></method>
 </method-group>
 <constructor><template>
           <template-type-parameter name="Args"/>
@@ -1383,9 +1383,6 @@ M_{2,n} = \sum_{i = n-N+1}^n (x_i - \mu_n)^2 = M_{2,n-1} + (x_n - \mu_n)(x_n - \
 <method name="operator()" cv="const"><type>bool</type><parameter name="left"><paramtype>std::size_t</paramtype></parameter><parameter name="right"><paramtype>std::size_t</paramtype></parameter></method>
 </method-group>
 <constructor><parameter name="s"><paramtype>std::vector&lt; Sample &gt; const &amp;</paramtype></parameter></constructor>
-<method-group name="private member functions">
-</method-group>
-<copy-assignment><type>indirect_cmp &amp;</type><parameter name=""><paramtype>indirect_cmp const &amp;</paramtype></parameter></copy-assignment>
 </struct><struct name="is_tail_variate"><struct name="apply"><template>
       <template-type-parameter name="T"/>
     </template></struct></struct><typedef name="predicate_type"><type>mpl::if_&lt; is_same&lt; LeftRight, <classname>right</classname> &gt;, numeric::functional::greater&lt; Sampleconst, Sampleconst &gt;, numeric::functional::less&lt; Sampleconst, Sampleconst &gt; &gt;::type</type></typedef>
@@ -1744,7 +1741,7 @@ M_{2,n} = \sum_{i = n-N+1}^n (x_i - \mu_n)^2 = M_{2,n-1} + (x_n - \mu_n)(x_n - \
         </template><parameter name="args"><paramtype>Args const &amp;</paramtype></parameter></method>
 <method name="serialize"><type>void</type><template>
           <template-type-parameter name="Archive"/>
-        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name="file_version"><paramtype>const unsigned int</paramtype></parameter></method>
+        </template><parameter name=""><paramtype>Archive &amp;</paramtype></parameter><parameter name=""><paramtype>const unsigned int</paramtype></parameter></method>
 </method-group>
 <constructor><parameter name=""><paramtype>dont_care</paramtype></parameter></constructor>
 </struct><struct name="variance_impl"><template>
@@ -1775,7 +1772,7 @@ M_{2,n} = \sum_{i = n-N+1}^n (x_i - \mu_n)^2 = M_{2,n-1} + (x_n - \mu_n)(x_n - \
 <method name="result" cv="const"><type>result_type</type><parameter name=""><paramtype>dont_care</paramtype></parameter></method>
 <method name="serialize"><type>void</type><template>
           <template-type-parameter name="Archive"/>
-        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name="file_version"><paramtype>const unsigned int</paramtype></parameter></method>
+        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name=""><paramtype>const unsigned int</paramtype></parameter></method>
 </method-group>
 <constructor><template>
           <template-type-parameter name="Args"/>
@@ -1981,7 +1978,7 @@ M_{2,n} = \sum_{i = n-N+1}^n (x_i - \mu_n)^2 = M_{2,n-1} + (x_n - \mu_n)(x_n - \
 <method name="result" cv="const"><type>result_type</type><parameter name=""><paramtype>dont_care</paramtype></parameter></method>
 <method name="serialize"><type>void</type><template>
           <template-type-parameter name="Archive"/>
-        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name="file_version"><paramtype>const unsigned int</paramtype></parameter></method>
+        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name=""><paramtype>const unsigned int</paramtype></parameter></method>
 </method-group>
 <constructor><template>
           <template-type-parameter name="Args"/>
@@ -2316,7 +2313,7 @@ M_{2,n} = \sum_{i = n-N+1}^n (x_i - \mu_n)^2 = M_{2,n-1} + (x_n - \mu_n)(x_n - \
 <method name="result" cv="const"><type>result_type</type><parameter name=""><paramtype>dont_care</paramtype></parameter></method>
 <method name="serialize"><type>void</type><template>
           <template-type-parameter name="Archive"/>
-        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name="file_version"><paramtype>const unsigned int</paramtype></parameter></method>
+        </template><parameter name="ar"><paramtype>Archive &amp;</paramtype></parameter><parameter name=""><paramtype>const unsigned int</paramtype></parameter></method>
 </method-group>
 <constructor><template>
           <template-type-parameter name="Args"/>

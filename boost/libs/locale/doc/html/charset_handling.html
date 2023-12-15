@@ -142,7 +142,7 @@ Integration with Boost.Iostreams</h1>
 <div class="line">    <span class="comment">// in UTF-8 encoding</span></div>
 <div class="line">    stream &lt;&lt; L<span class="stringliteral">&quot;שלום&quot;</span> &lt;&lt; std::flush;</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassboost_1_1locale_1_1generator_html"><div class="ttname"><a href="classboost_1_1locale_1_1generator.html">boost::locale::generator</a></div><div class="ttdoc">the major class used for locale generation</div><div class="ttdef"><b>Definition:</b> generator.hpp:96</div></div>
+<div class="ttc" id="aclassboost_1_1locale_1_1generator_html"><div class="ttname"><a href="classboost_1_1locale_1_1generator.html">boost::locale::generator</a></div><div class="ttdoc">the major class used for locale generation</div><div class="ttdef"><b>Definition:</b> generator.hpp:101</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="codecvt_limitations"></a>
 Limitations of std::codecvt</h1>
 <p >The Standard does not provide any information about <code>std::mbstate_t</code> that could be used to save intermediate code-page conversion states. It leaves the definition up to the compiler implementation, making it impossible to reimplement <code>std::codecvt&lt;wchar_t,char,mbstate_t&gt;</code> for stateful encodings. Thus, Boost.Locale's <code>codecvt</code> facet implementation may be used with stateless encodings like UTF-8, ISO-8859, and Shift-JIS, but not with stateful encodings like UTF-7 or SCSU.</p>

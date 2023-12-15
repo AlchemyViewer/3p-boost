@@ -36,7 +36,8 @@
       </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <a class="link" href="Executor1.html" title="Executor requirements">InnerExecutor</a><span class="special">&gt;</span>
-<span class="keyword">struct</span> <span class="identifier">executor_with_default</span>
+<span class="keyword">struct</span> <span class="identifier">executor_with_default</span> <span class="special">:</span>
+  <span class="keyword">public</span> <span class="identifier">InnerExecutor</span>
 </pre>
 <h5>
 <a name="boost_asio.reference.use_awaitable_t__executor_with_default.h0"></a>

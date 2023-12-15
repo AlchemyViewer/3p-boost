@@ -35,7 +35,8 @@
       </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">&gt;</span>
-<span class="keyword">struct</span> <span class="identifier">is_mutable_buffer_sequence</span>
+<span class="keyword">struct</span> <span class="identifier">is_mutable_buffer_sequence</span> <span class="special">:</span>
+  <span class="keyword">public</span> <span class="identifier">integral_constant</span><span class="special">&lt;</span> <span class="keyword">bool</span><span class="special">,</span> <span class="identifier">automatically_determined</span> <span class="special">&gt;</span>
 </pre>
 <h5>
 <a name="boost_asio.reference.is_mutable_buffer_sequence.h0"></a>
