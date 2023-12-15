@@ -88,7 +88,7 @@ $(document).ready(function(){initNavTree('default_encoding_under_windows.html','
 <div class="line">    <span class="comment">// Now Works perfectly fine with UTF-8!</span></div>
 <div class="line">    boost::filesystem::ofstream hello(<span class="stringliteral">&quot;שלום.txt&quot;</span>);</div>
 <div class="line">}</div>
-<div class="ttc" id="aclassboost_1_1locale_1_1generator_html"><div class="ttname"><a href="classboost_1_1locale_1_1generator.html">boost::locale::generator</a></div><div class="ttdoc">the major class used for locale generation</div><div class="ttdef"><b>Definition:</b> generator.hpp:96</div></div>
+<div class="ttc" id="aclassboost_1_1locale_1_1generator_html"><div class="ttname"><a href="classboost_1_1locale_1_1generator.html">boost::locale::generator</a></div><div class="ttdoc">the major class used for locale generation</div><div class="ttdef"><b>Definition:</b> generator.hpp:101</div></div>
 </div><!-- fragment --><p >However such behavior may break existing software that assumes that the current encoding is single byte encodings like code page 1252.</p>
 <p >The <a class="el" href="classboost_1_1locale_1_1generator.html">boost::locale::generator</a> class has a property <a class="el" href="classboost_1_1locale_1_1generator.html#af23d8b3929168db8e14be50b0129a192">use_ansi_encoding()</a> that allows changing the behavior to the legacy one and selecting an ANSI code page as the default system encoding.</p>
 <p >So, when the current locale is "English_USA.1252" and the <code>use_ansi_encoding</code> is turned on, then the default locale would be "en_US.windows-1252".</p>

@@ -34,7 +34,7 @@
           </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <a class="link" href="../../LegacyCompletionHandler.html" title="Legacy completion handler requirements">LegacyCompletionHandler</a><span class="special">&gt;</span>
-<a class="link" href="../../asynchronous_operations.html#boost_asio.reference.asynchronous_operations.automatic_deduction_of_initiating_function_return_type"><span class="emphasis"><em>DEDUCED</em></span></a> <span class="identifier">dispatch</span><span class="special">(</span>
+<span class="keyword">auto</span> <span class="identifier">dispatch</span><span class="special">(</span>
     <span class="identifier">LegacyCompletionHandler</span> <span class="special">&amp;&amp;</span> <span class="identifier">handler</span><span class="special">);</span>
 </pre>
 <p>
@@ -50,8 +50,8 @@
 <p>
             The strand's guarantee is in addition to the guarantee provided by the
             underlying <a class="link" href="../../io_context.html" title="io_context"><code class="computeroutput"><span class="identifier">io_context</span></code></a>. The <a class="link" href="../../io_context.html" title="io_context"><code class="computeroutput"><span class="identifier">io_context</span></code></a> guarantees that the
-            handler will only be called in a thread in which the io_context's run
-            member function is currently being invoked.
+            handler will only be called in a thread in which the <a class="link" href="../../io_context.html" title="io_context"><code class="computeroutput"><span class="identifier">io_context</span></code></a>'s run member function
+            is currently being invoked.
           </p>
 <h6>
 <a name="boost_asio.reference.io_context__strand.dispatch.overload2.h0"></a>

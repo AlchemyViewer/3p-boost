@@ -1,5 +1,5 @@
 <?xml version="1.0" standalone="yes"?>
-<library-reference id="reference_section"><title>Reference Section</title><header name="boost/pfr.hpp">
+<library-reference id="reference_section_of_pfr"><title>Reference Section of PFR</title><header name="boost/pfr.hpp">
 <para>Includes all the Boost.PFR headers </para></header>
 <header name="boost/pfr/config.hpp">
 <para>Contains all the macros that describe Boost.PFR configuration, like BOOST_PFR_ENABLED</para><para><note><para>This header file doesn't require C++14 Standard and supports all C++ compilers, even pre C++14 compilers (C++11, C++03...). </para>
@@ -10,6 +10,8 @@
 <macro name="BOOST_PFR_USE_STD_MAKE_INTEGRAL_SEQUENCE"/>
 <macro name="BOOST_PFR_HAS_GUARANTEED_COPY_ELISION"/>
 <macro name="BOOST_PFR_ENABLE_IMPLICIT_REFLECTION"/>
+<macro name="BOOST_PFR_CORE_NAME_ENABLED"/>
+<macro name="BOOST_PFR_CORE_NAME_PARSING"/>
 <macro name="BOOST_PFR_MAYBE_UNUSED"/>
 <macro name="BOOST_PFR_ENABLED"/>
 </header>
@@ -20,6 +22,8 @@
 </programlisting> </para></description><type><emphasis>unspecified</emphasis></type></typedef>
 <typedef name="tuple_element_t"><purpose>Type of a field with index <computeroutput>I</computeroutput> in  <link linkend="boost_pfr.limitations_and_configuration"> simple aggregate  </link> <computeroutput>T</computeroutput>. </purpose><description><para><emphasis role="bold">Example:</emphasis> <programlisting language="c++">std::vector&lt; boost::pfr::tuple_element_t&lt;0, my_structure&gt; &gt; v;
 </programlisting> </para></description><type>typename tuple_element&lt; I, T &gt;::type</type></typedef>
+
+
 
 
 
@@ -113,7 +117,7 @@ assert(s.s == 11);
 <function name="structure_tie"><type>constexpr auto</type><template>
           <template-type-parameter name="T"/>
         </template><parameter name=""><paramtype>T &amp;&amp;</paramtype></parameter><parameter name=""><paramtype>std::enable_if_t&lt; std::is_rvalue_reference&lt; T &amp;&amp; &gt;::value &gt; *</paramtype><default>nullptr</default></parameter></function>
-<function name="for_each_field"><type>void</type><template>
+<function name="for_each_field"><type>constexpr void</type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="F"/>
         </template><parameter name="value"><paramtype>T &amp;&amp;</paramtype><description><para>To each field of this variable will be the <computeroutput>func</computeroutput> applied.</para></description></parameter><parameter name="func"><paramtype>F &amp;&amp;</paramtype><description><para>must have one of the following signatures:<itemizedlist>
@@ -138,6 +142,64 @@ auto [p, s] = f();
 boost::pfr::tie_from_structure(p, s) = f();
 </programlisting> </para></description><returns><para>an object with lvalue references to <computeroutput>args...</computeroutput>; on assignment of an  <link linkend="boost_pfr.limitations_and_configuration"> simple aggregate  </link> value to that object each field of an aggregate is assigned to the corresponding <computeroutput>args...</computeroutput> reference.</para>
 </returns></function>
+</namespace>
+</namespace>
+</header>
+<header name="boost/pfr/core_name.hpp">
+<para>Contains functions  <link linkend="boost.pfr.get_name"> boost::pfr::get_name </link> and  <link linkend="boost.pfr.names_as_array"> boost::pfr::names_as_array </link> to know which names each field of any  <link linkend="boost_pfr.limitations_and_configuration"> simple aggregate  </link> has.</para><para><emphasis role="bold">See</emphasis> <emphasis role="bold">Also</emphasis> :  <link linkend="boost_pfr.tutorial.reflection_of_field_name"> 'Reflection of field names'  </link> for details.</para><para><emphasis role="bold">Synopsis:</emphasis> </para><namespace name="boost">
+<namespace name="pfr">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<function name="get_name"><type>constexpr std::string_view</type><template>
+          <template-nontype-parameter name="I"><type>std::size_t</type></template-nontype-parameter>
+          <template-type-parameter name="T"/>
+        </template><purpose>Returns name of a field with index <computeroutput>I</computeroutput> in  <link linkend="boost_pfr.limitations_and_configuration"> simple aggregate  </link> <computeroutput>T</computeroutput>. </purpose><description><para><emphasis role="bold">Example:</emphasis> <programlisting language="c++">struct my_struct { int i, short s; };
+
+assert(boost::pfr::get_name&lt;0, my_struct&gt;() == "i");
+assert(boost::pfr::get_name&lt;1, my_struct&gt;() == "s");
+</programlisting> </para></description></function>
+<function name="names_as_array"><type>constexpr std::array&lt; std::string_view, boost::pfr::tuple_size_v&lt; T &gt; &gt;</type><template>
+          <template-type-parameter name="T"/>
+        </template><purpose>Creates a <computeroutput>std::array</computeroutput> from names of fields of an  <link linkend="boost_pfr.limitations_and_configuration"> simple aggregate  </link> <computeroutput>T</computeroutput>. </purpose><description><para><emphasis role="bold">Example:</emphasis> <programlisting language="c++">struct my_struct { int i, short s; };
+std::array&lt;std::string_view, 2&gt; a = boost::pfr::names_as_array&lt;my_struct&gt;();
+assert(a[0] == "i");
+</programlisting> </para></description></function>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </namespace>
 </namespace>
 </header>
@@ -321,6 +383,8 @@ std::unordered_set&lt;
 
 
 
+
+
 </namespace>
 </namespace>
 </header>
@@ -367,6 +431,8 @@ ss &gt;&gt; boost::pfr::io(x);
 assert(x.i == 12);
 assert(x.s == 13);
 </programlisting></para><para><emphasis role="bold">See</emphasis> <emphasis role="bold">Also</emphasis> :  <link linkend="boost_pfr.tutorial.custom_printing_of_aggregates"> 'Custom printing of aggregates'  </link> for info on how to implement your own manipulator with custom format. </para></description></function>
+
+
 
 
 
@@ -452,6 +518,8 @@ std::istream&amp; operator&gt;&gt;(std::istream&amp; is, my_struct&amp; x) {
 
 
 
+
+
 </namespace>
 </namespace>
 </header>
@@ -477,7 +545,7 @@ assert(boost::pfr::lt(s1, s2));
 <function name="eq"><type><emphasis>unspecified</emphasis></type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><purpose>Compares lhs and rhs for equality using their own comparison and conversion operators; if no operators avalable returns  <link linkend="boost.pfr.eq_fields"> boost::pfr::eq_fields </link>(lhs, rhs). </purpose><description><para>
+        </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><purpose>Compares lhs and rhs for equality using their own comparison and conversion operators; if no operators available returns  <link linkend="boost.pfr.eq_fields"> boost::pfr::eq_fields </link>(lhs, rhs). </purpose><description><para>
 </para></description><returns><para>true if lhs is equal to rhs; false otherwise </para>
 </returns></function>
 <function name="eq"><type><emphasis>unspecified</emphasis></type><template>
@@ -487,7 +555,7 @@ assert(boost::pfr::lt(s1, s2));
 <function name="ne"><type><emphasis>unspecified</emphasis></type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><purpose>Compares lhs and rhs for inequality using their own comparison and conversion operators; if no operators avalable returns  <link linkend="boost.pfr.ne_fields"> boost::pfr::ne_fields </link>(lhs, rhs). </purpose><description><para>
+        </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><purpose>Compares lhs and rhs for inequality using their own comparison and conversion operators; if no operators available returns  <link linkend="boost.pfr.ne_fields"> boost::pfr::ne_fields </link>(lhs, rhs). </purpose><description><para>
 </para></description><returns><para>true if lhs is not equal to rhs; false otherwise </para>
 </returns></function>
 <function name="ne"><type><emphasis>unspecified</emphasis></type><template>
@@ -497,7 +565,7 @@ assert(boost::pfr::lt(s1, s2));
 <function name="lt"><type><emphasis>unspecified</emphasis></type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><purpose>Compares lhs and rhs for less-than using their own comparison and conversion operators; if no operators avalable returns  <link linkend="boost.pfr.lt_fields"> boost::pfr::lt_fields </link>(lhs, rhs). </purpose><description><para>
+        </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><purpose>Compares lhs and rhs for less-than using their own comparison and conversion operators; if no operators available returns  <link linkend="boost.pfr.lt_fields"> boost::pfr::lt_fields </link>(lhs, rhs). </purpose><description><para>
 </para></description><returns><para>true if lhs is less than rhs; false otherwise </para>
 </returns></function>
 <function name="lt"><type><emphasis>unspecified</emphasis></type><template>
@@ -507,7 +575,7 @@ assert(boost::pfr::lt(s1, s2));
 <function name="gt"><type><emphasis>unspecified</emphasis></type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><purpose>Compares lhs and rhs for greater-than using their own comparison and conversion operators; if no operators avalable returns  <link linkend="boost.pfr.lt_fields"> boost::pfr::lt_fields </link>(lhs, rhs). </purpose><description><para>
+        </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><purpose>Compares lhs and rhs for greater-than using their own comparison and conversion operators; if no operators available returns  <link linkend="boost.pfr.lt_fields"> boost::pfr::lt_fields </link>(lhs, rhs). </purpose><description><para>
 </para></description><returns><para>true if lhs is greater than rhs; false otherwise </para>
 </returns></function>
 <function name="gt"><type><emphasis>unspecified</emphasis></type><template>
@@ -517,7 +585,7 @@ assert(boost::pfr::lt(s1, s2));
 <function name="le"><type><emphasis>unspecified</emphasis></type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><purpose>Compares lhs and rhs for less-equal using their own comparison and conversion operators; if no operators avalable returns  <link linkend="boost.pfr.le_fields"> boost::pfr::le_fields </link>(lhs, rhs). </purpose><description><para>
+        </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><purpose>Compares lhs and rhs for less-equal using their own comparison and conversion operators; if no operators available returns  <link linkend="boost.pfr.le_fields"> boost::pfr::le_fields </link>(lhs, rhs). </purpose><description><para>
 </para></description><returns><para>true if lhs is less or equal to rhs; false otherwise </para>
 </returns></function>
 <function name="le"><type><emphasis>unspecified</emphasis></type><template>
@@ -527,7 +595,7 @@ assert(boost::pfr::lt(s1, s2));
 <function name="ge"><type><emphasis>unspecified</emphasis></type><template>
           <template-type-parameter name="T"/>
           <template-type-parameter name="U"/>
-        </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><purpose>Compares lhs and rhs for greater-equal using their own comparison and conversion operators; if no operators avalable returns  <link linkend="boost.pfr.ge_fields"> boost::pfr::ge_fields </link>(lhs, rhs). </purpose><description><para>
+        </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter><purpose>Compares lhs and rhs for greater-equal using their own comparison and conversion operators; if no operators available returns  <link linkend="boost.pfr.ge_fields"> boost::pfr::ge_fields </link>(lhs, rhs). </purpose><description><para>
 </para></description><returns><para>true if lhs is greater or equal to rhs; false otherwise </para>
 </returns></function>
 <function name="ge"><type><emphasis>unspecified</emphasis></type><template>
@@ -536,12 +604,14 @@ assert(boost::pfr::lt(s1, s2));
         </template><parameter name="lhs"><paramtype>const T &amp;</paramtype></parameter><parameter name="rhs"><paramtype>const U &amp;</paramtype></parameter></function>
 <function name="hash_value"><type><emphasis>unspecified</emphasis></type><template>
           <template-type-parameter name="T"/>
-        </template><parameter name="value"><paramtype>const T &amp;</paramtype></parameter><purpose>Hashes value using its own std::hash specialization; if no std::hash specialization avalable returns  <link linkend="boost.pfr.hash_fields"> boost::pfr::hash_fields </link>(value). </purpose><description><para>
+        </template><parameter name="value"><paramtype>const T &amp;</paramtype></parameter><purpose>Hashes value using its own std::hash specialization; if no std::hash specialization available returns  <link linkend="boost.pfr.hash_fields"> boost::pfr::hash_fields </link>(value). </purpose><description><para>
 </para></description><returns><para>std::size_t with hash of the value </para>
 </returns></function>
 <function name="hash_value"><type><emphasis>unspecified</emphasis></type><template>
           <template-type-parameter name="T"/>
         </template><parameter name="value"><paramtype>const T &amp;</paramtype></parameter></function>
+
+
 
 
 
@@ -646,6 +716,8 @@ assert(boost::pfr::lt_fields(s1, s2));
 
 
 
+
+
 </namespace>
 </namespace>
 </header>
@@ -672,6 +744,8 @@ assert(boost::pfr::lt_fields(s1, s2));
       <template-type-parameter name="WhatFor"/>
     </template><specialization><template-arg>volatile T</template-arg><template-arg>WhatFor</template-arg></specialization><inherit access="public">boost::pfr::is_reflectable&lt; T, WhatFor &gt;</inherit></struct-specialization><typedef name="is_implicitly_reflectable"><description><para>Checks the input type for the potential to be reflected. Specialize <classname alt="boost::pfr::is_reflectable">is_reflectable</classname> if you disagree with is_implicitly_reflectable's default decision. </para></description><type><emphasis>unspecified</emphasis></type></typedef>
 <data-member name="is_implicitly_reflectable_v"><type>constexpr bool</type><description><para>Checks the input type for the potential to be reflected. Specialize <classname alt="boost::pfr::is_reflectable">is_reflectable</classname> if you disagree with is_implicitly_reflectable_v's default decision. </para></description></data-member>
+
+
 
 
 
@@ -754,6 +828,8 @@ assert(boost::pfr::lt_fields(s1, s2));
 
 
 
+
+
 </namespace>
 </namespace>
 </header>
@@ -764,6 +840,8 @@ assert(boost::pfr::lt_fields(s1, s2));
 </programlisting> </para></description><type><emphasis>unspecified</emphasis></type></typedef>
 <data-member name="tuple_size_v"><type>constexpr std::size_t</type><description><para><computeroutput>tuple_size_v</computeroutput> is a template variable that contains fields count in a T and works for any T that satisfies  <link linkend="boost_pfr.limitations_and_configuration"> simple aggregate  </link>.</para><para><emphasis role="bold">Example:</emphasis> <programlisting language="c++">std::array&lt;int, boost::pfr::tuple_size_v&lt;my_structure&gt; &gt; a;
 </programlisting> </para></description></data-member>
+
+
 
 
 

@@ -664,6 +664,7 @@ pre.rouge {
 <li><a href="#overview">Overview</a></li>
 <li><a href="#changes">Revision History</a>
 <ul class="sectlevel2">
+<li><a href="#changes_in_boost_1_84_0">Changes in Boost 1.84.0</a></li>
 <li><a href="#changes_in_boost_1_81_0">Changes in Boost 1.81.0</a></li>
 <li><a href="#changes_in_boost_1_79_0">Changes in Boost 1.79.0</a></li>
 <li><a href="#changes_in_boost_1_78_0">Changes in Boost 1.78.0</a></li>
@@ -823,6 +824,17 @@ the types, making manual macro annotation unnecessary.</p>
 <div class="sect1">
 <h2 id="changes">Revision History</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="changes_in_boost_1_84_0">Changes in Boost 1.84.0</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Added an overload of <code>enum_from_string</code> that takes a string view, to avoid
+the need for null termination.</p>
+</li>
+</ul>
+</div>
+</div>
 <div class="sect2">
 <h3 id="changes_in_boost_1_81_0">Changes in Boost 1.81.0</h3>
 <div class="ulist">
@@ -2271,7 +2283,7 @@ in a <code>boost::json::value</code>.</p>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">C</span><span class="p">&gt;</span>
   <span class="n">boost</span><span class="o">::</span><span class="n">json</span><span class="o">::</span><span class="n">value</span>
-    <span class="n">call</span><span class="p">(</span> <span class="n">C</span> <span class="o">&amp;</span> <span class="n">c</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="n">string_view</span> <span class="n">method</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="n">json</span><span class="o">::</span><span class="n">value</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">args</span> <span class="p">)</span>
+    <span class="n">call</span><span class="p">(</span> <span class="n">C</span> <span class="o">&amp;</span> <span class="n">c</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="n">string_view</span> <span class="n">method</span><span class="p">,</span> <span class="n">boost</span><span class="o">::</span><span class="n">json</span><span class="o">::</span><span class="n">array</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">args</span> <span class="p">)</span>
 <span class="p">{</span>
     <span class="k">using</span> <span class="n">Fd</span> <span class="o">=</span> <span class="n">boost</span><span class="o">::</span><span class="n">describe</span><span class="o">::</span><span class="n">describe_members</span><span class="o">&lt;</span><span class="n">C</span><span class="p">,</span>
         <span class="n">boost</span><span class="o">::</span><span class="n">describe</span><span class="o">::</span><span class="n">mod_public</span> <span class="o">|</span> <span class="n">boost</span><span class="o">::</span><span class="n">describe</span><span class="o">::</span><span class="n">mod_function</span><span class="o">&gt;</span><span class="p">;</span>
@@ -2283,7 +2295,7 @@ in a <code>boost::json::value</code>.</p>
 
         <span class="k">if</span><span class="p">(</span> <span class="o">!</span><span class="n">found</span> <span class="o">&amp;&amp;</span> <span class="n">method</span> <span class="o">==</span> <span class="n">D</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
         <span class="p">{</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">call_impl</span><span class="p">(</span> <span class="n">c</span><span class="p">,</span> <span class="n">D</span><span class="p">.</span><span class="n">pointer</span><span class="p">,</span> <span class="n">args</span><span class="p">.</span><span class="n">as_array</span><span class="p">()</span> <span class="p">);</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">call_impl</span><span class="p">(</span> <span class="n">c</span><span class="p">,</span> <span class="n">D</span><span class="p">.</span><span class="n">pointer</span><span class="p">,</span> <span class="n">args</span> <span class="p">);</span>
             <span class="n">found</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
         <span class="p">}</span>
 
@@ -3399,6 +3411,7 @@ values, the function returns <code>def</code>.</p>
 <span class="k">namespace</span> <span class="n">describe</span> <span class="p">{</span>
 
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">E</span><span class="p">&gt;</span> <span class="kt">bool</span> <span class="n">enum_from_string</span><span class="p">(</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span> <span class="n">name</span><span class="p">,</span> <span class="n">E</span> <span class="o">&amp;</span> <span class="n">e</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">S</span><span class="p">,</span> <span class="k">class</span> <span class="nc">E</span><span class="p">&gt;</span> <span class="kt">bool</span> <span class="n">enum_from_string</span><span class="p">(</span> <span class="n">S</span> <span class="k">const</span> <span class="o">&amp;</span> <span class="n">name</span><span class="p">,</span> <span class="n">E</span> <span class="o">&amp;</span> <span class="n">e</span> <span class="p">)</span> <span class="k">noexcept</span><span class="p">;</span>
 
 <span class="p">}</span> <span class="p">}</span></code></pre>
 </div>
@@ -3409,6 +3422,12 @@ values, the function returns <code>def</code>.</p>
 <p>The function <code>enum_from_string</code> assigns to <code>e</code> the enumerator value corresponding
 to <code>name</code> and returns <code>true</code>. <code>E</code> must be a described enumeration type. If <code>name</code>
 does not correspond to one of the described values, the function returns <code>false</code>.</p>
+</div>
+<div class="paragraph">
+<p>The second overload only participates in overload resolution when <code>S</code> is a
+string-like type such as <code>std::string</code> or <code>std::string_view</code>. String-like types
+are recognized by the presence of nested <code>value_type</code> and <code>traits_type</code> typedefs
+and are expected to have a non-throwing <code>operator==</code> taking <code>char const*</code>.</p>
 </div>
 </div>
 </div>
@@ -3602,7 +3621,7 @@ the <a href="http://www.boost.org/LICENSE_1_0.txt">Boost Software License, Versi
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-08 21:02:50 UTC
+Last updated 2023-12-06 21:03:02 UTC
 </div>
 </div>
 <style>

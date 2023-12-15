@@ -90,9 +90,10 @@ namespace boost {
                        const allocator_type& a);
     xref:#unordered_node_set_destructor[~unordered_node_set]();
     unordered_node_set& xref:#unordered_node_set_copy_assignment[operator++=++](const unordered_node_set& other);
-    unordered_node_set& xref:#unordered_node_set_move_assignment[operator++=++](unordered_node_set&& other)
-      noexcept(boost::allocator_traits<Allocator>::is_always_equal::value ||
-              boost::allocator_traits<Allocator>::propagate_on_container_move_assignment::value);
+    unordered_node_set& xref:#unordered_node_set_move_assignment[operator++=++](unordered_node_set&& other) ++noexcept(
+      (boost::allocator_traits<Allocator>::is_always_equal::value ||
+       boost::allocator_traits<Allocator>::propagate_on_container_move_assignment::value) &&
+       std::is_same<pointer, value_type*>::value);++
     unordered_node_set& xref:#unordered_node_set_initializer_list_assignment[operator++=++](std::initializer_list<value_type>);
     allocator_type xref:#unordered_node_set_get_allocator[get_allocator]() const noexcept;
 
@@ -264,8 +265,7 @@ namespace boost {
 
 |_Allocator_
 |An allocator whose value type is the same as the container's value type.
-`std::allocator_traits<Allocator>::pointer` and `std::allocator_traits<Allocator>::const_pointer`
-must be convertible to/from `value_type*` and `const value_type*`, respectively.
+Allocators using https://en.cppreference.com/w/cpp/named_req/Allocator#Fancy_pointers[fancy pointers] are supported.
 
 |===
 
@@ -602,8 +602,9 @@ Requires:;; `value_type` is https://en.cppreference.com/w/cpp/named_req/CopyInse
 ==== Move Assignment
 ```c++
 unordered_node_set& operator=(unordered_node_set&& other)
-  noexcept(boost::allocator_traits<Allocator>::is_always_equal::value ||
-           boost::allocator_traits<Allocator>::propagate_on_container_move_assignment::value);
+  noexcept((boost::allocator_traits<Allocator>::is_always_equal::value ||
+            boost::allocator_traits<Allocator>::propagate_on_container_move_assignment::value) &&
+            std::is_same<pointer, value_type*>::value);
 ```
 The move assignment operator. Destroys previously existing elements, swaps the hash function and predicate from `other`,
 and move-assigns the allocator from `other` if `Alloc::propagate_on_container_move_assignment` exists and `Alloc::propagate_on_container_move_assignment::value` is `true`.
@@ -1029,6 +1030,12 @@ template<class H2, class P2>
 
 Transfers all the element nodes from `source` whose key is not already present in `*this`.
 
+[horizontal]
+Requires:;; `this\->get_allocator() == source.get_allocator()`.
+Notes:;; Invalidates iterators to the elements transferred.
+If the resulting size of `*this` is greater than its original maximum load,
+invalidates all iterators associated to `*this`.
+
 ---
 
 === Observers
@@ -1188,7 +1195,7 @@ void rehash(size_type n);
 
 Changes if necessary the size of the bucket array so that there are at least `n` buckets, and so that the load factor is less than or equal to the maximum load factor. When applicable, this will either grow or shrink the `bucket_count()` associated with the container.
 
-When `size() == 0`, `rehash(0)` will deallocate the underlying buckets array.
+When `size() == 0`, `rehash(0)` will deallocate the underlying buckets array. If the provided Allocator uses fancy pointers, a default allocation is subsequently performed.
 
 Invalidates iterators and changes the order of elements.
 
@@ -1302,4 +1309,55 @@ for (auto i = c.begin(), last = c.end(); i != last; ) {
 return original_size - c.size();
 ```
 
+=== Serialization
+
+``unordered_node_set``s can be archived/retrieved by means of
+link:../../../serialization/index.html[Boost.Serialization^] using the API provided
+by this library. Both regular and XML archives are supported. 
+
+==== Saving an unordered_node_set to an archive
+
+Saves all the elements of an `unordered_node_set` `x` to an archive (XML archive) `ar`.
+
+[horizontal]
+Requires:;; `value_type`
+is serializable (XML serializable), and it supports Boost.Serialization
+`save_construct_data`/`load_construct_data` protocol (automatically suported by
+https://en.cppreference.com/w/cpp/named_req/DefaultConstructible[DefaultConstructible^]
+types).  
+
 ---
+
+==== Loading an unordered_node_set from an archive
+
+Deletes all preexisting elements of an `unordered_node_set` `x` and inserts
+from an archive (XML archive) `ar` restored copies of the elements of the
+original `unordered_node_set` `other` saved to the storage read by `ar`.
+
+[horizontal]
+Requires:;; `value_type` is https://en.cppreference.com/w/cpp/named_req/MoveInsertable[MoveInsertable^].
+`x.key_equal()` is functionally equivalent to `other.key_equal()`.
+
+---
+
+==== Saving an iterator/const_iterator to an archive
+
+Saves the positional information of an `iterator` (`const_iterator`) `it`
+to an archive (XML archive) `ar`. `it` can be and `end()` iterator.
+
+[horizontal]
+Requires:;; The `unordered_node_set` `x` pointed to by `it` has been previously saved to `ar`,
+and no modifying operations have been issued on `x` between saving of `x` and
+saving of `it`.
+
+---
+
+==== Loading an iterator/const_iterator from an archive
+
+Makes an `iterator` (`const_iterator`) `it` point to the restored position of
+the original `iterator` (`const_iterator`) saved to the storage read by
+an archive (XML archive) `ar`.
+
+[horizontal]
+Requires:;; If `x` is the `unordered_node_set` `it` points to, no modifying operations
+have been issued on `x` between loading of `x` and loading of `it`.

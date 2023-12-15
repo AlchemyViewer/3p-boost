@@ -37,7 +37,8 @@
     <span class="keyword">typename</span> <a class="link" href="Protocol.html" title="Protocol requirements">Protocol</a><span class="special">,</span>
     <span class="keyword">typename</span> <span class="identifier">Clock</span> <span class="special">=</span> <span class="identifier">chrono</span><span class="special">::</span><span class="identifier">steady_clock</span><span class="special">,</span>
     <span class="keyword">typename</span> <a class="link" href="WaitTraits.html" title="Wait traits requirements">WaitTraits</a> <span class="special">=</span> <span class="identifier">wait_traits</span><span class="special">&lt;</span><span class="identifier">Clock</span><span class="special">&gt;&gt;</span>
-<span class="keyword">class</span> <span class="identifier">basic_socket_iostream</span>
+<span class="keyword">class</span> <span class="identifier">basic_socket_iostream</span> <span class="special">:</span>
+  <span class="keyword">public</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">basic_iostream</span><span class="special">&lt;</span> <span class="keyword">char</span> <span class="special">&gt;</span>
 </pre>
 <h5>
 <a name="boost_asio.reference.basic_socket_iostream.h0"></a>

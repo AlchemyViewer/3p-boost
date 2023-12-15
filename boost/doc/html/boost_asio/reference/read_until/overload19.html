@@ -39,7 +39,7 @@
     <span class="identifier">SyncReadStream</span> <span class="special">&amp;</span> <span class="identifier">s</span><span class="special">,</span>
     <span class="identifier">DynamicBuffer_v2</span> <span class="identifier">buffers</span><span class="special">,</span>
     <span class="identifier">string_view</span> <span class="identifier">delim</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">constraint</span><span class="special">&lt;</span> <span class="identifier">is_dynamic_buffer_v2</span><span class="special">&lt;</span> <span class="identifier">DynamicBuffer_v2</span> <span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">&gt;::</span><span class="identifier">type</span>  <span class="special">=</span> <span class="number">0</span><span class="special">);</span>
+    <span class="identifier">constraint_t</span><span class="special">&lt;</span> <span class="identifier">is_dynamic_buffer_v2</span><span class="special">&lt;</span> <span class="identifier">DynamicBuffer_v2</span> <span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">&gt;</span>  <span class="special">=</span> <span class="number">0</span><span class="special">);</span>
 </pre>
 <p>
           This function is used to read data into the specified dynamic buffer sequence

@@ -42,7 +42,7 @@
     <span class="identifier">Iterator</span> <span class="identifier">begin</span><span class="special">,</span>
     <span class="identifier">ConnectCondition</span> <span class="identifier">connect_condition</span><span class="special">,</span>
     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span> <span class="special">&amp;</span> <span class="identifier">ec</span><span class="special">,</span>
-    <span class="keyword">typename</span> <span class="identifier">constraint</span><span class="special">&lt;!</span><span class="identifier">is_endpoint_sequence</span><span class="special">&lt;</span> <span class="identifier">Iterator</span> <span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">&gt;::</span><span class="identifier">type</span>  <span class="special">=</span> <span class="number">0</span><span class="special">);</span>
+    <span class="identifier">constraint_t</span><span class="special">&lt;!</span><span class="identifier">is_endpoint_sequence</span><span class="special">&lt;</span> <span class="identifier">Iterator</span> <span class="special">&gt;::</span><span class="identifier">value</span> <span class="special">&gt;</span>  <span class="special">=</span> <span class="number">0</span><span class="special">);</span>
 </pre>
 <p>
           This function attempts to connect a socket to one of a sequence of endpoints.
@@ -73,8 +73,8 @@
                 The signature of the function object must be:
               </p>
 <pre class="programlisting"><span class="keyword">bool</span> <span class="identifier">connect_condition</span><span class="special">(</span>
-    <span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">&amp;</span> <span class="identifier">ec</span><span class="special">,</span>
-    <span class="keyword">const</span> <span class="keyword">typename</span> <span class="identifier">Protocol</span><span class="special">::</span><span class="identifier">endpoint</span><span class="special">&amp;</span> <span class="identifier">next</span><span class="special">);</span>
+   <span class="keyword">const</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">system</span><span class="special">::</span><span class="identifier">error_code</span><span class="special">&amp;</span> <span class="identifier">ec</span><span class="special">,</span>
+   <span class="keyword">const</span> <span class="keyword">typename</span> <span class="identifier">Protocol</span><span class="special">::</span><span class="identifier">endpoint</span><span class="special">&amp;</span> <span class="identifier">next</span><span class="special">);</span>
 </pre>
 <p>
                 The <code class="computeroutput"><span class="identifier">ec</span></code> parameter

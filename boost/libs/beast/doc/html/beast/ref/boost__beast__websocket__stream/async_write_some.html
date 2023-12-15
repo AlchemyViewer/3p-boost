@@ -28,7 +28,7 @@
 <a name="beast.ref.boost__beast__websocket__stream.async_write_some"></a><a class="link" href="async_write_some.html" title="websocket::stream::async_write_some">websocket::stream::async_write_some</a>
 </h5></div></div></div>
 <p>
-          <a class="indexterm" name="idm63084"></a>
+          <a class="indexterm" name="idm63513"></a>
         </p>
 <p>
           Write some message data asynchronously.
@@ -70,7 +70,10 @@
           until this operation completes. If this is the beginning of a new message,
           the message opcode will be set to text or binary based on the current setting
           of the <a class="link" href="binary.html" title="websocket::stream::binary"><code class="computeroutput"><span class="identifier">binary</span></code></a> (or <a class="link" href="text.html" title="websocket::stream::text"><code class="computeroutput"><span class="identifier">text</span></code></a>) option. The actual payload
-          sent may be transformed as per the WebSocket protocol settings.
+          sent may be transformed as per the WebSocket protocol settings. This function
+          always writes a complete WebSocket frame (not WebSocket message) upon successful
+          completion, so it is well defined to perform ping, pong, and close operations
+          in parallel to this operation.
         </p>
 <h6>
 <a name="beast.ref.boost__beast__websocket__stream.async_write_some.h2"></a>
@@ -144,10 +147,12 @@
 <span class="special">);</span>
 </pre>
                   <p>
-                    Regardless of whether the asynchronous operation completes immediately
-                    or not, the handler will not be invoked from within this function.
-                    Invocation of the handler will be performed in a manner equivalent
-                    to using <code class="computeroutput"><span class="identifier">net</span><span class="special">::</span><span class="identifier">post</span></code>.
+                    If the handler has an associated immediate executor, an immediate
+                    completion will be dispatched to it. Otherwise, the handler will
+                    not be invoked from within this function. Invocation of the handler
+                    will be performed by dispatching to the immediate executor. If
+                    no immediate executor is specified, this is equivalent to using
+                    <code class="computeroutput"><span class="identifier">net</span><span class="special">::</span><span class="identifier">post</span></code>.
                   </p>
                 </td>
 </tr>

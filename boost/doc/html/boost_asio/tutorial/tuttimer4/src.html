@@ -38,9 +38,9 @@
 <span class="comment">// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)</span>
 <span class="comment">//</span>
 
+<span class="special">#</span><span class="identifier">include</span> <span class="special">&lt;</span><span class="identifier">functional</span><span class="special">&gt;</span>
 <span class="special">#</span><span class="identifier">include</span> <span class="special">&lt;</span><span class="identifier">iostream</span><span class="special">&gt;</span>
 <span class="special">#</span><span class="identifier">include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">asio</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
-<span class="special">#</span><span class="identifier">include</span> <span class="special">&lt;</span><span class="identifier">boost</span><span class="special">/</span><span class="identifier">bind</span><span class="special">/</span><span class="identifier">bind</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span>
 
 <span class="keyword">class</span> <span class="identifier">printer</span>
 <span class="special">{</span>
@@ -49,7 +49,7 @@
     <span class="special">:</span> <span class="identifier">timer_</span><span class="special">(</span><span class="identifier">io</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">seconds</span><span class="special">(</span><span class="number">1</span><span class="special">)),</span>
       <span class="identifier">count_</span><span class="special">(</span><span class="number">0</span><span class="special">)</span>
   <span class="special">{</span>
-    <span class="identifier">timer_</span><span class="special">.</span><span class="identifier">async_wait</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(&amp;</span><span class="identifier">printer</span><span class="special">::</span><span class="identifier">print</span><span class="special">,</span> <span class="keyword">this</span><span class="special">));</span>
+    <span class="identifier">timer_</span><span class="special">.</span><span class="identifier">async_wait</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(&amp;</span><span class="identifier">printer</span><span class="special">::</span><span class="identifier">print</span><span class="special">,</span> <span class="keyword">this</span><span class="special">));</span>
   <span class="special">}</span>
 
   <span class="special">~</span><span class="identifier">printer</span><span class="special">()</span>
@@ -65,7 +65,7 @@
       <span class="special">++</span><span class="identifier">count_</span><span class="special">;</span>
 
       <span class="identifier">timer_</span><span class="special">.</span><span class="identifier">expires_at</span><span class="special">(</span><span class="identifier">timer_</span><span class="special">.</span><span class="identifier">expiry</span><span class="special">()</span> <span class="special">+</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">chrono</span><span class="special">::</span><span class="identifier">seconds</span><span class="special">(</span><span class="number">1</span><span class="special">));</span>
-      <span class="identifier">timer_</span><span class="special">.</span><span class="identifier">async_wait</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(&amp;</span><span class="identifier">printer</span><span class="special">::</span><span class="identifier">print</span><span class="special">,</span> <span class="keyword">this</span><span class="special">));</span>
+      <span class="identifier">timer_</span><span class="special">.</span><span class="identifier">async_wait</span><span class="special">(</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(&amp;</span><span class="identifier">printer</span><span class="special">::</span><span class="identifier">print</span><span class="special">,</span> <span class="keyword">this</span><span class="special">));</span>
     <span class="special">}</span>
   <span class="special">}</span>
 

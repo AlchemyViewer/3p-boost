@@ -26,12 +26,19 @@
 #include <boost/process/v2/stdio.hpp>
 #include <boost/process/v2/bind_launcher.hpp>
 
+#if defined(BOOST_PROCESS_V2_WINDOWS)
+#include <boost/process/v2/windows/creation_flags.hpp>
+#include <boost/process/v2/windows/show_window.hpp>
+#endif
+
 #include <boost/test/unit_test.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/connect_pipe.hpp>
+#include <boost/asio/detached.hpp>
 #include <boost/asio/readable_pipe.hpp>
 #include <boost/asio/read.hpp>
 #include <boost/asio/streambuf.hpp>
+#include <boost/asio/steady_timer.hpp>
 #include <boost/asio/write.hpp>
 #include <boost/asio/writable_pipe.hpp>
 
@@ -41,35 +48,6 @@
 namespace bpv = boost::process::v2;
 namespace asio = boost::asio;
 
-#if defined(BOOST_PROCESS_V2_WINDOWS)
-bpv::filesystem::path shell()
-{
-  return bpv::environment::find_executable("cmd");
-}
-
-bpv::filesystem::path closable()
-{
-  return bpv::environment::find_executable("notepad");
-}
-
-bpv::filesystem::path interruptable()
-{
-  return bpv::environment::find_executable("cmd");
-}
-#else
-bpv::filesystem::path shell()
-{
-  return bpv::environment::find_executable("sh");
-}
-bpv::filesystem::path closable()
-{
-  return bpv::environment::find_executable("tee");
-}
-bpv::filesystem::path interruptable()
-{
-  return bpv::environment::find_executable("tee");
-}
-#endif
 
 BOOST_AUTO_TEST_SUITE(with_target);
 
@@ -87,7 +65,6 @@ BOOST_AUTO_TEST_CASE(exit_code_sync)
     args[1] = "42";
     auto proc = bpv::default_process_launcher()(ctx, pth, args);
     BOOST_CHECK_EQUAL(proc.wait(), 42);
-    printf("42: %d\n", proc.native_exit_code());
 
     BOOST_CHECK_EQUAL(bpv::process(ctx, pth, {"sleep", "100"}).wait(), 0);
     BOOST_CHECK_EQUAL(bpv::execute(bpv::process(ctx, pth, {"sleep", "100"})), 0);
@@ -145,52 +122,69 @@ BOOST_AUTO_TEST_CASE(exit_code_async)
 BOOST_AUTO_TEST_CASE(terminate)
 {
   asio::io_context ctx;
+  using boost::unit_test::framework::master_test_suite;
+  const auto pth =  master_test_suite().argv[1];
 
-  auto sh = shell();
-  
-  BOOST_CHECK_MESSAGE(!sh.empty(), sh);
-  bpv::process proc(ctx, sh, {});
+
+  bpv::process proc(ctx, pth, {"sleep", "10"});
   proc.suspend();
   proc.resume();
   proc.terminate();
   proc.wait();
+  BOOST_CHECK_NE(proc.exit_code(), 0);
 }
 
 BOOST_AUTO_TEST_CASE(request_exit)
 {
   asio::io_context ctx;
 
-  auto sh = closable();
-  BOOST_CHECK_MESSAGE(!sh.empty(), sh);
+  using boost::unit_test::framework::master_test_suite;
+  const auto pth =  master_test_suite().argv[1];
 
-  asio::readable_pipe rp{ctx};
-  asio::writable_pipe wp{ctx};
-  asio::connect_pipe(rp, wp);
 
-  bpv::process proc(ctx, sh, {}, bpv::process_stdio{rp}
-#if defined(ASIO_WINDOWS)
-    , asio::windows::show_window_minimized_not_active
+  bpv::process proc(ctx, pth, {"sigterm"}
+#if defined(BOOST_PROCESS_V2_WINDOWS)
+    , bpv::windows::show_window_minimized_not_active
+    , bpv::windows::create_new_console
 #endif
     );
   BOOST_CHECK(proc.running());
   std::this_thread::sleep_for(std::chrono::milliseconds(250));
   proc.request_exit();
   proc.wait();
+  BOOST_CHECK_EQUAL(proc.exit_code() & ~SIGTERM, 0);
 }
+
+bool can_interrupt = true;
 
 BOOST_AUTO_TEST_CASE(interrupt)
 {
   asio::io_context ctx;
+  using boost::unit_test::framework::master_test_suite;
+  const auto pth =  master_test_suite().argv[1];
 
-  auto sh = interruptable();
-  BOOST_CHECK_MESSAGE(!sh.empty(), sh);
-  bpv::process proc(ctx, sh, {}
-#if defined(ASIO_WINDOWS)
-  , asio::windows::create_new_process_group
+
+  bpv::process proc(ctx, pth, {"sigint"}
+#if defined(BOOST_PROCESS_V2_WINDOWS)
+  , bpv::windows::create_new_process_group
 #endif
   );
-  proc.interrupt();
+  std::this_thread::sleep_for(std::chrono::milliseconds(250));
+  bpv::error_code ec;
+  proc.interrupt(ec);
+
+#if defined(BOOST_PROCESS_V2_WINDOWS)
+  // the interrupt only works on console applications, so it may not work depending on the environment.
+  if (ec.value() == ERROR_INVALID_FUNCTION)
+  {
+    can_interrupt = false;
+    return;
+  }
+#endif
+
+  BOOST_CHECK_MESSAGE(!ec, ec.what());
   proc.wait();
+  BOOST_CHECK_EQUAL(proc.exit_code() & ~SIGTERM, 0);
 }
 
 void trim_end(std::string & str)
@@ -584,6 +578,69 @@ BOOST_AUTO_TEST_CASE(bind_launcher)
   proc.wait();
   BOOST_CHECK_MESSAGE(proc.exit_code() == 0, proc.exit_code() << " from " << proc.native_exit_code());
 }
+
+BOOST_AUTO_TEST_CASE(async_interrupt)
+{
+    if (!can_interrupt)
+      return;
+
+    asio::io_context ctx;
+    using boost::unit_test::framework::master_test_suite;
+    const auto pth = bpv::filesystem::absolute(master_test_suite().argv[1]);
+
+
+    bpv::process proc(ctx, pth, {"sigint"}
+#if defined(BOOST_PROCESS_V2_WINDOWS)
+   , bpv::windows::create_new_process_group
+#endif
+    );
+
+    asio::steady_timer tim{ctx, std::chrono::milliseconds(200)};
+    asio::cancellation_signal sig;
+
+    bpv::async_execute(std::move(proc),
+                       asio::bind_cancellation_slot(
+                            sig.slot(),
+                            [](boost::system::error_code ec, int res)
+                            {
+                              BOOST_CHECK(!ec);
+                              BOOST_CHECK_EQUAL(
+                                  bpv::evaluate_exit_code(res) & ~SIGTERM, 0);
+                            }));
+
+    tim.async_wait([&](bpv::error_code ec) { sig.emit(asio::cancellation_type::total); });
+    ctx.run();
+}
+
+BOOST_AUTO_TEST_CASE(async_request_exit)
+{
+    asio::io_context ctx;
+    using boost::unit_test::framework::master_test_suite;
+    const auto pth = bpv::filesystem::absolute(master_test_suite().argv[1]);
+
+    bpv::process proc(ctx, pth, {"sigterm"}
+#if defined(BOOST_PROCESS_V2_WINDOWS)
+      , bpv::windows::show_window_minimized_not_active
+      , bpv::windows::create_new_console
+#endif
+    );
+
+    asio::steady_timer tim{ctx, std::chrono::milliseconds(50)};
+    asio::cancellation_signal sig;
+
+    bpv::async_execute(std::move(proc),
+        asio::bind_cancellation_slot(
+            sig.slot(),
+            [](boost::system::error_code ec, int res)
+            {
+              BOOST_CHECK(!ec);
+              BOOST_CHECK_EQUAL(bpv::evaluate_exit_code(res) & ~SIGTERM, 0);
+            }));
+
+    tim.async_wait([&](bpv::error_code ec) { sig.emit(asio::cancellation_type::partial); });
+    ctx.run();
+}
+
 
 BOOST_AUTO_TEST_SUITE_END();
 

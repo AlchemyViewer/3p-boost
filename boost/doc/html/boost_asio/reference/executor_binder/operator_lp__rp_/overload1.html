@@ -28,10 +28,13 @@
 <a name="boost_asio.reference.executor_binder.operator_lp__rp_.overload1"></a><a class="link" href="overload1.html" title="executor_binder::operator() (1 of 2 overloads)">executor_binder::operator()
           (1 of 2 overloads)</a>
 </h5></div></div></div>
+<p>
+            Forwarding function call operator.
+          </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span><span class="special">...</span> <span class="identifier">Args</span><span class="special">&gt;</span>
-<span class="keyword">auto</span> <span class="keyword">operator</span><span class="special">()(</span>
-    <span class="identifier">Args</span> <span class="special">&amp;&amp;</span> <span class="special">...);</span>
+<span class="identifier">result_of_t</span><span class="special">&lt;</span> <span class="identifier">T</span><span class="special">(</span><span class="identifier">Args</span><span class="special">...)&gt;</span> <span class="keyword">operator</span><span class="special">()(</span>
+    <span class="identifier">Args</span> <span class="special">&amp;&amp;...</span> <span class="identifier">args</span><span class="special">);</span>
 </pre>
 </div>
 <div class="copyright-footer">Copyright © 2003-2023 Christopher M. Kohlhoff<p>

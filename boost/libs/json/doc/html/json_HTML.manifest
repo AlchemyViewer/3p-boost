@@ -15,6 +15,7 @@ json/conversion/non_throwing_conversions.html
 json/conversion/allocation_control.html
 json/conversion/contextual_conversions.html
 json/conversion/avoiding_physical_dependency.html
+json/conversion/direct_parsing.html
 json/conversion/conversion_customization_guideli.html
 json/allocators.html
 json/allocators/background.html
@@ -156,10 +157,12 @@ json/ref/boost__json__is_described_class.html
 json/ref/boost__json__is_described_enum.html
 json/ref/boost__json__is_map_like.html
 json/ref/boost__json__is_null_like.html
+json/ref/boost__json__is_optional_like.html
 json/ref/boost__json__is_pilfer_constructible.html
 json/ref/boost__json__is_sequence_like.html
 json/ref/boost__json__is_string_like.html
 json/ref/boost__json__is_tuple_like.html
+json/ref/boost__json__is_variant_like.html
 json/ref/boost__json__key_value_pair.html
 json/ref/boost__json__key_value_pair/operator_eq_.html
 json/ref/boost__json__key_value_pair/_dtor_key_value_pair.html
@@ -352,7 +355,6 @@ json/ref/boost__json__static_resource/static_resource/overload3.html
 json/ref/boost__json__static_resource/static_resource/overload4.html
 json/ref/boost__json__static_resource/static_resource/overload5.html
 json/ref/boost__json__static_resource/operator_eq_.html
-json/ref/boost__json__static_resource/_dtor_static_resource.html
 json/ref/boost__json__static_resource/release.html
 json/ref/boost__json__storage_ptr.html
 json/ref/boost__json__storage_ptr/_dtor_storage_ptr.html
@@ -785,6 +787,13 @@ json/ref/boost__json__serialize/overload2.html
 json/ref/boost__json__serialize/overload3.html
 json/ref/boost__json__serialize/overload4.html
 json/ref/boost__json__serialize/overload5.html
+json/ref/boost__json__parse_into.html
+json/ref/boost__json__parse_into/overload1.html
+json/ref/boost__json__parse_into/overload2.html
+json/ref/boost__json__parse_into/overload3.html
+json/ref/boost__json__parse_into/overload4.html
+json/ref/boost__json__parse_into/overload5.html
+json/ref/boost__json__parse_into/overload6.html
 json/ref/boost__json__parse.html
 json/ref/boost__json__parse/overload1.html
 json/ref/boost__json__parse/overload2.html
@@ -804,6 +813,7 @@ json/ref/boost__json__error_condition.html
 json/ref/boost__json__system_error.html
 json/ref/boost__json__result.html
 json/ref/boost__json__string_view.html
+json/ref/boost__json__parser_for.html
 json/ref/boost__json__array_kind.html
 json/ref/boost__json__object_kind.html
 json/ref/boost__json__string_kind.html

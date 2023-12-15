@@ -55,20 +55,8 @@
           in the future.
         </li>
 <li class="listitem">
-          <span class="bold"><strong>Default constructor is not trivial in C++03</strong></span>:
-          Because the initializing constructor has to be defined in <code class="computeroutput"><span class="identifier">atomic</span><span class="special">&lt;&gt;</span></code>,
-          the default constructor must also be defined. In C++03 the constructor
-          cannot be defined as defaulted and therefore it is not trivial. In C++11
-          the constructor is defaulted (and trivial, if the default constructor of
-          the value type is). In any case, the default constructor of <code class="computeroutput"><span class="identifier">atomic</span><span class="special">&lt;&gt;</span></code>
-          performs default initialization of the atomic value, as required in C++11.
-          <span class="bold"><strong>Advice</strong></span>: In C++03, do not use <span class="bold"><strong>Boost.Atomic</strong></span> in contexts where trivial default constructor
-          is important (e.g. as a global variable which is required to be statically
-          initialized).
-        </li>
-<li class="listitem">
-          <span class="bold"><strong>C++03 compilers may transform computation dependency
-          to control dependency</strong></span>: Crucially, <code class="computeroutput"><span class="identifier">memory_order_consume</span></code>
+          <span class="bold"><strong>Compilers may transform computation dependency to
+          control dependency</strong></span>: Crucially, <code class="computeroutput"><span class="identifier">memory_order_consume</span></code>
           only affects computationally-dependent operations, but in general there
           is nothing preventing a compiler from transforming a computation dependency
           into a control dependency. A fully compliant C++11 compiler would be forbidden
@@ -87,12 +75,11 @@
 <li class="listitem">
           <span class="bold"><strong>Fence operations may enforce "too strong"
           compiler ordering</strong></span>: Semantically, <code class="computeroutput"><span class="identifier">memory_order_acquire</span></code>/<code class="computeroutput"><span class="identifier">memory_order_consume</span></code> and <code class="computeroutput"><span class="identifier">memory_order_release</span></code> need to restrain
-          reordering of memory operations only in one direction. Since in C++03 there
-          is no way to express this constraint to the compiler, these act as "full
-          compiler barriers" in C++03 implementation. In corner cases this may
-          result in a slightly less efficient code than a C++11 compiler could generate.
-          <span class="bold"><strong>Boost.Atomic</strong></span> will use compiler intrinsics,
-          if possible, to express the proper ordering constraints.
+          reordering of memory operations only in one direction. Since in some compilers
+          there is no way to express this constraint, these may act as "full
+          compiler barriers". In corner cases this may result in a slightly
+          less efficient code than a more capable compiler could generate. <span class="bold"><strong>Boost.Atomic</strong></span> will use compiler intrinsics, if possible,
+          to express the proper ordering constraints.
         </li>
 <li class="listitem">
           <span class="bold"><strong>Atomic operations may enforce "too strong"

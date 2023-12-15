@@ -1,4 +1,5 @@
 // Copyright (C) 2023 Christian Mazakas
+// Copyright (C) 2023 Joaquin M Lopez Munoz
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
@@ -7,11 +8,15 @@
 
 #include "../helpers/generators.hpp"
 #include "../helpers/test.hpp"
+#include "common_helpers.hpp"
 
 #include <boost/compat/latch.hpp>
 #include <boost/container_hash/hash.hpp>
 #include <boost/core/span.hpp>
+#include <boost/unordered/concurrent_flat_map_fwd.hpp>
+#include <boost/unordered/concurrent_flat_set_fwd.hpp>
 #include <boost/unordered/unordered_flat_map.hpp>
+#include <boost/unordered/unordered_flat_set.hpp>
 
 #include <algorithm>
 #include <atomic>
@@ -123,6 +128,27 @@ struct stateful_key_equal
   }
 };
 
+template <class T> struct cfoa_ptr
+{
+private:
+  template <class> friend struct stateful_allocator2;
+
+  T* p_ = nullptr;
+
+  cfoa_ptr(T* p) : p_(p) {}
+
+public:
+  using element_type = T;
+
+  cfoa_ptr() = default;
+  cfoa_ptr(std::nullptr_t) : p_(nullptr){};
+  template <class U> using rebind = cfoa_ptr<U>;
+
+  T* operator->() const noexcept { return p_; }
+
+  static cfoa_ptr<T> pointer_to(element_type& r) { return {std::addressof(r)}; }
+};
+
 template <class T> struct stateful_allocator
 {
   int x_ = -1;
@@ -149,6 +175,36 @@ template <class T> struct stateful_allocator
 
   bool operator==(stateful_allocator const& rhs) const { return x_ == rhs.x_; }
   bool operator!=(stateful_allocator const& rhs) const { return x_ != rhs.x_; }
+};
+
+template <class T> struct stateful_allocator2
+{
+
+  int x_ = -1;
+
+  using value_type = T;
+  using pointer = cfoa_ptr<T>;
+
+  stateful_allocator2() = default;
+  stateful_allocator2(stateful_allocator2 const&) = default;
+  stateful_allocator2(stateful_allocator2&&) = default;
+
+  stateful_allocator2(int const x) : x_{x} {}
+
+  template <class U>
+  stateful_allocator2(stateful_allocator2<U> const& rhs) : x_{rhs.x_}
+  {
+  }
+
+  pointer allocate(std::size_t n)
+  {
+    return {static_cast<T*>(::operator new(n * sizeof(T)))};
+  }
+
+  void deallocate(pointer p, std::size_t) { ::operator delete(p.p_); }
+
+  bool operator==(stateful_allocator2 const& rhs) const { return x_ == rhs.x_; }
+  bool operator!=(stateful_allocator2 const& rhs) const { return x_ != rhs.x_; }
 };
 
 struct raii
@@ -277,27 +333,48 @@ auto make_random_values(std::size_t count, F f) -> std::vector<decltype(f())>
   return v;
 }
 
-struct value_type_generator_type
+template <typename K>
+struct value_generator
 {
-  std::pair<raii const, raii> operator()(test::random_generator rg)
-  {
-    int* p = nullptr;
-    int a = generate(p, rg);
-    int b = generate(p, rg);
-    return std::make_pair(raii{a}, raii{b});
-  }
-} value_type_generator;
+  using value_type = raii;
 
-struct init_type_generator_type
+  value_type operator()(test::random_generator rg)
+  {
+    int* p = nullptr;
+    int a = generate(p, rg);
+    return value_type(a);
+  }
+};
+
+template <typename K, typename V>
+struct value_generator<std::pair<K, V> >
 {
-  std::pair<raii, raii> operator()(test::random_generator rg)
+  static constexpr bool const_key = std::is_const<K>::value;
+  static constexpr bool const_mapped = std::is_const<V>::value;
+  using value_type = std::pair<
+    typename std::conditional<const_key, raii const, raii>::type,
+    typename std::conditional<const_mapped, raii const, raii>::type>;
+
+  value_type operator()(test::random_generator rg)
   {
     int* p = nullptr;
     int a = generate(p, rg);
     int b = generate(p, rg);
     return std::make_pair(raii{a}, raii{b});
   }
-} init_type_generator;
+};
+
+struct value_type_generator_factory_type
+{
+  template <typename Container>
+  value_generator<typename Container::value_type> get() { return {}; }
+} value_type_generator_factory;
+
+struct init_type_generator_factory_type
+{
+  template <typename Container>
+  value_generator<typename Container::init_type> get() { return {}; }
+} init_type_generator_factory;
 
 template <class T>
 std::vector<boost::span<T> > split(
@@ -355,29 +432,6 @@ template <class T, class F> void thread_runner(std::vector<T>& values, F f)
   for (auto& t : threads) {
     t.join();
   }
-}
-
-template <class X, class Y>
-void test_matches_reference(X const& x, Y const& reference_map)
-{
-  using value_type = typename X::value_type;
-  BOOST_TEST_EQ(x.size(), x.visit_all([&](value_type const& kv) {
-    BOOST_TEST(reference_map.contains(kv.first));
-    BOOST_TEST_EQ(kv.second, reference_map.find(kv.first)->second);
-  }));
-}
-
-template <class X, class Y>
-void test_fuzzy_matches_reference(
-  X const& x, Y const& reference_map, test::random_generator rg)
-{
-  using value_type = typename X::value_type;
-  BOOST_TEST_EQ(x.size(), x.visit_all([&](value_type const& kv) {
-    BOOST_TEST(reference_map.contains(kv.first));
-    if (rg == test::sequential) {
-      BOOST_TEST_EQ(kv.second, reference_map.find(kv.first)->second);
-    }
-  }));
 }
 
 template <class T> using span_value_type = typename T::value_type;
@@ -458,6 +512,7 @@ template <class T> class ptr
 
 public:
   ptr() : ptr_(0) {}
+  ptr(std::nullptr_t) : ptr_(nullptr) {}
   explicit ptr(void_ptr const& x) : ptr_((T*)x.ptr_) {}
 
   T& operator*() const { return *ptr_; }
@@ -481,7 +536,7 @@ public:
   T& operator[](std::ptrdiff_t s) const { return ptr_[s]; }
   bool operator!() const { return !ptr_; }
 
-  static ptr pointer_to(T& p) { return ptr(boost::addressof(p)); }
+  static ptr pointer_to(T& p) { return ptr(std::addressof(p)); }
 
   // I'm not using the safe bool idiom because the containers should be
   // able to cope with bool conversions.

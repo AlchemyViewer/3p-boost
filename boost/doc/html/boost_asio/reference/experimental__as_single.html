@@ -37,7 +37,7 @@
       </p>
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <span class="identifier">CompletionToken</span><span class="special">&gt;</span>
-<span class="keyword">constexpr</span> <span class="identifier">as_single_t</span><span class="special">&lt;</span> <span class="keyword">typename</span> <span class="identifier">decay</span><span class="special">&lt;</span> <span class="identifier">CompletionToken</span> <span class="special">&gt;::</span><span class="identifier">type</span> <span class="special">&gt;</span> <span class="identifier">as_single</span><span class="special">(</span>
+<span class="keyword">constexpr</span> <span class="identifier">as_single_t</span><span class="special">&lt;</span> <span class="identifier">decay_t</span><span class="special">&lt;</span> <span class="identifier">CompletionToken</span> <span class="special">&gt;</span> <span class="special">&gt;</span> <span class="identifier">as_single</span><span class="special">(</span>
     <span class="identifier">CompletionToken</span> <span class="special">&amp;&amp;</span> <span class="identifier">completion_token</span><span class="special">);</span>
 </pre>
 <h5>

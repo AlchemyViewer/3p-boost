@@ -1,4 +1,4 @@
-// Copyright 2018-2022 Emil Dotchevski and Reverge Studios, Inc.
+// Copyright 2018-2023 Emil Dotchevski and Reverge Studios, Inc.
 
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
@@ -19,12 +19,20 @@ template <int A>
 struct info
 {
     int value;
+    info():
+        value(0)
+    {
+    }
+    explicit info(int value):
+        value(value)
+    {
+    }
 };
 
 leaf::error_id f0()
 {
-    auto load = leaf::on_error( info<0>{-1} );
-    return leaf::new_error( info<1>{-1} );
+    auto load = leaf::on_error( info<0>(-1) );
+    return leaf::new_error( info<1>(-1) );
 }
 
 leaf::error_id f1()
@@ -36,7 +44,7 @@ leaf::error_id f1()
 
 leaf::error_id f2()
 {
-    return f1().load( info<3>{3} );
+    return f1().load( info<3>(3) );
 }
 
 int main()

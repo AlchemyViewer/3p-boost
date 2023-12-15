@@ -37,7 +37,8 @@
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <span class="identifier">T</span><span class="special">,</span>
     <span class="keyword">typename</span> <span class="identifier">Property</span><span class="special">&gt;</span>
-<span class="keyword">struct</span> <span class="identifier">can_require_concept</span>
+<span class="keyword">struct</span> <span class="identifier">can_require_concept</span> <span class="special">:</span>
+  <span class="keyword">public</span> <span class="identifier">integral_constant</span><span class="special">&lt;</span> <span class="keyword">bool</span><span class="special">,</span> <span class="identifier">automatically_determined</span> <span class="special">&gt;</span>
 </pre>
 <p>
         Class template <code class="computeroutput"><span class="identifier">can_require_concept</span></code>

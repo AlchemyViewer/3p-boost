@@ -77,7 +77,7 @@
         </p>
 <p>
           Then, in order to register this type with the simple formatter factory,
-          a single call to <code class="computeroutput"><a class="link" href="../../boost/log/register_simple_f_idm39351.html" title="Function template register_simple_formatter_factory">register_simple_formatter_factory</a></code>
+          a single call to <code class="computeroutput"><a class="link" href="../../boost/log/register_simple_f_idm39445.html" title="Function template register_simple_formatter_factory">register_simple_formatter_factory</a></code>
           will suffice:
         </p>
 <p>
@@ -133,8 +133,8 @@
 <p>
           The simple formatter factory ignores all additional parameters from the
           format string, so we have to implement our own factory instead. Custom
-          factories are registered with the <code class="computeroutput"><a class="link" href="../../boost/log/register_formatte_idm39311.html" title="Function template register_formatter_factory">register_formatter_factory</a></code>
-          function, which is similar to <code class="computeroutput"><a class="link" href="../../boost/log/register_simple_f_idm39351.html" title="Function template register_simple_formatter_factory">register_simple_formatter_factory</a></code>
+          factories are registered with the <code class="computeroutput"><a class="link" href="../../boost/log/register_formatte_idm39405.html" title="Function template register_formatter_factory">register_formatter_factory</a></code>
+          function, which is similar to <code class="computeroutput"><a class="link" href="../../boost/log/register_simple_f_idm39445.html" title="Function template register_simple_formatter_factory">register_simple_formatter_factory</a></code>
           but accepts a pointer to the factory instead of the explicit template parameters.
         </p>
 <p>
@@ -218,7 +218,7 @@
           empty if the value is not present.
         </p>
 <p>
-          Lastly, the call to <code class="computeroutput"><a class="link" href="../../boost/log/register_formatte_idm39311.html" title="Function template register_formatter_factory">register_formatter_factory</a></code>
+          Lastly, the call to <code class="computeroutput"><a class="link" href="../../boost/log/register_formatte_idm39405.html" title="Function template register_formatter_factory">register_formatter_factory</a></code>
           creates the factory and adds it to the library.
         </p>
 <p>
@@ -264,7 +264,7 @@
             </li>
 </ol></div>
 <p>
-          Naturally, all these operators must be visible from the point of the <code class="computeroutput"><a class="link" href="../../boost/log/register_simple_f_idm39119.html" title="Function template register_simple_filter_factory">register_simple_filter_factory</a></code>
+          Naturally, all these operators must be visible from the point of the <code class="computeroutput"><a class="link" href="../../boost/log/register_simple_f_idm39213.html" title="Function template register_simple_filter_factory">register_simple_filter_factory</a></code>
           call. Note that unlike the simple formatter factory, the filter factory
           requires the user's type to support reading from a stream. This is so because
           the filter factory would have to parse the argument of the filter relation
@@ -320,12 +320,23 @@
 
     <span class="identifier">logging</span><span class="special">::</span><span class="identifier">filter</span> <span class="identifier">on_equality_relation</span><span class="special">(</span><span class="identifier">logging</span><span class="special">::</span><span class="identifier">attribute_name</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">name</span><span class="special">,</span> <span class="identifier">string_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">arg</span><span class="special">)</span>
     <span class="special">{</span>
-        <span class="keyword">return</span> <span class="identifier">expr</span><span class="special">::</span><span class="identifier">attr</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">name</span><span class="special">)</span> <span class="special">==</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">arg</span><span class="special">);</span>
+        <span class="keyword">return</span> <span class="identifier">expr</span><span class="special">::</span><span class="identifier">attr</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">name</span><span class="special">)</span> <span class="special">==</span> <span class="identifier">parse_argument</span><span class="special">(</span><span class="identifier">arg</span><span class="special">);</span>
     <span class="special">}</span>
 
     <span class="identifier">logging</span><span class="special">::</span><span class="identifier">filter</span> <span class="identifier">on_inequality_relation</span><span class="special">(</span><span class="identifier">logging</span><span class="special">::</span><span class="identifier">attribute_name</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">name</span><span class="special">,</span> <span class="identifier">string_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">arg</span><span class="special">)</span>
     <span class="special">{</span>
-        <span class="keyword">return</span> <span class="identifier">expr</span><span class="special">::</span><span class="identifier">attr</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">name</span><span class="special">)</span> <span class="special">!=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">arg</span><span class="special">);</span>
+        <span class="keyword">return</span> <span class="identifier">expr</span><span class="special">::</span><span class="identifier">attr</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">name</span><span class="special">)</span> <span class="special">!=</span> <span class="identifier">parse_argument</span><span class="special">(</span><span class="identifier">arg</span><span class="special">);</span>
+    <span class="special">}</span>
+
+<span class="keyword">private</span><span class="special">:</span>
+    <span class="keyword">static</span> <span class="identifier">point</span> <span class="identifier">parse_argument</span><span class="special">(</span><span class="identifier">string_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">arg</span><span class="special">)</span>
+    <span class="special">{</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">istringstream</span> <span class="identifier">strm</span><span class="special">(</span><span class="identifier">arg</span><span class="special">);</span>
+        <span class="identifier">point</span> <span class="identifier">val</span><span class="special">;</span>
+        <span class="identifier">strm</span> <span class="special">&gt;&gt;</span> <span class="identifier">val</span><span class="special">;</span>
+        <span class="keyword">if</span> <span class="special">(</span><span class="identifier">strm</span><span class="special">.</span><span class="identifier">fail</span><span class="special">()</span> <span class="special">||</span> <span class="identifier">strm</span><span class="special">.</span><span class="identifier">bad</span><span class="special">())</span>
+            <span class="keyword">throw</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">runtime_error</span><span class="special">(</span><span class="string">"Failed to parse point from \""</span> <span class="special">+</span> <span class="identifier">arg</span> <span class="special">+</span> <span class="string">"\""</span><span class="special">);</span>
+        <span class="keyword">return</span> <span class="identifier">val</span><span class="special">;</span>
     <span class="special">}</span>
 <span class="special">};</span>
 
@@ -337,7 +348,7 @@
 <p>
         </p>
 <p>
-          Having called the <code class="computeroutput"><a class="link" href="../../boost/log/register_filter_f_idm39079.html" title="Function template register_filter_factory">register_filter_factory</a></code>
+          Having called the <code class="computeroutput"><a class="link" href="../../boost/log/register_filter_f_idm39173.html" title="Function template register_filter_factory">register_filter_factory</a></code>
           function, whenever the <a class="link" href="../detailed/utilities.html#log.detailed.utilities.setup.filter_formatter" title="Filter and formatter parsers">filter
           parser</a> encounters the "Coordinates" attribute mentioned
           in the filter, it will use the <code class="computeroutput"><span class="identifier">point_filter_factory</span></code>
@@ -430,21 +441,33 @@
 
     <span class="identifier">logging</span><span class="special">::</span><span class="identifier">filter</span> <span class="identifier">on_equality_relation</span><span class="special">(</span><span class="identifier">logging</span><span class="special">::</span><span class="identifier">attribute_name</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">name</span><span class="special">,</span> <span class="identifier">string_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">arg</span><span class="special">)</span>
     <span class="special">{</span>
-        <span class="keyword">return</span> <span class="identifier">expr</span><span class="special">::</span><span class="identifier">attr</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">name</span><span class="special">)</span> <span class="special">==</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">arg</span><span class="special">);</span>
+        <span class="keyword">return</span> <span class="identifier">expr</span><span class="special">::</span><span class="identifier">attr</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">name</span><span class="special">)</span> <span class="special">==</span> <span class="identifier">parse_argument</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">arg</span><span class="special">);</span>
     <span class="special">}</span>
 
     <span class="identifier">logging</span><span class="special">::</span><span class="identifier">filter</span> <span class="identifier">on_inequality_relation</span><span class="special">(</span><span class="identifier">logging</span><span class="special">::</span><span class="identifier">attribute_name</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">name</span><span class="special">,</span> <span class="identifier">string_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">arg</span><span class="special">)</span>
     <span class="special">{</span>
-        <span class="keyword">return</span> <span class="identifier">expr</span><span class="special">::</span><span class="identifier">attr</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">name</span><span class="special">)</span> <span class="special">!=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">arg</span><span class="special">);</span>
+        <span class="keyword">return</span> <span class="identifier">expr</span><span class="special">::</span><span class="identifier">attr</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">name</span><span class="special">)</span> <span class="special">!=</span> <span class="identifier">parse_argument</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">arg</span><span class="special">);</span>
     <span class="special">}</span>
 
     <span class="identifier">logging</span><span class="special">::</span><span class="identifier">filter</span> <span class="identifier">on_custom_relation</span><span class="special">(</span><span class="identifier">logging</span><span class="special">::</span><span class="identifier">attribute_name</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">name</span><span class="special">,</span> <span class="identifier">string_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">rel</span><span class="special">,</span> <span class="identifier">string_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">arg</span><span class="special">)</span>
     <span class="special">{</span>
         <span class="keyword">if</span> <span class="special">(</span><span class="identifier">rel</span> <span class="special">==</span> <span class="string">"is_in_rectangle"</span><span class="special">)</span>
         <span class="special">{</span>
-            <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">phoenix</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(&amp;</span><span class="identifier">is_in_rectangle</span><span class="special">,</span> <span class="identifier">expr</span><span class="special">::</span><span class="identifier">attr</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">name</span><span class="special">),</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span> <span class="identifier">rectangle</span> <span class="special">&gt;(</span><span class="identifier">arg</span><span class="special">));</span>
+            <span class="keyword">return</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">phoenix</span><span class="special">::</span><span class="identifier">bind</span><span class="special">(&amp;</span><span class="identifier">is_in_rectangle</span><span class="special">,</span> <span class="identifier">expr</span><span class="special">::</span><span class="identifier">attr</span><span class="special">&lt;</span> <span class="identifier">point</span> <span class="special">&gt;(</span><span class="identifier">name</span><span class="special">),</span> <span class="identifier">parse_argument</span><span class="special">&lt;</span> <span class="identifier">rectangle</span> <span class="special">&gt;(</span><span class="identifier">arg</span><span class="special">));</span>
         <span class="special">}</span>
         <span class="keyword">throw</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">runtime_error</span><span class="special">(</span><span class="string">"Unsupported filter relation: "</span> <span class="special">+</span> <span class="identifier">rel</span><span class="special">);</span>
+    <span class="special">}</span>
+
+<span class="keyword">private</span><span class="special">:</span>
+    <span class="keyword">template</span><span class="special">&lt;</span> <span class="keyword">typename</span> <span class="identifier">ArgumentT</span> <span class="special">&gt;</span>
+    <span class="keyword">static</span> <span class="identifier">ArgumentT</span> <span class="identifier">parse_argument</span><span class="special">(</span><span class="identifier">string_type</span> <span class="keyword">const</span><span class="special">&amp;</span> <span class="identifier">arg</span><span class="special">)</span>
+    <span class="special">{</span>
+        <span class="identifier">std</span><span class="special">::</span><span class="identifier">istringstream</span> <span class="identifier">strm</span><span class="special">(</span><span class="identifier">arg</span><span class="special">);</span>
+        <span class="identifier">ArgumentT</span> <span class="identifier">val</span><span class="special">;</span>
+        <span class="identifier">strm</span> <span class="special">&gt;&gt;</span> <span class="identifier">val</span><span class="special">;</span>
+        <span class="keyword">if</span> <span class="special">(</span><span class="identifier">strm</span><span class="special">.</span><span class="identifier">fail</span><span class="special">()</span> <span class="special">||</span> <span class="identifier">strm</span><span class="special">.</span><span class="identifier">bad</span><span class="special">())</span>
+            <span class="keyword">throw</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">runtime_error</span><span class="special">(</span><span class="string">"Failed to parse argument from \""</span> <span class="special">+</span> <span class="identifier">arg</span> <span class="special">+</span> <span class="string">"\""</span><span class="special">);</span>
+        <span class="keyword">return</span> <span class="identifier">val</span><span class="special">;</span>
     <span class="special">}</span>
 <span class="special">};</span>
 
@@ -565,7 +588,7 @@
         <span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">time_duration</span> <span class="identifier">write_interval</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">minutes</span><span class="special">(</span><span class="number">1</span><span class="special">);</span>
         <span class="keyword">if</span> <span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="special">&gt;</span> <span class="identifier">param</span> <span class="special">=</span> <span class="identifier">settings</span><span class="special">[</span><span class="string">"WriteInterval"</span><span class="special">])</span>
         <span class="special">{</span>
-            <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="identifier">sec</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lexical_cast</span><span class="special">&lt;</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="special">&gt;(</span><span class="identifier">param</span><span class="special">.</span><span class="identifier">get</span><span class="special">());</span>
+            <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="identifier">sec</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">stoul</span><span class="special">(</span><span class="identifier">param</span><span class="special">.</span><span class="identifier">get</span><span class="special">());</span>
             <span class="identifier">write_interval</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">seconds</span><span class="special">(</span><span class="identifier">sec</span><span class="special">);</span>
         <span class="special">}</span>
 
@@ -601,7 +624,7 @@
           and out custom "StatCollector" sink.
         </p>
 <p>
-          After defining the factory we only have to register it with the <code class="computeroutput"><a class="link" href="../../boost/log/register_sink_fac_idm39488.html" title="Function template register_sink_factory">register_sink_factory</a></code>
+          After defining the factory we only have to register it with the <code class="computeroutput"><a class="link" href="../../boost/log/register_sink_fac_idm39582.html" title="Function template register_sink_factory">register_sink_factory</a></code>
           call. The first argument is the new value of the "Destination"
           parameter in the settings. Whenever the library finds sink description
           with destination "StatCollector", our factory will be invoked

@@ -36,7 +36,7 @@
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <a class="link" href="Executor1.html" title="Executor requirements">Executor</a> <span class="special">=</span> <span class="identifier">any_io_executor</span><span class="special">&gt;</span>
 <span class="keyword">class</span> <span class="identifier">basic_random_access_handle</span> <span class="special">:</span>
-  <span class="keyword">public</span> <span class="identifier">windows</span><span class="special">::</span><span class="identifier">basic_overlapped_handle</span><span class="special">&lt;</span> <span class="identifier">Executor</span> <span class="special">&gt;</span>
+  <span class="keyword">public</span> <span class="identifier">windows</span><span class="special">::</span><span class="identifier">basic_overlapped_handle</span><span class="special">&lt;</span> <span class="identifier">any_io_executor</span> <span class="special">&gt;</span>
 </pre>
 <h5>
 <a name="boost_asio.reference.windows__basic_random_access_handle.h0"></a>

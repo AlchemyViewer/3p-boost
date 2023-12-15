@@ -1,9 +1,9 @@
 # Boost CMake support infrastructure
 
 This repository hosts the `tools/cmake` Boost submodule, containing
-experimental CMake support infrastructure for Boost.
+the CMake support infrastructure for Boost.
 
-Note that the supported way to build Boost remains
+Note that the officially supported way to build Boost remains
 [with `b2`](https://www.boost.org/more/getting_started/index.html).
 
 ## Building Boost with CMake
@@ -384,19 +384,19 @@ but it doesn't support running the tests in parallel.
 
 Normally, a Boost installation is used from CMake by means of
 `find_package(Boost)`. However, up to and including release 1.81.0, installing
-Boost with CMake does not deploy the necessary CMake configuration file for
-the `Boost` package, so `find_package(Boost)` does not work. (It also does
+Boost with CMake did not deploy the necessary CMake configuration file for
+the `Boost` package, so `find_package(Boost)` did not work. (It also did
 not provide the `Boost::boost` and `Boost::headers` targets, on which many
 existing `CMakeLists.txt` files rely.)
 
-Instead, the individual Boost libraries need to be referenced as in
+Instead, the individual Boost libraries needed to be referenced as in
 ```
 find_package(boost_filesystem 1.81 REQUIRED)
 ```
 
-This will be rectified in Boost 1.82, which will install an umbrella CMake
-configuration file for the Boost package (`BoostConfig.cmake`) and will
-provide the `Boost::boost` and `Boost::headers` compatibility targets.
+This has been rectified in Boost 1.82, which installs an umbrella CMake
+configuration file for the Boost package (`BoostConfig.cmake`) and
+provides the `Boost::boost` and `Boost::headers` compatibility targets.
 
 ## Using Boost with `add_subdirectory`
 

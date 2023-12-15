@@ -50,6 +50,9 @@ namespace boost {
     using size_type            = std::size_t;
     using difference_type      = std::ptrdiff_t;
 
+    // constants
+    static constexpr size_type xref:#concurrent_flat_map_constants[bulk_visit_size] = _implementation-defined_;
+
     // construct/copy/destroy
     xref:#concurrent_flat_map_default_constructor[concurrent_flat_map]();
     explicit xref:#concurrent_flat_map_bucket_count_constructor[concurrent_flat_map](size_type n,
@@ -69,6 +72,7 @@ namespace boost {
     explicit xref:#concurrent_flat_map_allocator_constructor[concurrent_flat_map](const Allocator& a);
     xref:#concurrent_flat_map_copy_constructor_with_allocator[concurrent_flat_map](const concurrent_flat_map& other, const Allocator& a);
     xref:#concurrent_flat_map_move_constructor_with_allocator[concurrent_flat_map](concurrent_flat_map&& other, const Allocator& a);
+    xref:#concurrent_flat_map_move_constructor_from_unordered_flat_map[concurrent_flat_map](unordered_flat_map<Key, T, Hash, Pred, Allocator>&& other);
     xref:#concurrent_flat_map_initializer_list_constructor[concurrent_flat_map](std::initializer_list<value_type> il,
                         size_type n = _implementation-defined_
                         const hasher& hf = hasher(),
@@ -89,9 +93,10 @@ namespace boost {
                         const allocator_type& a);
     xref:#concurrent_flat_map_destructor[~concurrent_flat_map]();
     concurrent_flat_map& xref:#concurrent_flat_map_copy_assignment[operator++=++](const concurrent_flat_map& other);
-    concurrent_flat_map& xref:#concurrent_flat_map_move_assignment[operator++=++](concurrent_flat_map&& other)
-      noexcept(boost::allocator_traits<Allocator>::is_always_equal::value ||
-              boost::allocator_traits<Allocator>::propagate_on_container_move_assignment::value);
+    concurrent_flat_map& xref:#concurrent_flat_map_move_assignment[operator++=++](concurrent_flat_map&& other) ++noexcept(
+      (boost::allocator_traits<Allocator>::is_always_equal::value ||
+       boost::allocator_traits<Allocator>::propagate_on_container_move_assignment::value) &&
+       std::is_same<pointer, value_type*>::value);++
     concurrent_flat_map& xref:#concurrent_flat_map_initializer_list_assignment[operator++=++](std::initializer_list<value_type>);
     allocator_type xref:#concurrent_flat_map_get_allocator[get_allocator]() const noexcept;
 
@@ -104,6 +109,13 @@ namespace boost {
     template<class K, class F> size_t xref:#concurrent_flat_map_cvisit[visit](const K& k, F f) const;
     template<class K, class F> size_t xref:#concurrent_flat_map_cvisit[cvisit](const K& k, F f) const;
 
+    template<class FwdIterator, class F>
+      size_t xref:concurrent_flat_map_bulk_visit[visit](FwdIterator first, FwdIterator last, F f);
+    template<class FwdIterator, class F>
+      size_t xref:concurrent_flat_map_bulk_visit[visit](FwdIterator first, FwdIterator last, F f) const;
+    template<class FwdIterator, class F>
+      size_t xref:concurrent_flat_map_bulk_visit[cvisit](FwdIterator first, FwdIterator last, F f) const;
+
     template<class F> size_t xref:#concurrent_flat_map_cvisit_all[visit_all](F f);
     template<class F> size_t xref:#concurrent_flat_map_cvisit_all[visit_all](F f) const;
     template<class F> size_t xref:#concurrent_flat_map_cvisit_all[cvisit_all](F f) const;
@@ -113,6 +125,16 @@ namespace boost {
       void xref:#concurrent_flat_map_parallel_cvisit_all[visit_all](ExecutionPolicy&& policy, F f) const;
     template<class ExecutionPolicy, class F>
       void xref:#concurrent_flat_map_parallel_cvisit_all[cvisit_all](ExecutionPolicy&& policy, F f) const;
+
+    template<class F> bool xref:#concurrent_flat_map_cvisit_while[visit_while](F f);
+    template<class F> bool xref:#concurrent_flat_map_cvisit_while[visit_while](F f) const;
+    template<class F> bool xref:#concurrent_flat_map_cvisit_while[cvisit_while](F f) const;
+    template<class ExecutionPolicy, class F>
+      bool xref:#concurrent_flat_map_parallel_cvisit_while[visit_while](ExecutionPolicy&& policy, F f);
+    template<class ExecutionPolicy, class F>
+      bool xref:#concurrent_flat_map_parallel_cvisit_while[visit_while](ExecutionPolicy&& policy, F f) const;
+    template<class ExecutionPolicy, class F>
+      bool xref:#concurrent_flat_map_parallel_cvisit_while[cvisit_while](ExecutionPolicy&& policy, F f) const;
 
     // capacity
     ++[[nodiscard]]++ bool xref:#concurrent_flat_map_empty[empty]() const noexcept;
@@ -305,8 +327,7 @@ https://en.cppreference.com/w/cpp/named_req/Erasable[Erasable^] from the table.
 
 |_Allocator_
 |An allocator whose value type is the same as the table's value type.
-`std::allocator_traits<Allocator>::pointer` and `std::allocator_traits<Allocator>::const_pointer`
-must be convertible to/from `value_type*` and `const value_type*`, respectively.
+Allocators using https://en.cppreference.com/w/cpp/named_req/Allocator#Fancy_pointers[fancy pointers] are supported.
 
 |===
 
@@ -363,6 +384,25 @@ on `x`; invoking operations on a different `boost::concurrent_flat_map` instance
 if concurrent outstanding operations on `y` do not access `x` directly or indirectly.
 
 ---
+
+=== Configuration Macros
+
+==== `BOOST_UNORDERED_DISABLE_REENTRANCY_CHECK`
+
+In debug builds (more precisely, when
+link:../../../assert/doc/html/assert.html#boost_assert_is_void[`BOOST_ASSERT_IS_VOID`^]
+is not defined), __container reentrancies__ (illegaly invoking an operation on `m` from within
+a function visiting elements of `m`) are detected and signalled through `BOOST_ASSERT_MSG`.
+When run-time speed is a concern, the feature can be disabled by globally defining
+this macro.
+
+=== Constants
+
+```cpp
+static constexpr size_type bulk_visit_size;
+```
+
+Chunk size internally used in xref:concurrent_flat_map_bulk_visit[bulk visit] operations.
 
 === Constructors
 
@@ -488,6 +528,21 @@ from `other`, and the allocator is copy-constructed from `a`.
 
 [horizontal]
 Concurrency:;; Blocking on `other`.
+
+---
+
+==== Move Constructor from unordered_flat_map
+
+```c++
+concurrent_flat_map(unordered_flat_map<Key, T, Hash, Pred, Allocator>&& other);
+```
+
+Move construction from a xref:#unordered_flat_map[`unordered_flat_map`].
+The internal bucket array of `other` is transferred directly to the new container.
+The hash function, predicate and allocator are moved-constructed from `other`.
+
+[horizontal]
+Complexity:;; O(`bucket_count()`) 
 
 ---
 
@@ -635,8 +690,9 @@ Concurrency:;; Blocking on `*this` and `other`.
 ==== Move Assignment
 ```c++
 concurrent_flat_map& operator=(concurrent_flat_map&& other)
-  noexcept(boost::allocator_traits<Allocator>::is_always_equal::value ||
-           boost::allocator_traits<Allocator>::propagate_on_container_move_assignment::value);
+  noexcept((boost::allocator_traits<Allocator>::is_always_equal::value ||
+            boost::allocator_traits<Allocator>::propagate_on_container_move_assignment::value) &&
+            std::is_same<pointer, value_type*>::value);
 ```
 The move assignment operator. Destroys previously existing elements, swaps the hash function and predicate from `other`,
 and move-assigns the allocator from `other` if `Alloc::propagate_on_container_move_assignment` exists and `Alloc::propagate_on_container_move_assignment::value` is `true`.
@@ -683,6 +739,42 @@ Notes:;; The `template<class K, class F>` overloads only participate in overload
 
 ---
 
+==== Bulk visit
+
+```c++
+template<class FwdIterator, class F>
+  size_t visit(FwdIterator first, FwdIterator last, F f);
+template<class FwdIterator, class F>
+  size_t visit(FwdIterator first, FwdIterator last, F f) const;
+template<class FwdIterator, class F>
+  size_t cvisit(FwdIterator first, FwdIterator last, F f) const;
+```
+
+For each element `k` in the range [`first`, `last`),
+if there is an element `x` in the container with key equivalent to `k`,
+invokes `f` with a reference to `x`.
+Such reference is const iff `*this` is const.
+
+Although functionally equivalent to individually invoking
+xref:concurrent_flat_map_cvisit[`[c\]visit`] for each key, bulk visitation
+performs generally faster due to internal streamlining optimizations.
+It is advisable that `std::distance(first,last)` be at least
+xref:#concurrent_flat_map_constants[`bulk_visit_size`] to enjoy
+a performance gain: beyond this size, performance is not expected
+to increase further.
+
+[horizontal]
+Requires:;; `FwdIterator` is a https://en.cppreference.com/w/cpp/named_req/ForwardIterator[LegacyForwardIterator^]
+({cpp}11 to {cpp}17), 
+or satisfies https://en.cppreference.com/w/cpp/iterator/forward_iterator[std::forward_iterator^] ({cpp}20 and later).
+For `K` = `std::iterator_traits<FwdIterator>::value_type`, either `K` is `key_type` or
+else `Hash::is_transparent` and `Pred::is_transparent` are valid member typedefs.
+In the latter case, the library assumes that `Hash` is callable with both `K` and `Key` and that `Pred` is transparent.
+This enables heterogeneous lookup which avoids the cost of instantiating an instance of the `Key` type.
+Returns:;; The number of elements visited.
+
+---
+
 ==== [c]visit_all
 
 ```c++
@@ -717,6 +809,50 @@ Notes:;; Only available in compilers supporting C++17 parallel algorithms. +
 These overloads only participate in overload resolution if `std::is_execution_policy_v<std::remove_cvref_t<ExecutionPolicy>>` is `true`. +
 +
 Unsequenced execution policies are not allowed.
+
+---
+
+==== [c]visit_while
+
+```c++
+template<class F> bool visit_while(F f);
+template<class F> bool visit_while(F f) const;
+template<class F> bool cvisit_while(F f) const;
+```
+
+Successively invokes `f` with references to each of the elements in the table until `f` returns `false`
+or all the elements are visited.
+Such references to the elements are const iff `*this` is const.
+
+[horizontal]
+Returns:;; `false` iff `f` ever returns `false`.
+
+---
+
+==== Parallel [c]visit_while
+
+```c++
+template<class ExecutionPolicy, class F> bool visit_while(ExecutionPolicy&& policy, F f);
+template<class ExecutionPolicy, class F> bool visit_while(ExecutionPolicy&& policy, F f) const;
+template<class ExecutionPolicy, class F> bool cvisit_while(ExecutionPolicy&& policy, F f) const;
+```
+
+Invokes `f` with references to each of the elements in the table until `f` returns `false`
+or all the elements are visited.
+Such references to the elements are const iff `*this` is const.
+Execution is parallelized according to the semantics of the execution policy specified.
+
+[horizontal]
+Returns:;; `false` iff `f` ever returns `false`.
+Throws:;; Depending on the exception handling mechanism of the execution policy used, may call `std::terminate` if an exception is thrown within `f`.
+Notes:;; Only available in compilers supporting C++17 parallel algorithms. +
++
+These overloads only participate in overload resolution if `std::is_execution_policy_v<std::remove_cvref_t<ExecutionPolicy>>` is `true`. +
++
+Unsequenced execution policies are not allowed. +
++
+Parallelization implies that execution does not necessary finish as soon as `f` returns `false`, and as a result
+`f` may be invoked with further elements for which the return value is also `false`.
 
 ---
 
@@ -962,13 +1098,13 @@ if there is an element with an equivalent key; otherwise, the construction is of
 ```c++
 // first two overloads
 value_type(std::piecewise_construct,
-           std::forward_as_tuple(boost::forward<Key>(k)),
-           std::forward_as_tuple(boost::forward<Args>(args)...))
+           std::forward_as_tuple(std::forward<Key>(k)),
+           std::forward_as_tuple(std::forward<Args>(args)...))
 
 // third overload
 value_type(std::piecewise_construct,
-           std::forward_as_tuple(boost::forward<K>(k)),
-           std::forward_as_tuple(boost::forward<Args>(args)...))
+           std::forward_as_tuple(std::forward<K>(k)),
+           std::forward_as_tuple(std::forward<Args>(args)...))
 ```
 
 unlike xref:#concurrent_flat_map_emplace[emplace], which simply forwards all arguments to ``value_type``'s constructor.
@@ -1010,13 +1146,13 @@ if there is an element with an equivalent key; otherwise, the construction is of
 ```c++
 // first four overloads
 value_type(std::piecewise_construct,
-           std::forward_as_tuple(boost::forward<Key>(k)),
-           std::forward_as_tuple(boost::forward<Args>(args)...))
+           std::forward_as_tuple(std::forward<Key>(k)),
+           std::forward_as_tuple(std::forward<Args>(args)...))
 
 // last two overloads
 value_type(std::piecewise_construct,
-           std::forward_as_tuple(boost::forward<K>(k)),
-           std::forward_as_tuple(boost::forward<Args>(args)...))
+           std::forward_as_tuple(std::forward<K>(k)),
+           std::forward_as_tuple(std::forward<Args>(args)...))
 ```
 
 Invalidates pointers and references to elements if a rehashing is issued.
@@ -1038,19 +1174,19 @@ template<class K, class M> bool insert_or_assign(K&& k, M&& obj);
 
 Inserts a new element into the table or updates an existing one by assigning to the contained value.
 
-If there is an element with key `k`, then it is updated by assigning `boost::forward<M>(obj)`.
+If there is an element with key `k`, then it is updated by assigning `std::forward<M>(obj)`.
 
 If there is no such element, it is added to the table as:
 ```c++
 // first two overloads
 value_type(std::piecewise_construct,
-           std::forward_as_tuple(boost::forward<Key>(k)),
-           std::forward_as_tuple(boost::forward<M>(obj)))
+           std::forward_as_tuple(std::forward<Key>(k)),
+           std::forward_as_tuple(std::forward<M>(obj)))
 
 // third overload
 value_type(std::piecewise_construct,
-           std::forward_as_tuple(boost::forward<K>(k)),
-           std::forward_as_tuple(boost::forward<M>(obj)))
+           std::forward_as_tuple(std::forward<K>(k)),
+           std::forward_as_tuple(std::forward<M>(obj)))
 ```
 
 [horizontal]
@@ -1436,3 +1572,33 @@ Equivalent to
 -----
 c.xref:#concurrent_flat_map_erase_if[erase_if](pred);
 -----
+
+=== Serialization
+
+``concurrent_flat_map``s can be archived/retrieved by means of
+link:../../../serialization/index.html[Boost.Serialization^] using the API provided
+by this library. Both regular and XML archives are supported. 
+
+==== Saving an concurrent_flat_map to an archive
+
+Saves all the elements of a `concurrent_flat_map` `x` to an archive (XML archive) `ar`.
+
+[horizontal]
+Requires:;; `std::remove_const<key_type>::type` and `std::remove_const<mapped_type>::type`
+are serializable (XML serializable), and they do support Boost.Serialization
+`save_construct_data`/`load_construct_data` protocol (automatically suported by
+https://en.cppreference.com/w/cpp/named_req/DefaultConstructible[DefaultConstructible^]
+types).  
+Concurrency:;; Blocking on `x`.
+
+---
+
+==== Loading an concurrent_flat_map from an archive
+
+Deletes all preexisting elements of a `concurrent_flat_map` `x` and inserts
+from an archive (XML archive) `ar` restored copies of the elements of the
+original `concurrent_flat_map` `other` saved to the storage read by `ar`.
+
+[horizontal]
+Requires:;; `x.key_equal()` is functionally equivalent to `other.key_equal()`.
+Concurrency:;; Blocking on `x`.

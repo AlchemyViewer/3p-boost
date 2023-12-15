@@ -644,24 +644,19 @@
         in C++11 terms, a constant initialization).
       </p>
 <p>
-        This difference is deliberate and is done to support C++03 compilers. C++11
-        defines the <code class="computeroutput"><span class="identifier">ATOMIC_FLAG_INIT</span></code>
+        C++11 defines the <code class="computeroutput"><span class="identifier">ATOMIC_FLAG_INIT</span></code>
         macro which can be used to statically initialize <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">atomic_flag</span></code>
         to a clear state like this:
       </p>
 <pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">atomic_flag</span> <span class="identifier">flag</span> <span class="special">=</span> <span class="identifier">ATOMIC_FLAG_INIT</span><span class="special">;</span> <span class="comment">// constant initialization</span>
 </pre>
 <p>
-        This macro cannot be implemented in C++03 because for that <code class="computeroutput"><span class="identifier">atomic_flag</span></code> would have to be an aggregate
-        type, which it cannot be because it has to prohibit copying and consequently
-        define the default constructor. Thus the closest equivalent C++03 code using
-        <span class="bold"><strong>Boost.Atomic</strong></span> would be:
+        With <span class="bold"><strong>Boost.Atomic</strong></span>, the simple declaration
+        below would have the same effect, if the compiler supports C++11 <code class="computeroutput"><span class="keyword">constexpr</span></code>:
       </p>
-<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">atomic_flag</span> <span class="identifier">flag</span><span class="special">;</span> <span class="comment">// possibly, dynamic initialization in C++03;</span>
-                         <span class="comment">// constant initialization in C++11</span>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">atomic_flag</span> <span class="identifier">flag</span><span class="special">;</span> <span class="comment">// constant initialization</span>
 </pre>
 <p>
-        The same code is also valid in C++11, so this code can be used universally.
         However, for interface parity with <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">atomic_flag</span></code>,
         if possible, the library also defines the <code class="computeroutput"><span class="identifier">BOOST_ATOMIC_FLAG_INIT</span></code>
         macro, which is equivalent to <code class="computeroutput"><span class="identifier">ATOMIC_FLAG_INIT</span></code>:

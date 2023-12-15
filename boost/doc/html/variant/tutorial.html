@@ -42,7 +42,7 @@
   <a class="link" href="reference.html#variant.concepts.bounded-type" title="BoundedType"><span class="emphasis"><em>BoundedType</em></span></a>
   concept. Any number of bounded types may be specified, up to some
   implementation-defined limit (see 
-  <code class="computeroutput"><a class="link" href="../BOOST_VARIANT_LIMIT_TYPES.html" title="Macro BOOST_VARIANT_LIMIT_TYPES">BOOST_VARIANT_LIMIT_TYPES</a></code>).</p>
+  <code class="computeroutput">BOOST_VARIANT_LIMIT_TYPES</code>).</p>
 <p>For example, the following declares a discriminated union container on
   <code class="computeroutput">int</code> and <code class="computeroutput">std::string</code>:
 
@@ -269,7 +269,7 @@ std::for_each(
     in the C++98 standard, the preprocessor is needed. While the
     Preprocessor library provides a general and
     powerful solution, the need to repeat
-    <code class="computeroutput"><a class="link" href="../BOOST_VARIANT_LIMIT_TYPES.html" title="Macro BOOST_VARIANT_LIMIT_TYPES">BOOST_VARIANT_LIMIT_TYPES</a></code>
+    <code class="computeroutput">BOOST_VARIANT_LIMIT_TYPES</code>
     unnecessarily clutters otherwise simple code. Therefore, for common
     use-cases, this library provides its own macro
     <code class="computeroutput"><span class="bold"><strong><a class="link" href="../BOOST_VARIANT_ENUM_PARAMS.html" title="Macro BOOST_VARIANT_ENUM_PARAMS">BOOST_VARIANT_ENUM_PARAMS</a></strong></span></code>.</p>
@@ -301,7 +301,7 @@ class some_class&lt; <code class="computeroutput"><a class="link" href="../boost
     dimensions. First, due to the lack of support for true variadic template 
     parameter lists in C++, the number of parameters must be limited to some
     implementation-defined maximum (namely,
-    <code class="computeroutput"><a class="link" href="../BOOST_VARIANT_LIMIT_TYPES.html" title="Macro BOOST_VARIANT_LIMIT_TYPES">BOOST_VARIANT_LIMIT_TYPES</a></code>).
+    <code class="computeroutput">BOOST_VARIANT_LIMIT_TYPES</code>).
     Second, the nature of parameter lists in general makes compile-time
     manipulation of the lists excessively difficult.</p>
 <p>To solve these problems,
@@ -330,7 +330,7 @@ typedef <code class="computeroutput">mpl::push_front</code>&lt; types_initial, i
     <code class="computeroutput">make_variant_over</code> is not universally available. On these
     compilers the library indicates its lack of support for the syntax via the
     definition of the preprocessor symbol
-    <code class="computeroutput"><a class="link" href="../BOOST_VARIANT_1_3_44_5_3_7.html" title="Macro BOOST_VARIANT_NO_TYPE_SEQUENCE_SUPPORT">BOOST_VARIANT_NO_TYPE_SEQUENCE_SUPPORT</a></code>.</p>
+    <code class="computeroutput"><a class="link" href="../BOOST_VARIANT_1_3_44_5_3_5.html" title="Macro BOOST_VARIANT_NO_TYPE_SEQUENCE_SUPPORT">BOOST_VARIANT_NO_TYPE_SEQUENCE_SUPPORT</a></code>.</p>
 </div>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -519,7 +519,7 @@ int_tree_t var(result);</pre>
     <code class="computeroutput">make_recursive_variant</code> is not universally supported. On these
     compilers the library indicates its lack of support via the definition
     of the preprocessor symbol
-    <code class="computeroutput"><a class="link" href="../BOOST_VARIANT_1_3_44_5_3_9.html" title="Macro BOOST_VARIANT_NO_FULL_RECURSIVE_VARIANT_SUPPORT">BOOST_VARIANT_NO_FULL_RECURSIVE_VARIANT_SUPPORT</a></code>.
+    <code class="computeroutput"><a class="link" href="../BOOST_VARIANT_1_3_44_5_3_7.html" title="Macro BOOST_VARIANT_NO_FULL_RECURSIVE_VARIANT_SUPPORT">BOOST_VARIANT_NO_FULL_RECURSIVE_VARIANT_SUPPORT</a></code>.
     Thus, unless working with highly-conformant compilers, maximum portability
     will be achieved by instead using <code class="computeroutput">recursive_wrapper</code>, as
     described in
@@ -645,11 +645,6 @@ assert(
 );
 </pre>
 <p>
-  </p>
-<p>Finally, we must note that multi visitation does not support 
-    "delayed" form of
-    <code class="computeroutput"><a class="link" href="../boost/apply_visitor.html" title="Function apply_visitor">apply_visitor</a> if
-    <a class="link" href="../BOOST_VARIANT_1_3_44_5_3_4.html" title="Macro BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES">BOOST_VARIANT_DO_NOT_USE_VARIADIC_TEMPLATES</a> is defined</code>.
   </p>
 </div>
 </div>

@@ -492,7 +492,7 @@
 <p>
 </p>
 <pre class="programlisting"><code class="computeroutput"><a class="link" href="../boost/process/child.html" title="Class child">bp::child</a></code> <span class="identifier">c</span><span class="special">(</span><span class="string">"make"</span><span class="special">);</span>
-<span class="keyword">if</span> <span class="special">(!</span><span class="identifier">c</span><span class="special">.</span><code class="computeroutput"><a class="link" href="../boost/process/child.html#idm2451-bb">wait_for</a></code><span class="special">(</span><a href="http://en.cppreference.com/w/cpp/chrono/duration" target="_top">std::chrono::seconds</a><span class="special">(</span><span class="number">10</span><span class="special">))</span> <span class="comment">//give it 10 seconds</span>
+<span class="keyword">if</span> <span class="special">(!</span><span class="identifier">c</span><span class="special">.</span><code class="computeroutput"><a class="link" href="../boost/process/child.html#idm2451-bb">wait_for</a></code><span class="special">(</span><a href="http://en.cppreference.com/w/cpp/chrono/duration" target="_top">std::chrono::seconds</a><span class="special">(</span><span class="number">10</span><span class="special">)))</span> <span class="comment">//give it 10 seconds</span>
     <span class="identifier">c</span><span class="special">.</span><code class="computeroutput"><a class="link" href="../boost/process/child.html#idm2504-bb">terminate</a></code><span class="special">();</span> <span class="comment">//then terminate</span>
 </pre>
 <p>
@@ -505,7 +505,7 @@
 </p>
 <pre class="programlisting"><code class="computeroutput"><a class="link" href="../boost/process/group.html" title="Class group">bp::group</a></code> <span class="identifier">g</span><span class="special">;</span>
 <code class="computeroutput"><a class="link" href="../boost/process/child.html" title="Class child">bp::child</a></code> <span class="identifier">c</span><span class="special">(</span><span class="string">"make"</span><span class="special">,</span> <span class="identifier">g</span><span class="special">);</span>
-<span class="keyword">if</span> <span class="special">(!</span><span class="identifier">g</span><span class="special">.</span><code class="computeroutput"><a class="link" href="../boost/process/group.html#idm3806-bb">wait_for</a></code><span class="special">(</span><a href="http://en.cppreference.com/w/cpp/chrono/duration" target="_top">std::chrono::seconds</a><span class="special">(</span><span class="number">10</span><span class="special">))</span>
+<span class="keyword">if</span> <span class="special">(!</span><span class="identifier">g</span><span class="special">.</span><code class="computeroutput"><a class="link" href="../boost/process/group.html#idm3806-bb">wait_for</a></code><span class="special">(</span><a href="http://en.cppreference.com/w/cpp/chrono/duration" target="_top">std::chrono::seconds</a><span class="special">(</span><span class="number">10</span><span class="special">)))</span>
     <span class="identifier">g</span><span class="special">.</span><code class="computeroutput"><a class="link" href="../boost/process/group.html#idm3852-bb">terminate</a></code><span class="special">();</span>
 
 <span class="identifier">c</span><span class="special">.</span><code class="computeroutput"><a class="link" href="../boost/process/child.html#idm2442-bb">wait</a></code><span class="special">();</span> <span class="comment">//to avoid a zombie process &amp; get the exit code</span>

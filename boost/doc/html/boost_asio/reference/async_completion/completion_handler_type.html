@@ -32,7 +32,7 @@
 The
           real handler type to be used for the asynchronous operation.
         </p>
-<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span> <span class="keyword">typename</span> <span class="identifier">decay</span><span class="special">&lt;</span> <span class="identifier">CompletionToken</span> <span class="special">&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">Signatures</span><span class="special">...</span> <span class="special">&gt;::</span><span class="identifier">completion_handler_type</span> <span class="identifier">completion_handler_type</span><span class="special">;</span>
+<pre class="programlisting"><span class="keyword">typedef</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span> <span class="identifier">decay_t</span><span class="special">&lt;</span> <span class="identifier">CompletionToken</span> <span class="special">&gt;,</span> <span class="identifier">Signatures</span><span class="special">...</span> <span class="special">&gt;::</span><span class="identifier">completion_handler_type</span> <span class="identifier">completion_handler_type</span><span class="special">;</span>
 </pre>
 <h6>
 <a name="boost_asio.reference.async_completion.completion_handler_type.h0"></a>

@@ -36,6 +36,7 @@
 <pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span>
     <span class="keyword">typename</span> <span class="identifier">Allocator</span> <span class="special">=</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">&gt;&gt;</span>
 <span class="keyword">class</span> <span class="identifier">basic_streambuf</span> <span class="special">:</span>
+  <span class="keyword">public</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">streambuf</span><span class="special">,</span>
   <span class="identifier">noncopyable</span>
 </pre>
 <h5>

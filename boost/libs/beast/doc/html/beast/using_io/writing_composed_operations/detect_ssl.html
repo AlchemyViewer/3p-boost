@@ -337,8 +337,9 @@
         bool result                 // The result of the detector
     );
     @endcode
-    Regardless of whether the asynchronous operation completes
-    immediately or not, the handler will not be invoked from within
+    If the handler has an associated immediate executor,
+    an immediate completion will be dispatched to it.
+    Otherwise, the handler will not be invoked from within
     this function. Invocation of the handler will be performed in a
     manner equivalent to using `net::post`.
 */</span>
@@ -348,35 +349,13 @@
     <span class="keyword">class</span> <span class="identifier">CompletionToken</span> <span class="special">=</span>
         <span class="identifier">net</span><span class="special">::</span><span class="identifier">default_completion_token_t</span><span class="special">&lt;</span><span class="identifier">beast</span><span class="special">::</span><span class="identifier">executor_type</span><span class="special">&lt;</span><span class="identifier">AsyncReadStream</span><span class="special">&gt;&gt;</span>
 <span class="special">&gt;</span>
-<span class="preprocessor">#if</span> <span class="identifier">BOOST_BEAST_DOXYGEN</span>
-<span class="identifier">BOOST_ASIO_INITFN_RESULT_TYPE</span><span class="special">(</span><span class="identifier">CompletionToken</span><span class="special">,</span> <span class="keyword">void</span><span class="special">(</span><span class="identifier">error_code</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">))</span>
-<span class="preprocessor">#else</span>
-<span class="keyword">auto</span>
-<span class="preprocessor">#endif</span>
+<span class="identifier">BOOST_ASIO_INITFN_AUTO_RESULT_TYPE</span><span class="special">(</span><span class="identifier">CompletionToken</span><span class="special">,</span> <span class="keyword">void</span><span class="special">(</span><span class="identifier">error_code</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">))</span>
 <span class="identifier">async_detect_ssl</span><span class="special">(</span>
     <span class="identifier">AsyncReadStream</span><span class="special">&amp;</span> <span class="identifier">stream</span><span class="special">,</span>
     <span class="identifier">DynamicBuffer</span><span class="special">&amp;</span> <span class="identifier">buffer</span><span class="special">,</span>
     <span class="identifier">CompletionToken</span><span class="special">&amp;&amp;</span> <span class="identifier">token</span> <span class="special">=</span> <span class="identifier">net</span><span class="special">::</span><span class="identifier">default_completion_token_t</span><span class="special">&lt;</span>
-            <span class="identifier">beast</span><span class="special">::</span><span class="identifier">executor_type</span><span class="special">&lt;</span><span class="identifier">AsyncReadStream</span><span class="special">&gt;&gt;{})</span> <span class="special">-&gt;</span>
-        <span class="keyword">typename</span> <span class="identifier">net</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span>
-            <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">decay</span><span class="special">&lt;</span><span class="identifier">CompletionToken</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">,</span> <a class="co" name="beast.using_io.writing_composed_operations.detect_ssl.c0" href="detect_ssl.html#beast.using_io.writing_composed_operations.detect_ssl.c1"><img src="../../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a>
-            <span class="keyword">void</span><span class="special">(</span><span class="identifier">error_code</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">)&gt;::</span><span class="identifier">return_type</span><span class="special">;</span> <a class="co" name="beast.using_io.writing_composed_operations.detect_ssl.c2" href="detect_ssl.html#beast.using_io.writing_composed_operations.detect_ssl.c3"><img src="../../../../../../../doc/src/images/callouts/2.png" alt="2" border="0"></a>
+            <span class="identifier">beast</span><span class="special">::</span><span class="identifier">executor_type</span><span class="special">&lt;</span><span class="identifier">AsyncReadStream</span><span class="special">&gt;&gt;{});</span>
 </pre>
-<div class="calloutlist"><table border="0" summary="Callout list">
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="beast.using_io.writing_composed_operations.detect_ssl.c1"></a><a href="#beast.using_io.writing_composed_operations.detect_ssl.c0"><img src="../../../../../../../doc/src/images/callouts/1.png" alt="1" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-              <code class="computeroutput"><span class="identifier">async_result</span></code> customizes
-              the return value based on the completion token
-            </p></td>
-</tr>
-<tr>
-<td width="5%" valign="top" align="left"><p><a name="beast.using_io.writing_composed_operations.detect_ssl.c3"></a><a href="#beast.using_io.writing_composed_operations.detect_ssl.c2"><img src="../../../../../../../doc/src/images/callouts/2.png" alt="2" border="0"></a> </p></td>
-<td valign="top" align="left"><p>
-              This is the signature for the completion handler
-            </p></td>
-</tr>
-</table></div>
 <p>
           There are two additional components required to implement the initiating
           function:
@@ -465,18 +444,11 @@
     <span class="keyword">class</span> <span class="identifier">AsyncReadStream</span><span class="special">,</span>
     <span class="keyword">class</span> <span class="identifier">DynamicBuffer</span><span class="special">,</span>
     <span class="keyword">class</span> <span class="identifier">CompletionToken</span><span class="special">&gt;</span>
-<span class="preprocessor">#if</span> <span class="identifier">BOOST_BEAST_DOXYGEN</span>
-<span class="identifier">BOOST_ASIO_INITFN_RESULT_TYPE</span><span class="special">(</span><span class="identifier">CompletionToken</span><span class="special">,</span> <span class="keyword">void</span><span class="special">(</span><span class="identifier">error_code</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">))</span>
-<span class="preprocessor">#else</span>
-<span class="keyword">auto</span>
-<span class="preprocessor">#endif</span>
+<span class="identifier">BOOST_ASIO_INITFN_AUTO_RESULT_TYPE</span><span class="special">(</span><span class="identifier">CompletionToken</span><span class="special">,</span> <span class="keyword">void</span><span class="special">(</span><span class="identifier">error_code</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">))</span>
 <span class="identifier">async_detect_ssl</span><span class="special">(</span>
     <span class="identifier">AsyncReadStream</span><span class="special">&amp;</span> <span class="identifier">stream</span><span class="special">,</span>
     <span class="identifier">DynamicBuffer</span><span class="special">&amp;</span> <span class="identifier">buffer</span><span class="special">,</span>
     <span class="identifier">CompletionToken</span><span class="special">&amp;&amp;</span> <span class="identifier">token</span><span class="special">)</span>
-        <span class="special">-&gt;</span> <span class="keyword">typename</span> <span class="identifier">net</span><span class="special">::</span><span class="identifier">async_result</span><span class="special">&lt;</span>
-            <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">decay</span><span class="special">&lt;</span><span class="identifier">CompletionToken</span><span class="special">&gt;::</span><span class="identifier">type</span><span class="special">,</span>
-            <span class="keyword">void</span><span class="special">(</span><span class="identifier">error_code</span><span class="special">,</span> <span class="keyword">bool</span><span class="special">)&gt;::</span><span class="identifier">return_type</span>
 <span class="special">{</span>
     <span class="comment">// Make sure arguments meet the type requirements</span>
 

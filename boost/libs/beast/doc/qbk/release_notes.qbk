@@ -11,6 +11,36 @@
 
 [/-----------------------------------------------------------------------------]
 
+[heading Boost 1.84]
+
+[*API Changes]
+
+* Remove deprecated allocation and invocation hooks
+
+[*Features]
+
+* Support for `immediate_executor`
+
+[*Fixes]
+
+* [issue 2766] Use the explicit type std::size_t when completing transfer_op
+* [issue 2727] Replaced `BOOST_ASIO_INITFN_RESULT_TYPE` with `BOOST_ASIO_INITFN_AUTO_RES`
+* [issue 2715] `server-flex-awaitable` example resets parser
+
+[*Documentation]
+
+* [issue 2713] Corrected the `websocket::stream::async_ping/pong` handler requirement
+* [issue 2755] Update documentation for `websocket::stream::async_write_some`
+
+[heading Boost 1.83]
+
+[*Fixes]
+
+* [issue 2680] aligned_storage unused for C+23
+* [issue 2653] MSVC literal `not` error
+* [issue 2661] ssl_stream ambiguity error on clang
+* [issue 2649] Jamefile uses openssl.jam
+
 [heading Boost 1.82]
 
 [*Features]
@@ -187,7 +217,7 @@
 * The API to Asio has undergone changes. Please refer to the Asio release notes for details.
 
 * Beast has been updated to track and respect developer choices in the use of Asio. In particular:
- * Define `BOOST_ASIO_NO_DEPRECATED` to disallow deprecated invocation and allocation hooks.
+ * Define `BOOST_ASIO_NO_DEPRECATED` to disallow deprecated invocation hooks.
  * Define `BOOST_ASIO_NO_TS_EXECUTORS` to ensure that executors conform to the
    [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2019/p0443r11.html Standard Executors] proposal.
  * Define `BOOST_ASIO_USE_TS_EXECUTOR_AS_DEFAULT` to select

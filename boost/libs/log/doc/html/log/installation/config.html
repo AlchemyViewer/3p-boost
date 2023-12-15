@@ -374,10 +374,10 @@
 </table></div>
 </div>
 <br class="table-break"><p>
-        You can define configuration macros in the <code class="computeroutput"><span class="identifier">bjam</span></code>
+        You can define configuration macros in the <code class="computeroutput"><span class="identifier">b2</span></code>
         command line, like this:
       </p>
-<pre class="programlisting">bjam --with-log variant=release define=BOOST_LOG_WITHOUT_EVENT_LOG define=BOOST_USE_WINAPI_VERSION=0x0600 stage
+<pre class="programlisting">b2 --with-log variant=release define=BOOST_LOG_WITHOUT_EVENT_LOG define=BOOST_USE_WINAPI_VERSION=0x0600 stage
 </pre>
 <p>
         With CMake, the configuration macros can be specified as CMake options in

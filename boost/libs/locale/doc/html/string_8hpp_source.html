@@ -102,7 +102,7 @@ $(document).ready(function(){initNavTree('string_8hpp_source.html',''); initResi
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="namespaceboost_1_1locale_1_1util.html#ae90ad613feb1539c6432b152aadb438d">   39</a></span>    <span class="keyword">constexpr</span> <span class="keywordtype">char</span> <a class="code hl_function" href="namespaceboost_1_1locale_1_1util.html#ae90ad613feb1539c6432b152aadb438d">to_char</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> c)</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>((c - std::numeric_limits&lt;char&gt;::min()) + std::numeric_limits&lt;char&gt;::min());</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>((c - (std::numeric_limits&lt;char&gt;::min)()) + (std::numeric_limits&lt;char&gt;::min)());</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}}} <span class="comment">// namespace boost::locale::util</span></div>

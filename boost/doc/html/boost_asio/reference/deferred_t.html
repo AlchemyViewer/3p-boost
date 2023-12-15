@@ -57,7 +57,21 @@
                 </p>
               </th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
+<td>
+                <p>
+                  <a class="link" href="deferred_t/as_default_on_t.html" title="deferred_t::as_default_on_t"><span class="bold"><strong>as_default_on_t</strong></span></a>
+                </p>
+              </td>
+<td>
+                <p>
+                  Type alias to adapt an I/O object to use deferred_t as its default
+                  completion token type.
+                </p>
+              </td>
+</tr>
+<tr>
 <td>
                 <p>
                   <a class="link" href="deferred_t__executor_with_default.html" title="deferred_t::executor_with_default"><span class="bold"><strong>executor_with_default</strong></span></a>
@@ -69,7 +83,8 @@
                   default.
                 </p>
               </td>
-</tr></tbody>
+</tr>
+</tbody>
 </table></div>
 <h5>
 <a name="boost_asio.reference.deferred_t.h1"></a>
@@ -166,8 +181,8 @@
         value <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">deferred</span></code>. For example:
       </p>
 <pre class="programlisting"><span class="keyword">auto</span> <span class="identifier">my_deferred_op</span>
-  <span class="special">=</span> <span class="identifier">my_socket</span><span class="special">.</span><span class="identifier">async_read_some</span><span class="special">(</span><span class="identifier">my_buffer</span><span class="special">,</span>
-      <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">deferred</span><span class="special">);</span>
+ <span class="special">=</span> <span class="identifier">my_socket</span><span class="special">.</span><span class="identifier">async_read_some</span><span class="special">(</span><span class="identifier">my_buffer</span><span class="special">,</span>
+     <span class="identifier">boost</span><span class="special">::</span><span class="identifier">asio</span><span class="special">::</span><span class="identifier">deferred</span><span class="special">);</span>
 </pre>
 <p>
         The initiating function (async_read_some in the above example) returns a

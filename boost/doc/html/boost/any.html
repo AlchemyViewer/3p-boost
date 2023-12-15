@@ -6,8 +6,8 @@
 <link rel="stylesheet" href="../../../doc/src/boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.79.1">
 <link rel="home" href="../index.html" title="The Boost C++ Libraries BoostBook Documentation Subset">
-<link rel="up" href="../reference_section.html#header.boost.any_hpp" title="Header &lt;boost/any.hpp&gt;">
-<link rel="prev" href="../reference_section.html" title="Reference Section">
+<link rel="up" href="../reference_section_of_boost_any.html#header.boost.any_hpp" title="Header &lt;boost/any.hpp&gt;">
+<link rel="prev" href="../reference_section_of_boost_any.html" title="Reference Section of Boost.Any">
 <link rel="next" href="swap.html" title="Function swap">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -22,7 +22,7 @@
 </tr></table>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../reference_section.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference_section.html#header.boost.any_hpp"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="swap.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="../reference_section_of_boost_any.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference_section_of_boost_any.html#header.boost.any_hpp"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="swap.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 <div class="refentry">
 <a name="boost.any"></a><div class="titlepage"></div>
@@ -31,7 +31,7 @@
 <p>boost::any — A class whose instances can hold instances of any type that satisfies  <a class="link" href="../any/ValueType.html" title="ValueType requirements"> ValueType </a> requirements. </p>
 </div>
 <h2 class="refsynopsisdiv-title">Synopsis</h2>
-<div class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../reference_section.html#header.boost.any_hpp" title="Header &lt;boost/any.hpp&gt;">boost/any.hpp</a>&gt;
+<div class="refsynopsisdiv"><pre class="synopsis"><span class="comment">// In header: &lt;<a class="link" href="../reference_section_of_boost_any.html#header.boost.any_hpp" title="Header &lt;boost/any.hpp&gt;">boost/any.hpp</a>&gt;
 
 </span>
 <span class="keyword">class</span> <a class="link" href="any.html" title="Class any">any</a> <span class="special">{</span>
@@ -42,13 +42,13 @@
   <a class="link" href="any.html#idm652-bb"><span class="identifier">any</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
   <a class="link" href="any.html#idm666-bb"><span class="identifier">any</span></a><span class="special">(</span><a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
   <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> ValueType<span class="special">&gt;</span> 
-    <a class="link" href="any.html#idm682-bb"><span class="identifier">any</span></a><span class="special">(</span><span class="identifier">ValueType</span> <span class="special">&amp;&amp;</span><span class="special">,</span> 
-        <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">disable_if</span><span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_same</span><span class="special">&lt;</span> <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">ValueType</span> <span class="special">&gt;</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <span class="special">*</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span> 
-        <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">disable_if</span><span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_const</span><span class="special">&lt;</span> <span class="identifier">ValueType</span> <span class="special">&gt;</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <span class="special">*</span> <span class="special">=</span> <span class="number">0</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span> <a class="link" href="any.html#idm711-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span> <a class="link" href="any.html#idm726-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
-  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> ValueType<span class="special">&gt;</span> <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span> <a class="link" href="any.html#idm746-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">ValueType</span> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
-  <a class="link" href="any.html#idm704-bb"><span class="special">~</span><span class="identifier">any</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
+    <a class="link" href="any.html#idm680-bb"><span class="identifier">any</span></a><span class="special">(</span><span class="identifier">ValueType</span> <span class="special">&amp;&amp;</span><span class="special">,</span> 
+        <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">enable_if</span><span class="special">&lt;</span><span class="special">!</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">is_same</span><span class="special">&lt;</span> <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">ValueType</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">value</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <span class="special">*</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span> 
+        <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">enable_if</span><span class="special">&lt;</span><span class="special">!</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">is_const</span><span class="special">&lt;</span> <span class="identifier">ValueType</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">value</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <span class="special">*</span> <span class="special">=</span> <span class="number">0</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span> <a class="link" href="any.html#idm707-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="keyword">const</span> <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span> <a class="link" href="any.html#idm722-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
+  <span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> ValueType<span class="special">&gt;</span> <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span> <a class="link" href="any.html#idm740-bb"><span class="keyword">operator</span><span class="special">=</span></a><span class="special">(</span><span class="identifier">ValueType</span> <span class="special">&amp;&amp;</span><span class="special">)</span><span class="special">;</span>
+  <a class="link" href="any.html#idm700-bb"><span class="special">~</span><span class="identifier">any</span></a><span class="special">(</span><span class="special">)</span><span class="special">;</span>
 
   <span class="comment">// <a class="link" href="any.html#idm591-bb">public member functions</a></span>
   <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span> <a class="link" href="any.html#idm592-bb"><span class="identifier">swap</span></a><span class="special">(</span><a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span>
@@ -116,7 +116,6 @@
 <p>Move constructor that moves content of <code class="computeroutput">other</code> into new instance and leaves <code class="computeroutput">other</code> empty.</p>
 <p>
 
-
 </p>
 <div class="variablelist"><table border="0" class="variablelist compact">
 <colgroup>
@@ -124,10 +123,6 @@
 <col>
 </colgroup>
 <tbody>
-<tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>C++11 compatible compiler </p></td>
-</tr>
 <tr>
 <td><p><span class="term">Postconditions:</span></p></td>
 <td><p>other-&gt;empty() is true </p></td>
@@ -141,32 +136,25 @@
 </li>
 <li class="listitem">
 <pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> ValueType<span class="special">&gt;</span> 
-  <a name="idm682-bb"></a><span class="identifier">any</span><span class="special">(</span><span class="identifier">ValueType</span> <span class="special">&amp;&amp;</span> value<span class="special">,</span> 
-      <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">disable_if</span><span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_same</span><span class="special">&lt;</span> <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">ValueType</span> <span class="special">&gt;</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <span class="special">*</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span> 
-      <span class="keyword">typename</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">disable_if</span><span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">is_const</span><span class="special">&lt;</span> <span class="identifier">ValueType</span> <span class="special">&gt;</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <span class="special">*</span> <span class="special">=</span> <span class="number">0</span><span class="special">)</span><span class="special">;</span></pre>
+  <a name="idm680-bb"></a><span class="identifier">any</span><span class="special">(</span><span class="identifier">ValueType</span> <span class="special">&amp;&amp;</span> value<span class="special">,</span> 
+      <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">enable_if</span><span class="special">&lt;</span><span class="special">!</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">is_same</span><span class="special">&lt;</span> <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">ValueType</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">value</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <span class="special">*</span> <span class="special">=</span> <span class="number">0</span><span class="special">,</span> 
+      <span class="keyword">typename</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">enable_if</span><span class="special">&lt;</span><span class="special">!</span><span class="identifier">std</span><span class="special">::</span><span class="identifier">is_const</span><span class="special">&lt;</span> <span class="identifier">ValueType</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">value</span> <span class="special">&gt;</span><span class="special">::</span><span class="identifier">type</span> <span class="special">*</span> <span class="special">=</span> <span class="number">0</span><span class="special">)</span><span class="special">;</span></pre>
 <p>Forwards <code class="computeroutput">value</code>, so that the initial content of the new instance is equivalent in both type and value to <code class="computeroutput">value</code> before the forward.</p>
 <p>
-
 </p>
 <div class="variablelist"><table border="0" class="variablelist compact">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
-<tbody>
-<tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>C++11 compatible compiler. </p></td>
-</tr>
-<tr>
+<tbody><tr>
 <td><p><span class="term">Throws:</span></p></td>
 <td>std::bad_alloc or any exceptions arising from the move or copy constructor of the contained type. </td>
-</tr>
-</tbody>
+</tr></tbody>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span> <a name="idm711-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span> <a name="idm707-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="keyword">const</span> <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre>
 <p>Copies content of <code class="computeroutput">rhs</code> into current instance, discarding previous content, so that the new content is equivalent in both type and value to the content of <code class="computeroutput">rhs</code>, or empty if <code class="computeroutput">rhs.empty()</code>.</p>
 <p>
 </p>
@@ -182,10 +170,9 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span> <a name="idm726-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;&amp;</span> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
+<pre class="literallayout"><a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span> <a name="idm722-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;&amp;</span> rhs<span class="special">)</span> <span class="keyword">noexcept</span><span class="special">;</span></pre>
 <p>Moves content of <code class="computeroutput">rhs</code> into current instance, discarding previous content, so that the new content is equivalent in both type and value to the content of <code class="computeroutput">rhs</code> before move, or empty if <code class="computeroutput">rhs.empty()</code>.</p>
 <p>
-
 
 </p>
 <div class="variablelist"><table border="0" class="variablelist compact">
@@ -194,10 +181,6 @@
 <col>
 </colgroup>
 <tbody>
-<tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>C++11 compatible compiler. </p></td>
-</tr>
 <tr>
 <td><p><span class="term">Postconditions:</span></p></td>
 <td><p><code class="computeroutput">rhs-&gt;empty()</code> is true </p></td>
@@ -210,30 +193,23 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> ValueType<span class="special">&gt;</span> <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span> <a name="idm746-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">ValueType</span> <span class="special">&amp;&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">typename</span> ValueType<span class="special">&gt;</span> <a class="link" href="any.html" title="Class any">any</a> <span class="special">&amp;</span> <a name="idm740-bb"></a><span class="keyword">operator</span><span class="special">=</span><span class="special">(</span><span class="identifier">ValueType</span> <span class="special">&amp;&amp;</span> rhs<span class="special">)</span><span class="special">;</span></pre>
 <p>Forwards <code class="computeroutput">rhs</code>, discarding previous content, so that the new content of is equivalent in both type and value to <code class="computeroutput">rhs</code> before forward.</p>
 <p>
-
 </p>
 <div class="variablelist"><table border="0" class="variablelist compact">
 <colgroup>
 <col align="left" valign="top">
 <col>
 </colgroup>
-<tbody>
-<tr>
-<td><p><span class="term">Requires:</span></p></td>
-<td><p>C++11 compatible compiler. </p></td>
-</tr>
-<tr>
+<tbody><tr>
 <td><p><span class="term">Throws:</span></p></td>
 <td>std::bad_alloc or any exceptions arising from the move or copy constructor of the contained type. Assignment satisfies the strong guarantee of exception safety. </td>
-</tr>
-</tbody>
+</tr></tbody>
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><a name="idm704-bb"></a><span class="special">~</span><span class="identifier">any</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><a name="idm700-bb"></a><span class="special">~</span><span class="identifier">any</span><span class="special">(</span><span class="special">)</span><span class="special">;</span></pre>
 <p>Releases any and all resources used in management of instance.</p>
 <p>
 </p>
@@ -340,7 +316,7 @@ Useful for querying against types known either at compile time or only at runtim
 </div>
 <hr>
 <div class="spirit-nav">
-<a accesskey="p" href="../reference_section.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference_section.html#header.boost.any_hpp"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="swap.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
+<a accesskey="p" href="../reference_section_of_boost_any.html"><img src="../../../doc/src/images/prev.png" alt="Prev"></a><a accesskey="u" href="../reference_section_of_boost_any.html#header.boost.any_hpp"><img src="../../../doc/src/images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../../../doc/src/images/home.png" alt="Home"></a><a accesskey="n" href="swap.html"><img src="../../../doc/src/images/next.png" alt="Next"></a>
 </div>
 </body>
 </html>

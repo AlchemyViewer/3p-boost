@@ -184,15 +184,6 @@
       In particular, this is of interest to users who wish to compose parsing algorithms
       using the combinators provided by the library.
     </p>
-<div class="section">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="url.overview.security_review"></a><a class="link" href="overview.html#url.overview.security_review" title="Security Review (Bishop Fox)">Security Review (Bishop
-      Fox)</a>
-</h3></div></div></div>
-<p>
-        To be announced
-      </p>
-</div>
 <h4>
 <a name="url.overview.h4"></a>
       <span class="phrase"><a name="url.overview.acknowledgments"></a></span><a class="link" href="overview.html#url.overview.acknowledgments">Acknowledgments</a>
@@ -381,11 +372,22 @@ name: John Doe Jingleheimer-Schmidt
 </tr></tbody>
 </table></div>
 <p>
-        These functions return <a class="link" href="ref/boost__urls__decode_view.html" title="decode_view"><code class="computeroutput"><span class="identifier">decode_view</span></code></a>, which are constant
-        views referring to sub-ranges of the underlying URL string. By simply referencing
-        the relevant portion of the URL string, its components can represent percent-decoded
-        strings without any need to allocate memory.
+        These functions return views referring to substrings and sub-ranges of the
+        underlying URL. By simply referencing the relevant portion of the URL string
+        internally, its components can represent percent-decoded strings and be converted
+        to other types without any previous memory allocation.
       </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">h</span> <span class="special">=</span> <span class="identifier">u</span><span class="special">.</span><span class="identifier">host</span><span class="special">();</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">h</span> <span class="special">==</span> <span class="string">"example.com"</span><span class="special">);</span>
+</pre>
+<p>
+        A special <code class="computeroutput">string_token</code> type can also be used to specify how
+        a portion of the URL should be encoded and returned.
+      </p>
+<pre class="programlisting"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">h</span> <span class="special">=</span> <span class="string">"host: "</span><span class="special">;</span>
+<span class="identifier">u</span><span class="special">.</span><span class="identifier">host</span><span class="special">(</span><span class="identifier">string_token</span><span class="special">::</span><span class="identifier">append_to</span><span class="special">(</span><span class="identifier">h</span><span class="special">));</span>
+<span class="identifier">assert</span><span class="special">(</span><span class="identifier">h</span> <span class="special">==</span> <span class="string">"host: example.com"</span><span class="special">);</span>
+</pre>
 <p>
         These functions might also return empty strings
       </p>
@@ -407,7 +409,8 @@ name: John Doe Jingleheimer-Schmidt
       </p>
 <p>
         When applicable, the encoded components can also be directly accessed through
-        a <a class="link" href="ref/boost__urls__string_view.html" title="string_view"><code class="computeroutput"><span class="identifier">string_view</span></code></a>:
+        a <a class="link" href="ref/boost__urls__string_view.html" title="string_view"><code class="computeroutput"><span class="identifier">string_view</span></code></a>
+        without any need to allocate memory:
       </p>
 <div class="informaltable"><table class="table">
 <colgroup>
@@ -575,14 +578,6 @@ fragment  : page%20anchor
     <span class="identifier">handle_route</span><span class="special">(</span><span class="identifier">route</span><span class="special">,</span> <span class="identifier">u</span><span class="special">);</span>
 <span class="special">}</span>
 </pre>
-<p>
-        For many simpler use cases, converting the view to a string might be sufficient:
-      </p>
-<pre class="programlisting"><span class="keyword">auto</span> <span class="identifier">function</span> <span class="special">=</span> <span class="special">[](</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">core</span><span class="special">::</span><span class="identifier">string_view</span> <span class="identifier">str</span><span class="special">)</span>
-<span class="special">{</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">str</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
-<span class="special">};</span>
-</pre>
 <a name="compound-elements"></a><h4>
 <a name="url.overview.quick_look.h4"></a>
         <span class="phrase"><a name="url.overview.quick_look.compound_elements"></a></span><a class="link" href="overview.html#url.overview.quick_look.compound_elements">Compound
@@ -616,7 +611,7 @@ fragment  : page%20anchor
 </tr></thead>
 <tbody><tr>
 <td>
-<pre class="table-programlisting"><span class="identifier">segments_view</span> <span class="identifier">segs</span> <span class="special">=</span> <span class="identifier">u</span><span class="special">.</span><span class="identifier">segments</span><span class="special">();</span>
+<pre class="table-programlisting"><span class="identifier">segments_encoded_view</span> <span class="identifier">segs</span> <span class="special">=</span> <span class="identifier">u</span><span class="special">.</span><span class="identifier">encoded_segments</span><span class="special">();</span>
 <span class="keyword">for</span><span class="special">(</span> <span class="keyword">auto</span> <span class="identifier">v</span> <span class="special">:</span> <span class="identifier">segs</span> <span class="special">)</span>
 <span class="special">{</span>
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">v</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
@@ -661,11 +656,12 @@ fragment  : page%20anchor
 <tbody>
 <tr>
 <td>
-<pre class="table-programlisting"><span class="identifier">segments_view</span> <span class="identifier">segs</span> <span class="special">=</span> <span class="identifier">u</span><span class="special">.</span><span class="identifier">segments</span><span class="special">();</span>
+<pre class="table-programlisting"><span class="identifier">segments_encoded_view</span> <span class="identifier">segs</span> <span class="special">=</span> <span class="identifier">u</span><span class="special">.</span><span class="identifier">encoded_segments</span><span class="special">();</span>
 
-<span class="keyword">for</span><span class="special">(</span> <span class="keyword">auto</span> <span class="identifier">v</span> <span class="special">:</span> <span class="identifier">segs</span> <span class="special">)</span>
+<span class="keyword">for</span><span class="special">(</span> <span class="identifier">pct_string_view</span> <span class="identifier">v</span> <span class="special">:</span> <span class="identifier">segs</span> <span class="special">)</span>
 <span class="special">{</span>
-    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">v</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+    <span class="identifier">decode_view</span> <span class="identifier">dv</span> <span class="special">=</span> <span class="special">*</span><span class="identifier">v</span><span class="special">;</span>
+    <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span> <span class="identifier">dv</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
 <span class="special">}</span>
 </pre>
               </td>
@@ -678,13 +674,16 @@ my-file.txt
 </tr>
 <tr>
 <td>
-<pre class="table-programlisting"><span class="identifier">params_view</span> <span class="identifier">params_ref</span> <span class="special">=</span> <span class="identifier">u</span><span class="special">.</span><span class="identifier">params</span><span class="special">();</span>
+<pre class="table-programlisting"><span class="identifier">params_encoded_view</span> <span class="identifier">params_ref</span> <span class="special">=</span> <span class="identifier">u</span><span class="special">.</span><span class="identifier">encoded_params</span><span class="special">();</span>
 
 <span class="keyword">for</span><span class="special">(</span> <span class="keyword">auto</span> <span class="identifier">v</span> <span class="special">:</span> <span class="identifier">params_ref</span> <span class="special">)</span>
 <span class="special">{</span>
+    <span class="identifier">decode_view</span> <span class="identifier">dk</span><span class="special">(</span><span class="identifier">v</span><span class="special">.</span><span class="identifier">key</span><span class="special">);</span>
+    <span class="identifier">decode_view</span> <span class="identifier">dv</span><span class="special">(</span><span class="identifier">v</span><span class="special">.</span><span class="identifier">value</span><span class="special">);</span>
+
     <span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span> <span class="special">&lt;&lt;</span>
-        <span class="string">"key = "</span> <span class="special">&lt;&lt;</span> <span class="identifier">v</span><span class="special">.</span><span class="identifier">key</span> <span class="special">&lt;&lt;</span>
-        <span class="string">", value = "</span> <span class="special">&lt;&lt;</span> <span class="identifier">v</span><span class="special">.</span><span class="identifier">value</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
+        <span class="string">"key = "</span> <span class="special">&lt;&lt;</span> <span class="identifier">dk</span> <span class="special">&lt;&lt;</span>
+        <span class="string">", value = "</span> <span class="special">&lt;&lt;</span> <span class="identifier">dv</span> <span class="special">&lt;&lt;</span> <span class="string">"\n"</span><span class="special">;</span>
 <span class="special">}</span>
 </pre>
               </td>
@@ -725,7 +724,7 @@ key = name, value = John Doe
         Similarly to built-in types, such as <code class="computeroutput"><span class="keyword">int</span></code>,
         a <a class="link" href="ref/boost__urls__url.html" title="url"><code class="computeroutput"><span class="identifier">url</span></code></a>
         is copyable, movable, assignable, default constructible, and equality comparable.
-        They support all of the inspection functions of <a class="link" href="ref/boost__urls__url_view.html" title="url_view"><code class="computeroutput"><span class="identifier">url_view</span></code></a>, and also provide functions
+        They support all the inspection functions of <a class="link" href="ref/boost__urls__url_view.html" title="url_view"><code class="computeroutput"><span class="identifier">url_view</span></code></a>, and also provide functions
         to modify all components of the URL.
       </p>
 <p>
@@ -740,10 +739,21 @@ key = name, value = John Doe
 </pre>
 <p>
         The scheme must be valid, however, or an exception is thrown. All modifying
-        functions perform validation on their input. Attemping to set part of the
-        URL to an invalid string results in an exception. It is not possible for
-        a <a class="link" href="ref/boost__urls__url.html" title="url"><code class="computeroutput"><span class="identifier">url</span></code></a>
-        to hold syntactically illegal text.
+        functions perform validation on their input.
+      </p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem">
+            Attempting to set the URL scheme or port to an invalid string results
+            in an exception.
+          </li>
+<li class="listitem">
+            Attempting to set other URL components to invalid strings will get the
+            original input properly percent-encoded for that component.
+          </li>
+</ul></div>
+<p>
+        It is not possible for a <a class="link" href="ref/boost__urls__url.html" title="url"><code class="computeroutput"><span class="identifier">url</span></code></a> to hold syntactically illegal
+        text.
       </p>
 <p>
         Modification functions return a reference to the object, so chaining is possible:
