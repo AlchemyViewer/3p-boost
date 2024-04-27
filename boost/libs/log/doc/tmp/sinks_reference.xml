@@ -65,7 +65,7 @@ The header contains implementation of asynchronous sink frontend. </para><namesp
 </listitem>
 </itemizedlist>
 </para></description></constructor>
-<destructor><description><para>Destructor. Implicitly stops the dedicated feeding thread, if one is running. </para></description></destructor>
+<destructor cv="noexcept"><description><para>Destructor. Implicitly stops the dedicated feeding thread, if one is running. </para></description></destructor>
 </class></namespace>
 </namespace>
 </namespace>
@@ -611,7 +611,7 @@ The header contains an interface declaration for all sinks. This interface is us
 <method name="is_cross_thread" cv="const noexcept"><type>bool</type><description><para>The method indicates that the sink passes log records between different threads. This information is needed by the logging core to detach log records from all thread-specific resources before passing it to the sink. </para></description></method>
 </method-group>
 <constructor specifiers="explicit"><parameter name="cross_thread"><paramtype>bool</paramtype></parameter><description><para>Default constructor </para></description></constructor>
-<destructor><description><para>Virtual destructor </para></description></destructor>
+<destructor specifiers="virtual"><description><para>Virtual destructor </para></description></destructor>
 <constructor cv="= delete"><parameter name=""><paramtype><classname>sink</classname> const &amp;</paramtype></parameter></constructor>
 <copy-assignment cv="= delete"><type><classname>sink</classname> &amp;</type><parameter name=""><paramtype><classname>sink</classname> const &amp;</paramtype></parameter></copy-assignment>
 </class></namespace>
@@ -847,7 +847,7 @@ All other placeholders are not supported.</para><para>
 </returns></method>
 </method-group>
 <constructor cv="= default"><description><para>Default constructor </para></description></constructor>
-<destructor><description><para>Virtual destructor </para></description></destructor>
+<destructor cv="= default" specifiers="virtual"><description><para>Virtual destructor </para></description></destructor>
 <constructor cv="= delete"><parameter name=""><paramtype><classname>collector</classname> const &amp;</paramtype></parameter></constructor>
 <copy-assignment cv="= delete"><type><classname>collector</classname> &amp;</type><parameter name=""><paramtype><classname>collector</classname> const &amp;</paramtype></parameter></copy-assignment>
 </struct><class name="rotation_at_time_interval"><description><para>The class represents the time interval of log file rotation. The log file will be rotated after the specified time interval has passed. </para></description><typedef name="result_type"><type>bool</type></typedef>

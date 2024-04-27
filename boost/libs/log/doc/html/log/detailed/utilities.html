@@ -249,7 +249,7 @@
           the complete code</a>.
         </p>
 <p>
-          Of course, complex function objects, like those provided by <a href="http://www.boost.org/doc/libs/release/libs/bind/bind.html" target="_top">Boost.Bind</a>,
+          Of course, complex function objects, like those provided by <a href="https://www.boost.org/doc/libs/release/libs/bind/doc/html/bind.html" target="_top">Boost.Bind</a>,
           are also supported.
         </p>
 </div>
@@ -386,7 +386,7 @@
                 </td>
 <td>
                   <p>
-                    All types defined in <a href="http://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>
+                    All types defined in <a href="https://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>
                     that have both date and time portions
                   </p>
                 </td>
@@ -425,7 +425,7 @@
                 </td>
 <td>
                   <p>
-                    All types defined in <a href="http://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>
+                    All types defined in <a href="https://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>
                     that have date portion
                   </p>
                 </td>
@@ -464,7 +464,7 @@
                 </td>
 <td>
                   <p>
-                    All types defined in <a href="http://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>
+                    All types defined in <a href="https://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>
                     that have time portion. Currently equivalent to <code class="computeroutput"><span class="identifier">boost_date_time_types</span></code>.
                   </p>
                 </td>
@@ -505,7 +505,7 @@
                 </td>
 <td>
                   <p>
-                    All time duration types defined in <a href="http://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>
+                    All time duration types defined in <a href="https://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>
                   </p>
                 </td>
 </tr>
@@ -530,7 +530,7 @@
                 </td>
 <td>
                   <p>
-                    All time period types defined in <a href="http://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>
+                    All time period types defined in <a href="https://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>
                   </p>
                 </td>
 </tr>
@@ -561,13 +561,13 @@
           The <code class="computeroutput"><a class="link" href="../../boost/log/value_ref.html" title="Class template value_ref">value_ref</a></code> class
           template is an optional reference wrapper which is used by the library
           to refer to the stored attribute values. To a certain degree it shares
-          features of <a href="http://www.boost.org/doc/libs/release/libs/optional/index.html" target="_top">Boost.Optional</a>
-          and <a href="http://www.boost.org/doc/libs/release/doc/html/variant.html" target="_top">Boost.Variant</a>
+          features of <a href="https://www.boost.org/doc/libs/release/libs/optional/doc/html/index.html" target="_top">Boost.Optional</a>
+          and <a href="https://www.boost.org/doc/libs/release/doc/html/variant.html" target="_top">Boost.Variant</a>
           components.
         </p>
 <p>
           The template has two type parameters. The first is the referred type. It
-          can also be specified as a <a href="http://www.boost.org/doc/libs/release/libs/mpl/doc/index.html" target="_top">Boost.MPL</a>
+          can also be specified as a <a href="https://www.boost.org/doc/libs/release/libs/mpl/doc/index.html" target="_top">Boost.MPL</a>
           type sequence, in which case the <code class="computeroutput"><a class="link" href="../../boost/log/value_ref.html" title="Class template value_ref">value_ref</a></code>
           wrapper may refer to either type in the sequence. In this case, the <code class="computeroutput"><span class="identifier">which</span></code> method will return the index of
           the referred type within the sequence. The second template parameter is
@@ -647,7 +647,7 @@
             typedef. Polymorphic visitors are not supported as this would complicate
             the <code class="computeroutput"><a class="link" href="../../boost/log/value_ref.html" title="Class template value_ref">value_ref</a></code> interface
             too much. This requirement also precludes free functions and C++11 lambda
-            functions from being used as visitors. Please, use <a href="http://www.boost.org/doc/libs/release/libs/bind/bind.html" target="_top">Boost.Bind</a>
+            functions from being used as visitors. Please, use <a href="https://www.boost.org/doc/libs/release/libs/bind/doc/html/bind.html" target="_top">Boost.Bind</a>
             or similar wrappers in such cases.
           </p></td></tr>
 </table></div>
@@ -766,11 +766,11 @@
           equivalent is used.
         </p>
 <p>
-          You can also use the <code class="computeroutput"><a class="link" href="../../boost/log/make_attr_orderin_idm38788.html" title="Function template make_attr_ordering">make_attr_ordering</a></code> generator
+          You can also use the <code class="computeroutput"><a class="link" href="../../boost/log/make_attr_orderin_idm38821.html" title="Function template make_attr_ordering">make_attr_ordering</a></code> generator
           function to automatically generate the <code class="computeroutput"><a class="link" href="../../boost/log/attribute_value_ordering.html" title="Class template attribute_value_ordering">attribute_value_ordering</a></code>
           instance based on the attribute value name and the ordering function. This
           might be useful if the ordering function has a non-trivial type, like the
-          ones <a href="http://www.boost.org/doc/libs/release/libs/bind/bind.html" target="_top">Boost.Bind</a>
+          ones <a href="https://www.boost.org/doc/libs/release/libs/bind/doc/html/bind.html" target="_top">Boost.Bind</a>
           provides.
         </p>
 </div>
@@ -794,7 +794,7 @@
           by the library, therefore in order to reacquire the exception object it
           has to rethrow it. The header defines an <code class="computeroutput"><a class="link" href="../../boost/log/exception_handler.html" title="Class template exception_handler">exception_handler</a></code>
           template functor that does just that and then forwards the exception object
-          to a unary user-defined functional object. The <code class="computeroutput"><a class="link" href="../../boost/log/make_exception_ha_idm35019.html" title="Function template make_exception_handler">make_exception_handler</a></code>
+          to a unary user-defined functional object. The <code class="computeroutput"><a class="link" href="../../boost/log/make_exception_ha_idm35052.html" title="Function template make_exception_handler">make_exception_handler</a></code>
           function can be used to simplify the handler construction. All expected
           exception types should be specified explicitly in the call, in the order
           they would appear in the <code class="computeroutput"><span class="keyword">catch</span></code>
@@ -924,7 +924,7 @@
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><code class="computeroutput"><a class="link" href="../../utilities.html#header.boost.log.utility.manipulators.to_log_hpp" title="Header &lt;boost/log/utility/manipulators/to_log.hpp&gt;">boost/log/utility/manipulators/to_log.hpp</a></code><span class="special">&gt;</span>
 </pre>
 <p>
-            The <code class="computeroutput"><a class="link" href="../../boost/log/to_log_idm38303.html" title="Function template to_log">to_log</a></code>
+            The <code class="computeroutput"><a class="link" href="../../boost/log/to_log_idm38336.html" title="Function template to_log">to_log</a></code>
             function creates a stream manipulator that simply outputs the adopted
             value to the stream. By default its behavior is equivalent to simply
             putting the value to the stream. However, the user is able to overload
@@ -965,7 +965,7 @@
             value contexts as well. The library uses this feature to allow different
             formatting ruled for different attribute values, even if the stored value
             type is the same. To do so one has to specify an explicit template argument
-            for <code class="computeroutput"><a class="link" href="../../boost/log/to_log_idm38303.html" title="Function template to_log">to_log</a></code>,
+            for <code class="computeroutput"><a class="link" href="../../boost/log/to_log_idm38336.html" title="Function template to_log">to_log</a></code>,
             a tag type, which will be embedded into the manipulator type and thus
             will allow to define different insertion operators:
           </p>
@@ -1028,7 +1028,7 @@
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><code class="computeroutput"><a class="link" href="../../utilities.html#header.boost.log.utility.manipulators.add_value_hpp" title="Header &lt;boost/log/utility/manipulators/add_value.hpp&gt;">boost/log/utility/manipulators/add_value.hpp</a></code><span class="special">&gt;</span>
 </pre>
 <p>
-            The <code class="computeroutput"><a class="link" href="../../boost/log/add_value_idm37581.html" title="Function template add_value">add_value</a></code>
+            The <code class="computeroutput"><a class="link" href="../../boost/log/add_value_idm37614.html" title="Function template add_value">add_value</a></code>
             function creates a manipulator that attaches an attribute value to a
             log record. This manipulator can only be used in streaming expressions
             with the <code class="computeroutput"><a class="link" href="../../boost/log/basic_record_ostream.html" title="Class template basic_record_ostream">basic_record_ostream</a></code>
@@ -1053,7 +1053,7 @@
 <pre class="programlisting"><span class="preprocessor">#include</span> <span class="special">&lt;</span><code class="computeroutput"><a class="link" href="../../utilities.html#header.boost.log.utility.manipulators.dump_hpp" title="Header &lt;boost/log/utility/manipulators/dump.hpp&gt;">boost/log/utility/manipulators/dump.hpp</a></code><span class="special">&gt;</span>
 </pre>
 <p>
-            The <code class="computeroutput"><a class="link" href="../../boost/log/dump_idm37717.html" title="Function template dump">dump</a></code>
+            The <code class="computeroutput"><a class="link" href="../../boost/log/dump_idm37750.html" title="Function template dump">dump</a></code>
             function creates a manipulator that outputs binary contents of a contiguous
             memory region. This can be useful for logging some low level binary data,
             such as encoded network packets or entries of a binary file. The use
@@ -1077,12 +1077,12 @@
 <span class="special">}</span>
 </pre>
 <p>
-            There is another manipulator called <code class="computeroutput"><a class="link" href="../../boost/log/dump_elements_idm37735.html" title="Function template dump_elements">dump_elements</a></code> for printing
+            There is another manipulator called <code class="computeroutput"><a class="link" href="../../boost/log/dump_elements_idm37768.html" title="Function template dump_elements">dump_elements</a></code> for printing
             binary representation of non-byte array elements. The special manipulator
             for this case is necessary because the units of the size argument of
-            <code class="computeroutput"><a class="link" href="../../boost/log/dump_idm37717.html" title="Function template dump">dump</a></code>
-            can be confusing (is it in bytes or in elements?). Therefore <code class="computeroutput"><a class="link" href="../../boost/log/dump_idm37717.html" title="Function template dump">dump</a></code>
-            will not compile when used for non-byte input data. <code class="computeroutput"><a class="link" href="../../boost/log/dump_elements_idm37735.html" title="Function template dump_elements">dump_elements</a></code> accepts
+            <code class="computeroutput"><a class="link" href="../../boost/log/dump_idm37750.html" title="Function template dump">dump</a></code>
+            can be confusing (is it in bytes or in elements?). Therefore <code class="computeroutput"><a class="link" href="../../boost/log/dump_idm37750.html" title="Function template dump">dump</a></code>
+            will not compile when used for non-byte input data. <code class="computeroutput"><a class="link" href="../../boost/log/dump_elements_idm37768.html" title="Function template dump_elements">dump_elements</a></code> accepts
             the same arguments, and its size-related arguments always designate the
             number of elements to process.
           </p>
@@ -1162,7 +1162,7 @@
 <p>
             Here, <code class="computeroutput"><span class="identifier">range_manip</span></code> accepts
             two arguments - the range of elements, and, optionally, a delimiter.
-            The range can be any type supported by <a href="http://www.boost.org/doc/libs/release/libs/range/index.html" target="_top">Boost.Range</a>
+            The range can be any type supported by <a href="https://www.boost.org/doc/libs/release/libs/range/doc/html/index.html" target="_top">Boost.Range</a>
             <code class="computeroutput"><span class="identifier">begin</span><span class="special">()</span></code>
             and <code class="computeroutput"><span class="identifier">end</span><span class="special">()</span></code>
             free functions, which includes any standard containers and arrays. Elements
@@ -1198,8 +1198,8 @@
 <tr><td align="left" valign="top"><p>
               In order to support different types of sequences, users may need to
               <code class="computeroutput"><span class="preprocessor">#include</span></code> additional
-              support headers from <a href="http://www.boost.org/doc/libs/release/libs/fusion/index.html" target="_top">Boost.Fusion</a>,
-              like <code class="computeroutput"><span class="identifier">boost</span><span class="special">/</span><span class="identifier">fusion</span><span class="special">/</span><span class="identifier">include</span><span class="special">/</span><span class="identifier">std_tuple</span><span class="special">.</span><span class="identifier">hpp</span></code> in this example. See <a href="http://www.boost.org/doc/libs/release/libs/fusion/index.html" target="_top">Boost.Fusion</a>
+              support headers from <a href="https://www.boost.org/doc/libs/release/libs/fusion/doc/html/index.html" target="_top">Boost.Fusion</a>,
+              like <code class="computeroutput"><span class="identifier">boost</span><span class="special">/</span><span class="identifier">fusion</span><span class="special">/</span><span class="identifier">include</span><span class="special">/</span><span class="identifier">std_tuple</span><span class="special">.</span><span class="identifier">hpp</span></code> in this example. See <a href="https://www.boost.org/doc/libs/release/libs/fusion/doc/html/index.html" target="_top">Boost.Fusion</a>
               documentation.
             </p></td></tr>
 </table></div>
@@ -1216,7 +1216,7 @@
 <p>
             Here, <code class="computeroutput"><span class="identifier">tuple_manip</span></code> accepts
             two arguments - the sequence of elements, and, optionally, a delimiter.
-            The heterogeneous sequence can be any sequence supported by <a href="http://www.boost.org/doc/libs/release/libs/fusion/index.html" target="_top">Boost.Fusion</a>,
+            The heterogeneous sequence can be any sequence supported by <a href="https://www.boost.org/doc/libs/release/libs/fusion/doc/html/index.html" target="_top">Boost.Fusion</a>,
             for example <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">pair</span></code>, <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">tuple</span></code>,
             <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">tuple</span></code>, <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">fusion</span><span class="special">::</span><span class="identifier">vector</span></code>
             or any structure that has been adapted using one of the <code class="computeroutput"><span class="identifier">BOOST_FUSION_ADAPT</span><span class="special">*</span></code>
@@ -1287,7 +1287,7 @@
 </ul></div>
 <p>
             Examples of types that fit these requirements are <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">optional</span></code>
-            (see <a href="http://www.boost.org/doc/libs/release/libs/optional/index.html" target="_top">Boost.Optional</a>),
+            (see <a href="https://www.boost.org/doc/libs/release/libs/optional/doc/html/index.html" target="_top">Boost.Optional</a>),
             <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">optional</span></code> and pointers to objects.
           </p>
 <p>
@@ -1359,7 +1359,7 @@
 </tr>
 <tr><td align="left" valign="top"><p>
               Passing additional arguments to the function requires a C++14 compiler.
-              Use <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">bind</span></code>, <a href="http://www.boost.org/doc/libs/release/libs/bind/bind.html" target="_top">Boost.Bind</a>
+              Use <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">bind</span></code>, <a href="https://www.boost.org/doc/libs/release/libs/bind/doc/html/bind.html" target="_top">Boost.Bind</a>
               or C++11 lambdas to bind arguments to the function instead of passing
               them separately if lower C++ version is required.
             </p></td></tr>
@@ -1762,7 +1762,7 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
 <p>
             Pretty easy, isn't it? There is also the <code class="computeroutput"><span class="identifier">wadd_console_log</span></code>
             function for wide-character console. If you want to put logs to some
-            other standard stream, you can pass the stream to the <code class="computeroutput"><a class="link" href="../../boost/log/add_console_log_idm38846.html" title="Function template add_console_log">add_console_log</a></code> function
+            other standard stream, you can pass the stream to the <code class="computeroutput"><a class="link" href="../../boost/log/add_console_log_idm38879.html" title="Function template add_console_log">add_console_log</a></code> function
             as an argument. E.g. enabling logging to <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span></code>
             instead of <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">clog</span></code> would look like this:
           </p>
@@ -1808,7 +1808,7 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
 <span class="special">}</span>
 </pre>
 <p>
-            The <code class="computeroutput"><a class="link" href="../../boost/log/add_console_log_idm38846.html" title="Function template add_console_log">add_console_log</a></code>
+            The <code class="computeroutput"><a class="link" href="../../boost/log/add_console_log_idm38879.html" title="Function template add_console_log">add_console_log</a></code>
             and <code class="computeroutput"><a class="link" href="../../boost/log/add_file_log.html" title="Function template add_file_log">add_file_log</a></code>
             functions do not conflict and may be combined freely, so it is possible
             to set up logging to the console and a couple of files, including filtering
@@ -1819,7 +1819,7 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
             function that registers two frequently used attributes: "LineID"
             and "TimeStamp". The former counts log record being made and
             has attribute value <code class="computeroutput"><span class="keyword">unsigned</span> <span class="keyword">int</span></code>. The latter, as its name implies,
-            provides the current time for each log record, in the form of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code> (see <a href="http://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>).
+            provides the current time for each log record, in the form of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code> (see <a href="https://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>).
             These two attributes are registered globally, so they will remain available
             in all threads and loggers. This makes the final version of our code
             sample look something like this:
@@ -2010,7 +2010,7 @@ relation:
 </div>
 <br class="table-break"><p>
             The formatter string syntax is even simpler and pretty much resembles
-            <a href="http://www.boost.org/doc/libs/release/libs/format/index.html" target="_top">Boost.Format</a>
+            <a href="https://www.boost.org/doc/libs/release/libs/format/index.html" target="_top">Boost.Format</a>
             format string syntax. The string is interpreted as a template which can
             contain attribute names enclosed with percent signs ("%").
             The corresponding attribute values will replace these placeholders when
@@ -2099,7 +2099,7 @@ relation:
 </ul></div>
 <p>
             So basically, settings container is a layered associative container,
-            with string keys and values. In some respect it is similar to <a href="http://www.boost.org/doc/libs/release/doc/html/property_tree.html" target="_top">Boost.PropertyTree</a>,
+            with string keys and values. In some respect it is similar to <a href="https://www.boost.org/doc/libs/release/doc/html/property_tree.html" target="_top">Boost.PropertyTree</a>,
             and in fact it supports construction from <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">ptree</span></code>.
             The supported parameters are described below.
           </p>
@@ -2246,7 +2246,7 @@ relation:
                       <a class="link" href="sink_backends.html#log.detailed.sink_backends.event_log" title="Windows event log backends">SimpleEventLog</a>,
                       <a class="link" href="sink_backends.html#log.detailed.sink_backends.debugger" title="Windows debugger output backend">Debugger</a>.
                       Also, user-defined sink names may also be supported if registered
-                      by calling <code class="computeroutput"><a class="link" href="../../boost/log/register_sink_fac_idm39582.html" title="Function template register_sink_factory">register_sink_factory</a></code>.
+                      by calling <code class="computeroutput"><a class="link" href="../../boost/log/register_sink_fac_idm39615.html" title="Function template register_sink_factory">register_sink_factory</a></code>.
                       See <a class="link" href="../extension/settings.html#log.extension.settings.sinks" title="Adding support for user-defined sinks">this</a>
                       section on how to add support for new sinks.
                     </p>
@@ -2705,7 +2705,7 @@ relation:
 <th align="left">Warning</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-              The text file sink uses <a href="http://www.boost.org/doc/libs/release/libs/filesystem/doc/index.htm" target="_top">Boost.Filesystem</a>
+              The text file sink uses <a href="https://www.boost.org/doc/libs/release/libs/filesystem/doc/index.htm" target="_top">Boost.Filesystem</a>
               internally, which may cause problems on process termination. See <a class="link" href="../rationale/why_crash_on_term.html" title="Why my application crashes on process termination when file sinks are used?">here</a> for more details.
             </p></td></tr>
 </table></div>
@@ -2717,7 +2717,7 @@ relation:
           </p>
 <p>
             The RotationTimePoint parameter should have one of the following formats,
-            according to the <a href="http://www.boost.org/doc/libs/release/doc/html/date_time/date_time_io.html#date_time.format_flags" target="_top">Boost.DateTime</a>
+            according to the <a href="https://www.boost.org/doc/libs/release/doc/html/date_time/date_time_io.html#date_time.format_flags" target="_top">Boost.DateTime</a>
             format notation:
           </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
@@ -3040,7 +3040,7 @@ AutoFlush=true
 </div>
 </div>
 </div>
-<div class="copyright-footer">Copyright © 2007-2022 Andrey Semashev<p>
+<div class="copyright-footer">Copyright © 2007-2024 Andrey Semashev<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
       </p>

@@ -77,7 +77,7 @@
         </p>
 <p>
           Then, in order to register this type with the simple formatter factory,
-          a single call to <code class="computeroutput"><a class="link" href="../../boost/log/register_simple_f_idm39445.html" title="Function template register_simple_formatter_factory">register_simple_formatter_factory</a></code>
+          a single call to <code class="computeroutput"><a class="link" href="../../boost/log/register_simple_f_idm39478.html" title="Function template register_simple_formatter_factory">register_simple_formatter_factory</a></code>
           will suffice:
         </p>
 <p>
@@ -133,8 +133,8 @@
 <p>
           The simple formatter factory ignores all additional parameters from the
           format string, so we have to implement our own factory instead. Custom
-          factories are registered with the <code class="computeroutput"><a class="link" href="../../boost/log/register_formatte_idm39405.html" title="Function template register_formatter_factory">register_formatter_factory</a></code>
-          function, which is similar to <code class="computeroutput"><a class="link" href="../../boost/log/register_simple_f_idm39445.html" title="Function template register_simple_formatter_factory">register_simple_formatter_factory</a></code>
+          factories are registered with the <code class="computeroutput"><a class="link" href="../../boost/log/register_formatte_idm39438.html" title="Function template register_formatter_factory">register_formatter_factory</a></code>
+          function, which is similar to <code class="computeroutput"><a class="link" href="../../boost/log/register_simple_f_idm39478.html" title="Function template register_simple_formatter_factory">register_simple_formatter_factory</a></code>
           but accepts a pointer to the factory instead of the explicit template parameters.
         </p>
 <p>
@@ -196,7 +196,7 @@
           The only thing left to do in our factory is to define the <code class="computeroutput"><span class="identifier">create_formatter</span></code> method. The method analyzes
           the parameters from the format string which are passed as the <code class="computeroutput"><span class="identifier">args</span></code> argument, which is basically <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">map</span></code> of string keys (parameter names)
           to string values (the parameter values). We seek for the <code class="computeroutput"><span class="identifier">format</span></code> parameter and expect it to contain
-          a <a href="http://www.boost.org/doc/libs/release/libs/format/index.html" target="_top">Boost.Format</a>-compatible
+          a <a href="https://www.boost.org/doc/libs/release/libs/format/index.html" target="_top">Boost.Format</a>-compatible
           format string for our <code class="computeroutput"><span class="identifier">point</span></code>
           objects. If the parameter is found we create a formatter that invokes
           <code class="computeroutput"><span class="identifier">point_formatter</span></code> for the
@@ -208,8 +208,8 @@
         </p>
 <p>
           The <code class="computeroutput"><span class="identifier">point_formatter</span></code> is
-          our custom formatter based on <a href="http://www.boost.org/doc/libs/release/libs/format/index.html" target="_top">Boost.Format</a>.
-          With help of <a href="http://www.boost.org/doc/libs/release/libs/phoenix/doc/html/index.html" target="_top">Boost.Phoenix</a>
+          our custom formatter based on <a href="https://www.boost.org/doc/libs/release/libs/format/index.html" target="_top">Boost.Format</a>.
+          With help of <a href="https://www.boost.org/doc/libs/release/libs/phoenix/doc/html/index.html" target="_top">Boost.Phoenix</a>
           and <a class="link" href="../detailed/expressions.html#log.detailed.expressions.attr" title="Generic attribute placeholder">expression placeholders</a>
           we can construct a formatter that will extract the attribute value and
           pass it along with the target stream to the <code class="computeroutput"><span class="identifier">point_formatter</span></code>
@@ -218,7 +218,7 @@
           empty if the value is not present.
         </p>
 <p>
-          Lastly, the call to <code class="computeroutput"><a class="link" href="../../boost/log/register_formatte_idm39405.html" title="Function template register_formatter_factory">register_formatter_factory</a></code>
+          Lastly, the call to <code class="computeroutput"><a class="link" href="../../boost/log/register_formatte_idm39438.html" title="Function template register_formatter_factory">register_formatter_factory</a></code>
           creates the factory and adds it to the library.
         </p>
 <p>
@@ -264,7 +264,7 @@
             </li>
 </ol></div>
 <p>
-          Naturally, all these operators must be visible from the point of the <code class="computeroutput"><a class="link" href="../../boost/log/register_simple_f_idm39213.html" title="Function template register_simple_filter_factory">register_simple_filter_factory</a></code>
+          Naturally, all these operators must be visible from the point of the <code class="computeroutput"><a class="link" href="../../boost/log/register_simple_f_idm39246.html" title="Function template register_simple_filter_factory">register_simple_filter_factory</a></code>
           call. Note that unlike the simple formatter factory, the filter factory
           requires the user's type to support reading from a stream. This is so because
           the filter factory would have to parse the argument of the filter relation
@@ -348,7 +348,7 @@
 <p>
         </p>
 <p>
-          Having called the <code class="computeroutput"><a class="link" href="../../boost/log/register_filter_f_idm39173.html" title="Function template register_filter_factory">register_filter_factory</a></code>
+          Having called the <code class="computeroutput"><a class="link" href="../../boost/log/register_filter_f_idm39206.html" title="Function template register_filter_factory">register_filter_factory</a></code>
           function, whenever the <a class="link" href="../detailed/utilities.html#log.detailed.utilities.setup.filter_formatter" title="Filter and formatter parsers">filter
           parser</a> encounters the "Coordinates" attribute mentioned
           in the filter, it will use the <code class="computeroutput"><span class="identifier">point_filter_factory</span></code>
@@ -485,7 +485,7 @@
           description). All we have to do is to construct the filter, which is implemented
           by our <code class="computeroutput"><span class="identifier">is_in_rectangle</span></code>
           function. We use <code class="computeroutput"><span class="identifier">bind</span></code> from
-          <a href="http://www.boost.org/doc/libs/release/libs/phoenix/doc/html/index.html" target="_top">Boost.Phoenix</a>
+          <a href="https://www.boost.org/doc/libs/release/libs/phoenix/doc/html/index.html" target="_top">Boost.Phoenix</a>
           to compose the filter from the function and the <a class="link" href="../detailed/expressions.html#log.detailed.expressions.attr" title="Generic attribute placeholder">attribute
           placeholder</a>. You can find the complete code of this example <a href="../../../../../../libs/log/example/doc/extension_filter_parser_custom_rel.cpp" target="_top">here</a>.
         </p>
@@ -624,7 +624,7 @@
           and out custom "StatCollector" sink.
         </p>
 <p>
-          After defining the factory we only have to register it with the <code class="computeroutput"><a class="link" href="../../boost/log/register_sink_fac_idm39582.html" title="Function template register_sink_factory">register_sink_factory</a></code>
+          After defining the factory we only have to register it with the <code class="computeroutput"><a class="link" href="../../boost/log/register_sink_fac_idm39615.html" title="Function template register_sink_factory">register_sink_factory</a></code>
           call. The first argument is the new value of the "Destination"
           parameter in the settings. Whenever the library finds sink description
           with destination "StatCollector", our factory will be invoked
@@ -659,7 +659,7 @@ WriteInterval=30
         </p>
 </div>
 </div>
-<div class="copyright-footer">Copyright © 2007-2022 Andrey Semashev<p>
+<div class="copyright-footer">Copyright © 2007-2024 Andrey Semashev<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
       </p>

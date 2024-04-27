@@ -35,14 +35,14 @@
   <span class="keyword">typedef</span> <span class="identifier">base_type</span><span class="special">::</span><span class="identifier">mapped_type</span> <a name="boost.log.sinks.basic_custom_mapping.mapped_type"></a><span class="identifier">mapped_type</span><span class="special">;</span>           <span class="comment">// Mapped value type. </span>
 
   <span class="comment">// <a class="link" href="basic_custom_mapping.html#boost.log.sinks.basic_custom_mappingconstruct-copy-destruct">construct/copy/destruct</a></span>
-  <span class="keyword">explicit</span> <a class="link" href="basic_custom_mapping.html#idm32372-bb"><span class="identifier">basic_custom_mapping</span></a><span class="special">(</span><span class="identifier">attribute_name</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">mapped_type</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="keyword">explicit</span> <a class="link" href="basic_custom_mapping.html#idm32405-bb"><span class="identifier">basic_custom_mapping</span></a><span class="special">(</span><span class="identifier">attribute_name</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">,</span> <span class="identifier">mapped_type</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
 
-  <span class="comment">// <a class="link" href="basic_custom_mapping.html#idm32348-bb">public member functions</a></span>
-  <span class="identifier">mapped_type</span> <a class="link" href="basic_custom_mapping.html#idm32349-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="identifier">record_view</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
-  <span class="identifier">implementation_defined</span> <a class="link" href="basic_custom_mapping.html#idm32360-bb"><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span></a><span class="special">(</span><span class="identifier">attribute_value_type</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
+  <span class="comment">// <a class="link" href="basic_custom_mapping.html#idm32381-bb">public member functions</a></span>
+  <span class="identifier">mapped_type</span> <a class="link" href="basic_custom_mapping.html#idm32382-bb"><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span></a><span class="special">(</span><span class="identifier">record_view</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span> <span class="keyword">const</span><span class="special">;</span>
+  <span class="identifier">implementation_defined</span> <a class="link" href="basic_custom_mapping.html#idm32393-bb"><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span></a><span class="special">(</span><span class="identifier">attribute_value_type</span> <span class="keyword">const</span> <span class="special">&amp;</span><span class="special">)</span><span class="special">;</span>
 <span class="special">}</span><span class="special">;</span></pre></div>
 <div class="refsect1">
-<a name="idm64453"></a><h2>Description</h2>
+<a name="idm64502"></a><h2>Description</h2>
 <p>The class allows to setup a custom mapping between an attribute and native values. The mapping should be initialized similarly to the standard <code class="computeroutput">map</code> container, by using indexing operator and assignment.</p>
 <div class="note"><table border="0" summary="Note">
 <tr>
@@ -54,12 +54,12 @@
 <p>
 </p>
 <div class="refsect2">
-<a name="idm64461"></a><h3>
+<a name="idm64510"></a><h3>
 <a name="boost.log.sinks.basic_custom_mappingconstruct-copy-destruct"></a><code class="computeroutput">basic_custom_mapping</code> 
         public
        construct/copy/destruct</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
-<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm32372-bb"></a><span class="identifier">basic_custom_mapping</span><span class="special">(</span><span class="identifier">attribute_name</span> <span class="keyword">const</span> <span class="special">&amp;</span> name<span class="special">,</span> 
+<pre class="literallayout"><span class="keyword">explicit</span> <a name="idm32405-bb"></a><span class="identifier">basic_custom_mapping</span><span class="special">(</span><span class="identifier">attribute_name</span> <span class="keyword">const</span> <span class="special">&amp;</span> name<span class="special">,</span> 
                               <span class="identifier">mapped_type</span> <span class="keyword">const</span> <span class="special">&amp;</span> default_value<span class="special">)</span><span class="special">;</span></pre>
 <p>Constructor</p>
 <p>
@@ -92,11 +92,11 @@
 </li></ol></div>
 </div>
 <div class="refsect2">
-<a name="idm64499"></a><h3>
-<a name="idm32348-bb"></a><code class="computeroutput">basic_custom_mapping</code> public member functions</h3>
+<a name="idm64548"></a><h3>
+<a name="idm32381-bb"></a><code class="computeroutput">basic_custom_mapping</code> public member functions</h3>
 <div class="orderedlist"><ol class="orderedlist" type="1">
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">mapped_type</span> <a name="idm32349-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">record_view</span> <span class="keyword">const</span> <span class="special">&amp;</span> rec<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">mapped_type</span> <a name="idm32382-bb"></a><span class="keyword">operator</span><span class="special">(</span><span class="special">)</span><span class="special">(</span><span class="identifier">record_view</span> <span class="keyword">const</span> <span class="special">&amp;</span> rec<span class="special">)</span> <span class="keyword">const</span><span class="special">;</span></pre>
 <p>Extraction operator. Extracts the attribute value and attempts to map it onto the native value.</p>
 <p>
 
@@ -128,7 +128,7 @@
 </table></div>
 </li>
 <li class="listitem">
-<pre class="literallayout"><span class="identifier">implementation_defined</span> <a name="idm32360-bb"></a><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span><span class="special">(</span><span class="identifier">attribute_value_type</span> <span class="keyword">const</span> <span class="special">&amp;</span> key<span class="special">)</span><span class="special">;</span></pre>
+<pre class="literallayout"><span class="identifier">implementation_defined</span> <a name="idm32393-bb"></a><span class="keyword">operator</span><span class="special">[</span><span class="special">]</span><span class="special">(</span><span class="identifier">attribute_value_type</span> <span class="keyword">const</span> <span class="special">&amp;</span> key<span class="special">)</span><span class="special">;</span></pre>
 <p>Insertion operator</p>
 <p>
 
@@ -163,7 +163,7 @@
 </div>
 </div>
 </div>
-<div class="copyright-footer">Copyright © 2007-2022 Andrey Semashev<p>
+<div class="copyright-footer">Copyright © 2007-2024 Andrey Semashev<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
       </p>
