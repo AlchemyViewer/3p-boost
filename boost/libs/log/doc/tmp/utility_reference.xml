@@ -3048,7 +3048,7 @@ The header contains declaration of a reliable interprocess message queue. </para
 </para><para>
 </para></description><postconditions><para><computeroutput>is_open() == true</computeroutput> </para>
 </postconditions></constructor>
-<destructor><description><para>Destructor. Calls <computeroutput>close()</computeroutput>. </para></description></destructor>
+<destructor cv="noexcept"><description><para>Destructor. Calls <computeroutput>close()</computeroutput>. </para></description></destructor>
 <constructor cv="noexcept"><parameter name="that"><paramtype><classname>reliable_message_queue</classname> &amp;&amp;</paramtype><description><para>The object to be moved. </para></description></parameter><description><para>Move constructor. The method move-constructs an object from <computeroutput>other</computeroutput>. After the call, the constructed object becomes <computeroutput>other</computeroutput>, while <computeroutput>other</computeroutput> is left in default constructed state.</para><para>
 </para></description></constructor>
 <copy-assignment cv="noexcept"><type><classname>reliable_message_queue</classname> &amp;</type><parameter name="that"><paramtype><classname>reliable_message_queue</classname> &amp;&amp;</paramtype><description><para>The object to be moved.</para></description></parameter><description><para>Move assignment operator. If the object is associated with a message queue, <computeroutput>close()</computeroutput> is first called and the precondition to calling <computeroutput>close()</computeroutput> applies. After the call, the object becomes <emphasis>that</emphasis> while <emphasis>that</emphasis> is left in default constructed state.</para><para>
@@ -5562,7 +5562,7 @@ The header contains definition of a filter parser function. </para><namespace na
 <method name="on_custom_relation" specifiers="virtual"><type>filter</type><parameter name="name"><paramtype>attribute_name const &amp;</paramtype></parameter><parameter name="rel"><paramtype>string_type const &amp;</paramtype></parameter><parameter name="arg"><paramtype>string_type const &amp;</paramtype></parameter><description><para>The callback for custom relation filter </para></description></method>
 </method-group>
 <constructor cv="= default"><description><para>Default constructor </para></description></constructor>
-<destructor><description><para>Virtual destructor </para></description></destructor>
+<destructor specifiers="virtual"><description><para>Virtual destructor </para></description></destructor>
 <constructor cv="= delete"><parameter name=""><paramtype><classname>filter_factory</classname> const &amp;</paramtype></parameter></constructor>
 <copy-assignment cv="= delete"><type><classname>filter_factory</classname> &amp;</type><parameter name=""><paramtype><classname>filter_factory</classname> const &amp;</paramtype></parameter></copy-assignment>
 </struct>
@@ -5760,7 +5760,7 @@ The header contains definition of a formatter parser function, along with facili
 </para></description></method>
 </method-group>
 <constructor cv="= default"><description><para>Default constructor </para></description></constructor>
-<destructor><description><para>Virtual destructor </para></description></destructor>
+<destructor specifiers="virtual"><description><para>Virtual destructor </para></description></destructor>
 <constructor cv="= delete"><parameter name=""><paramtype><classname>formatter_factory</classname> const &amp;</paramtype></parameter></constructor>
 <copy-assignment cv="= delete"><type><classname>formatter_factory</classname> &amp;</type><parameter name=""><paramtype><classname>formatter_factory</classname> const &amp;</paramtype></parameter></copy-assignment>
 </struct>
@@ -5935,7 +5935,7 @@ The header contains definition of facilities that allows to initialize the libra
 </para></description></method>
 </method-group>
 <constructor cv="= default"><description><para>Default constructor </para></description></constructor>
-<destructor><description><para>Virtual destructor </para></description></destructor>
+<destructor specifiers="virtual"><description><para>Virtual destructor </para></description></destructor>
 <constructor cv="= delete"><parameter name=""><paramtype><classname>sink_factory</classname> const &amp;</paramtype></parameter></constructor>
 <copy-assignment cv="= delete"><type><classname>sink_factory</classname> &amp;</type><parameter name=""><paramtype><classname>sink_factory</classname> const &amp;</paramtype></parameter></copy-assignment>
 </struct>
@@ -6221,7 +6221,7 @@ settings["Section2"]["Param2"] = 10; // sets the parameter "Param2" in section "
 <constructor><parameter name="that"><paramtype><classname>basic_settings</classname> const &amp;</paramtype></parameter><description><para>Copy constructor. </para></description></constructor>
 <constructor cv="noexcept"><parameter name="that"><paramtype><classname>this_type</classname> &amp;&amp;</paramtype></parameter><description><para>Move constructor. </para></description></constructor>
 <constructor specifiers="explicit"><parameter name="tree"><paramtype>property_tree_type const &amp;</paramtype></parameter><description><para>Initializing constructor. Creates a settings container with the copy of the specified property tree. </para></description></constructor>
-<destructor><description><para>Destructor </para></description></destructor>
+<destructor cv="noexcept"><description><para>Destructor </para></description></destructor>
 <copy-assignment><type><classname>basic_settings</classname> &amp;</type><parameter name="that"><paramtype><classname>basic_settings</classname> const &amp;</paramtype></parameter><description><para>Copy assignment operator. </para></description></copy-assignment>
 <copy-assignment cv="noexcept"><type><classname>basic_settings</classname> &amp;</type><parameter name="that"><paramtype><classname>basic_settings</classname> &amp;&amp;</paramtype></parameter><description><para>Move assignment operator. </para></description></copy-assignment>
 </class><class name="basic_settings_section"><template>
@@ -7723,7 +7723,7 @@ The header contains definition of generic type dispatcher interfaces. </para><na
 </class><method-group name="protected member functions">
 </method-group>
 <constructor specifiers="explicit" cv="noexcept"><parameter name="get_callback_impl"><paramtype>get_callback_impl_type</paramtype></parameter><description><para>Initializing constructor </para></description></constructor>
-<destructor/>
+<destructor cv="= default"/>
 <constructor cv="= default"><parameter name="that"><paramtype><classname>type_dispatcher</classname> const &amp;</paramtype></parameter></constructor>
 <copy-assignment cv="= default"><type><classname>type_dispatcher</classname> &amp;</type><parameter name="that"><paramtype><classname>type_dispatcher</classname> const &amp;</paramtype></parameter></copy-assignment>
 <method-group name="public member functions">

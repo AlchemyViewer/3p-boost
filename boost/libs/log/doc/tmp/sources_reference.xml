@@ -510,7 +510,7 @@ This header contains a wrapper class around a logging record that allows to comp
 </para></description><requires><para><computeroutput>!!rec == true</computeroutput> </para>
 </requires><postconditions><para><computeroutput>&amp;this-&gt;get_record() == &amp;rec</computeroutput> </para>
 </postconditions></constructor>
-<destructor><description><para>Destructor. Destroys the record, releases any sinks and attribute values that were involved in processing this record. </para></description></destructor>
+<destructor cv="noexcept"><description><para>Destructor. Destroys the record, releases any sinks and attribute values that were involved in processing this record. </para></description></destructor>
 <method-group name="private member functions">
 <method name="init_stream"><type>void</type><purpose>The function initializes the stream and the stream buffer. </purpose></method>
 </method-group>

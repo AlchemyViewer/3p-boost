@@ -42,7 +42,18 @@
 <span class="preprocessor">#include</span> <span class="special">&lt;</span><code class="computeroutput"><a class="link" href="../../attributes.html#header.boost.log.attributes.attribute_value_hpp" title="Header &lt;boost/log/attributes/attribute_value.hpp&gt;">boost/log/attributes/attribute_value.hpp</a></code><span class="special">&gt;</span>
 </pre>
 <p>
-        All attributes in the library are implemented using the <a href="http://c2.com/cgi/wiki?PimplIdiom" target="_top">pimpl
+        As described in the <a class="link" href="../design.html" title="Design overview">Design overview</a>, attributes
+        in Boost.Log represent information to be associated with log records. An
+        attribute is essentially a function that produces an attribute value upon
+        being invoked. The function may produce a different value each time it is
+        called, or always produce the same value on every call. For example, the
+        <a class="link" href="attributes.html#log.detailed.attributes.clock" title="Wall clock"><code class="computeroutput"><span class="identifier">local_clock</span></code></a>
+        attribute produces timestamp values according to the local wall time clock,
+        and <a class="link" href="attributes.html#log.detailed.attributes.constant" title="Constants"><code class="computeroutput"><span class="identifier">constant</span></code></a>
+        always produces the same value every time.
+      </p>
+<p>
+        All attributes in the library are implemented using the <a href="https://en.cppreference.com/w/cpp/language/pimpl" target="_top">pimpl
         idiom</a>, or more specifically - shared pimpl idiom. Every attribute
         provides an interface class which derives from the <code class="computeroutput"><a class="link" href="../../boost/log/attribute.html" title="Class attribute">attribute</a></code>
         class and an implementation class that derives from <code class="computeroutput"><a class="link" href="../../boost/log/attribute/impl.html" title="Struct impl">impl</a></code>.
@@ -77,24 +88,31 @@
         object, no data is lost in the casting process.
       </p>
 <p>
-        The main purpose of attributes is to generate attribute values. Values are
-        semantically distinct from the attributes. Such separation allows implementing
-        attributes that can return different values at different time points (like
-        clock-related attributes, for example) and, on the other hand, allows using
-        different values of the same attribute independently. The <code class="computeroutput"><a class="link" href="../../boost/log/attribute.html" title="Class attribute">attribute</a></code>
+        As it was said, the main purpose of attributes is to generate attribute values.
+        Values are semantically distinct from the attributes. Such separation allows
+        implementing attributes that can return different values at different times
+        and, on the other hand, allows using different values of the same attribute
+        independently. The <code class="computeroutput"><a class="link" href="../../boost/log/attribute.html" title="Class attribute">attribute</a></code>
         interface has a method named <code class="computeroutput"><span class="identifier">get_value</span></code>
         that returns the actual attribute value. Attribute values are also implemented
         using the shared pimpl approach, the interface class is <code class="computeroutput"><a class="link" href="../../boost/log/attribute_value.html" title="Class attribute_value">attribute_value</a></code>
         and implementation classes derive from <code class="computeroutput"><a class="link" href="../../boost/log/attribute_value/impl.html" title="Struct impl">impl</a></code>.
       </p>
 <p>
-        The attribute value object is mostly intended to store the actual attribute
-        value and implement type dispatching in order to be able to extract the stored
-        value. One should not confuse the attribute value object type and the stored
-        value type. The former is in most cases not needed by users and provides
-        type erasure, but the latter is needed to be able to extract the value. For
-        brevity we call the stored attribute value type simply the attribute value
-        type in this documentation.
+        The attribute value object is intended to store the actual attribute value
+        and implement type dispatching in order to be able to extract the stored
+        value. One should not confuse the attribute value implementation type and
+        the stored value type. The former is in most cases not important to users
+        and provides type erasure, but the latter is needed to be able to extract
+        the value. In the example above, the <code class="computeroutput"><span class="identifier">constant</span><span class="special">&lt;</span> <span class="keyword">int</span> <span class="special">&gt;</span></code> type is the attribute type, its <code class="computeroutput"><span class="identifier">get_value</span><span class="special">()</span></code>
+        method produces an object of type <code class="computeroutput"><a class="link" href="../../boost/log/attribute_value.html" title="Class attribute_value">attribute_value</a></code>,
+        which is a pimpl wrapper for the <code class="computeroutput"><a class="link" href="../../boost/log/attributes/attribute_value_impl.html" title="Class template attribute_value_impl">attribute_value_impl&lt;
+        int &gt;</a></code>
+        implementation type. The actual stored attribute value type here is <code class="computeroutput"><span class="keyword">int</span></code>, which is what the attribute generates,
+        and what is needed by the user in order to be able to extract the value from
+        <code class="computeroutput"><a class="link" href="../../boost/log/attribute_value.html" title="Class attribute_value">attribute_value</a></code>.
+        For brevity we call the stored attribute value type simply the attribute
+        value type in this documentation.
       </p>
 <div class="section">
 <div class="titlepage"><div><div><h4 class="title">
@@ -296,7 +314,7 @@
           returns the current UTC time and the latter returns the current local time.
           In either case the returned time stamp is acquired with the maximum precision
           for the target platform. The attribute value is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span></code>
-          (see <a href="http://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>).
+          (see <a href="https://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>).
           The usage is quite straightforward:
         </p>
 <pre class="programlisting"><span class="identifier">BOOST_LOG_DECLARE_GLOBAL_LOGGER</span><span class="special">(</span><span class="identifier">my_logger</span><span class="special">,</span> <span class="identifier">src</span><span class="special">::</span><span class="identifier">logger_mt</span><span class="special">)</span>
@@ -341,7 +359,7 @@
           is very useful when there is a need to estimate the duration of some prolonged
           process. The attribute returns the time elapsed since the attribute construction.
           The attribute value type is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">posix_time</span><span class="special">::</span><span class="identifier">ptime</span><span class="special">::</span><span class="identifier">time_duration_type</span></code>
-          (see <a href="http://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>).
+          (see <a href="https://www.boost.org/doc/libs/release/doc/html/date_time.html" target="_top">Boost.DateTime</a>).
         </p>
 <pre class="programlisting"><span class="comment">// The class represents a single peer-to-peer connection</span>
 <span class="keyword">class</span> <span class="identifier">network_connection</span>
@@ -525,7 +543,7 @@
 </table></div>
 <p>
           Another good use case is attaching the scope stack information to an exception.
-          With the help of <a href="http://www.boost.org/doc/libs/release/libs/exception/doc/boost-exception.html" target="_top">Boost.Exception</a>,
+          With the help of <a href="https://www.boost.org/doc/libs/release/libs/exception/doc/boost-exception.html" target="_top">Boost.Exception</a>,
           this is possible:
         </p>
 <pre class="programlisting"><span class="keyword">void</span> <span class="identifier">bar</span><span class="special">(</span><span class="keyword">int</span> <span class="identifier">x</span><span class="special">)</span>
@@ -562,7 +580,7 @@
 <th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-            In order this code to compile, the <a href="http://www.boost.org/doc/libs/release/libs/exception/doc/boost-exception.html" target="_top">Boost.Exception</a>
+            In order this code to compile, the <a href="https://www.boost.org/doc/libs/release/libs/exception/doc/boost-exception.html" target="_top">Boost.Exception</a>
             support header has to be included.
           </p></td></tr>
 </table></div>
@@ -689,7 +707,7 @@
 <span class="special">}</span>
 </pre>
 <p>
-          Auto-generated function objects, like the ones defined in <a href="http://www.boost.org/doc/libs/release/libs/bind/bind.html" target="_top">Boost.Bind</a>
+          Auto-generated function objects, like the ones defined in <a href="https://www.boost.org/doc/libs/release/libs/bind/doc/html/bind.html" target="_top">Boost.Bind</a>
           or C++ standard library, are also supported.
         </p>
 <div class="note"><table border="0" summary="Note">
@@ -875,7 +893,7 @@
               matches the expectation.
             </p>
 <p>
-              In order to apply the visitor, one should call the <code class="computeroutput"><a class="link" href="../../boost/log/visit_idm26975.html" title="Function template visit">visit</a></code> function on
+              In order to apply the visitor, one should call the <code class="computeroutput"><a class="link" href="../../boost/log/visit_idm27008.html" title="Function template visit">visit</a></code> function on
               the attribute value. Let's see an example:
             </p>
 <p>
@@ -1010,11 +1028,11 @@
 </tr>
 <tr><td align="left" valign="top"><p>
                 When there is no default state for the visitor result it is convenient
-                to use <a href="http://www.boost.org/doc/libs/release/libs/optional/index.html" target="_top">Boost.Optional</a>
+                to use <a href="https://www.boost.org/doc/libs/release/libs/optional/doc/html/index.html" target="_top">Boost.Optional</a>
                 to wrap the returned value. The <code class="computeroutput"><span class="identifier">optional</span></code>
                 will be initialized with the visitor result if visitation succeeded.
                 In case if visitor is polymorphic (i.e. it has different result types
-                depending on its argument type) <a href="http://www.boost.org/doc/libs/release/doc/html/variant.html" target="_top">Boost.Variant</a>
+                depending on its argument type) <a href="https://www.boost.org/doc/libs/release/doc/html/variant.html" target="_top">Boost.Variant</a>
                 can be used to receive the resulting value. It is also worthwhile
                 to use an empty type, such as <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">blank</span></code>,
                 to indicate the uninitialized state of the <code class="computeroutput"><span class="identifier">variant</span></code>.
@@ -1023,7 +1041,7 @@
 <p>
               As it has been mentioned, visitation can also be applied to log records
               and attribute value sets. The syntax is the same, except that the attribute
-              name also has to be specified. The <code class="computeroutput"><a class="link" href="../../boost/log/visit_idm26975.html" title="Function template visit">visit</a></code> algorithm will
+              name also has to be specified. The <code class="computeroutput"><a class="link" href="../../boost/log/visit_idm27008.html" title="Function template visit">visit</a></code> algorithm will
               try to find the attribute value by name and then apply the visitor
               to the found element.
             </p>
@@ -1090,7 +1108,7 @@
             </p>
 <p>
               In this example we expect the attribute value to have the stored type
-              <code class="computeroutput"><span class="keyword">int</span></code>. The <code class="computeroutput"><a class="link" href="../../boost/log/extract_idm26275.html" title="Function template extract">extract</a></code>
+              <code class="computeroutput"><span class="keyword">int</span></code>. The <code class="computeroutput"><a class="link" href="../../boost/log/extract_idm26308.html" title="Function template extract">extract</a></code>
               function attempts to extract a reference to the stored value and returns
               the filled <a class="link" href="utilities.html#log.detailed.utilities.value_ref" title="Value reference wrapper"><code class="computeroutput"><span class="identifier">value_ref</span></code></a> object if succeeded.
             </p>
@@ -1210,9 +1228,9 @@
 <p>
             </p>
 <p>
-              In addition the library provides two special variants of the <code class="computeroutput"><a class="link" href="../../boost/log/extract_idm26275.html" title="Function template extract">extract</a></code>
-              function: <code class="computeroutput"><a class="link" href="../../boost/log/extract_or_throw_idm26360.html" title="Function template extract_or_throw">extract_or_throw</a></code> and
-              <code class="computeroutput"><a class="link" href="../../boost/log/extract_or_defaul_idm26457.html" title="Function template extract_or_default">extract_or_default</a></code>.
+              In addition the library provides two special variants of the <code class="computeroutput"><a class="link" href="../../boost/log/extract_idm26308.html" title="Function template extract">extract</a></code>
+              function: <code class="computeroutput"><a class="link" href="../../boost/log/extract_or_throw_idm26393.html" title="Function template extract_or_throw">extract_or_throw</a></code> and
+              <code class="computeroutput"><a class="link" href="../../boost/log/extract_or_defaul_idm26490.html" title="Function template extract_or_default">extract_or_default</a></code>.
               As the naming implies, the functions provide different behavior in
               case if the attribute value cannot be extracted. The former one throws
               an exception if the value cannot be extracted and the latter one returns
@@ -1224,11 +1242,11 @@
 <th align="left">Warning</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-                Care must be taken with the <code class="computeroutput"><a class="link" href="../../boost/log/extract_or_defaul_idm26457.html" title="Function template extract_or_default">extract_or_default</a></code>
+                Care must be taken with the <code class="computeroutput"><a class="link" href="../../boost/log/extract_or_defaul_idm26490.html" title="Function template extract_or_default">extract_or_default</a></code>
                 function. The function accepts the default value is accepted by constant
-                reference, and this reference can eventually be returned from <code class="computeroutput"><a class="link" href="../../boost/log/extract_or_defaul_idm26457.html" title="Function template extract_or_default">extract_or_default</a></code>.
+                reference, and this reference can eventually be returned from <code class="computeroutput"><a class="link" href="../../boost/log/extract_or_defaul_idm26490.html" title="Function template extract_or_default">extract_or_default</a></code>.
                 If a temporary object as used for the default value, user must ensure
-                that the result of <code class="computeroutput"><a class="link" href="../../boost/log/extract_or_defaul_idm26457.html" title="Function template extract_or_default">extract_or_default</a></code>
+                that the result of <code class="computeroutput"><a class="link" href="../../boost/log/extract_or_defaul_idm26490.html" title="Function template extract_or_default">extract_or_default</a></code>
                 is saved by value and not by reference. Otherwise the saved reference
                 may become dangling when the temporary is destroyed.
               </p></td></tr>
@@ -1257,8 +1275,8 @@
             are registered in the beginning of a scope and unregistered on the end
             of the scope. The mechanism includes the following macros:
           </p>
-<pre class="programlisting"><code class="computeroutput"><a class="link" href="../../BOOST_LOG_SCOPED__idm26032.html" title="Macro BOOST_LOG_SCOPED_LOGGER_ATTR">BOOST_LOG_SCOPED_LOGGER_ATTR</a></code><span class="special">(</span><span class="identifier">logger</span><span class="special">,</span> <span class="identifier">attr_name</span><span class="special">,</span> <span class="identifier">attr</span><span class="special">);</span>
-<code class="computeroutput"><a class="link" href="../../BOOST_LOG_SCOPED__idm26042.html" title="Macro BOOST_LOG_SCOPED_THREAD_ATTR">BOOST_LOG_SCOPED_THREAD_ATTR</a></code><span class="special">(</span><span class="identifier">attr_name</span><span class="special">,</span> <span class="identifier">attr</span><span class="special">);</span>
+<pre class="programlisting"><code class="computeroutput"><a class="link" href="../../BOOST_LOG_SCOPED__idm26065.html" title="Macro BOOST_LOG_SCOPED_LOGGER_ATTR">BOOST_LOG_SCOPED_LOGGER_ATTR</a></code><span class="special">(</span><span class="identifier">logger</span><span class="special">,</span> <span class="identifier">attr_name</span><span class="special">,</span> <span class="identifier">attr</span><span class="special">);</span>
+<code class="computeroutput"><a class="link" href="../../BOOST_LOG_SCOPED__idm26075.html" title="Macro BOOST_LOG_SCOPED_THREAD_ATTR">BOOST_LOG_SCOPED_THREAD_ATTR</a></code><span class="special">(</span><span class="identifier">attr_name</span><span class="special">,</span> <span class="identifier">attr</span><span class="special">);</span>
 </pre>
 <p>
             The first macro registers a source-specific attribute in the <code class="computeroutput"><span class="identifier">logger</span></code> logger object. The attribute
@@ -1339,12 +1357,12 @@
             value in order to be able to filter the records later. The library provides
             two convenience macros just for this purpose:
           </p>
-<pre class="programlisting"><code class="computeroutput"><a class="link" href="../../BOOST_LOG_SCOPED__idm26037.html" title="Macro BOOST_LOG_SCOPED_LOGGER_TAG">BOOST_LOG_SCOPED_LOGGER_TAG</a></code><span class="special">(</span><span class="identifier">logger</span><span class="special">,</span> <span class="identifier">tag_name</span><span class="special">,</span> <span class="identifier">tag_value</span><span class="special">);</span>
-<code class="computeroutput"><a class="link" href="../../BOOST_LOG_SCOPED__idm26046.html" title="Macro BOOST_LOG_SCOPED_THREAD_TAG">BOOST_LOG_SCOPED_THREAD_TAG</a></code><span class="special">(</span><span class="identifier">tag_name</span><span class="special">,</span> <span class="identifier">tag_value</span><span class="special">);</span>
+<pre class="programlisting"><code class="computeroutput"><a class="link" href="../../BOOST_LOG_SCOPED__idm26070.html" title="Macro BOOST_LOG_SCOPED_LOGGER_TAG">BOOST_LOG_SCOPED_LOGGER_TAG</a></code><span class="special">(</span><span class="identifier">logger</span><span class="special">,</span> <span class="identifier">tag_name</span><span class="special">,</span> <span class="identifier">tag_value</span><span class="special">);</span>
+<code class="computeroutput"><a class="link" href="../../BOOST_LOG_SCOPED__idm26079.html" title="Macro BOOST_LOG_SCOPED_THREAD_TAG">BOOST_LOG_SCOPED_THREAD_TAG</a></code><span class="special">(</span><span class="identifier">tag_name</span><span class="special">,</span> <span class="identifier">tag_value</span><span class="special">);</span>
 </pre>
 <p>
-            The macros are effectively wrappers around <code class="computeroutput"><a class="link" href="../../BOOST_LOG_SCOPED__idm26032.html" title="Macro BOOST_LOG_SCOPED_LOGGER_ATTR">BOOST_LOG_SCOPED_LOGGER_ATTR</a></code>
-            and <code class="computeroutput"><a class="link" href="../../BOOST_LOG_SCOPED__idm26042.html" title="Macro BOOST_LOG_SCOPED_THREAD_ATTR">BOOST_LOG_SCOPED_THREAD_ATTR</a></code>,
+            The macros are effectively wrappers around <code class="computeroutput"><a class="link" href="../../BOOST_LOG_SCOPED__idm26065.html" title="Macro BOOST_LOG_SCOPED_LOGGER_ATTR">BOOST_LOG_SCOPED_LOGGER_ATTR</a></code>
+            and <code class="computeroutput"><a class="link" href="../../BOOST_LOG_SCOPED__idm26075.html" title="Macro BOOST_LOG_SCOPED_THREAD_ATTR">BOOST_LOG_SCOPED_THREAD_ATTR</a></code>,
             respectively. For example, the "Tag" scoped attribute from
             the example above can be registered like this:
           </p>
@@ -1403,7 +1421,7 @@
 </div>
 </div>
 </div>
-<div class="copyright-footer">Copyright © 2007-2022 Andrey Semashev<p>
+<div class="copyright-footer">Copyright © 2007-2024 Andrey Semashev<p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>).
       </p>

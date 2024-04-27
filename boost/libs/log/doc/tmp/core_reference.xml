@@ -147,7 +147,7 @@ This header contains a logging record class definition. </para><namespace name="
 </para></description><postconditions><para><computeroutput>!*this == true</computeroutput> </para>
 </postconditions></constructor>
 <constructor cv="noexcept"><parameter name="that"><paramtype><classname>record</classname> &amp;&amp;</paramtype></parameter><description><para>Move constructor. Source record contents unspecified after the operation. </para></description></constructor>
-<destructor><description><para>Destructor. Destroys the record, releases any sinks and attribute values that were involved in processing this record. </para></description></destructor>
+<destructor cv="noexcept"><description><para>Destructor. Destroys the record, releases any sinks and attribute values that were involved in processing this record. </para></description></destructor>
 <copy-assignment cv="noexcept"><type><classname>record</classname> &amp;</type><parameter name="that"><paramtype><classname>record</classname> &amp;&amp;</paramtype></parameter><description><para>Move assignment. Source record contents unspecified after the operation. </para></description></copy-assignment>
 </class>
 <function name="swap"><type>void</type><parameter name="left"><paramtype><classname>record</classname> &amp;</paramtype></parameter><parameter name="right"><paramtype><classname>record</classname> &amp;</paramtype></parameter><description><para>A free-standing swap function overload for <computeroutput>record</computeroutput> </para></description></function>
@@ -203,7 +203,7 @@ This header contains a logging record view class definition. </para><namespace n
 </postconditions></constructor>
 <constructor cv="noexcept"><parameter name="that"><paramtype><classname>record_view</classname> const &amp;</paramtype></parameter><description><para>Copy constructor </para></description></constructor>
 <constructor cv="noexcept"><parameter name="that"><paramtype><classname>record_view</classname> &amp;&amp;</paramtype></parameter><description><para>Move constructor. Source record contents unspecified after the operation. </para></description></constructor>
-<destructor><description><para>Destructor. Destroys the record, releases any sinks and attribute values that were involved in processing this record. </para></description></destructor>
+<destructor cv="noexcept"><description><para>Destructor. Destroys the record, releases any sinks and attribute values that were involved in processing this record. </para></description></destructor>
 <copy-assignment cv="noexcept"><type><classname>record_view</classname> &amp;</type><parameter name="that"><paramtype><classname>record_view</classname> const &amp;</paramtype></parameter><description><para>Copy assignment </para></description></copy-assignment>
 <copy-assignment cv="noexcept"><type><classname>record_view</classname> &amp;</type><parameter name="that"><paramtype><classname>record_view</classname> &amp;&amp;</paramtype></parameter><description><para>Move assignment. Source record contents unspecified after the operation. </para></description></copy-assignment>
 </class><function name="swap"><type>void</type><parameter name="left"><paramtype><classname>record_view</classname> &amp;</paramtype></parameter><parameter name="right"><paramtype><classname>record_view</classname> &amp;</paramtype></parameter><description><para>A free-standing swap function overload for <computeroutput><classname alt="boost::log::record_view">record_view</classname></computeroutput> </para></description></function>

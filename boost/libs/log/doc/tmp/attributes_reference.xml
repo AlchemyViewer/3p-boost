@@ -11,7 +11,7 @@ The header contains attribute interface definition. </para><namespace name="boos
 </para></description><returns><para>The actual attribute value. It shall not return empty values (exceptions shall be used to indicate errors). </para>
 </returns></method>
 </method-group>
-<destructor><purpose>Virtual destructor. </purpose></destructor>
+<destructor specifiers="virtual"><purpose>Virtual destructor. </purpose></destructor>
 <method-group name="public static functions">
 <method name="operator new" specifiers="static"><type>void *</type><parameter name="size"><paramtype>std::size_t</paramtype></parameter></method>
 <method name="operator delete" cv="noexcept" specifiers="static"><type>void</type><parameter name="p"><paramtype>void *</paramtype></parameter><parameter name="size"><paramtype>std::size_t</paramtype></parameter></method>
@@ -348,7 +348,7 @@ This header contains definition of the attribute set container. </para><namespac
 </para></description><postconditions><para><computeroutput>size() == that.size() &amp;&amp; std::equal(begin(), end(), that.begin()) == true</computeroutput> </para>
 </postconditions></constructor>
 <constructor cv="noexcept"><parameter name="that"><paramtype><classname>attribute_set</classname> &amp;&amp;</paramtype></parameter><description><para>Move constructor </para></description></constructor>
-<destructor><description><para>Destructor. All stored references to attributes are released. </para></description></destructor>
+<destructor cv="noexcept"><description><para>Destructor. All stored references to attributes are released. </para></description></destructor>
 <copy-assignment cv="noexcept"><type><classname>attribute_set</classname> &amp;</type><parameter name="that"><paramtype><classname>attribute_set</classname></paramtype></parameter><description><para>Copy assignment operator.</para><para>
 </para></description><postconditions><para><computeroutput>size() == that.size() &amp;&amp; std::equal(begin(), end(), that.begin()) == true</computeroutput> </para>
 </postconditions></copy-assignment>
@@ -686,7 +686,7 @@ This header file contains definition of attribute value set. The set is construc
 </para></description><requires><para>The original set is frozen. </para>
 </requires><postconditions><para>The constructed set is frozen, <computeroutput>std::equal(begin(), end(), that.begin()) == true</computeroutput> </para>
 </postconditions></constructor>
-<destructor><description><para>Destructor. Releases all referenced attribute values. </para></description></destructor>
+<destructor cv="noexcept"><description><para>Destructor. Releases all referenced attribute values. </para></description></destructor>
 <copy-assignment cv="noexcept"><type><classname>attribute_value_set</classname> &amp;</type><parameter name="that"><paramtype><classname>attribute_value_set</classname></paramtype></parameter><description><para>Assignment operator </para></description></copy-assignment>
 </class>
 
@@ -1438,7 +1438,7 @@ The header contains implementation of named scope container and an attribute tha
 </method-group>
 <constructor cv="noexcept"><parameter name="sn"><paramtype>string_literal const &amp;</paramtype><description><para>Scope name. </para></description></parameter><parameter name="fn"><paramtype>string_literal const &amp;</paramtype><description><para>File name, in which the scope is located. </para></description></parameter><parameter name="ln"><paramtype>unsigned int</paramtype><description><para>Line number in the file. </para></description></parameter><parameter name="t"><paramtype>scope_entry::scope_name_type</paramtype><default>scope_entry::general</default><description><para>Scope name type. </para></description></parameter><description><para>Constructor. Pushes the specified scope to the end of the thread-local list of scopes.</para><para>
 </para></description></constructor>
-<destructor><description><para>Destructor. Removes the last pushed scope from the thread-local list of scopes. </para></description></destructor>
+<destructor cv="noexcept"><description><para>Destructor. Removes the last pushed scope from the thread-local list of scopes. </para></description></destructor>
 <constructor cv="= delete"><parameter name=""><paramtype><classname>sentry</classname> const &amp;</paramtype></parameter></constructor>
 <copy-assignment cv="= delete"><type><classname>sentry</classname> &amp;</type><parameter name=""><paramtype><classname>sentry</classname> const &amp;</paramtype></parameter></copy-assignment>
 </struct><typedef name="value_type"><purpose>Scope names stack (the attribute value type) </purpose><type><classname>named_scope_list</classname></type></typedef>
