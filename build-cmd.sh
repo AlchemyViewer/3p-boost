@@ -307,12 +307,11 @@ case "$AUTOBUILD_PLATFORM" in
             cxxflags="-fvisibility=hidden" \
             cxxflags="-fvisibility-inlines-hidden" \
             cflags=-fPIC \
-            linkflags="include=${stage}/packages/include" \
+            "include=${stage}/packages/include" \
             "include=${stage}/packages/include/zlib/" \
             "-sZLIB_INCLUDE=${stage}/packages/include/zlib/" \
             --disable-icu)
 
-        DEBUG_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" --user-config="$PWD/debug-user-config.jam" variant=debug optimization=off)
         RELEASE_BJAM_OPTIONS=("${DARWIN_BJAM_OPTIONS[@]}" --user-config="$PWD/release-user-config.jam" variant=release optimization=speed)
 
         ARM64_OPTIONS=(toolset=clang-darwin target-os=darwin abi=aapcs address-model=64 architecture=arm \
