@@ -13,6 +13,7 @@ jobs:
           addrsize: ${{ matrix.addrsize }}
           build-variables-repo: alchemyviewer/build-variables
           build-variables-ref: alchemy
+          shallow: true
   release:
     needs: build
     runs-on: [ubuntu-latest]
