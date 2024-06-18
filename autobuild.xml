@@ -121,7 +121,6 @@
           </map>
           <key>manifest</key>
           <array>
-            <string>lib/debug/*.a</string>
             <string>lib/release/*.a</string>
 </array>
           <key>name</key>
@@ -144,8 +143,7 @@
           </map>
           <key>manifest</key>
           <array>
-            <string>lib/debug/*.a</string>
-            <string>lib/release/*.a</string>
+            <string>lib/*.a</string>
 </array>
           <key>name</key>
           <string>linux</string>
@@ -185,7 +183,7 @@
       <key>name</key>
       <string>boost</string>
       <key>canonical_repo</key>
-      <string>https://git.alchemyviewer.org/alchemy/thirdparty/3p-boost</string>
+      <string>https://github.com/AlchemyViewer/3p-boost</string>
       <key>description</key>
       <string>Boost C++ Libraries</string>
       <key>source_directory</key>

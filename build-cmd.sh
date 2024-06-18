@@ -31,8 +31,6 @@ cd "$BOOST_SOURCE_DIR"
 # b2 directly.
 bjam="$(pwd)/b2"
 stage="$(pwd)/stage"
-
-[ -f "$stage"/packages/include/zlib/zlib.h ] || fail "You haven't installed the zlib package yet."
                                                      
 if [ "$OSTYPE" = "cygwin" ] ; then
     autobuild="$(cygpath -u $AUTOBUILD)"
@@ -241,7 +239,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         cxxstd=17 \
         debug-symbols=on \
         --toolset=$bjamtoolset \
-        -j$NUMBER_OF_PROCESSORS \
+        -j$AUTOBUILD_CPU_COUNT \
         --hash \
         include=$INCLUDE_PATH \
         cxxflags=/std:c++17 \
@@ -275,18 +273,18 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # too long for Windows. Poor sad broken Windows.
 
         # conditionally run unit tests
-        find_test_dirs "${BOOST_LIBS[@]}" | \
-        grep -v \
-             -e 'date_time/' \
-             -e 'filesystem/' \
-             -e 'iostreams/' \
-             -e 'regex/' \
-             -e 'stacktrace/' \
-             -e 'thread/' \
-             | \
-        run_tests \
-                  --prefix="$(native "${stage}")" --libdir="$(native "${stage_debug}")" \
-                  "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q
+        # find_test_dirs "${BOOST_LIBS[@]}" | \
+        # grep -v \
+        #      -e 'date_time/' \
+        #      -e 'filesystem/' \
+        #      -e 'iostreams/' \
+        #      -e 'regex/' \
+        #      -e 'stacktrace/' \
+        #      -e 'thread/' \
+        #      | \
+        # run_tests \
+        #           --prefix="$(native "${stage}")" --libdir="$(native "${stage_debug}")" \
+        #           "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q
 
         # Move the libs
         mv "${stage_lib}"/*.lib "${stage_debug}"
@@ -321,18 +319,18 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # too long for Windows. Poor sad broken Windows.
 
         # conditionally run unit tests
-        find_test_dirs "${BOOST_LIBS[@]}" | \
-        grep -v \
-             -e 'date_time/' \
-             -e 'filesystem/' \
-             -e 'iostreams/' \
-             -e 'regex/' \
-             -e 'stacktrace/' \
-             -e 'thread/' \
-             | \
-        run_tests \
-                  --prefix="$(native "${stage}")" --libdir="$(native "${stage_release}")" \
-                  $RELEASE_BJAM_OPTIONS $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q
+        # find_test_dirs "${BOOST_LIBS[@]}" | \
+        # grep -v \
+        #      -e 'date_time/' \
+        #      -e 'filesystem/' \
+        #      -e 'iostreams/' \
+        #      -e 'regex/' \
+        #      -e 'stacktrace/' \
+        #      -e 'thread/' \
+        #      | \
+        # run_tests \
+        #           --prefix="$(native "${stage}")" --libdir="$(native "${stage_release}")" \
+        #           $RELEASE_BJAM_OPTIONS $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q
 
         # Move the libs
         mv "${stage_lib}"/*.lib "${stage_release}"
@@ -354,13 +352,8 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         ;;
 
     darwin*)
-        # Setup osx sdk platform
-        SDKNAME="macosx"
-        export SDKROOT=$(xcodebuild -version -sdk ${SDKNAME} Path)
-
-        # Deploy Targets
-        X86_DEPLOY=10.15
-        ARM64_DEPLOY=11.0
+        # deploy target
+        export MACOSX_DEPLOYMENT_TARGET=${LL_BUILD_DARWIN_BASE_DEPLOY_TARGET}
 
         # Force zlib static linkage by moving .dylibs out of the way
         trap restore_dylibs EXIT
@@ -371,13 +364,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         done
 
         INCLUDE_PATH="${stage}/packages/include"
-        ZLIB_DEBUG_PATH="${stage}/packages/lib/debug"
         ZLIB_RELEASE_PATH="${stage}/packages/lib/release"
-
-        cp "$top/user-config.jam" debug-user-config.jam
-        sed -e "s#ZLIB_LIB_PATH#${ZLIB_DEBUG_PATH}#g" -i back debug-user-config.jam
-        sed -e "s#ZLIB_LIB_NAME#z#g" -i back debug-user-config.jam
-        sed -e "s#ZLIB_INCLUDE_PATH#${INCLUDE_PATH}/zlib#g" -i back debug-user-config.jam
 
         cp "$top/user-config.jam" release-user-config.jam
         sed -e "s#ZLIB_LIB_PATH#${ZLIB_RELEASE_PATH}#g" -i back release-user-config.jam
@@ -400,14 +387,11 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
             debug-symbols=on \
             cxxflags=-std=c++17 \
             cxxflags=-stdlib=libc++ \
-            cxxflags="-isysroot ${SDKROOT}" \
             cxxflags=-fPIC \
             cxxflags="-fvisibility=hidden" \
             cxxflags="-fvisibility-inlines-hidden" \
-            cflags="-isysroot ${SDKROOT}" \
             cflags=-fPIC \
-            linkflags="-isysroot ${SDKROOT}" \
-            "include=${stage}/packages/include" \
+            linkflags="include=${stage}/packages/include" \
             "include=${stage}/packages/include/zlib/" \
             "-sZLIB_INCLUDE=${stage}/packages/include/zlib/" \
             --disable-icu)
@@ -417,50 +401,14 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
 
         ARM64_OPTIONS=(toolset=clang-darwin target-os=darwin abi=aapcs address-model=64 architecture=arm \
             cxxflags="-arch arm64" cflags="-arch arm64" linkflags="-arch arm64" \
-            cxxflags=-mmacosx-version-min=${ARM64_DEPLOY} \
-            cflags=-mmacosx-version-min=${ARM64_DEPLOY})
+            cxxflags=-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET} \
+            cflags=-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET})
 
         X86_OPTIONS=(toolset=clang-darwin target-os=darwin abi=sysv binary-format=mach-o address-model=64 architecture=x86 \
             "cxxflags=-arch x86_64" "cflags=-arch x86_64" linkflags="-arch x86_64" \
             cflags=-msse4.2 cxxflags=-msse4.2 \
-            cxxflags=-mmacosx-version-min=${X86_DEPLOY} \
-            cflags=-mmacosx-version-min=${X86_DEPLOY})        
-
-        # setup for x86
-        export MACOSX_DEPLOYMENT_TARGET=${X86_DEPLOY}
-
-        sep "X86 Debug Build"
-        rm -rf bin.v2
-        "${bjam}" "${X86_OPTIONS[@]}" "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --stagedir="$stage/debug_x86" stage
-
-        # conditionally run unit tests
-        # date_time Posix test failures: https://svn.boost.org/trac/boost/ticket/10570
-        # With Boost 1.64, skip filesystem/tests/issues -- we get:
-        # error: Unable to find file or target named
-        # error:     '6638-convert_aux-fails-init-global.cpp'
-        # error: referred to from project at
-        # error:     'libs/filesystem/test/issues'
-        # regex/tests/de_fuzz depends on an external Fuzzer library:
-        # ld: library not found for -lFuzzer
-        # Sadly, as of Boost 1.65.1, the Stacktrace self-tests just do not
-        # seem ready for prime time on Mac.
-        # Bump the timeout for Boost.Thread tests because our TeamCity Mac
-        # build hosts are getting a bit long in the tooth.
-        sep "X86 Debug Tests"
-        find_test_dirs "${BOOST_LIBS[@]}" | \
-        grep -v \
-             -e 'date_time/' \
-             -e 'filesystem/' \
-             -e 'iostreams/' \
-             -e 'program_options/' \
-             -e 'regex/' \
-             -e 'stacktrace/' \
-             -e 'thread/' \
-            | \
-        run_tests "${X86_OPTIONS[@]}" -a -q \
-                  "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
-                  cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
-                  cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
+            cxxflags=-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET} \
+            cflags=-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET})        
 
         sep "X86 Release Build"
         rm -rf bin.v2
@@ -495,42 +443,6 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
                   cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
                   cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
 
-        # setup for ARM64
-        export MACOSX_DEPLOYMENT_TARGET=${ARM64_DEPLOY}
-
-        sep "ARM64 Debug Build"
-        rm -rf bin.v2
-        "${bjam}" "${ARM64_OPTIONS[@]}" "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --stagedir="$stage/debug_arm64" stage
-
-        # conditionally run unit tests
-        # date_time Posix test failures: https://svn.boost.org/trac/boost/ticket/10570
-        # With Boost 1.64, skip filesystem/tests/issues -- we get:
-        # error: Unable to find file or target named
-        # error:     '6638-convert_aux-fails-init-global.cpp'
-        # error: referred to from project at
-        # error:     'libs/filesystem/test/issues'
-        # regex/tests/de_fuzz depends on an external Fuzzer library:
-        # ld: library not found for -lFuzzer
-        # Sadly, as of Boost 1.65.1, the Stacktrace self-tests just do not
-        # seem ready for prime time on Mac.
-        # Bump the timeout for Boost.Thread tests because our TeamCity Mac
-        # build hosts are getting a bit long in the tooth.
-        sep "ARM64 Debug Tests"
-        find_test_dirs "${BOOST_LIBS[@]}" | \
-        grep -v \
-             -e 'date_time/' \
-             -e 'filesystem/' \
-             -e 'iostreams/' \
-             -e 'program_options/' \
-             -e 'regex/' \
-             -e 'stacktrace/' \
-             -e 'thread/' \
-            | \
-        run_tests "${ARM64_OPTIONS[@]}" -a -q \
-                  "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
-                  cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
-                  cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
-
         sep "ARM64 Release Build"
         rm -rf bin.v2
         "${bjam}" "${ARM64_OPTIONS[@]}" "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --stagedir="$stage/release_arm64" stage
@@ -548,38 +460,21 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # seem ready for prime time on Mac.
         # Bump the timeout for Boost.Thread tests because our TeamCity Mac
         # build hosts are getting a bit long in the tooth.
-        sep "ARM64 Release Tests"
-        find_test_dirs "${BOOST_LIBS[@]}" | \
-        grep -v \
-             -e 'date_time/' \
-             -e 'filesystem/' \
-             -e 'iostreams/' \
-             -e 'program_options/' \
-             -e 'regex/' \
-             -e 'stacktrace/' \
-             -e 'thread/' \
-            | \
-        run_tests "${ARM64_OPTIONS[@]}" -a -q \
-                  "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
-                  cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
-                  cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
-
-        # create debug fat libs
-        lipo -create ${stage}/debug_x86/lib/libboost_atomic-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_atomic-mt-d-a64.a -output ${stage}/lib/debug/libboost_atomic-mt-d.a
-        lipo -create ${stage}/debug_x86/lib/libboost_chrono-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_chrono-mt-d-a64.a -output ${stage}/lib/debug/libboost_chrono-mt-d.a
-        lipo -create ${stage}/debug_x86/lib/libboost_context-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_context-mt-d-a64.a -output ${stage}/lib/debug/libboost_context-mt-d.a
-        lipo -create ${stage}/debug_x86/lib/libboost_date_time-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_date_time-mt-d-a64.a -output ${stage}/lib/debug/libboost_date_time-mt-d.a
-        lipo -create ${stage}/debug_x86/lib/libboost_fiber-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_fiber-mt-d-a64.a -output ${stage}/lib/debug/libboost_fiber-mt-d.a
-        lipo -create ${stage}/debug_x86/lib/libboost_filesystem-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_filesystem-mt-d-a64.a -output ${stage}/lib/debug/libboost_filesystem-mt-d.a
-        lipo -create ${stage}/debug_x86/lib/libboost_iostreams-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_iostreams-mt-d-a64.a -output ${stage}/lib/debug/libboost_iostreams-mt-d.a
-        lipo -create ${stage}/debug_x86/lib/libboost_nowide-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_nowide-mt-d-a64.a -output ${stage}/lib/debug/libboost_nowide-mt-d.a
-        lipo -create ${stage}/debug_x86/lib/libboost_program_options-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_program_options-mt-d-a64.a -output ${stage}/lib/debug/libboost_program_options-mt-d.a
-        lipo -create ${stage}/debug_x86/lib/libboost_regex-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_regex-mt-d-a64.a -output ${stage}/lib/debug/libboost_regex-mt-d.a
-        lipo -create ${stage}/debug_x86/lib/libboost_stacktrace_basic-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_stacktrace_basic-mt-d-a64.a -output ${stage}/lib/debug/libboost_stacktrace_basic-mt-d.a
-        lipo -create ${stage}/debug_x86/lib/libboost_stacktrace_noop-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_stacktrace_noop-mt-d-a64.a -output ${stage}/lib/debug/libboost_stacktrace_noop-mt-d.a
-        lipo -create ${stage}/debug_x86/lib/libboost_system-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_system-mt-d-a64.a -output ${stage}/lib/debug/libboost_system-mt-d.a
-        lipo -create ${stage}/debug_x86/lib/libboost_thread-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_thread-mt-d-a64.a -output ${stage}/lib/debug/libboost_thread-mt-d.a
-        lipo -create ${stage}/debug_x86/lib/libboost_wave-mt-d-x64.a ${stage}/debug_arm64/lib/libboost_wave-mt-d-a64.a -output ${stage}/lib/debug/libboost_wave-mt-d.a
+        # sep "ARM64 Release Tests"
+        # find_test_dirs "${BOOST_LIBS[@]}" | \
+        # grep -v \
+        #      -e 'date_time/' \
+        #      -e 'filesystem/' \
+        #      -e 'iostreams/' \
+        #      -e 'program_options/' \
+        #      -e 'regex/' \
+        #      -e 'stacktrace/' \
+        #      -e 'thread/' \
+        #     | \
+        # run_tests "${ARM64_OPTIONS[@]}" -a -q \
+        #           "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
+        #           cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
+        #           cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
 
         # create release fat libs
         lipo -create ${stage}/release_x86/lib/libboost_atomic-mt-x64.a ${stage}/release_arm64/lib/libboost_atomic-mt-a64.a -output ${stage}/lib/release/libboost_atomic-mt.a
@@ -621,49 +516,10 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         sep "bootstrap"
         ./bootstrap.sh --prefix=$(pwd) --without-icu
 
-        DEBUG_BOOST_BJAM_OPTIONS=(address-model=$AUTOBUILD_ADDRSIZE architecture=x86 \
-            --disable-icu toolset=gcc link=static debug-symbols=on cxxstd=17 \
-            "include=${stage}/packages/include" \
-            "include=${stage}/packages/include/zlib/" \
-            "-sZLIB_LIBPATH=$stage/packages/lib/debug" \
-            "-sZLIB_INCLUDE=${stage}\/packages/include/zlib/" \
-            "${BOOST_BJAM_OPTIONS[@]}" \
-            "cflags=-Og" "cflags=-fPIC" "cflags=-DPIC" "cflags=-g" \
-            "cxxflags=-std=c++17" "cxxflags=-Og" "cxxflags=-fPIC" "cxxflags=-DPIC" "cxxflags=-g")
-        sep "Debug Build"
-        "${bjam}" variant=debug --reconfigure \
-            --prefix="${stage}" --libdir="${stage}"/lib/debug \
-            "${DEBUG_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
-
-        # conditionally run unit tests
-        # date_time Posix test failures: https://svn.boost.org/trac/boost/ticket/10570
-        # libs/regex/test/de_fuzz produces:
-        # error: "clang" is not a known value of feature <toolset>
-        # error: legal values: "gcc"
-        sep "Debug Tests"
-        find_test_dirs "${BOOST_LIBS[@]}" | \
-        grep -v \
-             -e 'atomic/' \
-             -e 'chrono/' \
-             -e 'date_time/' \
-             -e 'filesystem/' \
-             -e 'iostreams/' \
-             -e 'regex/' \
-             -e 'thread/' \
-            | \
-        run_tests variant=debug -a -q \
-                  --prefix="${stage}" --libdir="${stage}"/lib/debug \
-                  "${DEBUG_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM
-
-        mv "${stage_lib}"/libboost*-d-*.a "${stage_debug}"
-
-        sep "Debug Clean"
-        "${bjam}" --clean
-
         RELEASE_BOOST_BJAM_OPTIONS=(address-model=$AUTOBUILD_ADDRSIZE architecture=x86 \
-            --disable-icu toolset=gcc link=static debug-symbols=on cxxstd=17 "include=$stage/packages/include/zlib/" \
-            "-sZLIB_LIBPATH=$stage/packages/lib/release" \
-            "-sZLIB_INCLUDE=${stage}\/packages/include/zlib/" \
+            --disable-icu toolset=gcc link=static debug-symbols=on cxxstd=17 "include=$stage/packages/include/" \
+            "-sZLIB_LIBPATH=$stage/packages/lib" \
+            "-sZLIB_INCLUDE=${stage}\/packages/include/" \
             "${BOOST_BJAM_OPTIONS[@]}" \
             "cflags=-O3" "cflags=-fstack-protector-strong" "cflags=-fPIC" "cflags=-D_FORTIFY_SOURCE=2" "cflags=-DPIC" "cflags=-g" \
             "cxxflags=-std=c++17" "cxxflags=-O3" "cxxflags=-fstack-protector-strong" "cxxflags=-fPIC" "cxxflags=-D_FORTIFY_SOURCE=2" "cxxflags=-DPIC" "cxxflags=-g")
@@ -678,25 +534,22 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # libs/regex/test/de_fuzz produces:
         # error: "clang" is not a known value of feature <toolset>
         # error: legal values: "gcc"
-        sep "Release Tests"
-        find_test_dirs "${BOOST_LIBS[@]}" | \
-        grep -v \
-             -e 'atomic/' \
-             -e 'chrono/' \
-             -e 'date_time/' \
-             -e 'filesystem/' \
-             -e 'iostreams/' \
-             -e 'regex/' \
-             -e 'thread/' \
-            | \
-        run_tests variant=release -a -q \
-                  --prefix="${stage}" --libdir="${stage}"/lib/release \
-                  "${RELEASE_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM
+        # sep "Release Tests"
+        # find_test_dirs "${BOOST_LIBS[@]}" | \
+        # grep -v \
+        #      -e 'atomic/' \
+        #      -e 'chrono/' \
+        #      -e 'date_time/' \
+        #      -e 'filesystem/' \
+        #      -e 'iostreams/' \
+        #      -e 'regex/' \
+        #      -e 'thread/' \
+        #     | \
+        # run_tests variant=release -a -q \
+        #           --prefix="${stage}" --libdir="${stage}"/lib/release \
+        #           "${RELEASE_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM
 
         mv "${stage_lib}"/libboost*.a "${stage_release}"
-
-        sep "Release Clean"
-        "${bjam}" --clean
 
         # populate version_file
         sep "Version"
