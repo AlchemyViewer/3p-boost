@@ -32,7 +32,7 @@ cd "$BOOST_SOURCE_DIR"
 bjam="$(pwd)/b2"
 stage="$(pwd)/stage"
                                                      
-if [ "$OSTYPE" = "cygwin" ] ; then
+if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]] ; then
     autobuild="$(cygpath -u $AUTOBUILD)"
     # convert from bash path to native OS pathname
     native()
