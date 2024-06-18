@@ -65,8 +65,6 @@ BOOST_BJAM_OPTIONS=($BOOST_BJAM_OPTIONS)
 stage_lib="${stage}"/lib
 stage_debug="${stage_lib}"/debug
 stage_release="${stage_lib}"/release
-mkdir -p "${stage_debug}"
-mkdir -p "${stage_release}"
 
 # Restore all .sos
 restore_sos ()
@@ -167,27 +165,9 @@ print(since(start, now), ' $* '.center(72, '='), file=sys.stderr)
 case "$AUTOBUILD_PLATFORM" in
 
     windows*)
-        # We've observed some weird failures in which the PATH is too big
-        # to be passed to a child process! When that gets munged, we start
-        # seeing errors like 'nmake' failing to find the 'cl.exe' command.
-        # Thing is, by this point in the script we've acquired a shocking
-        # number of duplicate entries. Dedup the PATH using Python's
-        # OrderedDict, which preserves the order in which you insert keys.
-        # We find that some of the Visual Studio PATH entries appear both
-        # with and without a trailing slash, which is pointless. Strip
-        # those off and dedup what's left.
-        # Pass the existing PATH as an explicit argument rather than
-        # reading it from the environment, to bypass the fact that cygwin
-        # implicitly converts PATH to Windows form when running a native
-        # executable. Since we're setting bash's PATH, leave everything in
-        # cygwin form. That means splitting and rejoining on ':' rather
-        # than on os.pathsep, which on Windows is ';'.
-        # Use python -u, else the resulting PATH will end with a spurious
-        # '\r'.
-        export PATH="$(python -u -c "import sys
-from collections import OrderedDict
-print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'))))" "$PATH")"
-    
+        mkdir -p "${stage_debug}"
+        mkdir -p "${stage_release}"
+
         INCLUDE_PATH="$(cygpath -m "${stage}"/packages/include)"
         ZLIB_DEBUG_PATH="$(cygpath -m "${stage}"/packages/lib/debug)"
         ZLIB_RELEASE_PATH="$(cygpath -m "${stage}"/packages/lib/release)"
@@ -526,7 +506,7 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
 
         sep "Release Build"
         "${bjam}" variant=release --reconfigure \
-            --prefix="${stage}" --libdir="${stage}"/lib/release \
+            --prefix="${stage}" --libdir="${stage}"/lib \
             "${RELEASE_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
 
         # conditionally run unit tests
@@ -548,8 +528,6 @@ print(':'.join(OrderedDict((dir.rstrip('/'), 1) for dir in sys.argv[1].split(':'
         # run_tests variant=release -a -q \
         #           --prefix="${stage}" --libdir="${stage}"/lib/release \
         #           "${RELEASE_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM
-
-        mv "${stage_lib}"/libboost*.a "${stage_release}"
 
         # populate version_file
         sep "Version"
