@@ -277,6 +277,8 @@ case "$AUTOBUILD_PLATFORM" in
         ;;
 
     darwin*)
+        mkdir -p "${stage_release}"
+
         # deploy target
         export MACOSX_DEPLOYMENT_TARGET=${LL_BUILD_DARWIN_BASE_DEPLOY_TARGET}
 
