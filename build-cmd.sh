@@ -126,40 +126,10 @@ run_tests()
     if [ "${DISABLE_UNIT_TESTS:-0}" = "0" ]; then
         # read individual directories from stdin below
         while read testdir
-        do  sep "$testdir"
-            "${bjam}" "$testdir" "$@"
+        do  "${bjam}" "$testdir" "$@"
         done < /dev/stdin
     fi
     return 0
-}
-
-last_file="$(mktemp -t build-cmd.XXXXXXXX)"
-trap "rm '$last_file'" EXIT
-# from here on, the only references to last_file will be from Python
-last_file="$(native "$last_file")"
-last_time="$(python -c "import os.path; print(int(os.path.getmtime(r'$last_file')))")"
-start_time="$last_time"
-
-sep()
-{
-    python -c "
-from __future__ import print_function
-import os
-import sys
-import time
-start = $start_time
-last_file = r'$last_file'
-last = int(os.path.getmtime(last_file))
-now = int(time.time())
-os.utime(last_file, (now, now))
-def since(baseline, now):
-    duration = now - baseline
-    rest, secs = divmod(duration, 60)
-    hours, mins = divmod(rest, 60)
-    return '%2d:%02d:%02d' % (hours, mins, secs)
-print('((((( %s )))))' % since(last, now), file=sys.stderr)
-print(since(start, now), ' $* '.center(72, '='), file=sys.stderr)
-"
 }
 
 case "$AUTOBUILD_PLATFORM" in
@@ -194,7 +164,6 @@ case "$AUTOBUILD_PLATFORM" in
                 ;;
         esac
 
-        sep "bootstrap"
         # Odd things go wrong with the .bat files:  branch targets
         # not recognized, file tests incorrect.  Inexplicable but
         # dropping 'echo on' into the .bat files seems to help.
@@ -235,7 +204,6 @@ case "$AUTOBUILD_PLATFORM" in
 
         USER_CONFIG="$(cygpath -m -a ./user-config.jam)"
 
-        sep "debugbuild"
         "${bjam}" --prefix="$(cygpath -m  ${stage})" --libdir="$(cygpath -m  ${stage_debug})" \
             "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q stage
 
@@ -269,7 +237,6 @@ case "$AUTOBUILD_PLATFORM" in
         # Move the libs
         mv "${stage_lib}"/*.lib "${stage_debug}"
 
-        sep "clean"
         "${bjam}" --clean-all
 
         RELEASE_BJAM_OPTIONS=("${WINDOWS_BJAM_OPTIONS[@]}" variant=release optimization=speed)
@@ -281,7 +248,6 @@ case "$AUTOBUILD_PLATFORM" in
 
         USER_CONFIG="$(cygpath -m -a ./user-config.jam)"
 
-        sep "releasebuild"
         "${bjam}" --prefix="$(cygpath -m  ${stage})" --libdir="$(cygpath -m  ${stage_release})" \
             "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --user-config="$USER_CONFIG" -a -q stage
 
@@ -315,7 +281,6 @@ case "$AUTOBUILD_PLATFORM" in
         # Move the libs
         mv "${stage_lib}"/*.lib "${stage_release}"
 
-        sep "version"
         # bjam doesn't need vsvars, but our hand compilation does
         load_vsvars
 
@@ -351,7 +316,6 @@ case "$AUTOBUILD_PLATFORM" in
         sed -e "s#ZLIB_LIB_NAME#z#g" -i back release-user-config.jam
         sed -e "s#ZLIB_INCLUDE_PATH#${INCLUDE_PATH}/zlib#g" -i back release-user-config.jam
 
-        sep "Bootstrap"
         stage_lib="${stage}"/lib
         ./bootstrap.sh --prefix=$(pwd) --with-toolset=clang cxxflags="-arch x86_64 -arch arm64" cflags="-arch x86_64 -arch arm64" linkflags="-arch x86_64 -arch arm64"
 
@@ -390,7 +354,6 @@ case "$AUTOBUILD_PLATFORM" in
             cxxflags=-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET} \
             cflags=-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET})        
 
-        sep "X86 Release Build"
         rm -rf bin.v2
         "${bjam}" "${X86_OPTIONS[@]}" "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --stagedir="$stage/release_x86" stage
 
@@ -407,7 +370,6 @@ case "$AUTOBUILD_PLATFORM" in
         # seem ready for prime time on Mac.
         # Bump the timeout for Boost.Thread tests because our TeamCity Mac
         # build hosts are getting a bit long in the tooth.
-        sep "X86 Release Tests"
         find_test_dirs "${BOOST_LIBS[@]}" | \
         grep -v \
              -e 'date_time/' \
@@ -423,7 +385,6 @@ case "$AUTOBUILD_PLATFORM" in
                   cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
                   cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
 
-        sep "ARM64 Release Build"
         rm -rf bin.v2
         "${bjam}" "${ARM64_OPTIONS[@]}" "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --stagedir="$stage/release_arm64" stage
 
@@ -440,7 +401,6 @@ case "$AUTOBUILD_PLATFORM" in
         # seem ready for prime time on Mac.
         # Bump the timeout for Boost.Thread tests because our TeamCity Mac
         # build hosts are getting a bit long in the tooth.
-        # sep "ARM64 Release Tests"
         # find_test_dirs "${BOOST_LIBS[@]}" | \
         # grep -v \
         #      -e 'date_time/' \
@@ -474,7 +434,6 @@ case "$AUTOBUILD_PLATFORM" in
         lipo -create ${stage}/release_x86/lib/libboost_wave-mt-x64.a ${stage}/release_arm64/lib/libboost_wave-mt-a64.a -output ${stage}/lib/release/libboost_wave-mt.a
 
         # populate version_file
-        sep "Version"
         cc -arch x86_64 -arch arm64 -O2 -DVERSION_HEADER_FILE="\"$VERSION_HEADER_FILE\"" \
            -DVERSION_MACRO="$VERSION_MACRO" \
            -o "$stage/version" "$top/version.c"
@@ -493,7 +452,6 @@ case "$AUTOBUILD_PLATFORM" in
             fi
         done
 
-        sep "bootstrap"
         ./bootstrap.sh --prefix=$(pwd) --without-icu
 
         RELEASE_BOOST_BJAM_OPTIONS=(address-model=$AUTOBUILD_ADDRSIZE architecture=x86 \
@@ -504,7 +462,6 @@ case "$AUTOBUILD_PLATFORM" in
             "cflags=-O3" "cflags=-fstack-protector-strong" "cflags=-fPIC" "cflags=-D_FORTIFY_SOURCE=2" "cflags=-DPIC" "cflags=-g" \
             "cxxflags=-std=c++17" "cxxflags=-O3" "cxxflags=-fstack-protector-strong" "cxxflags=-fPIC" "cxxflags=-D_FORTIFY_SOURCE=2" "cxxflags=-DPIC" "cxxflags=-g")
 
-        sep "Release Build"
         "${bjam}" variant=release --reconfigure \
             --prefix="${stage}" --libdir="${stage}"/lib \
             "${RELEASE_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
@@ -514,7 +471,6 @@ case "$AUTOBUILD_PLATFORM" in
         # libs/regex/test/de_fuzz produces:
         # error: "clang" is not a known value of feature <toolset>
         # error: legal values: "gcc"
-        # sep "Release Tests"
         # find_test_dirs "${BOOST_LIBS[@]}" | \
         # grep -v \
         #      -e 'atomic/' \
@@ -530,7 +486,6 @@ case "$AUTOBUILD_PLATFORM" in
         #           "${RELEASE_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM
 
         # populate version_file
-        sep "Version"
         cc -DVERSION_HEADER_FILE="\"$VERSION_HEADER_FILE\"" \
            -DVERSION_MACRO="$VERSION_MACRO" \
            -o "$stage/version" "$top/version.c"
@@ -541,7 +496,6 @@ case "$AUTOBUILD_PLATFORM" in
         ;;
 esac
 
-sep "includes and text"
 mkdir -p "${stage}"/include
 cp -a boost "${stage}"/include/
 mkdir -p "${stage}"/LICENSES
