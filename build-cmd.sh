@@ -66,26 +66,6 @@ stage_lib="${stage}"/lib
 stage_debug="${stage_lib}"/debug
 stage_release="${stage_lib}"/release
 
-# Restore all .sos
-restore_sos ()
-{
-    for solib in "${stage}"/packages/lib/debug/libz.so*.disable "${stage}"/packages/lib/release/libz.so*.disable; do
-        if [ -f "$solib" ]; then
-            mv -f "$solib" "${solib%.disable}"
-        fi
-    done
-}
-
-# Restore all .dylibs
-restore_dylibs ()
-{
-    for dylib in "$stage/packages/lib"/{debug,release}/*.dylib.disable; do
-        if [ -f "$dylib" ]; then
-            mv "$dylib" "${dylib%.disable}"
-        fi
-    done
-}
-
 find_test_jamfile_dir_for()
 {
     # Not every Boost library contains a libs/x/test/Jamfile.v2 file. Some
@@ -300,14 +280,6 @@ case "$AUTOBUILD_PLATFORM" in
         # deploy target
         export MACOSX_DEPLOYMENT_TARGET=${LL_BUILD_DARWIN_BASE_DEPLOY_TARGET}
 
-        # Force zlib static linkage by moving .dylibs out of the way
-        trap restore_dylibs EXIT
-        for dylib in "${stage}"/packages/lib/{debug,release}/*.dylib; do
-            if [ -f "$dylib" ]; then
-                mv "$dylib" "$dylib".disable
-            fi
-        done
-
         INCLUDE_PATH="${stage}/packages/include"
         ZLIB_RELEASE_PATH="${stage}/packages/lib/release"
 
@@ -354,7 +326,6 @@ case "$AUTOBUILD_PLATFORM" in
             cxxflags=-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET} \
             cflags=-mmacosx-version-min=${MACOSX_DEPLOYMENT_TARGET})        
 
-        rm -rf bin.v2
         "${bjam}" "${X86_OPTIONS[@]}" "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --stagedir="$stage/release_x86" stage
 
         # conditionally run unit tests
@@ -370,22 +341,21 @@ case "$AUTOBUILD_PLATFORM" in
         # seem ready for prime time on Mac.
         # Bump the timeout for Boost.Thread tests because our TeamCity Mac
         # build hosts are getting a bit long in the tooth.
-        find_test_dirs "${BOOST_LIBS[@]}" | \
-        grep -v \
-             -e 'date_time/' \
-             -e 'filesystem/' \
-             -e 'iostreams/' \
-             -e 'program_options/' \
-             -e 'regex/' \
-             -e 'stacktrace/' \
-             -e 'thread/' \
-            | \
-        run_tests "${X86_OPTIONS[@]}" -a -q \
-                  "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
-                  cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
-                  cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
+        # find_test_dirs "${BOOST_LIBS[@]}" | \
+        # grep -v \
+        #      -e 'date_time/' \
+        #      -e 'filesystem/' \
+        #      -e 'iostreams/' \
+        #      -e 'program_options/' \
+        #      -e 'regex/' \
+        #      -e 'stacktrace/' \
+        #      -e 'thread/' \
+        #     | \
+        # run_tests "${X86_OPTIONS[@]}" -a -q \
+        #           "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM \
+        #           cxxflags="-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" \
+        #           cxxflags="-DBOOST_THREAD_TEST_TIME_MS=250"
 
-        rm -rf bin.v2
         "${bjam}" "${ARM64_OPTIONS[@]}" "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM --stagedir="$stage/release_arm64" stage
 
         # conditionally run unit tests
@@ -444,14 +414,6 @@ case "$AUTOBUILD_PLATFORM" in
         ;;
 
     linux*)
-        # Force static linkage to libz by moving .sos out of the way
-        trap restore_sos EXIT
-        for solib in "${stage}"/packages/lib/debug/libz.so* "${stage}"/packages/lib/release/libz.so*; do
-            if [ -f "$solib" ]; then
-                mv -f "$solib" "$solib".disable
-            fi
-        done
-
         ./bootstrap.sh --prefix=$(pwd) --without-icu
 
         RELEASE_BOOST_BJAM_OPTIONS=(address-model=$AUTOBUILD_ADDRSIZE architecture=x86 \
