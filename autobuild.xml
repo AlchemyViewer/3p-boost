@@ -88,7 +88,7 @@
                 <array>
                   <string>-c</string>
                   <string>../../build-cmd.sh</string>
-</array>
+                </array>
               </map>
               <key>name</key>
               <string>Release</string>
@@ -98,7 +98,7 @@
           <array>
             <string>LICENSES/boost.txt</string>
             <string>include/boost/*</string>
-</array>
+          </array>
           <key>build_directory</key>
           <string>boost/stage</string>
           <key>name</key>
@@ -122,7 +122,7 @@
           <key>manifest</key>
           <array>
             <string>lib/release/*.a</string>
-</array>
+          </array>
           <key>name</key>
           <string>darwin</string>
         </map>
@@ -144,7 +144,7 @@
           <key>manifest</key>
           <array>
             <string>lib/release/*.a</string>
-</array>
+          </array>
           <key>name</key>
           <string>linux</string>
         </map>
@@ -166,7 +166,7 @@
           <key>manifest</key>
           <array>
             <string>lib/release/*.lib</string>
-</array>
+          </array>
           <key>name</key>
           <string>windows</string>
         </map>
@@ -182,7 +182,7 @@
       <key>name</key>
       <string>boost</string>
       <key>canonical_repo</key>
-      <string>https://github.com/secondlife/3p-boost</string>
+      <string>https://github.com/AlchemyViewer/3p-boost</string>
       <key>description</key>
       <string>Boost C++ Libraries</string>
       <key>source_directory</key>

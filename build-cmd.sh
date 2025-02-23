@@ -9,14 +9,6 @@ BOOST_SOURCE_DIR="boost"
 VERSION_HEADER_FILE="$BOOST_SOURCE_DIR/boost/version.hpp"
 VERSION_MACRO="BOOST_LIB_VERSION"
 
-# Check if nproc is available, otherwise use sysctl -n hw.physicalcpu (macOS)
-if command -v nproc >/dev/null 2>&1; then
-    NPROC=$(nproc)
-else
-    NPROC=$(sysctl -n hw.physicalcpu)
-fi
-
-
 if [ -z "$AUTOBUILD" ] ; then
     exit 1
 fi
@@ -54,7 +46,6 @@ apply_patch()
 }
 
 apply_patch "../patches/libs/config/0001-Define-BOOST_ALL_NO_LIB.patch" "libs/config"
-apply_patch "../patches/libs/fiber/0001-DRTVWR-476-Use-WIN32_LEAN_AND_MEAN-for-each-include-.patch" "libs/fiber"
 
 if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]] ; then
     autobuild="$(cygpath -u $AUTOBUILD)"
@@ -96,8 +87,6 @@ case "$AUTOBUILD_PLATFORM" in
         BOOST_BJAM_OPTIONS+=("cxxflags=$LL_BUILD_RELEASE")
     ;;
 esac
-
-
 
 stage_lib="${stage}"/lib
 stage_release="${stage_lib}"/release
