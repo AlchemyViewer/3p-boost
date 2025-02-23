@@ -9,14 +9,6 @@ BOOST_SOURCE_DIR="boost"
 VERSION_HEADER_FILE="$BOOST_SOURCE_DIR/boost/version.hpp"
 VERSION_MACRO="BOOST_LIB_VERSION"
 
-# Check if nproc is available, otherwise use sysctl -n hw.physicalcpu (macOS)
-if command -v nproc >/dev/null 2>&1; then
-    NPROC=$(nproc)
-else
-    NPROC=$(sysctl -n hw.physicalcpu)
-fi
-
-
 if [ -z "$AUTOBUILD" ] ; then
     exit 1
 fi
@@ -54,7 +46,6 @@ apply_patch()
 }
 
 apply_patch "../patches/libs/config/0001-Define-BOOST_ALL_NO_LIB.patch" "libs/config"
-apply_patch "../patches/libs/fiber/0001-DRTVWR-476-Use-WIN32_LEAN_AND_MEAN-for-each-include-.patch" "libs/fiber"
 
 if [[ "$OSTYPE" == "cygwin" || "$OSTYPE" == "msys" ]] ; then
     autobuild="$(cygpath -u $AUTOBUILD)"
@@ -97,10 +88,10 @@ case "$AUTOBUILD_PLATFORM" in
     ;;
 esac
 
-
-
 stage_lib="${stage}"/lib
+stage_debug="${stage_lib}"/debug
 stage_release="${stage_lib}"/release
+mkdir -p "${stage_debug}"
 mkdir -p "${stage_release}"
 
 # Restore all .sos
@@ -219,6 +210,7 @@ case "$AUTOBUILD_PLATFORM" in
 
     windows*)
         INCLUDE_PATH="$(native "${stage}"/packages/include)"
+        ZLIB_DEBUG_PATH="$(native "${stage}"/packages/lib/debug)"
         ZLIB_RELEASE_PATH="$(native "${stage}"/packages/lib/release)"
 
         if [[ -z "$AUTOBUILD_WIN_VSTOOLSET" ]]
@@ -278,11 +270,55 @@ case "$AUTOBUILD_PLATFORM" in
             architecture=x86
             "${BOOST_BJAM_OPTIONS[@]}")
 
+        DEBUG_BJAM_OPTIONS=("${WINDOWS_BJAM_OPTIONS[@]}"
+            "cxxflags=$(replace_switch /Zi /Z7 $LL_BUILD_DEBUG)"
+            "-sZLIB_LIBPATH=$ZLIB_DEBUG_PATH"
+            "-sZLIB_LIBRARY_PATH=$ZLIB_DEBUG_PATH"
+            "-sZLIB_NAME=zlibd")
+        sep "build_debug"
+        "${bjam}" link=static variant=debug \
+            --prefix="$(native "${stage}")" --libdir="$(native "${stage_debug}")" \
+            "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
+
+        # Constraining Windows unit tests to link=static produces unit-test
+        # link errors. While it may be possible to edit the test/Jamfile.v2
+        # logic in such a way as to succeed statically, it's simpler to allow
+        # dynamic linking for test purposes. However -- with dynamic linking,
+        # some test executables expect to implicitly load a couple of ICU
+        # DLLs. But our installed ICU doesn't even package those DLLs!
+        # TODO: Does this clutter our eventual tarball, or are the extra Boost
+        # DLLs in a separate build directory?
+        # In any case, we still observe failures in certain libraries' unit
+        # tests. Certain libraries depend on ICU; thread tests are so deeply
+        # nested that even with --abbreviate-paths, the .rsp file pathname is
+        # too long for Windows. Poor sad broken Windows.
+
+        # conditionally run unit tests
+        find_test_dirs "${BOOST_LIBS[@]}" | \
+        tfilter32 'fiber/' | \
+        tfilter \
+            'date_time/' \
+            'filesystem/' \
+            'iostreams/' \
+            'regex/' \
+            'stacktrace/' \
+            'thread/' \
+            | \
+        run_tests variant=debug \
+                  --prefix="$(native "${stage}")" --libdir="$(native "${stage_debug}")" \
+                  $DEBUG_BJAM_OPTIONS $BOOST_BUILD_SPAM -a -q
+
+        # Move the libs
+        mv "${stage_lib}"/*.lib "${stage_debug}"
+
+        "${bjam}" --clean-all
+
         RELEASE_BJAM_OPTIONS=("${WINDOWS_BJAM_OPTIONS[@]}"
+            "cxxflags=$(replace_switch /Zi /Z7 $LL_BUILD_RELEASE)"
             "-sZLIB_LIBPATH=$ZLIB_RELEASE_PATH"
             "-sZLIB_LIBRARY_PATH=$ZLIB_RELEASE_PATH"
             "-sZLIB_NAME=zlib")
-        sep "build"
+        sep "build_release"
         "${bjam}" link=static variant=release \
             --prefix="$(native "${stage}")" --libdir="$(native "${stage_release}")" \
             "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
