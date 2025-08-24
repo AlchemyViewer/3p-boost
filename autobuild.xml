@@ -22,7 +22,7 @@
                 <key>arguments</key>
                 <array>
                   <string>-c</string>
-                  <string>../../build-cmd.sh</string>
+                  <string>../build-cmd.sh</string>
                 </array>
               </map>
               <key>name</key>
@@ -35,7 +35,7 @@
             <string>include/boost/*</string>
           </array>
           <key>build_directory</key>
-          <string>boost/stage</string>
+          <string>stage</string>
           <key>name</key>
           <string>common</string>
         </map>
