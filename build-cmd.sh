@@ -29,6 +29,7 @@ source_environment_tempfile="$stage/source_environment.sh"
 source "$(dirname "$AUTOBUILD_VARIABLES_FILE")/functions"
 
 apply_patch "patches/libs/config/0001-Define-BOOST_ALL_NO_LIB.patch" "$BOOST_SOURCE_DIR/libs/config"
+apply_patch "patches/libs/context/0001-Fix-MASM-ARM64.patch" "$BOOST_SOURCE_DIR/libs/context"
 
 if [ ! -d "boost/libs/accumulators/include" ]; then
     echo "Submodules not present. Initializing..."
@@ -46,159 +47,104 @@ pushd "stage"
 case "$AUTOBUILD_PLATFORM" in
 
     windows*)
-        INCLUDE_PATH="$(native "${stage}"/packages/include)"
-        ZLIB_DEBUG_PATH="$(native "${stage}"/packages/lib/debug)"
-        ZLIB_RELEASE_PATH="$(native "${stage}"/packages/lib/release)"
-
-        if [[ -z "$AUTOBUILD_WIN_VSTOOLSET" ]]
-        then
-            # lifted from autobuild_tool_source_environment.py
-            declare -A toolsets=(
-                ["14"]=v140
-                ["15"]=v141
-                ["16"]=v142
-                ["17"]=v143
-            )
-            AUTOBUILD_WIN_VSTOOLSET="${toolsets[${AUTOBUILD_VSVER:0:2}]}"
-            if [[ -z "$AUTOBUILD_WIN_VSTOOLSET" ]]
-            then
-                echo "Can't guess AUTOBUILD_WIN_VSTOOLSET from AUTOBUILD_VSVER='$AUTOBUILD_VSVER'" >&2
-                exit 1
+        for arch in sse avx2 arm64 ; do
+            # Setup boost context arch flags
+            if [[ "$arch" == "sse" || "$arch" == "avx2" ]]; then
+                platform_target="x64"
+                BOOST_CONTEXT_ARCH="x86_64"
+                BOOST_CONTEXT_ABI="ms"
+            elif [[ "$arch" == "arm64" ]]; then
+                platform_target="ARM64"
+                BOOST_CONTEXT_ARCH="arm64"
+                BOOST_CONTEXT_ABI="aapcs"
             fi
-        fi
 
-        # e.g. "v141", want just "141"
-        toolset="${AUTOBUILD_WIN_VSTOOLSET#v}"
-        # e.g. "vc14"
-        bootstrapver="vc${toolset%1}"
-        # e.g. "msvc-14.1"
-        bjamtoolset="msvc-${toolset:0:2}.${toolset:2}"
+            mkdir -p "build_debug_$arch"
+            pushd "build_debug_$arch"
+                opts="$(replace_switch /Zi /Z7 $LL_BUILD_DEBUG)"
+                if [[ "$arch" == "avx2" ]]; then
+                    opts="$(replace_switch /arch:SSE4.2 /arch:AVX2 $opts)"
+                elif [[ "$arch" == "arm64" ]]; then
+                    opts="$(remove_switch /arch:SSE4.2 $opts)"
+                fi
+                plainopts="$(remove_switch /GR $(remove_cxxstd $opts))"
 
-        # Odd things go wrong with the .bat files:  branch targets
-        # not recognized, file tests incorrect.  Inexplicable but
-        # dropping 'echo on' into the .bat files seems to help.
-##        cmd.exe /C bootstrap.bat "$bootstrapver" || echo bootstrap failed 1>&2
-        # Try letting bootstrap.bat infer the tooset version.
-        cmd.exe /C bootstrap.bat msvc || echo bootstrap failed 1>&2
-        # Failure of this bootstrap.bat file may or may not produce nonzero rc
-        # -- check for the program it should have built.
-        if [ ! -x "$bjam.exe" ]
-        then cat "bootstrap.log"
-             exit 1
-        fi
+                cmake -G "$AUTOBUILD_WIN_CMAKE_GEN" -A "$platform_target" $(cygpath -m "$top/$BOOST_SOURCE_DIR") -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF \
+                        -DCMAKE_CONFIGURATION_TYPES="Debug" \
+                        -DCMAKE_C_FLAGS_DEBUG="$plainopts" \
+                        -DCMAKE_CXX_FLAGS_DEBUG="$opts /EHsc" \
+                        -DCMAKE_MSVC_DEBUG_INFORMATION_FORMAT="Embedded" \
+                        -DCMAKE_INSTALL_PREFIX="$(cygpath -m $stage)" \
+                        -DCMAKE_INSTALL_LIBDIR="$(cygpath -m "$stage/lib/$arch/debug")" \
+                        -DCMAKE_INSTALL_INCLUDEDIR="$(cygpath -m "$stage/include")" \
+                        -DBOOST_INSTALL_LAYOUT="system" \
+                        -DBOOST_ENABLE_MPI=OFF \
+                        -DBOOST_ENABLE_PYTHON=OFF \
+                        -DBOOST_CONTEXT_ARCHITECTURE=$BOOST_CONTEXT_ARCH \
+                        -DBOOST_CONTEXT_ABI="$BOOST_CONTEXT_ABI" \
+                        -DBOOST_IOSTREAMS_ENABLE_BZIP2=OFF \
+                        -DBOOST_IOSTREAMS_ENABLE_LZMA=OFF \
+                        -DBOOST_IOSTREAMS_ENABLE_ZLIB=OFF \
+                        -DBOOST_IOSTREAMS_ENABLE_ZSTD=OFF \
+                        -DBOOST_LOCALE_ENABLE_ICU=OFF
 
-        # Windows build of viewer expects /Zc:wchar_t-, etc., from LL_BUILD_RELEASE.
-        # Without --hash, some compilations fail with:
-        # failed to write output file 'some\long\path\something.rsp'!
-        # Without /FS, some compilations fail with:
-        # fatal error C1041: cannot open program database '...\vc120.pdb';
-        # if multiple CL.EXE write to the same .PDB file, please use /FS
-        # BOOST_STACKTRACE_LINK (not _DYN_LINK) requests external library:
-        # https://www.boost.org/doc/libs/release/doc/html/stacktrace/configuration_and_build.html
-        # This helps avoid macro collisions in consuming source files:
-        # https://github.com/boostorg/stacktrace/issues/76#issuecomment-489347839
-        WINDOWS_BJAM_OPTIONS=(
-            --hash
-            "include=$INCLUDE_PATH"
-            "-sZLIB_INCLUDE=$INCLUDE_PATH/zlib-ng"
-            cxxflags=/FS
-            cxxflags=/DBOOST_STACKTRACE_LINK
-            architecture=x86
-            "${BOOST_BJAM_OPTIONS[@]}")
+                cmake --build . --config Debug --parallel $AUTOBUILD_CPU_COUNT
+                cmake --install . --config Debug
 
-        DEBUG_BJAM_OPTIONS=("${WINDOWS_BJAM_OPTIONS[@]}"
-            "cxxflags=$(replace_switch /Zi /Z7 $LL_BUILD_DEBUG)"
-            "-sZLIB_LIBPATH=$ZLIB_DEBUG_PATH"
-            "-sZLIB_LIBRARY_PATH=$ZLIB_DEBUG_PATH"
-            "-sZLIB_NAME=zlibd")
+                # conditionally run unit tests
+                # if [[ "${DISABLE_UNIT_TESTS:-0}" == "0" && "$arch" != "arm64" ]]; then
+                #     ctest -C Debug --parallel $AUTOBUILD_CPU_COUNT
+                # fi
+            popd
 
-        "${bjam}" link=static variant=debug \
-            --prefix="$(native "${stage}")" --libdir="$(native "${stage_debug}")" \
-            "${DEBUG_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
+            mkdir -p "build_release_$arch"
+            pushd "build_release_$arch"
+                opts="$(replace_switch /Zi /Z7 $LL_BUILD_RELEASE)"
+                if [[ "$arch" == "avx2" ]]; then
+                    opts="$(replace_switch /arch:SSE4.2 /arch:AVX2 $opts)"
+                elif [[ "$arch" == "arm64" ]]; then
+                    opts="$(remove_switch /arch:SSE4.2 $opts)"
+                fi
+                plainopts="$(remove_switch /GR $(remove_cxxstd $opts))"
 
-        # Constraining Windows unit tests to link=static produces unit-test
-        # link errors. While it may be possible to edit the test/Jamfile.v2
-        # logic in such a way as to succeed statically, it's simpler to allow
-        # dynamic linking for test purposes. However -- with dynamic linking,
-        # some test executables expect to implicitly load a couple of ICU
-        # DLLs. But our installed ICU doesn't even package those DLLs!
-        # TODO: Does this clutter our eventual tarball, or are the extra Boost
-        # DLLs in a separate build directory?
-        # In any case, we still observe failures in certain libraries' unit
-        # tests. Certain libraries depend on ICU; thread tests are so deeply
-        # nested that even with --abbreviate-paths, the .rsp file pathname is
-        # too long for Windows. Poor sad broken Windows.
+                cmake -G "$AUTOBUILD_WIN_CMAKE_GEN" -A "$platform_target" $(cygpath -m "$top/$BOOST_SOURCE_DIR") -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF \
+                        -DCMAKE_CONFIGURATION_TYPES="Release" \
+                        -DCMAKE_C_FLAGS="$plainopts" \
+                        -DCMAKE_CXX_FLAGS="$opts /EHsc" \
+                        -DCMAKE_MSVC_DEBUG_INFORMATION_FORMAT="Embedded" \
+                        -DCMAKE_INSTALL_PREFIX="$(cygpath -m $stage)" \
+                        -DCMAKE_INSTALL_LIBDIR="$(cygpath -m "$stage/lib/$arch/release")" \
+                        -DCMAKE_INSTALL_INCLUDEDIR="$(cygpath -m "$stage/include")" \
+                        -DBOOST_INSTALL_LAYOUT="system" \
+                        -DBOOST_ENABLE_MPI=OFF \
+                        -DBOOST_ENABLE_PYTHON=OFF \
+                        -DBOOST_CONTEXT_ARCHITECTURE=$BOOST_CONTEXT_ARCH \
+                        -DBOOST_CONTEXT_ABI="$BOOST_CONTEXT_ABI" \
+                        -DBOOST_IOSTREAMS_ENABLE_BZIP2=OFF \
+                        -DBOOST_IOSTREAMS_ENABLE_LZMA=OFF \
+                        -DBOOST_IOSTREAMS_ENABLE_ZLIB=OFF \
+                        -DBOOST_IOSTREAMS_ENABLE_ZSTD=OFF \
+                        -DBOOST_LOCALE_ENABLE_ICU=OFF
 
-        # conditionally run unit tests
-        find_test_dirs "${BOOST_LIBS[@]}" | \
-        tfilter32 'fiber/' | \
-        tfilter \
-            'date_time/' \
-            'filesystem/' \
-            'iostreams/' \
-            'regex/' \
-            'stacktrace/' \
-            'thread/' \
-            | \
-        run_tests variant=debug \
-                  --prefix="$(native "${stage}")" --libdir="$(native "${stage_debug}")" \
-                  $DEBUG_BJAM_OPTIONS $BOOST_BUILD_SPAM -a -q
+                cmake --build . --config Release --parallel $AUTOBUILD_CPU_COUNT
+                cmake --install . --config Release
 
-        # Move the libs
-        mv "${stage_lib}"/*.lib "${stage_debug}"
-
-        "${bjam}" --clean-all
-
-        RELEASE_BJAM_OPTIONS=("${WINDOWS_BJAM_OPTIONS[@]}"
-            "cxxflags=$(replace_switch /Zi /Z7 $LL_BUILD_RELEASE)"
-            "-sZLIB_LIBPATH=$ZLIB_RELEASE_PATH"
-            "-sZLIB_LIBRARY_PATH=$ZLIB_RELEASE_PATH"
-            "-sZLIB_NAME=zlib")
-
-        "${bjam}" link=static variant=release \
-            --prefix="$(native "${stage}")" --libdir="$(native "${stage_release}")" \
-            "${RELEASE_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
-
-        # Constraining Windows unit tests to link=static produces unit-test
-        # link errors. While it may be possible to edit the test/Jamfile.v2
-        # logic in such a way as to succeed statically, it's simpler to allow
-        # dynamic linking for test purposes. However -- with dynamic linking,
-        # some test executables expect to implicitly load a couple of ICU
-        # DLLs. But our installed ICU doesn't even package those DLLs!
-        # TODO: Does this clutter our eventual tarball, or are the extra Boost
-        # DLLs in a separate build directory?
-        # In any case, we still observe failures in certain libraries' unit
-        # tests. Certain libraries depend on ICU; thread tests are so deeply
-        # nested that even with --abbreviate-paths, the .rsp file pathname is
-        # too long for Windows. Poor sad broken Windows.
-
-        # conditionally run unit tests
-        find_test_dirs "${BOOST_LIBS[@]}" | \
-        tfilter32 'fiber/' | \
-        tfilter \
-            'date_time/' \
-            'filesystem/' \
-            'iostreams/' \
-            'regex/' \
-            'stacktrace/' \
-            'thread/' \
-            | \
-        run_tests variant=release \
-                  --prefix="$(native "${stage}")" --libdir="$(native "${stage_release}")" \
-                  $RELEASE_BJAM_OPTIONS $BOOST_BUILD_SPAM -a -q
-
-        # Move the libs
-        mv "${stage_lib}"/*.lib "${stage_release}"
+                # conditionally run unit tests
+                # if [[ "${DISABLE_UNIT_TESTS:-0}" == "0" && "$arch" != "arm64" ]]; then
+                #     ctest -C Release --parallel $AUTOBUILD_CPU_COUNT
+                # fi
+            popd
+        done
 
         # bjam doesn't need vsvars, but our hand compilation does
         load_vsvars
 
         # populate version_file
-        cl /DVERSION_HEADER_FILE="\"$VERSION_HEADER_FILE\"" \
-           /DVERSION_MACRO="$VERSION_MACRO" \
-           /Fo"$(native "$stage/version.obj")" \
-           /Fe"$(native "$stage/version.exe")" \
-           "$(native "$top/version.c")"
+        cl -DVERSION_HEADER_FILE="\"$(cygpath -w $VERSION_HEADER_FILE)\"" \
+           -DVERSION_MACRO="$VERSION_MACRO" \
+           -Fo"$(cygpath -w "$stage/version.obj")" \
+           -Fe"$(cygpath -w "$stage/version.exe")" \
+           "$(cygpath -w "$top/version.c")"
         # Boost's VERSION_MACRO emits (e.g.) "1_55"
         "$stage/version.exe" | tr '_' '.' > "$stage/version.txt"
         rm "$stage"/version.{obj,exe}

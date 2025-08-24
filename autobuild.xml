@@ -100,8 +100,12 @@
           </map>
           <key>manifest</key>
           <array>
-            <string>lib/debug/*.lib</string>
-            <string>lib/release/*.lib</string>
+            <string>lib/sse/debug/*.lib</string>
+            <string>lib/avx2/debug/*.lib</string>
+            <string>lib/arm64/debug/*.lib</string>
+            <string>lib/sse/release/*.lib</string>
+            <string>lib/avx2/release/*.lib</string>
+            <string>lib/arm64/release/*.lib</string>
           </array>
           <key>name</key>
           <string>windows</string>
