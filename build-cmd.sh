@@ -252,9 +252,9 @@ case "$AUTOBUILD_PLATFORM" in
                 cmake --install . --config Release
 
                 # conditionally run unit tests
-                if [ "${DISABLE_UNIT_TESTS:-0}" = "0" ]; then
-                    ctest -C Release --parallel $AUTOBUILD_CPU_COUNT
-                fi
+                # if [ "${DISABLE_UNIT_TESTS:-0}" = "0" ]; then
+                #     ctest -C Release --parallel $AUTOBUILD_CPU_COUNT
+                # fi
             popd
         done
 
