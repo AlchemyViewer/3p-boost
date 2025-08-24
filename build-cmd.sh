@@ -296,7 +296,7 @@ case "$AUTOBUILD_PLATFORM" in
         lipo -create -output ${stage_release}/libboost_wserialization.a ${stage_release}/x86_64/libboost_wserialization.a ${stage_release}/arm64/libboost_wserialization.a
 
         # populate version_file
-        clang++ -DVERSION_HEADER_FILE="\"$VERSION_HEADER_FILE\"" \
+        cc -DVERSION_HEADER_FILE="\"$VERSION_HEADER_FILE\"" \
            -DVERSION_MACRO="$VERSION_MACRO" \
            -o "$stage/version" "$top/version.c"
         # Boost's VERSION_MACRO emits (e.g.) "1_55"
@@ -305,19 +305,37 @@ case "$AUTOBUILD_PLATFORM" in
         ;;
 
     linux*)
-        ./bootstrap.sh --prefix=$(pwd)
+        cxx_opts="$LL_BUILD_RELEASE"
+        cc_opts="$(remove_cxxstd $cxx_opts)"
 
-        RELEASE_BOOST_BJAM_OPTIONS=(toolset=gcc architecture=x86 "include=$stage/packages/include/zlib-ng/"
-            "-sZLIB_LIBPATH=$stage/packages/lib/release"
-            "-sZLIB_INCLUDE=${stage}\/packages/include/zlib/"
-            "${BOOST_BJAM_OPTIONS[@]}")
-        "${bjam}" variant=release --reconfigure \
-            --prefix="${stage}" --libdir="${stage}"/lib/release \
-            "${RELEASE_BOOST_BJAM_OPTIONS[@]}" $BOOST_BUILD_SPAM stage
+        mkdir -p "build_release"
+        pushd "build_release"
+            CFLAGS="$cc_opts" \
+            CXXFLAGS="$cxx_opts" \
+            cmake $top/$BOOST_SOURCE_DIR -G "Ninja" -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_TESTING=OFF \
+                -DCMAKE_BUILD_TYPE="Release" \
+                -DCMAKE_C_FLAGS="$cc_opts" \
+                -DCMAKE_CXX_FLAGS="$cxx_opts" \
+                -DCMAKE_INSTALL_PREFIX="$stage" \
+                -DCMAKE_INSTALL_LIBDIR="$stage/lib/release" \
+                -DCMAKE_INSTALL_INCLUDEDIR="$stage/include" \
+                -DBOOST_INSTALL_LAYOUT="system" \
+                -DBOOST_ENABLE_MPI=OFF \
+                -DBOOST_ENABLE_PYTHON=OFF \
+                -DBOOST_IOSTREAMS_ENABLE_BZIP2=OFF \
+                -DBOOST_IOSTREAMS_ENABLE_LZMA=OFF \
+                -DBOOST_IOSTREAMS_ENABLE_ZLIB=OFF \
+                -DBOOST_IOSTREAMS_ENABLE_ZSTD=OFF \
+                -DBOOST_LOCALE_ENABLE_ICU=OFF
 
-        mv "${stage_lib}"/libboost* "${stage_release}"
+            cmake --build . --config Release --parallel $AUTOBUILD_CPU_COUNT
+            cmake --install . --config Release
 
-        "${bjam}" --clean
+            # conditionally run unit tests
+            # if [ "${DISABLE_UNIT_TESTS:-0}" = "0" ]; then
+            #     ctest -C Release --parallel $AUTOBUILD_CPU_COUNT
+            # fi
+        popd
 
         # populate version_file
         cc -DVERSION_HEADER_FILE="\"$VERSION_HEADER_FILE\"" \
