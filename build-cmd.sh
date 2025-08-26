@@ -251,37 +251,44 @@ case "$AUTOBUILD_PLATFORM" in
         ;;
 
     linux*)
-        cxx_opts="$LL_BUILD_RELEASE"
-        cc_opts="$(remove_cxxstd $cxx_opts)"
+        for arch in sse avx2 ; do
+            # Default target per autobuild build --address-size
+            cxx_opts="${TARGET_OPTS:--m$AUTOBUILD_ADDRSIZE $LL_BUILD_RELEASE}"
+            if [[ "$arch" == "avx2" ]]; then
+                cxx_opts="$(replace_switch -march=x86-64-v2 -march=x86-64-v3 $cxx_opts)"
+            fi
+            cc_opts="$(remove_cxxstd $cxx_opts)"
 
-        mkdir -p "build_release"
-        pushd "build_release"
+            # Release
+            mkdir -p "build_$arch"
+            pushd "build_$arch"
             CFLAGS="$cc_opts" \
             CXXFLAGS="$cxx_opts" \
-            cmake $top/$BOOST_SOURCE_DIR -G "Ninja" -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_TESTING=OFF \
-                -DCMAKE_BUILD_TYPE="Release" \
-                -DCMAKE_C_FLAGS="$cc_opts" \
-                -DCMAKE_CXX_FLAGS="$cxx_opts" \
-                -DCMAKE_INSTALL_PREFIX="$stage" \
-                -DCMAKE_INSTALL_LIBDIR="$stage/lib/release" \
-                -DCMAKE_INSTALL_INCLUDEDIR="$stage/include" \
-                -DBOOST_INSTALL_LAYOUT="system" \
-                -DBOOST_ENABLE_MPI=OFF \
-                -DBOOST_ENABLE_PYTHON=OFF \
-                -DBOOST_IOSTREAMS_ENABLE_BZIP2=OFF \
-                -DBOOST_IOSTREAMS_ENABLE_LZMA=OFF \
-                -DBOOST_IOSTREAMS_ENABLE_ZLIB=OFF \
-                -DBOOST_IOSTREAMS_ENABLE_ZSTD=OFF \
-                -DBOOST_LOCALE_ENABLE_ICU=OFF
+                cmake $top/$BOOST_SOURCE_DIR -G "Ninja" -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_TESTING=OFF \
+                    -DCMAKE_BUILD_TYPE="Release" \
+                    -DCMAKE_C_FLAGS="$cc_opts" \
+                    -DCMAKE_CXX_FLAGS="$cxx_opts" \
+                    -DCMAKE_INSTALL_PREFIX="$stage" \
+                    -DCMAKE_INSTALL_LIBDIR="$stage/lib/$arch/release" \
+                    -DCMAKE_INSTALL_INCLUDEDIR="$stage/include" \
+                    -DBOOST_INSTALL_LAYOUT="system" \
+                    -DBOOST_ENABLE_MPI=OFF \
+                    -DBOOST_ENABLE_PYTHON=OFF \
+                    -DBOOST_IOSTREAMS_ENABLE_BZIP2=OFF \
+                    -DBOOST_IOSTREAMS_ENABLE_LZMA=OFF \
+                    -DBOOST_IOSTREAMS_ENABLE_ZLIB=OFF \
+                    -DBOOST_IOSTREAMS_ENABLE_ZSTD=OFF \
+                    -DBOOST_LOCALE_ENABLE_ICU=OFF
 
-            cmake --build . --config Release --parallel $AUTOBUILD_CPU_COUNT
-            cmake --install . --config Release
+                cmake --build . --config Release --parallel $AUTOBUILD_CPU_COUNT
+                cmake --install . --config Release
 
-            # conditionally run unit tests
-            # if [ "${DISABLE_UNIT_TESTS:-0}" = "0" ]; then
-            #     ctest -C Release --parallel $AUTOBUILD_CPU_COUNT
-            # fi
-        popd
+                # conditionally run unit tests
+                # if [ "${DISABLE_UNIT_TESTS:-0}" = "0" ]; then
+                #     ctest -C Release --parallel $AUTOBUILD_CPU_COUNT
+                # fi
+            popd
+        done
 
         # populate version_file
         cc -DVERSION_HEADER_FILE="\"$VERSION_HEADER_FILE\"" \
