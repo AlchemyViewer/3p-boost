@@ -5,71 +5,6 @@
     <string>1.3</string>
     <key>type</key>
     <string>autobuild</string>
-    <key>installables</key>
-    <map>
-      <key>zlib-ng</key>
-      <map>
-        <key>platforms</key>
-        <map>
-          <key>darwin64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>ea8354aedf732fab3ae7e2931d493175c78f426657d465356b1d04ca75eee2e47dc5fca8910b6d2093819e8bfffab661a63803bee9eaabd1401860bf47b5c0fd</string>
-              <key>hash_algorithm</key>
-              <string>blake2b</string>
-              <key>url</key>
-              <string>https://github.com/AlchemyViewer/3p-zlib-ng/releases/download/v2.2.4-r3/zlib_ng-2.2.4.13485424982-darwin64-13485424982.tar.zst</string>
-            </map>
-            <key>name</key>
-            <string>darwin64</string>
-          </map>
-          <key>linux64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>c123a43db118c5b44b99e299a98aa29f0d58edb3f5b874d6877770d0a95f53b99201cf03746381b9d506fcea2701f8a029854a3d30f4a4614e182e9ef88f0ff0</string>
-              <key>hash_algorithm</key>
-              <string>blake2b</string>
-              <key>url</key>
-              <string>https://github.com/AlchemyViewer/3p-zlib-ng/releases/download/v2.2.4-r3/zlib_ng-2.2.4.13485424982-linux64-13485424982.tar.zst</string>
-            </map>
-            <key>name</key>
-            <string>linux64</string>
-          </map>
-          <key>windows64</key>
-          <map>
-            <key>archive</key>
-            <map>
-              <key>hash</key>
-              <string>52c2e385869d2ae4189eec525dc3980756a3d0acc74cae5754bf5c6441766a2c40b3b1fe25146ded8754581c3ad22638df52db67ff530f49d9160351ada3986c</string>
-              <key>hash_algorithm</key>
-              <string>blake2b</string>
-              <key>url</key>
-              <string>https://github.com/AlchemyViewer/3p-zlib-ng/releases/download/v2.2.4-r3/zlib_ng-2.2.4.13485424982-windows64-13485424982.tar.zst</string>
-            </map>
-            <key>name</key>
-            <string>windows64</string>
-          </map>
-        </map>
-        <key>license</key>
-        <string>zlib-ng</string>
-        <key>license_file</key>
-        <string>LICENSES/zlib-ng.txt</string>
-        <key>copyright</key>
-        <string>Copyright (C) 1995-2024 Jean-loup Gailly and Mark Adler</string>
-        <key>version</key>
-        <string>2.2.4.13485424982</string>
-        <key>name</key>
-        <string>zlib-ng</string>
-        <key>canonical_repo</key>
-        <string>https://github.com/AlchemyViewer/3p-zlib-ng</string>
-        <key>description</key>
-        <string>zlib data compression library for the next generation systems</string>
-      </map>
-    </map>
     <key>package_description</key>
     <map>
       <key>platforms</key>
@@ -87,7 +22,7 @@
                 <key>arguments</key>
                 <array>
                   <string>-c</string>
-                  <string>../../build-cmd.sh</string>
+                  <string>../build-cmd.sh</string>
                 </array>
               </map>
               <key>name</key>
@@ -100,7 +35,7 @@
             <string>include/boost/*</string>
           </array>
           <key>build_directory</key>
-          <string>boost/stage</string>
+          <string>stage</string>
           <key>name</key>
           <string>common</string>
         </map>
@@ -143,7 +78,8 @@
           </map>
           <key>manifest</key>
           <array>
-            <string>lib/release/*.a</string>
+            <string>lib/sse/release/*.a</string>
+            <string>lib/avx2/release/*.a</string>
           </array>
           <key>name</key>
           <string>linux</string>
@@ -165,8 +101,12 @@
           </map>
           <key>manifest</key>
           <array>
-            <string>lib/debug/*.lib</string>
-            <string>lib/release/*.lib</string>
+            <string>lib/sse/debug/*.lib</string>
+            <string>lib/avx2/debug/*.lib</string>
+            <string>lib/arm64/debug/*.lib</string>
+            <string>lib/sse/release/*.lib</string>
+            <string>lib/avx2/release/*.lib</string>
+            <string>lib/arm64/release/*.lib</string>
           </array>
           <key>name</key>
           <string>windows</string>

@@ -1,0 +1,51 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5700f28..8210f65 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -146,7 +146,7 @@ if(BOOST_CONTEXT_IMPLEMENTATION STREQUAL "fcontext")
+       set(ASM_LANGUAGE ASM)
+     endif()
+   elseif(BOOST_CONTEXT_ASSEMBLER STREQUAL armasm)
+-    set(ASM_LANGUAGE ASM_ARMASM)
++    set(ASM_LANGUAGE ASM_MARMASM)
+   else()
+     set(ASM_LANGUAGE ASM_MASM)
+   endif()
+diff --git a/cmake/CMakeASM_ARMASMInformation.cmake b/cmake/CMakeASM_ARMASMInformation.cmake
+index ff44539..f711870 100644
+--- a/cmake/CMakeASM_ARMASMInformation.cmake
++++ b/cmake/CMakeASM_ARMASMInformation.cmake
+@@ -1,7 +1,7 @@
+ 
+ # for the armasm assembler, armasm or armasm64
+ 
+-set(ASM_DIALECT "_ARMASM")
++set(ASM_DIALECT "_MARMASM")
+ 
+ set(CMAKE_ASM${ASM_DIALECT}_SOURCE_FILE_EXTENSIONS asm)
+ 
+diff --git a/cmake/CMakeDetermineASM_ARMASMCompiler.cmake b/cmake/CMakeDetermineASM_ARMASMCompiler.cmake
+index d7687b3..806368b 100644
+--- a/cmake/CMakeDetermineASM_ARMASMCompiler.cmake
++++ b/cmake/CMakeDetermineASM_ARMASMCompiler.cmake
+@@ -1,7 +1,7 @@
+ 
+ # Find the armasm assembler, armasm or armasm64
+ 
+-set(ASM_DIALECT "_ARMASM")
++set(ASM_DIALECT "_MARMASM")
+ 
+ # if we are using the 64bit cl compiler, assume we also want the 64bit assembler
+ if(";${CMAKE_VS_PLATFORM_NAME};${MSVC_C_ARCHITECTURE_ID};${MSVC_CXX_ARCHITECTURE_ID};"
+diff --git a/cmake/CMakeTestASM_ARMASMCompiler.cmake b/cmake/CMakeTestASM_ARMASMCompiler.cmake
+index ddaf928..065bc66 100644
+--- a/cmake/CMakeTestASM_ARMASMCompiler.cmake
++++ b/cmake/CMakeTestASM_ARMASMCompiler.cmake
+@@ -8,6 +8,6 @@
+ # because otherwise there would have to be a separate assembler source file
+ # for each assembler on every architecture.
+ 
+-set(ASM_DIALECT "_ARMASM")
++set(ASM_DIALECT "_MARMASM")
+ include(CMakeTestASMCompiler)
+ set(ASM_DIALECT)
